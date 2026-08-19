@@ -4,6 +4,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { ThemeProvider } from "@/components/theme-provider";
+import { BackgroundPatterns } from "@/components/ui/background-patterns";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 
 export const metadata: Metadata = {
   title: "Blockfuse Labs | Training and Engineering",
@@ -20,9 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
+          <CustomCursor />
+          <BackgroundPatterns />
           <LoadingScreen />
           <Header />
-          <div className="flex-1">
+          <div className="relative z-10 flex-1">
             {children}
           </div>
           <Footer />

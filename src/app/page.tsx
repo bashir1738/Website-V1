@@ -2,8 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { HeroTitle } from "@/components/ui/hero-title";
+import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
 import { Marquee } from "@/components/ui/marquee";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { CounterStat } from "@/components/ui/counter-stat";
+import { InteractiveReviewWidget } from "@/components/ui/interactive-review-widget";
 import {
   stats,
   howBlockfuseWorks,
@@ -38,39 +41,25 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden">
       {/* ================================================================= */}
-      {/* 1. HERO — Full viewport, grain overlay, word reveal */}
+      {/* 1. HERO — Full viewport, kinetic typography, live HUD, word cycler */}
       {/* ================================================================= */}
-      <section className="relative flex min-h-screen flex-col justify-center px-5 pb-20 pt-28 sm:px-8">
-        {/* Grain texture */}
-        <div className="grain-overlay" />
-
-        {/* Subtle ambient glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[var(--accent)]/5 blur-[160px]" />
-
+      <section className="relative flex min-h-[92vh] flex-col justify-center px-5 pb-20 pt-28 sm:px-8 sm:pt-36">
         <div className="relative z-10 mx-auto max-w-5xl">
-          {/* Eyebrow badge */}
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/8 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-              Jos, Nigeria
-            </span>
-            <span className="text-xs font-medium text-[var(--muted)]">
-              Cohort III Applications Open
-            </span>
+          {/* Main Headline — Kinetic Word Springs & Word Cycler */}
+          <div>
+            <KineticHeroTitle
+              prefix="Training engineers for the"
+              cycleWords={["AI-native", "Production-Ready", "Decentralized", "High-Stakes"]}
+              suffix="world. Building dependable software."
+              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-[1.06]"
+            />
           </div>
 
-          {/* Main Headline — Word reveal animation */}
-          <HeroTitle
-            text="Training engineers for the AI-native world. Building dependable software."
-            className="mt-8 font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.06]"
-            startDelay={400}
-          />
-
-          {/* Paragraphs */}
+          {/* Subheading with interactive highlights */}
           <ScrollReveal className="mt-10 max-w-2xl space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={2}>
             <p>
               Blockfuse Labs identifies people with potential and develops them
-              into production-ready software engineers, the kind companies
+              into <strong className="text-[var(--page-fg)] font-semibold">production-ready software engineers</strong>, the kind companies
               actually want to hire.
             </p>
             <p>
@@ -80,23 +69,25 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          {/* CTAs */}
+          {/* CTAs with magnetic hover */}
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={3}>
-            <ButtonLink href="/training">Apply to a program</ButtonLink>
-            <ButtonLink href="/talent" variant="secondary">
+            <ButtonLink href="/training" dataCursor="APPLY">
+              Apply to a program
+            </ButtonLink>
+            <ButtonLink href="/talent" variant="secondary" dataCursor="HIRE">
               Hire Blockfuse engineers
             </ButtonLink>
           </ScrollReveal>
 
-          {/* Subtext */}
+          {/* Subtext Link */}
           <ScrollReveal className="mt-6" delay={4}>
             <p className="text-sm text-[var(--muted)]">
               Need software built?{" "}
               <Link
                 href="/engineering"
-                className="link-hover font-medium text-[var(--page-fg)]"
+                className="link-hover font-semibold text-[var(--page-fg)]"
               >
-                Start an engineering project.
+                Start an engineering project →
               </Link>
             </p>
           </ScrollReveal>
@@ -104,19 +95,19 @@ export default function Home() {
       </section>
 
       {/* ================================================================= */}
-      {/* 2. STATS MARQUEE BAR */}
+      {/* 2. STATS MARQUEE BAR WITH LIVE COUNTERS */}
       {/* ================================================================= */}
-      <div className="border-y border-[var(--line)] py-4">
-        <Marquee duration={20}>
+      <div className="border-y border-[var(--line)] bg-[var(--card)]/40 py-5 backdrop-blur-md">
+        <Marquee duration={22}>
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex items-center gap-3 px-8 sm:px-12"
+              className="flex items-center gap-3.5 px-8 sm:px-12"
             >
-              <span className="font-heading text-2xl font-bold text-[var(--page-fg)] sm:text-3xl">
-                {stat.value}
+              <span className="font-heading text-2xl font-bold gradient-text sm:text-3xl">
+                <CounterStat value={stat.value} />
               </span>
-              <span className="text-xs font-medium text-[var(--muted)] sm:text-sm max-w-[12rem]">
+              <span className="text-xs font-medium text-[var(--muted)] sm:text-sm max-w-[13rem] leading-snug">
                 {stat.label}
               </span>
             </div>
@@ -125,53 +116,81 @@ export default function Home() {
       </div>
 
       {/* ================================================================= */}
-      {/* 3. COHORT SHOWCASE */}
+      {/* 3. INTERACTIVE CODE REVIEW & READINESS INSPECTOR */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-8">
+        <div className="mx-auto max-w-6xl">
+          <ScrollReveal className="text-center">
+            <span className="eyebrow">Interactive Verification</span>
+            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+              Proof over promises.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
+              Explore how Blockfuse engineers evaluate code vs unverified AI output.
+              Click highlighted lines to inspect senior reviewer feedback or run a live readiness audit.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-12">
+            <ScrollReveal delay={1}>
+              <InteractiveReviewWidget />
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* 4. COHORT SHOWCASE WITH 3D TILT */}
       {/* ================================================================= */}
       <section className="px-5 py-20 sm:px-8">
         <ScrollReveal className="mx-auto max-w-6xl">
-          <div className="surface-card relative overflow-hidden rounded-2xl">
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--surface-2)] flex flex-col items-center justify-center p-8 text-center">
-              {/* Dot grid pattern */}
+          <TiltCard
+            dataCursorText="CAMPUS"
+            className="overflow-hidden rounded-3xl border border-[var(--line-strong)]"
+          >
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--surface-2)] flex flex-col items-center justify-center p-8 text-center min-h-[22rem] sm:min-h-[28rem]">
+              {/* Dot grid background */}
               <div
-                className="absolute inset-0 opacity-15"
+                className="absolute inset-0 opacity-20"
                 style={{
-                  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)`,
-                  backgroundSize: "32px 32px",
+                  backgroundImage: `radial-gradient(circle at 1px 1px, var(--accent) 1px, transparent 0)`,
+                  backgroundSize: "28px 28px",
                 }}
               />
 
-              {/* Status pills */}
-              <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-xs">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-3 py-1 text-[var(--muted)]">
-                  <span className="h-2 w-2 rounded-full bg-[var(--accent)] animate-pulse" />
-                  Jos Production Space
+              {/* Header Info */}
+              <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-[var(--muted)]">
+                <span className="flex items-center gap-2 text-[var(--page-fg)] font-semibold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+                  Production Workspace
                 </span>
-                <span className="hidden sm:inline-flex items-center rounded-full border border-[var(--line)] bg-[var(--card)] px-3 py-1 text-[var(--muted)]">
-                  Cohort II In Session
+                <span className="hidden sm:inline">
+                  Cohort II • 115 Engineers
                 </span>
               </div>
 
-              {/* Central content */}
+              {/* Central text content */}
               <div className="relative z-10 max-w-lg space-y-3">
-                <span className="eyebrow">WORKSPACE</span>
-                <h3 className="font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
+                <span className="eyebrow text-[var(--accent)]">WORKSPACE</span>
+                <h3 className="font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
                   Cohort at work
                 </h3>
-                <p className="text-sm text-[var(--muted)]">
-                  Replace with a photo of students building in the Jos space
+                <p className="text-sm text-[var(--muted)] max-w-md mx-auto leading-relaxed">
+                  Jos Production Space: where real systems get designed, reviewed, benchmarked, and shipped.
                 </p>
               </div>
 
-              {/* Bottom coordinate */}
-              <div className="absolute bottom-4 left-4">
-                <p className="text-xs text-[var(--muted)] font-mono">
-                  Jos, Plateau State • 09.8965° N, 8.8583° E
-                </p>
+              {/* Bottom coordinates HUD */}
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-xs text-[var(--muted)] font-mono">
+                <span>09.8965° N, 8.8583° E</span>
+                <span className="hidden sm:inline">PLATEAU STATE • NIGERIA</span>
               </div>
             </div>
-          </div>
+          </TiltCard>
           <p className="mt-3 text-center text-xs text-[var(--muted)] sm:text-sm">
-            Cohort II at work in the Blockfuse space, Jos.
+            Cohort II at work in the Blockfuse production space, Jos.
           </p>
         </ScrollReveal>
       </section>
@@ -179,7 +198,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 4. THE GAP IS NOT TALENT — Statement typography */}
+      {/* 5. THE GAP IS NOT TALENT — Statement typography */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -217,7 +236,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 5. HOW BLOCKFUSE WORKS — Stacked cards */}
+      {/* 6. HOW BLOCKFUSE WORKS — 3D Tilt Cards */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -231,12 +250,12 @@ export default function Home() {
           <div className="mt-14 space-y-6">
             {howBlockfuseWorks.map((step, i) => (
               <ScrollReveal key={step.number} delay={i < 3 ? i + 1 : 3}>
-                <div className="surface-card relative overflow-hidden rounded-2xl p-6 sm:p-8">
+                <TiltCard dataCursorText="STEP" className="p-6 sm:p-8">
                   {/* Watermark number */}
                   <span className="step-number">{step.number}</span>
 
                   <div className="relative z-10 flex items-start gap-5">
-                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-sm font-bold text-white">
+                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-sm font-bold text-white shadow-md">
                       {step.number}
                     </div>
                     <div className="flex-1">
@@ -253,7 +272,7 @@ export default function Home() {
                       )}
                     </div>
                   </div>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
@@ -263,7 +282,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 6. AI-NATIVE PHILOSOPHY */}
+      {/* 7. AI-NATIVE PHILOSOPHY */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -292,7 +311,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-8" delay={2}>
-            <div className="rounded-2xl border border-[var(--accent)]/15 bg-[var(--accent)]/5 p-6 sm:p-8">
+            <div className="rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent)]/6 p-6 sm:p-8 backdrop-blur-sm">
               <p className="text-base font-semibold text-[var(--page-fg)] sm:text-lg">
                 We are not training people to depend on AI.
               </p>
@@ -307,7 +326,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 7. CHOOSE YOUR PATH — Program cards */}
+      {/* 8. CHOOSE YOUR PATH — Program Tilt Cards */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-6xl">
@@ -318,10 +337,13 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-2">
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
             {programPaths.map((program, i) => (
               <ScrollReveal key={program.title} delay={i < 4 ? i + 1 : 4}>
-                <div className="surface-card surface-card-accent flex h-full flex-col justify-between rounded-2xl p-7 sm:p-9">
+                <TiltCard
+                  dataCursorText="EXPLORE"
+                  className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-9"
+                >
                   <div>
                     {program.tagline && (
                       <span className="eyebrow text-[var(--accent)]">
@@ -336,18 +358,23 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="mt-8 border-t border-[var(--line)] pt-5">
+                  <div className="mt-8 border-t border-[var(--line)] pt-5 flex items-center justify-between">
                     <p className="text-xs font-medium leading-relaxed text-[var(--muted)] sm:text-sm">
                       {program.audience}
                     </p>
+                    <span className="text-sm font-bold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
                   </div>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
 
           <ScrollReveal className="mt-12 flex justify-center" delay={3}>
-            <ButtonLink href="/training">Explore our programs</ButtonLink>
+            <ButtonLink href="/training" dataCursor="PROGRAMS">
+              Explore our programs
+            </ButtonLink>
           </ScrollReveal>
         </div>
       </section>
@@ -355,7 +382,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 8. FOR STUDENTS — Become an engineer */}
+      {/* 9. FOR STUDENTS — Become an engineer */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -377,7 +404,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-8" delay={2}>
-            <div className="surface-card rounded-2xl p-6 sm:p-8">
+            <TiltCard className="p-6 sm:p-8">
               <p className="font-heading font-semibold text-[var(--page-fg)]">
                 At Blockfuse, you will:
               </p>
@@ -389,7 +416,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </TiltCard>
           </ScrollReveal>
 
           <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={3}>
@@ -408,8 +435,10 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={4}>
-            <ButtonLink href="/training">Apply to the next cohort</ButtonLink>
-            <ButtonLink href="/training" variant="secondary">
+            <ButtonLink href="/training" dataCursor="APPLY">
+              Apply to the next cohort
+            </ButtonLink>
+            <ButtonLink href="/training" variant="secondary" dataCursor="CURRICULUM">
               See what training involves
             </ButtonLink>
           </ScrollReveal>
@@ -419,7 +448,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 9. FOR ORGANISATIONS — Hire engineers */}
+      {/* 10. FOR ORGANISATIONS — Hire engineers */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -446,7 +475,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-8" delay={2}>
-            <div className="surface-card rounded-2xl p-6 sm:p-8">
+            <TiltCard className="p-6 sm:p-8">
               <p className="font-heading font-semibold text-[var(--page-fg)]">
                 Organisations can work with us to:
               </p>
@@ -458,7 +487,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </TiltCard>
           </ScrollReveal>
 
           <ScrollReveal className="mt-8" delay={3}>
@@ -469,8 +498,10 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={4}>
-            <ButtonLink href="/talent">Hire Blockfuse engineers</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
+            <ButtonLink href="/talent" dataCursor="TALENT">
+              Hire Blockfuse engineers
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="secondary" dataCursor="PARTNER">
               Discuss a talent partnership
             </ButtonLink>
           </ScrollReveal>
@@ -480,7 +511,7 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 10. ENGINEERING STUDIO */}
+      {/* 11. ENGINEERING STUDIO */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-4xl">
@@ -512,49 +543,9 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-10" delay={2}>
-            <ButtonLink href="/engineering">
+            <ButtonLink href="/engineering" dataCursor="SERVICES">
               Explore engineering services
             </ButtonLink>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ================================================================= */}
-      {/* 11. PARTNERS & IMPACT */}
-      {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-4xl">
-          <ScrollReveal>
-            <span className="eyebrow">Ecosystem & Impact</span>
-          </ScrollReveal>
-          <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
-              Partner with us to expand access to opportunity.
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
-            <p>
-              We work with technology companies, protocol ecosystems,
-              development organisations, and funders that want to build
-              sustainable engineering talent pipelines.
-            </p>
-            <p>
-              Partners can sponsor cohorts, fund scholarships, contribute
-              technical expertise, create employment pathways, or support
-              programs designed around specific technologies.
-            </p>
-            <p>
-              Every partnership is tied to measurable outcomes: people
-              trained, skills demonstrated, projects completed, and
-              opportunities created.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal className="mt-10" delay={2}>
-            <ButtonLink href="/contact">Become a partner</ButtonLink>
           </ScrollReveal>
         </div>
       </section>
@@ -589,7 +580,9 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-10" delay={2}>
-            <ButtonLink href="/prodfest">Discover ProdFest</ButtonLink>
+            <ButtonLink href="/prodfest" dataCursor="PRODFEST">
+              Discover ProdFest
+            </ButtonLink>
           </ScrollReveal>
         </div>
       </section>
@@ -618,14 +611,14 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-12 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4" delay={2}>
-            <ButtonLink href="/training">Apply to Blockfuse</ButtonLink>
-            <ButtonLink href="/talent" variant="secondary">
+            <ButtonLink href="/training" dataCursor="APPLY">Apply to Blockfuse</ButtonLink>
+            <ButtonLink href="/talent" variant="secondary" dataCursor="TALENT">
               Hire our graduates
             </ButtonLink>
-            <ButtonLink href="/engineering" variant="secondary">
+            <ButtonLink href="/engineering" variant="secondary" dataCursor="BUILD">
               Start a project
             </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
+            <ButtonLink href="/contact" variant="secondary" dataCursor="PARTNER">
               Partner with us
             </ButtonLink>
           </ScrollReveal>

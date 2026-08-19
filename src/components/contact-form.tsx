@@ -80,7 +80,7 @@ export function ContactForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Alex Johnson"
-          className="mt-1.5 w-full rounded-xl border border-[var(--line)] bg-[var(--card-strong)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-brand-violet focus:outline-none focus:ring-1 focus:ring-brand-violet"
+          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
         />
       </div>
 
@@ -100,7 +100,7 @@ export function ContactForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="alex@company.com"
-          className="mt-1.5 w-full rounded-xl border border-[var(--line)] bg-[var(--card-strong)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-brand-violet focus:outline-none focus:ring-1 focus:ring-brand-violet"
+          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
         />
       </div>
 
@@ -117,10 +117,10 @@ export function ContactForm() {
           name="topic"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="mt-1.5 w-full rounded-xl border border-[var(--line)] bg-[var(--card-strong)] px-4 py-2.5 text-sm text-[var(--page-fg)] focus:border-brand-violet focus:outline-none focus:ring-1 focus:ring-brand-violet"
+          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
         >
           {topicOptions.map((opt) => (
-            <option key={opt} value={opt} className="bg-[var(--card-strong)] text-[var(--page-fg)]">
+            <option key={opt} value={opt} className="bg-[var(--surface-2)] text-[var(--page-fg)]">
               {opt}
             </option>
           ))}
@@ -138,11 +138,11 @@ export function ContactForm() {
         <textarea
           id="message"
           name="message"
-          rows={5}
+          rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="A sentence or two about what you need, your team size, or your timeline..."
-          className="mt-1.5 w-full rounded-xl border border-[var(--line)] bg-[var(--card-strong)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-brand-violet focus:outline-none focus:ring-1 focus:ring-brand-violet"
+          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
         />
       </div>
 
@@ -150,9 +150,10 @@ export function ContactForm() {
       <div className="pt-2">
         <button
           type="submit"
-          className="button-shine w-full rounded-xl bg-gradient-to-r from-brand-violet to-brand-indigo px-6 py-3 font-serif text-sm font-bold text-white shadow-lg shadow-brand-violet/20 transition duration-300 hover:scale-[1.02] hover:shadow-brand-violet/40 cursor-pointer"
+          data-cursor="SEND"
+          className="w-full rounded-xl bg-[var(--accent)] px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02] hover:bg-[var(--accent-dim)] active:scale-95 cursor-pointer"
         >
-          {submitted ? "Opening Email Client..." : "Send Enquiry"}
+          {submitted ? "Opening Email Client..." : "Send Enquiry →"}
         </button>
       </div>
     </form>
