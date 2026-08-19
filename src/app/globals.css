@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --color-ink: #17151d;
+  --color-paper: #fbf8ff;
+  --color-brand-violet: #bf64e7;
+  --color-brand-indigo: #4e2ef5;
+  --color-brand-black: #2f2e34;
+  --color-gold: #d8b86a;
+}
+
+:root {
+  color-scheme: light;
+  --page-bg: #fbf8ff;
+  --page-fg: #17151d;
+  --muted: #665f72;
+  --line: rgba(78, 46, 245, 0.16);
+  --card: rgba(255, 255, 255, 0.78);
+  --card-strong: rgba(255, 255, 255, 0.94);
+}
+
+.dark {
+  color-scheme: dark;
+  --page-bg: #0d0b13;
+  --page-fg: #f8f4ff;
+  --muted: #bdb4cc;
+  --line: rgba(191, 100, 231, 0.22);
+  --card: rgba(25, 21, 34, 0.72);
+  --card-strong: rgba(30, 25, 41, 0.94);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(191, 100, 231, 0.18), transparent 28rem),
+    radial-gradient(circle at 85% 12%, rgba(78, 46, 245, 0.2), transparent 24rem),
+    linear-gradient(180deg, var(--page-bg), var(--page-bg));
+  color: var(--page-fg);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(191, 100, 231, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78, 46, 245, 0.08) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  mask-image: linear-gradient(to bottom, black, transparent 72%);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--page-bg);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #bf64e7, #4e2ef5);
+  border: 2px solid var(--page-bg);
+  border-radius: 999px;
+}
+
+::selection {
+  background: rgba(191, 100, 231, 0.35);
+}
+
+.glass {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 80px rgba(13, 10, 24, 0.14);
+  backdrop-filter: blur(22px);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #bf64e7 8%, #4e2ef5 86%);
+  background-clip: text;
+  color: transparent;
+}
+
+.button-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-shine::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -70%;
+  width: 55%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transition: left 0.6s ease;
+}
+
+.button-shine:hover::after {
+  left: 125%;
+}
+
+.orbital {
+  animation: orbital 16s linear infinite;
+}
+
+@keyframes orbital {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
