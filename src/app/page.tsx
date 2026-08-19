@@ -6,7 +6,6 @@ import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
 import { Marquee } from "@/components/ui/marquee";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { CounterStat } from "@/components/ui/counter-stat";
-import { InteractiveReviewWidget } from "@/components/ui/interactive-review-widget";
 import {
   stats,
   howBlockfuseWorks,
@@ -116,33 +115,7 @@ export default function Home() {
       </div>
 
       {/* ================================================================= */}
-      {/* 3. INTERACTIVE CODE REVIEW & READINESS INSPECTOR */}
-      {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <ScrollReveal className="text-center">
-            <span className="eyebrow">Interactive Verification</span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
-              Proof over promises.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
-              Explore how Blockfuse engineers evaluate code vs unverified AI output.
-              Click highlighted lines to inspect senior reviewer feedback or run a live readiness audit.
-            </p>
-          </ScrollReveal>
-
-          <div className="mt-12">
-            <ScrollReveal delay={1}>
-              <InteractiveReviewWidget />
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ================================================================= */}
-      {/* 4. COHORT SHOWCASE WITH 3D TILT */}
+      {/* 3. COHORT SHOWCASE WITH 3D TILT */}
       {/* ================================================================= */}
       <section className="px-5 py-20 sm:px-8">
         <ScrollReveal className="mx-auto max-w-6xl">
