@@ -171,25 +171,26 @@ export const footerLinks = {
 export const engineeringServices = [
   {
     title: "Technical advisory",
-    time: "Days or weeks",
-    copy: "Architecture reviews, stack decisions, AI adoption plans, technical due diligence, and engineering team shaping.",
+    time: "Usually days or weeks, not months",
+    copy: "An experienced engineer in the room when the decision is expensive. Architecture reviews, choosing a stack, planning an AI adoption that survives contact with production, technical due diligence, and shaping the engineering team you are about to hire.",
   },
   {
     title: "Discovery sprint",
-    time: "2-4 weeks",
-    copy: "Turn a business problem into requirements, architecture, a working prototype, budget, and delivery plan.",
+    time: "Typically two to four weeks",
+    copy: "You know the business problem but not the shape of the solution. We turn it into requirements, an architecture, a working prototype, a budget, and a delivery plan you can hand to any team, ours or your own.",
   },
   {
     title: "Build and delivery",
-    time: "2-6 months",
-    copy: "Senior-led delivery for AI features, web and mobile products, smart contracts, APIs, and infrastructure.",
+    time: "Typically two to six months",
+    copy: "A senior-led team designs and ships it: AI features, web and mobile products, smart contracts and integrations, APIs and infrastructure. You get working software, the code and infrastructure in your own accounts, documentation, and a handover written on the assumption that we are leaving.",
   },
   {
     title: "Ongoing engineering",
-    time: "Monthly",
-    copy: "A named team, agreed monthly capacity, maintenance, improvements, and reporting you can actually read.",
+    time: "Monthly, minimum three months",
+    copy: "Something is live and nobody is looking after it properly. A named team, an agreed monthly capacity, maintenance and improvement, and reporting you can actually read.",
   },
 ];
+
 
 export interface AcademyPillar {
   title: string;
@@ -558,6 +559,81 @@ export const ecosystemPartnerServices = [
   "Talent introductions",
   "Product demonstrations through ProdFest",
 ];
+
+export interface AboutBelief {
+  title: string;
+  description: string;
+}
+
+export const aboutBeliefs: AboutBelief[] = [
+  {
+    title: "Proof matters more than credentials",
+    description:
+      "A certificate shows that someone completed a program. Working software and sound technical judgment show what they can actually do.",
+  },
+  {
+    title: "Hard is the point",
+    description:
+      "We select carefully, push hard, and tell people plainly where they stand. Nobody is served by a program that is easy to finish.",
+  },
+  {
+    title: "AI should strengthen engineers, not replace judgment",
+    description:
+      "We train students to use AI well while remaining responsible for correctness, security, maintainability, and the final result.",
+  },
+  {
+    title: "Access must be sustainable",
+    description:
+      "Serious programs need instructors, infrastructure, time, and support. Our cohorts are funded through tuition, company partnerships, ecosystem sponsorship, and scholarships.",
+  },
+  {
+    title: "Clients keep control",
+    description:
+      "Client products, code, infrastructure, data, roadmaps, and intellectual property belong to the client.",
+  },
+  {
+    title: "Honest standards create real opportunity",
+    description:
+      "We do not describe people as more experienced than they are. Clear standards protect engineers, employers, partners, and the Blockfuse name.",
+  },
+  {
+    title: "Community compounds",
+    description:
+      "The strongest technical communities are built when learners become engineers, engineers become mentors, and experienced builders create opportunities for the people coming up behind them.",
+  },
+];
+
+export interface AboutPartner {
+  name: string;
+  description: string;
+}
+
+export const aboutPartners: AboutPartner[] = [
+  {
+    name: "Meridian Protocol Foundation",
+    description:
+      "Sponsored 20 funded places in blockchain engineering, 2025 and 2026",
+  },
+  {
+    name: "Northgate Systems",
+    description: "Hired three graduates and sponsored ProdFest 2026",
+  },
+  {
+    name: "Plateau Digital Initiative",
+    description:
+      "Scholarship fund for students without prior access to technical training, 2026",
+  },
+  {
+    name: "Kestrel Labs",
+    description:
+      "Engineering engagement and guest instruction on applied AI, 2026",
+  },
+  {
+    name: "Sabre Chain",
+    description: "Ecosystem partner for Build Week 2026",
+  },
+];
+
 
 
 
