@@ -310,8 +310,8 @@ h1, h2, h3, h4, h5, h6 {
   animation-play-state: paused;
 }
 
-/* ─── Loading Screen ─── */
-.loading-screen {
+/* ─── Splash / Loading Screen ─── */
+.splash-screen {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -319,23 +319,54 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   background: var(--page-bg);
-  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+  animation: splashExitSequence 0.85s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  will-change: transform, opacity;
 }
 
-.loading-screen.loading-exit {
-  transform: translateY(-100%);
+@keyframes splashExitSequence {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+.splash-progress-bar {
+  animation: splashProgressBar 0.5s ease-out forwards;
+}
+
+@keyframes splashProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .loading-letter {
   display: inline-block;
   opacity: 0;
-  transform: translateY(24px);
-  animation: loadingLetter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: blur(4px);
+  transform: translateY(16px);
+  animation: loadingLetter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes loadingLetter {
   to {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0);
   }
 }
