@@ -14,7 +14,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -28,9 +28,9 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
           scrolled
-            ? "bg-[var(--page-bg)]/90 backdrop-blur-xl border-b border-[var(--line)]"
+            ? "bg-[var(--page-bg)]/85 backdrop-blur-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)]"
             : "bg-transparent"
         }`}
       >
