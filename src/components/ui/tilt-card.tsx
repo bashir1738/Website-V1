@@ -6,8 +6,6 @@ export interface TiltCardProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  maxTilt?: number; // max degrees of tilt
-  glareOpacity?: number;
   dataCursorText?: string;
   onClick?: () => void;
 }
@@ -16,14 +14,11 @@ export function TiltCard({
   children,
   className = "",
   id,
-  maxTilt = 7,
-  glareOpacity = 0.18,
   dataCursorText,
   onClick,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [glarePos, setGlarePos] = useState({ x: 50, y: 50, opacity: 0 });
+  const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -34,17 +29,9 @@ export function TiltCard({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -maxTilt;
-    const rotateY = ((x - centerX) / centerX) * maxTilt;
-
-    setTilt({ x: rotateX, y: rotateY });
     setGlarePos({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
-      opacity: glareOpacity,
     });
   };
 
@@ -54,44 +41,41 @@ export function TiltCard({
 
   const handlePointerLeave = () => {
     setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-    setGlarePos((prev) => ({ ...prev, opacity: 0 }));
   };
 
   return (
     <div
       ref={cardRef}
       id={id}
+      data-cursor={dataCursorText}
       onPointerMove={handlePointerMove}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
       onClick={onClick}
-      data-cursor={dataCursorText}
       style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${
-          isHovered ? "scale3d(1.015, 1.015, 1.015)" : "scale3d(1, 1, 1)"
-        }`,
-        transition: isHovered
-          ? "transform 0.1s ease-out"
-          : "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-        transformStyle: "preserve-3d",
+        transform: isHovered ? "translateY(-3px)" : "translateY(0)",
+        transition: "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease, border-color 0.35s ease",
       }}
-      className={`group relative overflow-hidden rounded-2xl surface-card transition-colors ${className}`}
+      className={`group relative overflow-hidden rounded-2xl surface-card transition-all duration-300 ${
+        isHovered
+          ? "shadow-[0_14px_34px_-6px_rgba(191,100,231,0.12)] border-[var(--line-strong)] dark:border-[var(--accent)]/30"
+          : ""
+      } ${className}`}
     >
-      {/* 1. Dynamic Cursor-Following Radial Glare & Spotlight Sheen */}
+      {/* 1. Subtle, Soft Cursor-Following Light Sheen */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 rounded-2xl transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 z-10 rounded-2xl transition-opacity duration-500 ease-out"
         style={{
-          background: `radial-gradient(400px circle at ${glarePos.x}% ${glarePos.y}%, rgba(191, 100, 231, ${glarePos.opacity}), transparent 70%)`,
+          background: `radial-gradient(450px circle at ${glarePos.x}% ${glarePos.y}%, rgba(191, 100, 231, 0.08), transparent 70%)`,
           opacity: isHovered ? 1 : 0,
         }}
       />
 
-      {/* 2. Interactive Perimeter Border Glow */}
+      {/* 2. Perimeter Border Sheen */}
       <div
         className="pointer-events-none absolute -inset-px z-10 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(280px circle at ${glarePos.x}% ${glarePos.y}%, rgba(191, 100, 231, 0.45), transparent 70%)`,
+          background: `radial-gradient(300px circle at ${glarePos.x}% ${glarePos.y}%, rgba(191, 100, 231, 0.28), transparent 70%)`,
           mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           maskComposite: "exclude",
           WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
@@ -100,13 +84,13 @@ export function TiltCard({
         }}
       />
 
-      {/* 3. Tech Corner Bracket Accents (Moto-card inspired) */}
-      <div className="pointer-events-none absolute top-2.5 left-2.5 z-20 h-2 w-2 border-t border-l border-[var(--line-strong)] opacity-40 group-hover:opacity-100 group-hover:border-[var(--accent)] transition-colors" />
-      <div className="pointer-events-none absolute top-2.5 right-2.5 z-20 h-2 w-2 border-t border-r border-[var(--line-strong)] opacity-40 group-hover:opacity-100 group-hover:border-[var(--accent)] transition-colors" />
-      <div className="pointer-events-none absolute bottom-2.5 left-2.5 z-20 h-2 w-2 border-b border-l border-[var(--line-strong)] opacity-40 group-hover:opacity-100 group-hover:border-[var(--accent)] transition-colors" />
-      <div className="pointer-events-none absolute bottom-2.5 right-2.5 z-20 h-2 w-2 border-b border-r border-[var(--line-strong)] opacity-40 group-hover:opacity-100 group-hover:border-[var(--accent)] transition-colors" />
+      {/* 3. Subtle Tech Corner Accents */}
+      <div className="pointer-events-none absolute top-2.5 left-2.5 z-20 h-2 w-2 border-t border-l border-[var(--line-strong)] opacity-30 group-hover:opacity-80 group-hover:border-[var(--accent)]/70 transition-colors" />
+      <div className="pointer-events-none absolute top-2.5 right-2.5 z-20 h-2 w-2 border-t border-r border-[var(--line-strong)] opacity-30 group-hover:opacity-80 group-hover:border-[var(--accent)]/70 transition-colors" />
+      <div className="pointer-events-none absolute bottom-2.5 left-2.5 z-20 h-2 w-2 border-b border-l border-[var(--line-strong)] opacity-30 group-hover:opacity-80 group-hover:border-[var(--accent)]/70 transition-colors" />
+      <div className="pointer-events-none absolute bottom-2.5 right-2.5 z-20 h-2 w-2 border-b border-r border-[var(--line-strong)] opacity-30 group-hover:opacity-80 group-hover:border-[var(--accent)]/70 transition-colors" />
 
-      {/* 4. Card Content with 3D depth */}
+      {/* 4. Card Content */}
       <div className="relative z-10 h-full">{children}</div>
     </div>
   );
