@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -40,9 +41,21 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden">
       {/* ================================================================= */}
-      {/* 1. HERO — Full viewport, kinetic typography, live HUD, word cycler */}
+      {/* 1. HERO — Full viewport, kinetic typography, word cycler */}
       {/* ================================================================= */}
-      <section className="relative flex min-h-[92vh] flex-col justify-center px-5 pb-20 pt-28 sm:px-8 sm:pt-36">
+      <section className="relative flex min-h-[92vh] flex-col justify-center px-5 pb-20 pt-28 sm:px-8 sm:pt-36 overflow-hidden">
+        {/* Origin Hero Illustration from blockfuselabs/website (circles.svg) */}
+        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 lg:translate-x-10 w-[550px] sm:w-[700px] lg:w-[850px] max-w-none opacity-20 dark:opacity-30 blur-[0.5px] select-none -z-10 transition-opacity">
+          <Image
+            src="/brand/hero-circles.svg"
+            alt="Blockfuse hero ambient illustration"
+            width={711}
+            height={652}
+            priority
+            className="w-full h-auto"
+          />
+        </div>
+
         <div className="relative z-10 mx-auto max-w-5xl">
           {/* Main Headline — Kinetic Word Springs & Word Cycler */}
           <div>
