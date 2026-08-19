@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 function CheckIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 text-brand-violet mt-0.5"
+      className="h-5 w-5 shrink-0 check-accent mt-0.5"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -32,8 +32,8 @@ function CheckIcon() {
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--line)] to-transparent" />
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 ">
+      <div className="section-divider" />
     </div>
   );
 }
@@ -42,24 +42,24 @@ export default function TalentPage() {
   return (
     <main className="relative overflow-hidden pb-20">
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-brand-violet/10 blur-[120px] md:h-[48rem] md:w-[48rem]" />
-      <div className="pointer-events-none absolute right-10 top-[60rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-indigo/10 blur-[100px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[var(--accent)]/8 blur-[120px] md:h-[48rem] md:w-[48rem]" />
+      <div className="pointer-events-none absolute right-10 top-[60rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-[var(--accent)]/3 blur-[120px]" />
 
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
+      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40 ">
         <div className="mx-auto max-w-4xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-violet/30 bg-brand-violet/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-violet">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-violet animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/8 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
               For companies and ecosystem partners
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="mt-6 font-serif text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
             Hire engineers whose ability{" "}
             <span className="gradient-text">has already been tested.</span>
           </h1>
@@ -76,7 +76,7 @@ export default function TalentPage() {
               Blockfuse standard for technical ability, communication, and
               professional readiness.
             </p>
-            <p className="font-medium text-brand-violet">
+            <p className="font-medium text-[var(--accent)]">
               You tell us what your team needs. We introduce the engineers who
               can do the work.
             </p>
@@ -99,13 +99,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 2. APPLICATIONS ARE ABUNDANT. EVIDENCE IS SCARCE. */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               The Hiring Reality
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               Applications are abundant. Evidence is scarce.
             </h2>
 
@@ -127,7 +127,7 @@ export default function TalentPage() {
                 program. By the time you meet them, someone here has already
                 formed a considered opinion of their work.
               </p>
-              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-5 font-semibold text-[var(--page-fg)]">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 font-semibold text-[var(--page-fg)]">
                 You spend less time filtering and more time speaking with
                 candidates who are genuinely qualified.
               </div>
@@ -141,13 +141,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 3. TALENT YOU CAN HIRE */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Specialisations
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Talent you can hire
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
@@ -160,10 +160,10 @@ export default function TalentPage() {
             {talentCategories.map((cat, idx) => (
               <div
                 key={cat.title}
-                className="glass group flex flex-col justify-between rounded-[1.8rem] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-violet/50 sm:p-8"
+                className="surface-card group flex flex-col justify-between rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/25 sm:p-8"
               >
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                  <span className="eyebrow">
                     0{idx + 1}
                   </span>
                   <h3 className="mt-3 text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
@@ -190,22 +190,22 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 4. WAYS TO WORK WITH BLOCKFUSE */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Engagement Models
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Ways to work with Blockfuse
             </h2>
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {/* Direct Hiring */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-brand-violet/50">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent)]/25">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                <span className="eyebrow">
                   Model 01
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -220,14 +220,14 @@ export default function TalentPage() {
                   profiles and portfolios, and support the interview process.
                   You employ the successful candidate directly.
                 </p>
-                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card-strong)] p-3 text-xs font-medium text-[var(--page-fg)]">
+                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card)] p-3 text-xs font-medium text-[var(--page-fg)]">
                   A placement fee applies only when you make a successful hire.
                 </div>
               </div>
               <div className="mt-8 border-t border-[var(--line)] pt-6">
                 <Link
                   href="/contact?intent=direct-hire"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                 >
                   <span>Hire an engineer</span>
                   <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -238,9 +238,9 @@ export default function TalentPage() {
             </div>
 
             {/* Embedded Engineers */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-brand-violet/50">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent)]/25">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                <span className="eyebrow">
                   Model 02
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -257,14 +257,14 @@ export default function TalentPage() {
                   professional support, and helps address issues before they
                   affect delivery.
                 </p>
-                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card-strong)] p-3 text-xs font-medium text-[var(--page-fg)]">
+                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card)] p-3 text-xs font-medium text-[var(--page-fg)]">
                   You manage the product. We support the engineer.
                 </div>
               </div>
               <div className="mt-8 border-t border-[var(--line)] pt-6">
                 <Link
                   href="/contact?intent=embedded"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                 >
                   <span>Discuss an embedded engagement</span>
                   <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -275,9 +275,9 @@ export default function TalentPage() {
             </div>
 
             {/* Sponsored Talent Pipelines */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-brand-violet/50">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent)]/25">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                <span className="eyebrow">
                   Model 03
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -308,7 +308,7 @@ export default function TalentPage() {
               <div className="mt-8 border-t border-[var(--line)] pt-6">
                 <Link
                   href="/contact?intent=sponsor"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                 >
                   <span>Sponsor seats or a cohort</span>
                   <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -319,9 +319,9 @@ export default function TalentPage() {
             </div>
 
             {/* Team Training */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-brand-violet/50">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-[var(--accent)]/25">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                <span className="eyebrow">
                   Model 04
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -344,14 +344,14 @@ export default function TalentPage() {
                     <li>• Modern testing</li>
                   </ul>
                 </div>
-                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card-strong)] p-3 text-xs text-[var(--muted)]">
+                <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--card)] p-3 text-xs text-[var(--muted)]">
                   Delivered at Blockfuse in Jos, at your office, or remotely.
                 </div>
               </div>
               <div className="mt-8 border-t border-[var(--line)] pt-6">
                 <Link
                   href="/contact?intent=team-training"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                  className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                 >
                   <span>Train your team</span>
                   <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -369,13 +369,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 5. HOW HIRING THROUGH BLOCKFUSE WORKS */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
           <div className="text-left">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               The Hiring Flow
             </span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-2 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               How hiring through Blockfuse works
             </h2>
           </div>
@@ -384,9 +384,9 @@ export default function TalentPage() {
             {hiringProcessSteps.map((step) => (
               <div
                 key={step.number}
-                className="glass group flex items-start gap-5 rounded-[1.6rem] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-violet/50 sm:p-7"
+                className="surface-card group flex items-start gap-5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 sm:p-7"
               >
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo font-serif text-sm font-bold text-white shadow-md">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)] text-sm font-bold text-white shadow-md">
                   0{step.number}
                 </div>
                 <div>
@@ -408,13 +408,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 6. WHAT BLOCKFUSE VERIFIED ENGINEER MEANS */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               Verification Standards
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               What Blockfuse Verified Engineer means
             </h2>
             <p className="mt-4 text-base text-[var(--muted)] sm:text-lg">
@@ -430,7 +430,7 @@ export default function TalentPage() {
               ))}
             </ul>
 
-            <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6 text-sm text-[var(--muted)] sm:text-base leading-relaxed">
+            <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6 text-sm text-[var(--muted)] sm:text-base leading-relaxed">
               Completing a course is not enough. Engineers who pass the
               assessment are{" "}
               <strong className="text-[var(--page-fg)]">
@@ -446,7 +446,7 @@ export default function TalentPage() {
             <div className="mt-6">
               <Link
                 href="/training"
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
               >
                 <span>See our production-readiness standard</span>
                 <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -463,13 +463,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 7. IP OWNERSHIP & CURATED MATCHING */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-6 md:grid-cols-2">
             {/* IP Ownership */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   IP & Confidentiality
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -497,9 +497,9 @@ export default function TalentPage() {
             </div>
 
             {/* Curated Matching */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   Curated Matchmaking
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -526,7 +526,7 @@ export default function TalentPage() {
                   Need Blockfuse to own the technical delivery instead?{" "}
                   <Link
                     href="/engineering"
-                    className="text-brand-violet font-semibold hover:underline"
+                    className="text-[var(--accent)] font-semibold hover:underline"
                   >
                     Explore engineering services.
                   </Link>
@@ -542,13 +542,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 8. FOR PROTOCOL ECOSYSTEMS AND FUNDING PARTNERS */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               Ecosystem Development
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               For protocol ecosystems and funding partners
             </h2>
 
@@ -558,7 +558,7 @@ export default function TalentPage() {
               workshops.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6 sm:p-8">
+            <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6 sm:p-8">
               <p className="font-semibold text-sm uppercase tracking-wider text-[var(--page-fg)]">
                 Blockfuse can design and operate a complete talent-development
                 program for your ecosystem, including:
@@ -592,13 +592,13 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 9. WHAT EMPLOYERS SAY */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Employer Endorsements
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               What employers say
             </h2>
           </div>
@@ -607,9 +607,9 @@ export default function TalentPage() {
             {employerTestimonials.map((item) => (
               <blockquote
                 key={item.author}
-                className="glass flex flex-col justify-between rounded-[1.8rem] p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-violet/50"
+                className="surface-card flex flex-col justify-between rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/25"
               >
-                <p className="font-serif text-base italic leading-relaxed text-[var(--page-fg)] sm:text-lg">
+                <p className="text-base italic leading-relaxed text-[var(--page-fg)] sm:text-lg">
                   &ldquo;{item.quote}&rdquo;
                 </p>
                 <div className="mt-6 border-t border-[var(--line)] pt-4">
@@ -629,10 +629,10 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 10. FINAL CTA BANNER */}
       {/* ========================================================================= */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-gradient-to-br from-brand-violet via-brand-indigo to-brand-black p-px shadow-2xl">
-          <div className="rounded-[2.5rem] bg-[var(--page-bg)]/90 backdrop-blur-xl p-8 text-center sm:p-14 md:p-16">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+      <section className="px-5 py-24 sm:px-8 ">
+        <div className="mx-auto max-w-5xl rounded-2xl bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-transparent p-px shadow-2xl">
+          <div className="rounded-2xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
+            <h2 className="text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
               Spend less time searching.
               <br />
               <span className="gradient-text">

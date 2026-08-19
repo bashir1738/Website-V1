@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 function CheckIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 text-brand-violet mt-0.5"
+      className="h-5 w-5 shrink-0 check-accent mt-0.5"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -34,8 +34,8 @@ function CheckIcon() {
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--line)] to-transparent" />
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 ">
+      <div className="section-divider" />
     </div>
   );
 }
@@ -44,18 +44,18 @@ export default function TrainingPage() {
   return (
     <main className="relative overflow-hidden pb-20">
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-brand-violet/10 blur-[120px] md:h-[48rem] md:w-[48rem]" />
-      <div className="pointer-events-none absolute right-10 top-[60rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-indigo/10 blur-[100px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[var(--accent)]/8 blur-[120px] md:h-[48rem] md:w-[48rem]" />
+      <div className="pointer-events-none absolute right-10 top-[60rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-[var(--accent)]/3 blur-[120px]" />
 
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
+      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40 ">
         <div className="mx-auto max-w-4xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-violet/30 bg-brand-violet/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-violet">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-violet animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/8 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
               Blockfuse Academy
             </span>
             <span className="text-xs font-medium text-[var(--muted)]">
@@ -64,7 +64,7 @@ export default function TrainingPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="mt-6 font-serif text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
             Train for the work.
             <br />
             <span className="gradient-text">Prove you are ready.</span>
@@ -84,7 +84,7 @@ export default function TrainingPage() {
               leave with evidence of what you can do, whether you go on to join
               a company or start one.
             </p>
-            <p className="font-semibold text-brand-violet">
+            <p className="font-semibold text-[var(--accent)]">
               It is not an easy program. That is the point.
             </p>
           </div>
@@ -104,13 +104,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 2. THE STANDARD FOR ENGINEERING HAS CHANGED */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               The Modern Paradigm
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               The standard for engineering has changed.
             </h2>
 
@@ -124,7 +124,7 @@ export default function TrainingPage() {
                 AI-generated output, solve unfamiliar problems, collaborate with
                 a team, and take responsibility for what they ship.
               </p>
-              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-5 font-semibold text-[var(--page-fg)]">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 font-semibold text-[var(--page-fg)]">
                 That is what Blockfuse Academy is designed to develop.
               </div>
             </div>
@@ -137,13 +137,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 3. WHY TRAIN AT BLOCKFUSE? (7 PILLARS) */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               The Blockfuse Difference
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Why train at Blockfuse?
             </h2>
           </div>
@@ -152,12 +152,12 @@ export default function TrainingPage() {
             {academyPillars.map((pillar, idx) => (
               <div
                 key={pillar.title}
-                className={`glass group flex flex-col justify-between rounded-[1.8rem] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-violet/50 sm:p-8 ${
+                className={`glass group flex flex-col justify-between rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/25 sm:p-8 ${
                   idx === 0 ? "md:col-span-2 lg:col-span-2" : ""
                 }`}
               >
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                  <span className="eyebrow">
                     0{idx + 1}
                   </span>
                   <h3 className="mt-3 text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
@@ -183,13 +183,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 4. CHOOSE YOUR PROGRAM */}
       {/* ========================================================================= */}
-      <section id="programs" className="px-4 py-20 sm:px-6 lg:px-8 scroll-mt-24">
+      <section id="programs" className="px-5 py-24 sm:px-8  scroll-mt-24">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Curriculum & Specialized Tracks
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Choose your program
             </h2>
           </div>
@@ -199,14 +199,14 @@ export default function TrainingPage() {
               <div
                 key={program.id}
                 id={program.id}
-                className="glass rounded-[2rem] p-8 sm:p-12 transition-all duration-300 hover:border-brand-violet/50"
+                className="surface-card rounded-2xl p-8 sm:p-12 transition-all duration-300 hover:border-[var(--accent)]/25"
               >
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                   <div className="lg:max-w-xl">
-                    <span className="inline-block rounded-full bg-brand-violet/15 px-3 py-1 text-xs font-semibold text-brand-violet">
+                    <span className="inline-block rounded-full bg-[var(--accent)]/15 px-3 py-1 text-xs font-semibold text-[var(--accent)]">
                       {program.target}
                     </span>
-                    <h3 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
+                    <h3 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
                       {program.title}
                     </h3>
                     <p className="mt-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -222,14 +222,14 @@ export default function TrainingPage() {
                     )}
                   </div>
 
-                  <div className="w-full rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6 lg:max-w-md">
+                  <div className="w-full rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6 lg:max-w-md">
                     <p className="font-semibold text-sm uppercase tracking-wider text-[var(--page-fg)]">
                       You will learn:
                     </p>
                     <ul className="mt-4 space-y-2.5 text-sm text-[var(--muted)]">
                       {program.topics.map((topic) => (
                         <li key={topic} className="flex items-start gap-2.5">
-                          <span className="text-brand-violet font-bold">✓</span>
+                          <span className="text-[var(--accent)] font-bold">✓</span>
                           <span>{topic}</span>
                         </li>
                       ))}
@@ -240,7 +240,7 @@ export default function TrainingPage() {
                 <div className="mt-8 border-t border-[var(--line)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <Link
                     href={`/contact?program=${program.id}`}
-                    className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                   >
                     <span>{program.ctaText}</span>
                     <span aria-hidden="true" className="transition group-hover:translate-x-1">
@@ -262,13 +262,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 5. YOUR PATH THROUGH BLOCKFUSE */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
           <div className="text-left">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               The Standard
             </span>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-2 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Your path through Blockfuse
             </h2>
             <p className="mt-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -281,9 +281,9 @@ export default function TrainingPage() {
             {academyPathStages.map((stage, index) => (
               <div
                 key={stage.stage}
-                className="glass group flex items-start gap-5 rounded-[1.6rem] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-violet/50 sm:p-7"
+                className="surface-card group flex items-start gap-5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/25 sm:p-7"
               >
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-violet to-brand-indigo font-serif text-sm font-bold text-white shadow-md">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)] text-sm font-bold text-white shadow-md">
                   0{index + 1}
                 </div>
                 <div>
@@ -298,7 +298,7 @@ export default function TrainingPage() {
             ))}
           </div>
 
-          <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6 text-sm text-[var(--muted)] sm:text-base">
+          <div className="mt-8 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6 text-sm text-[var(--muted)] sm:text-base">
             This distinction protects both learners and employers. When we
             recommend an engineer, we want the recommendation to carry real
             weight.
@@ -311,13 +311,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 6. PRODUCTION-READINESS ASSESSMENT TABLE */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Evaluation Matrix
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               The production-readiness assessment
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -326,7 +326,7 @@ export default function TrainingPage() {
             </p>
           </div>
 
-          <div className="glass mt-12 overflow-hidden rounded-[2rem] border border-[var(--line)] shadow-xl">
+          <div className="surface-card mt-12 overflow-hidden rounded-2xl border border-[var(--line)] shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm sm:text-base">
                 <thead>
@@ -370,13 +370,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 7. THE ENGINEERING RESIDENCY */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               Hands-On Production
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               The Engineering Residency
             </h2>
 
@@ -392,7 +392,7 @@ export default function TrainingPage() {
                 updates, testing, and the normal discipline of collaborative
                 software development.
               </p>
-              <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-5 font-serif text-lg font-bold text-[var(--page-fg)]">
+              <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 text-lg font-bold text-[var(--page-fg)]">
                 The residency does not exaggerate experience. It helps engineers
                 earn it.
               </div>
@@ -406,14 +406,14 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 8. WHAT WE EXPECT FROM YOU & FEES / ADMISSIONS */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl space-y-12">
           {/* Expectations */}
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               Expectations & Mutual Contract
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
               What we expect from you
             </h2>
             <p className="mt-3 text-base text-[var(--muted)] sm:text-lg">
@@ -422,7 +422,7 @@ export default function TrainingPage() {
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6">
                 <p className="font-semibold text-sm uppercase tracking-wider text-[var(--page-fg)]">
                   We expect you to:
                 </p>
@@ -436,7 +436,7 @@ export default function TrainingPage() {
                 </ul>
               </div>
 
-              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-6 flex flex-col justify-between">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-6 flex flex-col justify-between">
                 <div>
                   <p className="font-semibold text-sm uppercase tracking-wider text-[var(--page-fg)]">
                     In return, we provide:
@@ -448,7 +448,7 @@ export default function TrainingPage() {
                   </p>
                 </div>
                 <div className="mt-6 pt-6 border-t border-[var(--line)]">
-                  <p className="text-xs text-brand-violet font-semibold uppercase tracking-wider">
+                  <p className="text-xs text-[var(--accent)] font-semibold uppercase tracking-wider">
                     High Bar • High Support
                   </p>
                 </div>
@@ -459,9 +459,9 @@ export default function TrainingPage() {
           {/* Fees & Admissions Grid */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Fees */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   Sustainability
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -474,7 +474,7 @@ export default function TrainingPage() {
                 <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
                   {fundingChannels.map((fc) => (
                     <li key={fc} className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-violet" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                       <span>{fc}</span>
                     </li>
                   ))}
@@ -488,9 +488,9 @@ export default function TrainingPage() {
             </div>
 
             {/* Admissions */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   Selectivity
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -521,13 +521,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 9. CODE REVIEW VISUAL CALLOUT */}
       {/* ========================================================================= */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <section className="px-5 py-16 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] border border-[var(--line)] p-8 text-center sm:p-12 shadow-2xl">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
+          <div className="surface-card rounded-2xl border border-[var(--line)] p-8 text-center sm:p-12 shadow-2xl">
+            <span className="eyebrow">
               The Code Review Bar
             </span>
-            <h3 className="mt-3 font-serif text-2xl font-bold text-[var(--page-fg)] sm:text-3xl">
+            <h3 className="mt-3 text-2xl font-bold text-[var(--page-fg)] sm:text-3xl">
               Work is reviewed the way it is reviewed on a professional team.
             </h3>
             <p className="mt-4 text-sm text-[var(--muted)] sm:text-base">
@@ -542,13 +542,13 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 10. WHAT OUR GRADUATES SAY */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Alumni Outcomes
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               What our graduates say
             </h2>
           </div>
@@ -557,9 +557,9 @@ export default function TrainingPage() {
             {graduateTestimonials.map((item) => (
               <blockquote
                 key={item.author}
-                className="glass flex flex-col justify-between rounded-[1.8rem] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-violet/50 sm:p-8"
+                className="surface-card flex flex-col justify-between rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/25 sm:p-8"
               >
-                <p className="font-serif text-base italic leading-relaxed text-[var(--page-fg)] sm:text-lg">
+                <p className="text-base italic leading-relaxed text-[var(--page-fg)] sm:text-lg">
                   &ldquo;{item.quote}&rdquo;
                 </p>
                 <div className="mt-6 border-t border-[var(--line)] pt-4">
@@ -567,7 +567,7 @@ export default function TrainingPage() {
                     {item.author}
                   </p>
                   <p className="text-xs text-[var(--muted)]">{item.role}</p>
-                  <p className="text-xs text-brand-violet font-medium mt-1">
+                  <p className="text-xs text-[var(--accent)] font-medium mt-1">
                     {item.cohort}
                   </p>
                 </div>
@@ -582,10 +582,10 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 11. READY TO PROVE WHAT YOU CAN DO? (FINAL CTA) */}
       {/* ========================================================================= */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-gradient-to-br from-brand-violet via-brand-indigo to-brand-black p-px shadow-2xl">
-          <div className="rounded-[2.5rem] bg-[var(--page-bg)]/90 backdrop-blur-xl p-8 text-center sm:p-14 md:p-16">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+      <section className="px-5 py-24 sm:px-8 ">
+        <div className="mx-auto max-w-5xl rounded-2xl bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-transparent p-px shadow-2xl">
+          <div className="rounded-2xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
+            <h2 className="text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
               Ready to prove what you can do?
             </h2>
 

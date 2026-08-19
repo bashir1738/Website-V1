@@ -1,110 +1,60 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { navItems } from "@/lib/content";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-6">
-      <nav className="glass mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-300">
-        <Link
-          href="/"
-          className="group flex items-center gap-2.5"
-          aria-label="Blockfuse Labs home"
-        >
-          <Image
-            src="/brand/LOGO_ICON.svg"
-            alt="Blockfuse Labs Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8 transition-transform duration-300 group-hover:scale-105"
-          />
-          <span className="font-serif text-base font-bold tracking-tight text-[var(--page-fg)] sm:text-lg">
-            Blockfuse Labs
-          </span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => {
-            const isActive =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
-
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`relative rounded-full px-3.5 py-1.5 text-xs font-medium tracking-wide transition-all duration-200 lg:text-sm ${
-                  isActive
-                    ? "font-semibold text-[var(--page-fg)]"
-                    : "text-[var(--muted)] hover:text-[var(--page-fg)] hover:bg-black/5 dark:hover:bg-white/10"
-                }`}
-              >
-                {item.label}
-                {isActive && (
-                  <span className="absolute inset-x-3 -bottom-1 h-0.5 rounded-full bg-gradient-to-r from-brand-violet to-brand-indigo" />
-                )}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Action Controls */}
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "bg-[var(--page-bg)]/90 backdrop-blur-xl border-b border-[var(--line)]"
+            : "bg-transparent"
+        }`}
+      >
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+          {/* Logo */}
           <Link
-            href="/training"
-            className="button-shine hidden rounded-full bg-gradient-to-r from-brand-violet to-brand-indigo px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-brand-indigo/20 transition hover:-translate-y-0.5 sm:inline-flex"
+            href="/"
+            className="group flex items-center gap-2.5"
+            aria-label="Blockfuse Labs home"
           >
-            Apply Now
+            <Image
+              src="/brand/LOGO_ICON.svg"
+              alt="Blockfuse Labs Logo"
+              width={28}
+              height={28}
+              className="h-7 w-7 transition-transform duration-300 group-hover:rotate-12"
+            />
+            <span className="font-heading text-base font-bold tracking-tight text-[var(--page-fg)]">
+              Blockfuse Labs
+            </span>
           </Link>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--card)] p-2 text-[var(--page-fg)] md:hidden focus:outline-none"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="glass mx-auto mt-2 max-w-md rounded-2xl p-4 shadow-2xl md:hidden animate-in fade-in slide-in-from-top-2">
-          <div className="flex flex-col gap-1">
+          {/* Desktop Navigation */}
+          <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => {
               const isActive =
                 item.href === "/"
@@ -115,30 +65,94 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-medium transition ${
+                  className={`link-hover relative px-3.5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-200 ${
                     isActive
-                      ? "bg-brand-violet/15 font-semibold text-brand-violet"
-                      : "text-[var(--muted)] hover:bg-black/5 hover:text-[var(--page-fg)] dark:hover:bg-white/10"
+                      ? "text-[var(--page-fg)]"
+                      : "text-[var(--muted)] hover:text-[var(--page-fg)]"
                   }`}
                 >
-                  <span>{item.label}</span>
-                  {isActive && <span className="h-1.5 w-1.5 rounded-full bg-brand-violet" />}
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute inset-x-3.5 -bottom-0.5 h-[2px] bg-[var(--accent)]" />
+                  )}
                 </Link>
               );
             })}
-            <div className="mt-3 pt-3 border-t border-[var(--line)] flex flex-col gap-2">
+          </div>
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] text-[var(--page-fg)] transition-colors hover:bg-[var(--card-hover)] md:hidden focus:outline-none"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 8h16M4 16h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Full-Screen Overlay Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-[var(--page-bg)] md:hidden">
+          <div className="flex flex-col justify-center h-full px-8 pt-20">
+            <div className="space-y-1">
+              {navItems.map((item, i) => {
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href);
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-3 font-heading text-2xl font-bold transition-colors ${
+                      isActive
+                        ? "text-[var(--accent)]"
+                        : "text-[var(--muted)] hover:text-[var(--page-fg)]"
+                    }`}
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="mt-10 flex flex-col gap-3">
               <Link
                 href="/training"
                 onClick={() => setMobileMenuOpen(false)}
-                className="button-shine flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-brand-violet to-brand-indigo text-sm font-semibold text-white"
+                className="btn-primary justify-center"
               >
                 Apply to a program
+                <svg
+                  className="btn-arrow h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
               <Link
                 href="/talent"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex h-11 items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--card)] text-sm font-semibold text-[var(--page-fg)]"
+                className="btn-secondary justify-center"
               >
                 Hire Blockfuse engineers
               </Link>
@@ -146,7 +160,6 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
-

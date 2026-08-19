@@ -49,8 +49,8 @@ const directChannels = [
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--line)] to-transparent" />
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 ">
+      <div className="section-divider" />
     </div>
   );
 }
@@ -59,18 +59,18 @@ export default function ContactPage() {
   return (
     <main className="relative overflow-hidden pb-20">
       {/* Ambient background lighting */}
-      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-brand-violet/10 blur-[120px] md:h-[48rem] md:w-[48rem]" />
-      <div className="pointer-events-none absolute right-10 top-[40rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-indigo/10 blur-[100px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[var(--accent)]/8 blur-[120px] md:h-[48rem] md:w-[48rem]" />
+      <div className="pointer-events-none absolute right-10 top-[40rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-[var(--accent)]/3 blur-[120px]" />
 
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
+      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40 ">
         <div className="mx-auto max-w-4xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-violet/30 bg-brand-violet/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-violet">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-violet animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/8 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
               Contact
             </span>
             <span className="text-xs font-medium text-[var(--muted)]">
@@ -79,7 +79,7 @@ export default function ContactPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="mt-6 font-serif text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
             Start the right{" "}
             <span className="gradient-text">conversation.</span>
           </h1>
@@ -104,16 +104,16 @@ export default function ContactPage() {
       {/* ========================================================================= */}
       {/* 2. DIRECT CONTACTS & ENQUIRY FORM */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             {/* Direct Channels Directory */}
             <div className="space-y-6">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+                <span className="eyebrow">
                   Direct Directory
                 </span>
-                <h2 className="mt-2 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
+                <h2 className="mt-2 text-3xl font-bold text-[var(--page-fg)] sm:text-4xl">
                   Direct
                 </h2>
                 <p className="mt-2 text-sm text-[var(--muted)]">
@@ -128,13 +128,13 @@ export default function ContactPage() {
                     href={`mailto:${c.email}?subject=${encodeURIComponent(
                       c.subject
                     )}`}
-                    className="glass group block rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-violet/50"
+                    className="surface-card group block rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)]/25"
                   >
                     <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-base text-[var(--page-fg)] group-hover:text-brand-violet transition">
+                      <h3 className="font-bold text-base text-[var(--page-fg)] group-hover:text-[var(--accent)] transition">
                         {c.topic}
                       </h3>
-                      <span className="text-xs font-mono text-brand-violet">
+                      <span className="text-xs font-mono text-[var(--accent)]">
                         {c.email}
                       </span>
                     </div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
                 ))}
 
                 {/* Location */}
-                <div className="glass rounded-2xl p-5 border border-[var(--line)]">
+                <div className="surface-card rounded-2xl p-5 border border-[var(--line)]">
                   <h3 className="font-bold text-base text-[var(--page-fg)]">
                     Location
                   </h3>
@@ -158,11 +158,11 @@ export default function ContactPage() {
 
             {/* Interactive Form */}
             <div>
-              <div className="glass sticky top-28 rounded-[2rem] p-8 sm:p-10 border border-[var(--line)] shadow-2xl">
-                <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+              <div className="surface-card sticky top-28 rounded-2xl p-8 sm:p-10 border border-[var(--line)] shadow-2xl">
+                <span className="eyebrow">
                   Online Message
                 </span>
-                <h2 className="mt-2 font-serif text-2xl font-bold text-[var(--page-fg)] sm:text-3xl">
+                <h2 className="mt-2 text-2xl font-bold text-[var(--page-fg)] sm:text-3xl">
                   Send an enquiry
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-[var(--muted)]">

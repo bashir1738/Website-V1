@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Blockfuse Labs | Training and Engineering",
@@ -15,13 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className="flex min-h-screen flex-col">
-        <Header />
-        <div className="flex-1">
-          {children}
-        </div>
-        <Footer />
+        <ThemeProvider>
+          <LoadingScreen />
+          <Header />
+          <div className="flex-1">
+            {children}
+          </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

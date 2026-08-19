@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[var(--line)] to-transparent" />
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 ">
+      <div className="section-divider" />
     </div>
   );
 }
@@ -22,24 +22,24 @@ export default function EngineeringPage() {
   return (
     <main className="relative overflow-hidden pb-20">
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-brand-violet/10 blur-[120px] md:h-[48rem] md:w-[48rem]" />
-      <div className="pointer-events-none absolute right-10 top-[50rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-brand-indigo/10 blur-[100px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 -z-10 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[var(--accent)]/8 blur-[120px] md:h-[48rem] md:w-[48rem]" />
+      <div className="pointer-events-none absolute right-10 top-[50rem] -z-10 h-[28rem] w-[28rem] rounded-full bg-[var(--accent)]/3 blur-[120px]" />
 
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
+      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40 ">
         <div className="mx-auto max-w-4xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-violet/30 bg-brand-violet/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-violet">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-violet animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/8 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
               Engineering Services
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="mt-6 font-serif text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
             Senior engineering for products{" "}
             <span className="gradient-text">that need to work.</span>
           </h1>
@@ -76,13 +76,13 @@ export default function EngineeringPage() {
       {/* ========================================================================= */}
       {/* 2. WHAT WE TAKE ON */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Scope & Engagements
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               What we take on
             </h2>
           </div>
@@ -91,11 +91,11 @@ export default function EngineeringPage() {
             {engineeringServices.map((service, idx) => (
               <div
                 key={service.title}
-                className="glass group flex flex-col justify-between rounded-[2rem] p-8 sm:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-violet/50"
+                className="surface-card group flex flex-col justify-between rounded-2xl p-8 sm:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/25"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
+                    <span className="eyebrow">
                       0{idx + 1}
                     </span>
                     <span className="inline-block rounded-full bg-white/5 dark:bg-white/10 px-3 py-1 text-xs font-medium text-[var(--muted)]">
@@ -117,7 +117,7 @@ export default function EngineeringPage() {
                     href={`/contact?intent=engineering&service=${encodeURIComponent(
                       service.title
                     )}`}
-                    className="group/link inline-flex items-center gap-2 text-sm font-semibold text-brand-violet hover:underline"
+                    className="group/link inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:underline"
                   >
                     <span>Request {service.title}</span>
                     <span
@@ -139,22 +139,22 @@ export default function EngineeringPage() {
       {/* ========================================================================= */}
       {/* 3. HOW WE WORK */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+            <span className="eyebrow">
               Delivery Principles
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               How we work
             </h2>
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {/* Senior Led */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   Senior Accountability
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -167,7 +167,7 @@ export default function EngineeringPage() {
                   on real tasks, reviewed, supervised, and never billed as
                   senior time.
                 </p>
-                <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
+                <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
                   It is how engineers here get genuinely good, and it is
                   reflected in what we charge.
                 </div>
@@ -175,9 +175,9 @@ export default function EngineeringPage() {
             </div>
 
             {/* Complete Ownership */}
-            <div className="glass rounded-[2rem] p-8 sm:p-10 flex flex-col justify-between">
+            <div className="surface-card rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-violet">
+                <span className="eyebrow">
                   IP & Discretion
                 </span>
                 <h3 className="mt-2 text-2xl font-bold text-[var(--page-fg)]">
@@ -188,7 +188,7 @@ export default function EngineeringPage() {
                   yours. We ask before we put your name on anything, and a good
                   deal of the work we do is never mentioned at all.
                 </p>
-                <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
+                <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
                   Delivered into your accounts with documentation written for
                   clean handover.
                 </div>
@@ -203,13 +203,13 @@ export default function EngineeringPage() {
       {/* ========================================================================= */}
       {/* 4. WE TAKE FEW OF THESE */}
       {/* ========================================================================= */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <section className="px-5 py-24 sm:px-8 ">
         <div className="mx-auto max-w-4xl">
-          <div className="glass rounded-[2rem] p-8 sm:p-12">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-brand-violet">
+          <div className="surface-card rounded-2xl p-8 sm:p-12">
+            <span className="eyebrow">
               Focus & Standards
             </span>
-            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
               We take few of these
             </h2>
 
@@ -221,12 +221,12 @@ export default function EngineeringPage() {
                 If the fit is wrong we will say so early, and we can usually
                 point you somewhere better.
               </p>
-              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card-strong)] p-5 text-sm sm:text-base text-[var(--muted)]">
+              <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 text-sm sm:text-base text-[var(--muted)]">
                 If what you actually need is more engineers inside your own
                 team,{" "}
                 <Link
                   href="/talent"
-                  className="font-semibold text-brand-violet underline decoration-brand-violet/50 underline-offset-4 hover:decoration-brand-violet"
+                  className="font-semibold text-[var(--accent)] underline decoration-[var(--accent)]/50 underline-offset-4 hover:decoration-[var(--accent)]"
                 >
                   hiring or embedding Blockfuse engineers
                 </Link>{" "}
@@ -251,10 +251,10 @@ export default function EngineeringPage() {
       {/* ========================================================================= */}
       {/* 5. FINAL CTA BANNER */}
       {/* ========================================================================= */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-gradient-to-br from-brand-violet via-brand-indigo to-brand-black p-px shadow-2xl">
-          <div className="rounded-[2.5rem] bg-[var(--page-bg)]/90 backdrop-blur-xl p-8 text-center sm:p-14 md:p-16">
-            <h2 className="font-serif text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+      <section className="px-5 py-24 sm:px-8 ">
+        <div className="mx-auto max-w-5xl rounded-2xl bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-transparent p-px shadow-2xl">
+          <div className="rounded-2xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
+            <h2 className="text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
               Have a problem worth solving?
               <br />
               <span className="gradient-text">Let&apos;s build it right.</span>
