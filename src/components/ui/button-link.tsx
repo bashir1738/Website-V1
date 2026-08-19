@@ -1,10 +1,12 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
 function ArrowIcon() {
   return (
     <svg
-      className="btn-arrow h-4 w-4"
+      className="btn-arrow h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -23,31 +25,35 @@ export function ButtonLink({
   href,
   children,
   variant = "primary",
+  className = "",
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "primary" | "secondary";
+  className?: string;
+  dataCursor?: string;
 }) {
   const isExternal = href.startsWith("http") || href.startsWith("mailto:");
-  const className = variant === "primary" ? "btn-primary" : "btn-secondary";
+  const baseClass = variant === "primary" ? "btn-primary" : "btn-secondary";
+  const combinedClass = `group inline-flex items-center justify-center gap-2 ${baseClass} ${className}`;
 
   if (isExternal) {
     return (
       <a
         href={href}
-        className={className}
+        className={combinedClass}
         target={href.startsWith("http") ? "_blank" : undefined}
         rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       >
-        {children}
+        <span>{children}</span>
         <ArrowIcon />
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
-      {children}
+    <Link href={href} className={combinedClass}>
+      <span>{children}</span>
       <ArrowIcon />
     </Link>
   );
