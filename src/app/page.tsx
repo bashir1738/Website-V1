@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
-import { Marquee } from "@/components/ui/marquee";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { CounterStat } from "@/components/ui/counter-stat";
 import {
@@ -18,7 +18,7 @@ import {
 function CheckIcon() {
   return (
     <svg
-      className="h-5 w-5 shrink-0 check-accent mt-0.5"
+      className="check-accent mt-0.5 h-5 w-5 shrink-0"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -31,7 +31,7 @@ function CheckIcon() {
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <div className="mx-auto max-w-[1240px] px-5 sm:px-7">
       <div className="section-divider" />
     </div>
   );
@@ -41,38 +41,47 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden">
       {/* ================================================================= */}
-      {/* 1. HERO — Full viewport, kinetic typography, word cycler */}
+      {/* 1. HERO */}
       {/* ================================================================= */}
-      <section className="relative flex min-h-[92vh] flex-col justify-center px-5 pb-20 pt-28 sm:px-8 sm:pt-36 overflow-hidden">
+      <section className="relative overflow-hidden px-5 pb-16 pt-16 sm:px-7 sm:pt-24">
         {/* Origin Hero Illustration from blockfuselabs/website (circles.svg) */}
-        <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 lg:translate-x-10 w-[550px] sm:w-[700px] lg:w-[850px] max-w-none opacity-20 dark:opacity-30 blur-[0.5px] select-none -z-10 transition-opacity">
+        <div className="pointer-events-none absolute right-0 top-1/2 -z-10 w-[550px] max-w-none -translate-y-1/2 translate-x-1/4 select-none opacity-20 blur-[0.5px] transition-opacity sm:w-[700px] lg:w-[850px] lg:translate-x-10 dark:opacity-30">
           <Image
             src="/brand/hero-circles.svg"
             alt="Blockfuse hero ambient illustration"
             width={711}
             height={652}
             priority
-            className="w-full h-auto"
+            className="h-auto w-full"
           />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-5xl">
-          {/* Main Headline — Kinetic Word Springs & Word Cycler */}
-          <div>
+        <div className="relative z-10 mx-auto max-w-[1240px]">
+          <div className="max-w-5xl">
             <KineticHeroTitle
               prefix="Training engineers for the"
-              cycleWords={["AI-native", "Production-Ready", "Decentralized", "High-Stakes"]}
+              cycleWords={[
+                "AI-native",
+                "Production-Ready",
+                "Decentralized",
+                "High-Stakes",
+              ]}
               suffix="world. Building dependable software."
-              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-[1.06]"
+              className="text-[clamp(2.75rem,6.2vw,5.125rem)] font-bold leading-[0.98] tracking-[-0.035em]"
             />
           </div>
 
-          {/* Subheading with interactive highlights */}
-          <ScrollReveal className="mt-10 max-w-2xl space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={2}>
+          <ScrollReveal
+            className="mt-9 max-w-[58ch] space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-[18.5px] sm:leading-[1.6]"
+            delay={2}
+          >
             <p>
               Blockfuse Labs identifies people with potential and develops them
-              into <strong className="text-[var(--page-fg)] font-semibold">production-ready software engineers</strong>, the kind companies
-              actually want to hire.
+              into{" "}
+              <strong className="font-semibold text-[var(--page-fg)]">
+                production-ready software engineers
+              </strong>
+              , the kind companies actually want to hire.
             </p>
             <p>
               The training is deliberately hard. Admission is selective, the
@@ -81,17 +90,13 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          {/* CTAs with magnetic hover */}
-          <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={3}>
-            <ButtonLink href="/training" dataCursor="APPLY">
-              Apply to a program
-            </ButtonLink>
-            <ButtonLink href="/talent" variant="secondary" dataCursor="HIRE">
-              Hire Blockfuse engineers
-            </ButtonLink>
+          <ScrollReveal className="mt-9 flex flex-wrap gap-3" delay={3}>
+            <ButtonLink href="#choose-your-path">Apply to a program</ButtonLink>
+            <ModalButton modal="hire" variant="secondary" arrow={false}>
+              Hire our engineers
+            </ModalButton>
           </ScrollReveal>
 
-          {/* Subtext Link */}
           <ScrollReveal className="mt-6" delay={4}>
             <p className="text-sm text-[var(--muted)]">
               Need software built?{" "}
@@ -107,36 +112,148 @@ export default function Home() {
       </section>
 
       {/* ================================================================= */}
-      {/* 2. STATS MARQUEE BAR WITH LIVE COUNTERS */}
+      {/* 2. STATS — hairline grid */}
       {/* ================================================================= */}
-      <div className="border-y border-[var(--line)] bg-[var(--card)]/40 py-5 backdrop-blur-md">
-        <Marquee duration={22}>
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex items-center gap-3.5 px-8 sm:px-12"
-            >
-              <span className="font-heading text-2xl font-bold gradient-text sm:text-3xl">
-                <CounterStat value={stat.value} />
-              </span>
-              <span className="text-xs font-medium text-[var(--muted)] sm:text-sm max-w-[13rem] leading-snug">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </Marquee>
-      </div>
+      <section className="px-5 pb-24 sm:px-7">
+        <ScrollReveal className="mx-auto max-w-[1240px]">
+          <div className="hairline-grid grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="hairline-cell px-7 py-8">
+                <div className="stat-figure text-[clamp(2rem,4vw,2.625rem)]">
+                  <CounterStat value={stat.value} />
+                </div>
+                <div className="mt-3 text-[13px] leading-normal text-[var(--muted)]">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+      </section>
 
       {/* ================================================================= */}
-      {/* 3. COHORT SHOWCASE WITH 3D TILT */}
+      {/* 3. PROGRAMS — Choose your path (target of every generic Apply CTA) */}
       {/* ================================================================= */}
-      <section className="px-5 py-20 sm:px-8">
-        <ScrollReveal className="mx-auto max-w-6xl">
+      <section id="choose-your-path" className="scroll-mt-24 px-5 pb-24 sm:px-7">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal>
+            <span className="eyebrow">Curriculum &amp; Specialisations</span>
+            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+              Choose your path
+            </h2>
+            <p className="mt-3.5 max-w-[54ch] text-base leading-relaxed text-[var(--muted)]">
+              Each track runs to professional deadlines and ends in an
+              assessment, not a certificate ceremony.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-10 grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
+            {programPaths.map((program, i) => (
+              <ScrollReveal key={program.title} delay={Math.min(i + 1, 4)}>
+                <div className="surface-card card-ruled flex h-full flex-col px-6 pb-6 pt-7 hover:-translate-y-1">
+                  <div className="mb-4 font-mono text-[10.5px] tracking-[0.16em] text-[var(--dim)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="font-heading text-xl font-bold leading-tight tracking-[-0.02em] text-[var(--page-fg)]">
+                    {program.title}
+                  </h3>
+                  {program.tagline && (
+                    <div className="mb-3.5 mt-2 text-xs font-medium text-[var(--accent)]">
+                      {program.tagline}
+                    </div>
+                  )}
+                  <p className="text-[13.5px] leading-relaxed text-[var(--muted)]">
+                    {program.description}
+                  </p>
+                  <p className="mt-4 flex-1 text-[12.5px] leading-relaxed text-[var(--dim)]">
+                    {program.audience}
+                  </p>
+                  <div className="mt-6">
+                    <ModalButton
+                      modal={i === 3 ? "hire" : "program"}
+                      variant="link"
+                      prefill={i === 3 ? undefined : { Track: program.title }}
+                    >
+                      Apply
+                    </ModalButton>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal className="mt-10" delay={2}>
+            <ButtonLink href="/training" variant="secondary">
+              Explore our programs
+            </ButtonLink>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 4. PRODFEST + OPEN SOURCE */}
+      {/* ================================================================= */}
+      <section className="px-5 pb-24 sm:px-7">
+        <div className="mx-auto grid max-w-[1240px] gap-[18px] lg:grid-cols-3">
+          <ScrollReveal className="lg:col-span-2">
+            <div className="feature-panel h-full px-8 py-10 sm:px-9">
+              <div className="eyebrow !text-[var(--accent-soft)]">
+                Flagship event
+              </div>
+              <h3 className="mt-4 font-heading text-[clamp(1.75rem,3.2vw,2.5rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+                ProdFest 2026
+              </h3>
+              <p className="mt-3.5 max-w-[46ch] text-[15px] leading-relaxed text-[var(--bright)]">
+                One day, one stage. Cohort teams ship in front of founders,
+                investors, and ecosystem partners — and the room decides what
+                deserves to keep going.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-2.5">
+                <ModalButton modal="prodfest" variant="contrast" arrow={false}>
+                  Register interest <span aria-hidden="true">→</span>
+                </ModalButton>
+                <ModalButton modal="sponsor" variant="ghost" arrow={false}>
+                  Sponsor
+                </ModalButton>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={1}>
+            <div className="surface-card flex h-full flex-col justify-between gap-6 !rounded-[22px] px-7 py-8">
+              <div>
+                <div className="eyebrow">Open source</div>
+                <h3 className="mt-4 font-heading text-[22px] font-bold tracking-[-0.02em] text-[var(--page-fg)]">
+                  Build in public with us
+                </h3>
+                <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--muted)]">
+                  Six repos maintained by students and residents. Contributions
+                  reviewed the same way client work is.
+                </p>
+              </div>
+              <Link href="/open-source" className="link-action !border-b-0">
+                See the repos
+                <span aria-hidden="true" className="arrow">
+                  →
+                </span>
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* 5. COHORT SHOWCASE */}
+      {/* ================================================================= */}
+      <section className="px-5 py-20 sm:px-7">
+        <ScrollReveal className="mx-auto max-w-[1240px]">
           <TiltCard
             dataCursorText="CAMPUS"
-            className="overflow-hidden rounded-3xl border border-[var(--line-strong)]"
+            className="overflow-hidden !rounded-3xl border border-[var(--line-strong)]"
           >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--surface-2)] flex flex-col items-center justify-center p-8 text-center min-h-[22rem] sm:min-h-[28rem]">
+            <div className="relative flex min-h-[22rem] w-full flex-col items-center justify-center overflow-hidden bg-[var(--surface-2)] p-8 text-center sm:min-h-[28rem]">
               {/* Dot grid background */}
               <div
                 className="absolute inset-0 opacity-20"
@@ -146,9 +263,8 @@ export default function Home() {
                 }}
               />
 
-              {/* Header Info */}
-              <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-[var(--muted)]">
-                <span className="flex items-center gap-2 text-[var(--page-fg)] font-semibold">
+              <div className="absolute left-6 right-6 top-6 flex items-center justify-between font-mono text-xs text-[var(--muted)]">
+                <span className="flex items-center gap-2 font-semibold text-[var(--page-fg)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
                   Production Workspace
                 </span>
@@ -157,19 +273,18 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Central text content */}
               <div className="relative z-10 max-w-lg space-y-3">
-                <span className="eyebrow text-[var(--accent)]">WORKSPACE</span>
+                <span className="eyebrow">Workspace</span>
                 <h3 className="font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
                   Cohort at work
                 </h3>
-                <p className="text-sm text-[var(--muted)] max-w-md mx-auto leading-relaxed">
-                  Jos Production Space: where real systems get designed, reviewed, benchmarked, and shipped.
+                <p className="mx-auto max-w-md text-sm leading-relaxed text-[var(--muted)]">
+                  Jos Production Space: where real systems get designed,
+                  reviewed, benchmarked, and shipped.
                 </p>
               </div>
 
-              {/* Bottom coordinates HUD */}
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-xs text-[var(--muted)] font-mono">
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between font-mono text-xs text-[var(--muted)]">
                 <span>09.8965° N, 8.8583° E</span>
                 <span className="hidden sm:inline">PLATEAU STATE • NIGERIA</span>
               </div>
@@ -184,22 +299,25 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 5. THE GAP IS NOT TALENT — Statement typography */}
+      {/* 6. THE GAP IS NOT TALENT */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className="eyebrow">The Core Reality</span>
           </ScrollReveal>
 
-          <ScrollReveal blur className="mt-6">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl lg:text-6xl">
+          <ScrollReveal blur className="mt-5">
+            <h2 className="font-heading text-[clamp(1.875rem,4.4vw,3.5rem)] font-bold tracking-[-0.035em] text-[var(--page-fg)]">
               The gap is not talent.{" "}
               <span className="gradient-text">It is proof.</span>
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
+          <ScrollReveal
+            className="mt-8 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={1}
+          >
             <p>
               Thousands of people want careers in technology. Companies need
               capable engineers. But traditional courses rarely prove that
@@ -211,9 +329,9 @@ export default function Home() {
             <p>
               We turn potential into practical ability, and practical ability
               into credible opportunities. Our students do more than complete
-              lessons. They build, they get told plainly what is not good
-              enough yet, they work under professional review, and they finish
-              with something a hiring manager can open and examine.
+              lessons. They build, they get told plainly what is not good enough
+              yet, they work under professional review, and they finish with
+              something a hiring manager can open and examine.
             </p>
           </ScrollReveal>
         </div>
@@ -222,22 +340,21 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 6. HOW BLOCKFUSE WORKS — 3D Tilt Cards */}
+      {/* 7. HOW BLOCKFUSE WORKS */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className="eyebrow">The System</span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               How Blockfuse works
             </h2>
           </ScrollReveal>
 
-          <div className="mt-14 space-y-6">
+          <div className="mt-12 space-y-4">
             {howBlockfuseWorks.map((step, i) => (
               <ScrollReveal key={step.number} delay={i < 3 ? i + 1 : 3}>
                 <TiltCard dataCursorText="STEP" className="p-6 sm:p-8">
-                  {/* Watermark number */}
                   <span className="step-number">{step.number}</span>
 
                   <div className="relative z-10 flex items-start gap-5">
@@ -268,20 +385,23 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 7. AI-NATIVE PHILOSOPHY */}
+      {/* 8. AI-NATIVE PHILOSOPHY */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className="eyebrow">Philosophy</span>
           </ScrollReveal>
           <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               AI-native, grounded in engineering.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
+          <ScrollReveal
+            className="mt-8 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={1}
+          >
             <p>
               AI is changing how software is built. That does not make
               engineering fundamentals less important. It makes judgment more
@@ -289,15 +409,15 @@ export default function Home() {
             </p>
             <p>
               Our students learn to use AI to research, build, test, debug, and
-              document software more effectively. But they are still expected
-              to understand their code, reason through trade-offs, design
-              reliable systems, protect user data, and take responsibility for
-              what they ship.
+              document software more effectively. But they are still expected to
+              understand their code, reason through trade-offs, design reliable
+              systems, protect user data, and take responsibility for what they
+              ship.
             </p>
           </ScrollReveal>
 
           <ScrollReveal className="mt-8" delay={2}>
-            <div className="rounded-2xl border border-[var(--accent)]/20 bg-[var(--accent)]/6 p-6 sm:p-8 backdrop-blur-sm">
+            <div className="rounded-[20px] border border-[var(--accent-line)] bg-[var(--accent-dim)] p-6 backdrop-blur-sm sm:p-8">
               <p className="text-base font-semibold text-[var(--page-fg)] sm:text-lg">
                 We are not training people to depend on AI.
               </p>
@@ -312,71 +432,15 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 8. CHOOSE YOUR PATH — Program Tilt Cards */}
+      {/* 9. FOR STUDENTS */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <ScrollReveal className="text-center">
-            <span className="eyebrow">Curriculum & Specialisations</span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
-              Choose your path
-            </h2>
-          </ScrollReveal>
-
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {programPaths.map((program, i) => (
-              <ScrollReveal key={program.title} delay={i < 4 ? i + 1 : 4}>
-                <TiltCard
-                  dataCursorText="EXPLORE"
-                  className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-9"
-                >
-                  <div>
-                    {program.tagline && (
-                      <span className="eyebrow text-[var(--accent)]">
-                        {program.tagline}
-                      </span>
-                    )}
-                    <h3 className="mt-2 font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
-                      {program.title}
-                    </h3>
-                    <p className="mt-4 text-sm leading-relaxed text-[var(--muted)] sm:text-base sm:leading-7">
-                      {program.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 border-t border-[var(--line)] pt-5 flex items-center justify-between">
-                    <p className="text-xs font-medium leading-relaxed text-[var(--muted)] sm:text-sm">
-                      {program.audience}
-                    </p>
-                    <span className="text-sm font-bold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
-                      →
-                    </span>
-                  </div>
-                </TiltCard>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal className="mt-12 flex justify-center" delay={3}>
-            <ButtonLink href="/training" dataCursor="PROGRAMS">
-              Explore our programs
-            </ButtonLink>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ================================================================= */}
-      {/* 9. FOR STUDENTS — Become an engineer */}
-      {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
-            <span className="eyebrow">For Students & Engineers</span>
+            <span className="eyebrow">For Students &amp; Engineers</span>
           </ScrollReveal>
           <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               Become an engineer your work can speak for.
             </h2>
           </ScrollReveal>
@@ -405,11 +469,14 @@ export default function Home() {
             </TiltCard>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={3}>
+          <ScrollReveal
+            className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={3}
+          >
             <p>
-              What you do with it is yours to decide. Most people here want a
-              job worth having. Some want to build their own thing. Both are
-              good reasons to be in the room.
+              What you do with it is yours to decide. Most people here want a job
+              worth having. Some want to build their own thing. Both are good
+              reasons to be in the room.
             </p>
             <p className="font-medium text-[var(--page-fg)]">
               We will provide the training, standards, feedback, and
@@ -420,11 +487,9 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={4}>
-            <ButtonLink href="/training" dataCursor="APPLY">
-              Apply to the next cohort
-            </ButtonLink>
-            <ButtonLink href="/training" variant="secondary" dataCursor="CURRICULUM">
+          <ScrollReveal className="mt-10 flex flex-wrap gap-3" delay={4}>
+            <ButtonLink href="#choose-your-path">Apply to the next cohort</ButtonLink>
+            <ButtonLink href="/training" variant="secondary">
               See what training involves
             </ButtonLink>
           </ScrollReveal>
@@ -434,29 +499,31 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 10. FOR ORGANISATIONS — Hire engineers */}
+      {/* 10. FOR ORGANISATIONS */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
-            <span className="eyebrow">For Organisations & Companies</span>
+            <span className="eyebrow">For Organisations &amp; Companies</span>
           </ScrollReveal>
           <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               Hire engineers who have already been tested.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
+          <ScrollReveal
+            className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={1}
+          >
             <p>
-              Finding applicants is easy. Identifying engineers who can
-              actually contribute is harder.
+              Finding applicants is easy. Identifying engineers who can actually
+              contribute is harder.
             </p>
             <p>
-              Blockfuse gives companies access to engineers who have been
-              through a demanding program, built working systems, had their
-              code reviewed by working engineers, and passed a structured
-              readiness assessment.
+              Blockfuse gives companies access to engineers who have been through
+              a demanding program, built working systems, had their code reviewed
+              by working engineers, and passed a structured readiness assessment.
             </p>
           </ScrollReveal>
 
@@ -478,18 +545,16 @@ export default function Home() {
 
           <ScrollReveal className="mt-8" delay={3}>
             <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-              Tell us the capabilities your team needs. We will help you find,
-              or develop, the right people.
+              Tell us the capabilities your team needs. We will help you find, or
+              develop, the right people.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={4}>
-            <ButtonLink href="/talent" dataCursor="TALENT">
-              Hire Blockfuse engineers
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary" dataCursor="PARTNER">
+          <ScrollReveal className="mt-10 flex flex-wrap gap-3" delay={4}>
+            <ModalButton modal="hire">Hire Blockfuse engineers</ModalButton>
+            <ModalButton modal="sponsor" variant="secondary" arrow={false}>
               Discuss a talent partnership
-            </ButtonLink>
+            </ModalButton>
           </ScrollReveal>
         </div>
       </section>
@@ -499,37 +564,40 @@ export default function Home() {
       {/* ================================================================= */}
       {/* 11. ENGINEERING STUDIO */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className="eyebrow">Senior Engineering Studio</span>
           </ScrollReveal>
           <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               Or have us build it.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
+          <ScrollReveal
+            className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={1}
+          >
             <p>
               Some organisations do not need engineers to hire. They need the
               work done.
             </p>
             <p>
-              Our senior engineers take on a limited number of engagements
-              each year: technical advisory when a decision is expensive,
-              discovery when the shape of the solution is unclear, and
-              senior-led delivery of AI, web, blockchain, and backend systems.
+              Our senior engineers take on a limited number of engagements each
+              year: technical advisory when a decision is expensive, discovery
+              when the shape of the solution is unclear, and senior-led delivery
+              of AI, web, blockchain, and backend systems.
             </p>
             <p>
-              Your code, infrastructure, and intellectual property stay
-              yours. Every engagement is led by a senior engineer who is
-              accountable for the outcome.
+              Your code, infrastructure, and intellectual property stay yours.
+              Every engagement is led by a senior engineer who is accountable for
+              the outcome.
             </p>
           </ScrollReveal>
 
           <ScrollReveal className="mt-10" delay={2}>
-            <ButtonLink href="/engineering" dataCursor="SERVICES">
+            <ButtonLink href="/engineering">
               Explore engineering services
             </ButtonLink>
           </ScrollReveal>
@@ -541,18 +609,21 @@ export default function Home() {
       {/* ================================================================= */}
       {/* 12. PRODFEST */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section className="px-5 py-24 sm:px-7">
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className="eyebrow">Flagship Event</span>
           </ScrollReveal>
           <ScrollReveal blur className="mt-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
               ProdFest: where talent meets opportunity.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
+          <ScrollReveal
+            className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8"
+            delay={1}
+          >
             <p>
               ProdFest is Blockfuse&apos;s platform for engineers to demonstrate
               what they can build.
@@ -565,9 +636,10 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-10" delay={2}>
-            <ButtonLink href="/prodfest" dataCursor="PRODFEST">
-              Discover ProdFest
+          <ScrollReveal className="mt-10 flex flex-wrap gap-3" delay={2}>
+            <ButtonLink href="/prodfest">Discover ProdFest</ButtonLink>
+            <ButtonLink href="/events" variant="secondary">
+              See all events
             </ButtonLink>
           </ScrollReveal>
         </div>
@@ -578,10 +650,10 @@ export default function Home() {
       {/* ================================================================= */}
       {/* 13. FINAL CTA */}
       {/* ================================================================= */}
-      <section className="px-5 py-28 sm:px-8">
+      <section className="px-5 py-28 sm:px-7">
         <div className="mx-auto max-w-5xl text-center">
           <ScrollReveal blur>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+            <h2 className="font-heading text-[clamp(1.875rem,5vw,3.75rem)] font-bold tracking-[-0.035em] text-[var(--page-fg)]">
               Potential deserves a path.
               <br />
               <span className="gradient-text">Companies deserve proof.</span>
@@ -596,17 +668,20 @@ export default function Home() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-12 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4" delay={2}>
-            <ButtonLink href="/training" dataCursor="APPLY">Apply to Blockfuse</ButtonLink>
-            <ButtonLink href="/talent" variant="secondary" dataCursor="TALENT">
+          <ScrollReveal
+            className="mt-12 flex flex-wrap justify-center gap-3.5"
+            delay={2}
+          >
+            <ButtonLink href="#choose-your-path">Apply to Blockfuse</ButtonLink>
+            <ModalButton modal="hire" variant="secondary" arrow={false}>
               Hire our graduates
-            </ButtonLink>
-            <ButtonLink href="/engineering" variant="secondary" dataCursor="BUILD">
+            </ModalButton>
+            <ButtonLink href="/engineering" variant="secondary">
               Start a project
             </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary" dataCursor="PARTNER">
+            <ModalButton modal="sponsor" variant="secondary" arrow={false}>
               Partner with us
-            </ButtonLink>
+            </ModalButton>
           </ScrollReveal>
         </div>
       </section>

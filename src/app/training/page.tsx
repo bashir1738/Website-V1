@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
@@ -33,7 +34,7 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
+      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
         <div className="mx-auto max-w-4xl">
           {/* Heading */}
           <div>
@@ -66,9 +67,9 @@ export default function TrainingPage() {
 
           {/* Actions */}
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={2}>
-            <ButtonLink href="/contact" dataCursor="APPLY">Apply to the next cohort</ButtonLink>
-            <ButtonLink href="#programs" variant="secondary" dataCursor="EXPLORE">
-              Explore our programs
+            <ButtonLink href="#programs">Apply to the next cohort</ButtonLink>
+            <ButtonLink href="#assessment" variant="secondary" dataCursor="EXPLORE">
+              How we assess you
             </ButtonLink>
           </ScrollReveal>
         </div>
@@ -227,9 +228,18 @@ export default function TrainingPage() {
                         →
                       </span>
                     </Link>
-                    <ButtonLink href="/contact" variant="secondary" dataCursor="APPLY">
+                    <ModalButton
+                      modal={program.id === "team-training" ? "hire" : "program"}
+                      variant="secondary"
+                      arrow={false}
+                      prefill={
+                        program.id === "team-training"
+                          ? undefined
+                          : { Track: program.title }
+                      }
+                    >
                       Apply for this track
-                    </ButtonLink>
+                    </ModalButton>
                   </div>
                 </TiltCard>
               </ScrollReveal>
@@ -296,7 +306,7 @@ export default function TrainingPage() {
       {/* ========================================================================= */}
       {/* 6. PRODUCTION-READINESS ASSESSMENT TABLE */}
       {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
+      <section id="assessment" className="px-5 py-24 sm:px-8 scroll-mt-24">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal className="text-center">
             <span className="eyebrow">
@@ -412,10 +422,10 @@ export default function TrainingPage() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <ButtonLink href="/contact" dataCursor="APPLY">Apply to the next cohort</ButtonLink>
-              <ButtonLink href="/talent" variant="secondary" dataCursor="SPONSOR">
+              <ButtonLink href="#programs">Apply to the next cohort</ButtonLink>
+              <ModalButton modal="sponsor" variant="secondary" arrow={false}>
                 Sponsor seats or a cohort
-              </ButtonLink>
+              </ModalButton>
             </div>
           </div>
         </div>

@@ -57,9 +57,7 @@ export function KineticWord({
   return (
     <span
       className={`inline-block whitespace-nowrap ${
-        highlight
-          ? "relative rounded-lg bg-[var(--accent)]/10 px-2 py-0.5 text-[var(--accent)] border border-[var(--accent)]/20 shadow-sm"
-          : ""
+        highlight ? "text-[var(--accent)]" : ""
       }`}
     >
       {word.split("").map((c, i) => (

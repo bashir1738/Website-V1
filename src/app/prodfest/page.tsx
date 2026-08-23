@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
@@ -26,7 +27,7 @@ export default function ProdFestPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
+      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
         <div className="mx-auto max-w-4xl">
           {/* Heading with Kinetic Typography */}
           <div>
@@ -53,9 +54,9 @@ export default function ProdFestPage() {
 
           {/* Actions */}
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={2}>
-            <ButtonLink href="/contact?intent=prodfest" dataCursor="PRODFEST">
+            <ModalButton modal="prodfest">
               Ask about the next edition
-            </ButtonLink>
+            </ModalButton>
             <ButtonLink href="#get-involved" variant="secondary" dataCursor="JOIN">
               Get involved
             </ButtonLink>
@@ -241,9 +242,9 @@ export default function ProdFestPage() {
           </div>
 
           <div className="mt-12 flex justify-center">
-            <ButtonLink href="/contact?intent=prodfest" dataCursor="PRODFEST">
+            <ModalButton modal="prodfest">
               Ask about the next edition
-            </ButtonLink>
+            </ModalButton>
           </div>
         </div>
       </section>
@@ -269,9 +270,9 @@ export default function ProdFestPage() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <ButtonLink href="/contact?intent=prodfest" dataCursor="PRODFEST">
-                Contact the ProdFest Team
-              </ButtonLink>
+              <ModalButton modal="prodfest">
+              Contact the ProdFest Team
+            </ModalButton>
               <ButtonLink href="/training" variant="secondary" dataCursor="ACADEMY">
                 Explore Academy
               </ButtonLink>

@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
@@ -31,7 +32,7 @@ export default function TalentPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
+      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
         <div className="mx-auto max-w-4xl">
           {/* Heading with Kinetic Typography */}
           <div>
@@ -63,12 +64,12 @@ export default function TalentPage() {
 
           {/* Actions */}
           <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={2}>
-            <ButtonLink href="/contact?intent=hire" dataCursor="HIRE">
+            <ModalButton modal="hire">
               Tell us about the role
-            </ButtonLink>
-            <ButtonLink href="/contact?intent=sponsor" variant="secondary" dataCursor="SPONSOR">
+            </ModalButton>
+            <ModalButton modal="sponsor" variant="secondary" arrow={false}>
               Sponsor a talent pipeline
-            </ButtonLink>
+            </ModalButton>
           </ScrollReveal>
         </div>
       </section>
@@ -161,9 +162,9 @@ export default function TalentPage() {
           </div>
 
           <ScrollReveal className="mt-12 flex justify-center" delay={3}>
-            <ButtonLink href="/contact?intent=hire" dataCursor="HIRE">
+            <ModalButton modal="hire">
               Discuss your talent requirements
-            </ButtonLink>
+            </ModalButton>
           </ScrollReveal>
         </div>
       </section>
@@ -468,12 +469,12 @@ export default function TalentPage() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <ButtonLink href="/contact?intent=hire" dataCursor="HIRE">
-                Start a hiring conversation
-              </ButtonLink>
-              <ButtonLink href="/contact?intent=sponsor" variant="secondary" dataCursor="SPONSOR">
-                Sponsor a cohort
-              </ButtonLink>
+              <ModalButton modal="hire">
+              Start a hiring conversation
+            </ModalButton>
+              <ModalButton modal="sponsor" variant="secondary" arrow={false}>
+              Sponsor a cohort
+            </ModalButton>
             </div>
           </div>
         </div>

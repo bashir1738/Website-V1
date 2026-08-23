@@ -32,7 +32,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
+      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
         <div className="mx-auto max-w-4xl">
           {/* Heading with Kinetic Typography */}
           <div>

@@ -1,6 +1,14 @@
+export interface NavChild {
+  label: string;
+  href: string;
+  desc: string;
+  flag?: boolean;
+}
+
 export interface NavItem {
   label: string;
   href: string;
+  children?: NavChild[];
 }
 
 export const navItems: NavItem[] = [
@@ -8,7 +16,61 @@ export const navItems: NavItem[] = [
   { label: "Academy", href: "/training" },
   { label: "Hire Engineers", href: "/talent" },
   { label: "Engineering", href: "/engineering" },
-  { label: "ProdFest", href: "/prodfest" },
+  {
+    label: "Events",
+    href: "/events",
+    children: [
+      {
+        label: "ProdFest",
+        href: "/prodfest",
+        flag: true,
+        desc: "Annual demo festival — the flagship.",
+      },
+      {
+        label: "Hackathons",
+        href: "/events#hackathons",
+        desc: "48-hour builds with ecosystem partners.",
+      },
+      {
+        label: "Meetups",
+        href: "/events#meetups",
+        desc: "Monthly community nights in Jos.",
+      },
+      {
+        label: "Workshops",
+        href: "/events#workshops",
+        desc: "Short, hands-on technical sessions.",
+      },
+      {
+        label: "Demo days",
+        href: "/events#demo-days",
+        desc: "End-of-cohort project reviews.",
+      },
+      {
+        label: "Past events",
+        href: "/events#past-events",
+        desc: "The archive, 2024 onward.",
+      },
+    ],
+  },
+  {
+    label: "Community",
+    href: "/team",
+    children: [
+      { label: "Team", href: "/team", desc: "The people who review the work." },
+      {
+        label: "Alumni",
+        href: "/alumni",
+        desc: "Graduates from Cohorts I and II.",
+      },
+      {
+        label: "Open Source",
+        href: "/open-source",
+        desc: "Repos maintained by our students.",
+      },
+    ],
+  },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -157,13 +219,18 @@ export const footerLinks = {
     { label: "Train your team", href: "/training" },
     { label: "Become a partner", href: "/contact" },
   ],
+  community: [
+    { label: "Events", href: "/events" },
+    { label: "ProdFest", href: "/prodfest" },
+    { label: "Team", href: "/team" },
+    { label: "Alumni", href: "/alumni" },
+    { label: "Open Source", href: "/open-source" },
+  ],
   company: [
     { label: "About", href: "/about" },
     { label: "Our story", href: "/about" },
-    { label: "Team", href: "/about" },
     { label: "Impact", href: "/about" },
-    { label: "Events", href: "/prodfest" },
-    { label: "ProdFest", href: "/prodfest" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
 };
@@ -637,3 +704,423 @@ export const aboutPartners: AboutPartner[] = [
 
 
 
+
+/* ─────────────────────────────────────────────────────────────
+   Events
+   ───────────────────────────────────────────────────────────── */
+
+export interface Fact {
+  value: string;
+  label: string;
+}
+
+export const prodfestFacts: Fact[] = [
+  { value: "12", label: "products on stage" },
+  { value: "400+", label: "attendees in 2025" },
+  { value: "18", label: "partner organisations" },
+];
+
+export interface EventKind {
+  id: string;
+  cadence: string;
+  title: string;
+  description: string;
+}
+
+export const eventKinds: EventKind[] = [
+  {
+    id: "hackathons",
+    cadence: "Quarterly",
+    title: "Hackathons",
+    description:
+      "48-hour builds run with ecosystem partners, judged by working engineers.",
+  },
+  {
+    id: "meetups",
+    cadence: "Monthly",
+    title: "Community meetups",
+    description:
+      "Open nights in Jos — talks, demos, and the room that keeps this going.",
+  },
+  {
+    id: "workshops",
+    cadence: "Fortnightly",
+    title: "Workshops",
+    description:
+      "Short, hands-on sessions on one specific technique or tool.",
+  },
+  {
+    id: "demo-days",
+    cadence: "Per cohort",
+    title: "Demo days",
+    description:
+      "Internal project reviews where teams defend their work before ProdFest.",
+  },
+  {
+    id: "past-events",
+    cadence: "Archive",
+    title: "Past events",
+    description:
+      "Everything we've run since 2024, with recordings and project links.",
+  },
+];
+
+export interface PastEvent {
+  date: string;
+  title: string;
+  meta: string;
+  kind: string;
+}
+
+export const pastEvents: PastEvent[] = [
+  {
+    date: "NOV 2025",
+    title: "ProdFest 2025",
+    meta: "12 teams · 400+ attendees",
+    kind: "Flagship",
+  },
+  {
+    date: "SEP 2025",
+    title: "Base Builder Hackathon",
+    meta: "9 teams · 48 hours",
+    kind: "Hackathon",
+  },
+  {
+    date: "JUL 2025",
+    title: "Cohort II Demo Day",
+    meta: "115 graduates assessed",
+    kind: "Demo day",
+  },
+  {
+    date: "MAY 2025",
+    title: "Applied AI Workshop Series",
+    meta: "6 sessions · 210 seats",
+    kind: "Workshop",
+  },
+  {
+    date: "FEB 2025",
+    title: "Jos Tech Meetup #14",
+    meta: "Open night · 120 attendees",
+    kind: "Meetup",
+  },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   Team
+   ───────────────────────────────────────────────────────────── */
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+}
+
+export const teamMembers: TeamMember[] = [
+  {
+    name: "Sarah Bulus",
+    role: "Founder & Programme Director",
+    bio: "Runs admissions and sets the assessment standard every cohort is measured against.",
+  },
+  {
+    name: "Ibrahim Lawal",
+    role: "Head of Engineering",
+    bio: "Leads the residency programme and reviews production work coming out of it.",
+  },
+  {
+    name: "Chidi Okeke",
+    role: "Lead Instructor, Blockchain",
+    bio: "Smart contracts and protocol systems. Ten years shipping on-chain.",
+  },
+  {
+    name: "Mariam Adamu",
+    role: "Lead Instructor, Applied AI",
+    bio: "Takes students from using AI tools to engineering reliable AI systems.",
+  },
+  {
+    name: "David Terver",
+    role: "Engineering Manager, Residency",
+    bio: "Supervises resident engineers on client and open source work.",
+  },
+  {
+    name: "Nneka Eze",
+    role: "Head of Talent",
+    bio: "Places assessed graduates with hiring partners across Africa and remote teams.",
+  },
+  {
+    name: "Yakubu Musa",
+    role: "Community Lead",
+    bio: "Runs meetups, hackathons, and everything that happens around ProdFest.",
+  },
+  {
+    name: "Esther Dung",
+    role: "Operations Lead",
+    bio: "Keeps cohorts, venues, and the assessment calendar running to schedule.",
+  },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   Alumni
+   ───────────────────────────────────────────────────────────── */
+
+export interface Alumnus {
+  name: string;
+  cohort: string;
+  track: string;
+  now: string;
+}
+
+export const alumni: Alumnus[] = [
+  {
+    name: "Amina Bello",
+    cohort: "Cohort II",
+    track: "Blockchain Engineering",
+    now: "Smart contract engineer, remote protocol team",
+  },
+  {
+    name: "Tunde Adeyemi",
+    cohort: "Cohort II",
+    track: "Applied AI Engineering",
+    now: "ML engineer at a Lagos fintech",
+  },
+  {
+    name: "Grace Iorliam",
+    cohort: "Cohort I",
+    track: "AI-Native Software Engineering",
+    now: "Frontend engineer, Blockfuse residency",
+  },
+  {
+    name: "Samuel Okoro",
+    cohort: "Cohort I",
+    track: "Blockchain Engineering",
+    now: "Founder, on-chain payments startup",
+  },
+  {
+    name: "Halima Yusuf",
+    cohort: "Cohort II",
+    track: "AI-Native Software Engineering",
+    now: "Product engineer at a health-tech team",
+  },
+  {
+    name: "Peter Danjuma",
+    cohort: "Cohort II",
+    track: "Applied AI Engineering",
+    now: "Building an agriculture forecasting tool",
+  },
+  {
+    name: "Zainab Musa",
+    cohort: "Cohort I",
+    track: "Applied AI Engineering",
+    now: "Data engineer, telecoms",
+  },
+  {
+    name: "Emeka Nwosu",
+    cohort: "Cohort II",
+    track: "Blockchain Engineering",
+    now: "Protocol contributor, ecosystem grant",
+  },
+  {
+    name: "Ruth Pam",
+    cohort: "Cohort I",
+    track: "AI-Native Software Engineering",
+    now: "Backend engineer, logistics platform",
+  },
+  {
+    name: "Daniel Gyang",
+    cohort: "Cohort II",
+    track: "AI-Native Software Engineering",
+    now: "Blockfuse teaching assistant",
+  },
+  {
+    name: "Fatima Sani",
+    cohort: "Cohort II",
+    track: "Applied AI Engineering",
+    now: "Applied AI resident",
+  },
+  {
+    name: "Joshua Ayuba",
+    cohort: "Cohort I",
+    track: "Blockchain Engineering",
+    now: "Security reviewer, audit collective",
+  },
+];
+
+export const alumniFilters = [
+  "All",
+  "Cohort I",
+  "Cohort II",
+  "Blockchain Engineering",
+  "Applied AI Engineering",
+  "AI-Native Software Engineering",
+];
+
+/* ─────────────────────────────────────────────────────────────
+   Blog
+   ───────────────────────────────────────────────────────────── */
+
+export interface Post {
+  meta: string;
+  title: string;
+  excerpt: string;
+}
+
+export const featuredPost: Post = {
+  meta: "Engineering · 12 min read",
+  title: "What we mean when we say an engineer is assessed",
+  excerpt:
+    "Certificates record attendance. We spent two cohorts building a rubric that records ability instead — across coding, AI-assisted development, testing, system design, problem-solving, and communication. Here is how it works, and what it costs to run honestly.",
+};
+
+export const sidePosts: Post[] = [
+  {
+    meta: "Cohort notes · 6 min",
+    title: "Cohort II in numbers",
+    excerpt:
+      "115 graduates, 500+ contracts, and the parts of the curriculum we cut.",
+  },
+  {
+    meta: "Applied AI · 9 min",
+    title: "Teaching AI-assisted development without teaching shortcuts",
+    excerpt:
+      "Students ship faster with AI. Getting them to still understand the code is the work.",
+  },
+  {
+    meta: "Community · 4 min",
+    title: "Why ProdFest happens in Jos",
+    excerpt: "Talent is not the constraint here. Proximity to opportunity is.",
+  },
+];
+
+export const morePosts: Post[] = [
+  {
+    meta: "Blockchain · 11 min",
+    title: "A review checklist for first smart contracts",
+    excerpt:
+      "The eight mistakes that appear in nearly every student's first contract.",
+  },
+  {
+    meta: "Careers · 7 min",
+    title: "What hiring partners actually ask us",
+    excerpt:
+      "Two years of questions from companies, and what they reveal about the market.",
+  },
+  {
+    meta: "Open source · 5 min",
+    title: "Running an open source programme with students",
+    excerpt:
+      "Maintainer load, review standards, and how we onboard contributors in batches.",
+  },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   Open source
+   ───────────────────────────────────────────────────────────── */
+
+export interface Repo {
+  name: string;
+  lang: string;
+  description: string;
+  stars: number;
+  forks: number;
+  updated: string;
+  activity: number[];
+}
+
+export const repos: Repo[] = [
+  {
+    name: "blockfuse/contract-kit",
+    lang: "Solidity",
+    description:
+      "Audited base contracts and test harnesses used across cohort projects.",
+    stars: 412,
+    forks: 87,
+    updated: "2d ago",
+    activity: [4, 9, 6, 12, 8, 14, 7, 11, 16, 9, 13, 18],
+  },
+  {
+    name: "blockfuse/curriculum",
+    lang: "MDX",
+    description:
+      "Every module we teach, in the open — exercises, rubrics, and reading.",
+    stars: 968,
+    forks: 214,
+    updated: "5h ago",
+    activity: [8, 6, 11, 7, 13, 9, 15, 12, 8, 17, 11, 14],
+  },
+  {
+    name: "blockfuse/agent-lab",
+    lang: "Python",
+    description:
+      "Evaluation harness for the applied AI track's agent assignments.",
+    stars: 233,
+    forks: 41,
+    updated: "1w ago",
+    activity: [3, 7, 5, 9, 12, 6, 10, 8, 14, 7, 9, 11],
+  },
+  {
+    name: "blockfuse/assess",
+    lang: "TypeScript",
+    description:
+      "The assessment platform that produces graduate ability records.",
+    stars: 187,
+    forks: 29,
+    updated: "3d ago",
+    activity: [6, 10, 8, 5, 11, 14, 9, 7, 12, 15, 10, 13],
+  },
+  {
+    name: "blockfuse/jos-dev-map",
+    lang: "TypeScript",
+    description:
+      "Community-maintained directory of developers and teams in Plateau State.",
+    stars: 96,
+    forks: 33,
+    updated: "2w ago",
+    activity: [2, 5, 3, 8, 4, 7, 9, 5, 6, 10, 4, 8],
+  },
+  {
+    name: "blockfuse/prodfest-site",
+    lang: "Next.js",
+    description:
+      "The ProdFest event platform — submissions, judging, and the live stage board.",
+    stars: 74,
+    forks: 18,
+    updated: "4d ago",
+    activity: [5, 3, 9, 6, 11, 8, 4, 10, 7, 12, 6, 9],
+  },
+];
+
+export interface ContribStep {
+  n: string;
+  title: string;
+  body: string;
+}
+
+export const contribSteps: ContribStep[] = [
+  {
+    n: "01",
+    title: "Pick a good first issue",
+    body: "Every repo keeps a labelled queue sized for a first contribution.",
+  },
+  {
+    n: "02",
+    title: "Get a maintainer",
+    body: "You're assigned a resident engineer who reviews your branch.",
+  },
+  {
+    n: "03",
+    title: "Ship to review standard",
+    body: "Tests, a clear description, and no unexplained magic. Same bar as client work.",
+  },
+  {
+    n: "04",
+    title: "Get it on your record",
+    body: "Merged work counts toward your assessment and shows on your profile.",
+  },
+];
+
+export function initials(name: string): string {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("");
+}
