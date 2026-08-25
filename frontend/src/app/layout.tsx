@@ -3,14 +3,13 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { LoadingScreen } from "@/components/ui/loading-screen";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 import { ModalProvider } from "@/components/modals/modal-provider";
-import { SiteBackground } from "@/components/ui/site-background";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Blockfuse Labs | Training and Engineering",
-  description:
-    "Blockfuse Labs trains production-ready engineers and builds dependable AI, web, and blockchain systems.",
+  title: siteConfig.title,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -23,7 +22,6 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
           <ModalProvider>
-            <SiteBackground />
             <LoadingScreen />
             <div className="relative isolate z-[2] flex min-h-screen flex-col">
               <Header />

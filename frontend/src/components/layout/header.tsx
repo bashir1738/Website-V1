@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navItems, type NavItem } from "@/lib/content";
+import { navItems, type NavItem } from "@/config/navigation";
+import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useModal } from "@/components/modals/modal-provider";
 
@@ -85,13 +86,13 @@ export function Header() {
           >
             <Image
               src="/brand/LOGO_ICON.svg"
-              alt="Blockfuse Labs"
+              alt={siteConfig.name}
               width={30}
               height={30}
               className="h-[30px] w-[30px] transition-transform duration-300 group-hover:rotate-12"
             />
             <span className="font-heading text-[15.5px] font-bold tracking-tight text-[var(--page-fg)]">
-              Blockfuse Labs
+              {siteConfig.name}
             </span>
           </Link>
 

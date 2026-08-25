@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { footerLinks } from "@/lib/content";
+import { footerLinks } from "@/config/navigation";
+import { siteConfig } from "@/config/site";
 import { useModal } from "@/components/modals/modal-provider";
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
@@ -23,18 +24,17 @@ export function Footer() {
           <div className="mb-3.5 flex items-center gap-2.5">
             <Image
               src="/brand/LOGO_ICON.svg"
-              alt="Blockfuse Labs"
+              alt={siteConfig.name}
               width={26}
               height={26}
               className="h-[26px] w-[26px]"
             />
             <span className="font-heading text-[14.5px] font-bold text-[var(--page-fg)]">
-              Blockfuse Labs
+              {siteConfig.name}
             </span>
           </div>
           <p className="mb-4 text-[13px] leading-relaxed text-[var(--dim)]">
-            Developing production-ready engineers for the AI-native world.
-            Building dependable software from Jos, Nigeria.
+            {siteConfig.tagline}
           </p>
           <button
             type="button"
@@ -75,12 +75,12 @@ export function Footer() {
               Get in Touch
             </div>
             <div className="flex flex-col gap-2.5 text-[13px] text-[var(--muted)]">
-              <p>Jos, Plateau State, Nigeria</p>
+              <p>{siteConfig.location}</p>
               <a
-                href="mailto:hello@blockfuselabs.com"
+                href={`mailto:${siteConfig.email}`}
                 className="text-[var(--accent)] transition-colors hover:text-[var(--accent-soft)]"
               >
-                hello@blockfuselabs.com
+                {siteConfig.email}
               </a>
               <Link
                 href="/privacy"
