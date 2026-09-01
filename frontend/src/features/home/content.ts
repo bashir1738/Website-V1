@@ -74,15 +74,6 @@ export interface ProgramPath {
 
 export const programPaths: ProgramPath[] = [
   {
-    title: "AI-Native Software Engineering",
-    tagline: "Foundations & AI-Assisted Workflows",
-    description:
-      "Build strong software engineering foundations while learning to use modern AI tools throughout the development process.",
-    audience:
-      "For aspiring engineers who want to become capable, adaptable, and ready for modern software teams.",
-    href: "/training",
-  },
-  {
     title: "Applied AI Engineering",
     tagline: "Model Integration & Production AI",
     description:

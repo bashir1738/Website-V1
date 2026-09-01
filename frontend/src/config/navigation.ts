@@ -14,8 +14,22 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Academy", href: "/training" },
-  { label: "Hire Engineers", href: "/talent" },
-  { label: "Engineering", href: "/engineering" },
+  {
+    label: "Engineering",
+    href: "/engineering",
+    children: [
+      {
+        label: "Engineering Studio",
+        href: "/engineering",
+        desc: "Senior-led product and engineering delivery.",
+      },
+      {
+        label: "Hire Engineers",
+        href: "/talent",
+        desc: "Add vetted Blockfuse engineers to your team.",
+      },
+    ],
+  },
   {
     label: "Events",
     href: "/events",

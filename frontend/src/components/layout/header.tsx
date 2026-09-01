@@ -34,6 +34,9 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const desktopNavItems = navItems.filter((item) =>
+    ["Home", "Academy", "Engineering", "Events", "About"].includes(item.label),
+  );
 
   // Close everything when the route changes.
   useEffect(() => {
@@ -76,29 +79,31 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--page-bg)]/70 backdrop-blur-[18px]">
-        <div className="mx-auto flex h-[68px] max-w-[1240px] items-center justify-between gap-6 px-5 sm:px-7">
+      <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--page-bg)]/82 backdrop-blur-[18px]">
+        <div className="mx-auto flex h-[76px] max-w-[1240px] items-center justify-between gap-6 px-5 sm:px-7">
           {/* Brand */}
           <Link
             href="/"
-            className="group flex shrink-0 items-center gap-2.5"
+            className="group flex min-h-10 shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]"
             aria-label="Blockfuse Labs home"
           >
             <Image
-              src="/brand/LOGO_ICON.svg"
+              src="/brand/block_fuse_logo.png"
               alt={siteConfig.name}
-              width={30}
-              height={30}
-              className="h-[30px] w-[30px] transition-transform duration-300 group-hover:rotate-12"
+              width={2840}
+              height={3274}
+              priority
+              sizes="36px"
+              className="h-9 w-auto transition-transform duration-150 ease-out group-hover:scale-105"
             />
-            <span className="font-heading text-[15.5px] font-bold tracking-tight text-[var(--page-fg)]">
+            <span className="font-heading text-base font-bold tracking-[-0.025em] text-[var(--page-fg)]">
               {siteConfig.name}
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-0.5 xl:flex">
-            {navItems.map((item) => {
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
+            {desktopNavItems.map((item) => {
               const active = isItemActive(item, pathname);
               const open = openMenu === item.label && !!item.children;
 
@@ -111,7 +116,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className={`relative flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-medium tracking-[0.01em] transition-colors duration-200 hover:bg-[var(--card)] ${
+                    className={`relative flex min-h-10 items-center gap-1.5 rounded-lg px-3 py-2 text-[13px] font-medium tracking-[0.01em] transition-colors duration-100 hover:bg-[var(--card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                       active
                         ? "text-[var(--page-fg)]"
                         : "text-[var(--muted)] hover:text-[var(--page-fg)]"
@@ -137,7 +142,7 @@ export function Header() {
                           <Link
                             key={child.label}
                             href={child.href}
-                            className="flex items-start gap-2.5 rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-[var(--accent-dim)]"
+                            className="flex min-h-11 items-start gap-2.5 rounded-xl px-3 py-2.5 transition-colors duration-100 hover:bg-[var(--accent-dim)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                           >
                             <span className="flex-1">
                               <span className="flex items-center gap-2">
@@ -170,7 +175,7 @@ export function Header() {
 
             <Link
               href={applyHref}
-              className="hidden h-10 items-center gap-2 whitespace-nowrap rounded-full bg-[var(--accent)] px-5 text-[13px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(191,100,231,0.7)] transition-all duration-200 hover:-translate-y-px hover:bg-[var(--accent-soft)] sm:inline-flex"
+              className="hidden h-10 items-center gap-2 whitespace-nowrap rounded-full bg-[var(--accent)] px-5 text-[13px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(191,100,231,0.7)] transition-[transform,background-color] duration-100 ease-out hover:-translate-y-px hover:bg-[var(--accent-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] sm:inline-flex"
             >
               Apply
               <span aria-hidden="true" className="text-sm">
@@ -183,7 +188,7 @@ export function Header() {
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-[var(--page-fg)] transition-colors hover:bg-[var(--card-hover)] xl:hidden"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--line-strong)] text-[var(--page-fg)] transition-colors duration-100 hover:bg-[var(--card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] lg:hidden"
             >
               {mobileOpen ? (
                 <span className="text-[15px] leading-none">✕</span>
@@ -200,7 +205,7 @@ export function Header() {
 
       {/* Full-screen mobile nav */}
       {mobileOpen && (
-        <div className="custom-scroll anim-fade fixed inset-x-0 bottom-0 top-[68px] z-[39] overflow-y-auto bg-[var(--page-bg)]/97 backdrop-blur-[20px] xl:hidden">
+        <div className="custom-scroll anim-fade fixed inset-x-0 bottom-0 top-[76px] z-[39] overflow-y-auto bg-[var(--page-bg)]/97 backdrop-blur-[20px] lg:hidden">
           <div className="mx-auto flex max-w-[640px] flex-col gap-7 px-7 pb-16 pt-9">
             {navItems.map((item) => (
               <div key={item.label}>
