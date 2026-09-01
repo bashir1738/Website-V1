@@ -232,39 +232,61 @@ export default function Home() {
       {/* ================================================================= */}
       {/* 13. FINAL CTA */}
       {/* ================================================================= */}
-      <section className="px-5 py-28 sm:px-7">
-        <div className="mx-auto max-w-5xl text-center">
+      <section className="final-path-section" aria-labelledby="final-path-title">
+        <div className="final-path-copy">
           <ScrollReveal blur>
-            <h2 className="font-heading text-[clamp(1.875rem,5vw,3.75rem)] font-bold tracking-[-0.035em] text-[var(--page-fg)]">
-              Potential deserves a path.
-              <br />
-              <span className="gradient-text">Companies deserve proof.</span>
+            <span className="eyebrow">Choose what comes next</span>
+            <h2 id="final-path-title">
+              Potential deserves a path. Companies deserve proof.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal className="mx-auto mt-8 max-w-2xl" delay={1}>
-            <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8">
-              Whether you want to become an engineer worth hiring, hire one, have
-              a product built, or help create more opportunities for developers
-              coming up behind you, Blockfuse is where that starts.
+          <ScrollReveal delay={1}>
+            <p>
+              Learn the work, hire proven engineers, build a serious product, or
+              help create the next opportunity. Blockfuse is where it starts.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal
-            className="mt-12 flex flex-wrap justify-center gap-3.5"
-            delay={2}
-          >
-            <ButtonLink href="#choose-your-path">Apply to Blockfuse</ButtonLink>
-            <ModalButton modal="hire" variant="secondary" arrow={false}>
-              Hire our graduates
-            </ModalButton>
-            <ButtonLink href="/engineering" variant="secondary">
-              Start a project
-            </ButtonLink>
-            <ModalButton modal="sponsor" variant="secondary" arrow={false}>
-              Partner with us
-            </ModalButton>
+          <ScrollReveal className="final-path-primary" delay={2}>
+            <ButtonLink href="#choose-your-path">Find your path</ButtonLink>
           </ScrollReveal>
+        </div>
+
+        <div className="final-path-window">
+          <div className="final-path-track">
+            <article className="final-path-card">
+              <span className="final-path-index">01 · Academy</span>
+              <h3>Become an engineer worth hiring.</h3>
+              <p>Train through real products, deadlines, and direct technical review.</p>
+              <ButtonLink href="/training" variant="secondary">Explore the Academy</ButtonLink>
+            </article>
+
+            <article className="final-path-card">
+              <span className="final-path-index">02 · Talent</span>
+              <h3>Add proven engineers to your team.</h3>
+              <p>Meet vetted builders trained to contribute inside production teams.</p>
+              <ModalButton modal="hire" variant="secondary" arrow={false}>
+                Hire our engineers
+              </ModalButton>
+            </article>
+
+            <article className="final-path-card">
+              <span className="final-path-index">03 · Studio</span>
+              <h3>Turn an ambitious idea into a shipped product.</h3>
+              <p>Work with our senior-led engineering studio from scope to delivery.</p>
+              <ButtonLink href="/engineering" variant="secondary">Start a project</ButtonLink>
+            </article>
+
+            <article className="final-path-card">
+              <span className="final-path-index">04 · Partnership</span>
+              <h3>Create more opportunities for African engineers.</h3>
+              <p>Support cohorts, events, and pathways from potential to production.</p>
+              <ModalButton modal="sponsor" variant="secondary" arrow={false}>
+                Partner with us
+              </ModalButton>
+            </article>
+          </div>
         </div>
       </section>
     </main>
