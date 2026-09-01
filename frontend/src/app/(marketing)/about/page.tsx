@@ -93,7 +93,7 @@ export default function AboutPage() {
                 title: "Blockfuse Talent Network",
                 desc: "Engineers who pass our production-readiness assessment become Blockfuse Verified Engineers. Those approved for employer introductions enter the Blockfuse Talent Network, which is what companies hire from. Others use what they learned to start something of their own.",
                 highlight: "Companies get access to evaluated talent. Engineers get a credible route from training to paid work.",
-                link: "/talent",
+                link: "/engineering#hire",
                 linkText: "Hire Blockfuse engineers",
               },
               {
@@ -293,7 +293,7 @@ export default function AboutPage() {
 
           <ScrollReveal className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" delay={2}>
             <ButtonLink href="/training" dataCursor="JOIN">Join a program</ButtonLink>
-            <ButtonLink href="/talent" variant="secondary" dataCursor="HIRE">
+            <ButtonLink href="/engineering#hire" variant="secondary" dataCursor="HIRE">
               Hire engineers
             </ButtonLink>
             <ButtonLink href="/engineering" variant="secondary" dataCursor="BUILD">

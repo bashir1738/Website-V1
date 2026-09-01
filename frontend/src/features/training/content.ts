@@ -254,3 +254,16 @@ export const graduateTestimonials: GraduateTestimonial[] = [
     cohort: "Cohort I, 2025",
   },
 ];
+
+export interface AcademyStat {
+  value: string;
+  label: string;
+}
+
+/** Proof strip under the Academy hero — the numbers behind the programs. */
+export const academyStats: AcademyStat[] = [
+  { value: "115+", label: "engineers graduated" },
+  { value: "500+", label: "smart contracts written" },
+  { value: "12", label: "dApps shipped in cohort projects" },
+  { value: "2 years", label: "developing talent in Jos" },
+];
