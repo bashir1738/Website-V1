@@ -1,21 +1,40 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
-import { engineeringServices } from "@/features/engineering/content";
+import {
+  engineeringServices,
+  deliveryPrinciples,
+  hiringModels,
+} from "@/features/engineering/content";
+import {
+  talentCategories,
+  hiringProcessSteps,
+  employerTestimonials,
+} from "@/features/talent/content";
 
 export const metadata: Metadata = {
-  title: "Blockfuse Engineering: senior-led AI, web and blockchain delivery",
+  title: "Blockfuse Engineering: build with us, or hire from us",
   description:
-    "Senior-led technical advisory and delivery for dependable AI systems, web platforms, blockchain solutions, and backend infrastructure.",
+    "Senior-led delivery for dependable AI, web, and blockchain systems, and production-ready engineers you can hire, embed, or sponsor.",
 };
+
+const AVATAR_TONES = ["tone-violet", "tone-blue"] as const;
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2);
+}
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <div className="mx-auto max-w-[1240px] px-5 sm:px-7">
       <div className="section-divider" />
     </div>
   );
@@ -23,261 +42,394 @@ function SectionDivider() {
 
 export default function EngineeringPage() {
   return (
-    <main className="relative overflow-hidden pb-20">
-      {/* ========================================================================= */}
-      {/* 1. HERO SECTION */}
-      {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Heading with Kinetic Typography */}
-          <div>
-            <KineticHeroTitle
-              prefix="Senior engineering for products"
-              cycleWords={["that need to work.", "with zero excuses.", "shipped to scale."]}
-              suffix=""
-              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-[1.08]"
-            />
-          </div>
+    <main className="relative overflow-hidden pb-24">
+      {/* ================================================================= */}
+      {/* 1. HERO                                                           */}
+      {/* ================================================================= */}
+      <section className="bf-hero">
+        <div className="bf-hero-media" aria-hidden="true">
+          <Image
+            src="/brand/path3.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+        <span className="bf-orb bf-orb-one" aria-hidden="true" />
+        <span className="bf-orb bf-orb-two" aria-hidden="true" />
+        <div className="grain-overlay" aria-hidden="true" />
 
-          {/* Lead & Paragraphs */}
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
-            <p className="font-medium text-[var(--page-fg)] text-lg sm:text-xl">
+        <div className="bf-hero-inner">
+          <ScrollReveal>
+            <span className="bf-kicker">
+              <span className="bf-kicker-mark" aria-hidden="true">
+                <span />
+                <span />
+              </span>
+              Blockfuse Engineering
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal delay={1}>
+            <h1>
+              Build with us.
+              <em>Or hire from us.</em>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal className="bf-hero-lead" delay={2}>
+            <p className="bf-hero-lead-strong">
               Blockfuse Engineering helps startups, companies, and technology
               ecosystems design and deliver dependable AI, web, and blockchain
-              systems.
+              systems — and introduces the production-ready engineers who can
+              carry that work inside your own team.
             </p>
             <p>
               The same senior engineers who set the standard our Academy trains
-              to lead these engagements. That is not a coincidence. It is why
-              our teaching stays tied to how software is actually shipped, and
-              why the work we hand over holds up after we leave.
+              to lead these engagements. That is why our teaching stays tied to
+              how software is actually shipped, and why the work we hand over
+              holds up after we leave.
+            </p>
+            <p className="bf-hero-punch">
+              One standard, whichever route you take.
             </p>
           </ScrollReveal>
 
-          {/* Actions */}
-          <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={2}>
+          <ScrollReveal className="bf-hero-actions" delay={3}>
             <ButtonLink href="/contact?intent=engineering" dataCursor="PROJECT">
               Describe what you need built
             </ButtonLink>
-            <ButtonLink href="/talent" variant="secondary" dataCursor="HIRE">
-              Or hire engineers instead
+            <ButtonLink
+              href="#hire"
+              variant="secondary"
+              className="bf-on-dark-btn"
+              dataCursor="HIRE"
+            >
+              Hire our engineers
             </ButtonLink>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 2. THE TWO ROUTES — riding the hero edge                          */}
+      {/* ================================================================= */}
+      <div className="bf-stats-wrap">
+        <ScrollReveal>
+          <div className="bf-choice">
+            <Link href="#build" className="bf-choice-card">
+              <span>Route 01 — Studio</span>
+              <strong>
+                We build it
+                <em aria-hidden="true">→</em>
+              </strong>
+              <p>
+                A senior-led team takes the problem from advisory through
+                discovery to shipped, documented software.
+              </p>
+            </Link>
+
+            <Link href="#hire" className="bf-choice-card">
+              <span>Route 02 — Talent</span>
+              <strong>
+                You build it, with our engineers
+                <em aria-hidden="true">→</em>
+              </strong>
+              <p>
+                Hire, embed, or sponsor engineers whose ability has already been
+                reviewed, assessed, and evidenced.
+              </p>
+            </Link>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      {/* ================================================================= */}
+      {/* 3. WHAT WE TAKE ON                                                */}
+      {/* ================================================================= */}
+      <section id="build" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Scope &amp; engagements</span>
+            <h2 className="bf-h2 mt-4">What we take on</h2>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12" delay={1}>
+            <div className="bf-cells bf-cells-2">
+              {engineeringServices.map((service, idx) => (
+                <article key={service.title} className="bf-cell">
+                  <div className="bf-cell-head">
+                    <span className="bf-cell-index">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="bf-cell-chip">{service.time}</span>
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.copy}</p>
+                  <Link
+                    href={`/contact?intent=engineering&service=${encodeURIComponent(
+                      service.title,
+                    )}`}
+                    className="bf-cell-link"
+                  >
+                    Request {service.title.toLowerCase()}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 4. HOW WE WORK — violet band                                      */}
+      {/* ================================================================= */}
+      <section className="bf-band px-5 py-24 sm:px-7 sm:py-32">
+        <span className="bf-orb bf-orb-three" aria-hidden="true" />
+        <div className="relative z-[1] mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow bf-eyebrow-light">
+              Delivery principles
+            </span>
+            <h2 className="bf-h2 mt-4">How we work</h2>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12 sm:mt-14" delay={1}>
+            <div className="bf-cells bf-cells-3">
+              {deliveryPrinciples.map((principle, idx) => (
+                <article key={principle.title} className="bf-cell">
+                  <div className="bf-cell-head">
+                    <span className="bf-cell-index">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3>{principle.title}</h3>
+                  <p>{principle.copy}</p>
+                  <p className="bf-cell-fine">{principle.fine}</p>
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 5. HIRING — evidence, then the specialisms                        */}
+      {/* ================================================================= */}
+      <section id="hire" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="bf-split">
+            <ScrollReveal>
+              <span className="eyebrow">The hiring reality</span>
+              <h2 className="bf-h2 mt-4">
+                Applications are abundant. Evidence is scarce.
+              </h2>
+              <div className="bf-prose mt-7">
+                <p>
+                  A CV can describe experience. A certificate can confirm
+                  attendance. Neither proves that someone can understand an
+                  unfamiliar codebase, solve a difficult problem, collaborate
+                  with a team, or take responsibility for production software.
+                </p>
+                <p>
+                  Before we recommend an engineer, we have reviewed their code,
+                  assessed their technical judgment, evaluated how they work
+                  with others, and seen what they can build.
+                </p>
+              </div>
+              <p className="bf-pullquote">
+                You spend less time filtering and more time speaking with
+                candidates who are genuinely qualified.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={2} threshold={0.08}>
+              <figure className="bf-frame">
+                <div className="bf-frame-img">
+                  <Image
+                    src="/brand/path1.jpg"
+                    alt="Blockfuse engineers at work in a training cohort in Jos"
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 46vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="bf-frame-badge">
+                  <strong>Assessed, not assumed</strong>
+                  <span>Every introduction rests on reviewed work</span>
+                </figcaption>
+              </figure>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal className="mt-20 max-w-[46rem] sm:mt-24" delay={1}>
+            <span className="eyebrow">Specialisations</span>
+            <h2 className="bf-h2 mt-4">Engineers you can hire</h2>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12" delay={2}>
+            <div className="bf-cells bf-cells-3">
+              {talentCategories.map((category, idx) => (
+                <article key={category.title} className="bf-cell">
+                  <div className="bf-cell-head">
+                    <span className="bf-cell-index">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3>{category.title}</h3>
+                  <p>{category.description}</p>
+                </article>
+              ))}
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
       <SectionDivider />
 
-      {/* ========================================================================= */}
-      {/* 2. WHAT WE TAKE ON */}
-      {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <ScrollReveal className="text-center">
-            <span className="eyebrow">
-              Scope & Engagements
-            </span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
-              What we take on
-            </h2>
+      {/* ================================================================= */}
+      {/* 6. WAYS TO WORK WITH US                                           */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Engagement models</span>
+            <h2 className="bf-h2 mt-4">Ways to work with us</h2>
           </ScrollReveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {engineeringServices.map((service, idx) => (
-              <ScrollReveal key={service.title} delay={idx + 1}>
-                <TiltCard
-                  dataCursorText="SERVICE"
-                  className="surface-card-accent flex h-full flex-col justify-between p-8 sm:p-10"
-                >
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="eyebrow">
-                        0{idx + 1}
-                      </span>
-                      <span className="inline-block rounded-full bg-[var(--card)] px-3 py-1 text-xs font-medium text-[var(--muted)] border border-[var(--line)]">
-                        {service.time}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-4 font-heading text-2xl font-bold text-[var(--page-fg)]">
-                      {service.title}
-                    </h3>
-
-                    <p className="mt-4 text-sm leading-relaxed text-[var(--muted)] sm:text-base sm:leading-7">
-                      {service.copy}
-                    </p>
+          <ScrollReveal className="mt-12" delay={1}>
+            <div className="bf-cells bf-cells-2">
+              {hiringModels.map((model, idx) => (
+                <article key={model.title} className="bf-cell">
+                  <div className="bf-cell-head">
+                    <span className="bf-cell-index">
+                      Model {String(idx + 1).padStart(2, "0")}
+                    </span>
                   </div>
+                  <h3>{model.title}</h3>
+                  <p>{model.copy}</p>
+                  <p className="bf-cell-fine">{model.fine}</p>
+                  <Link href={model.href} className="bf-cell-link">
+                    {model.ctaText}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
-                  <div className="mt-8 border-t border-[var(--line)] pt-6 flex items-center justify-between">
-                    <Link
-                      href={`/contact?intent=engineering&service=${encodeURIComponent(
-                        service.title
-                      )}`}
-                      className="link-hover group/link inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]"
+      {/* ================================================================= */}
+      {/* 7. HOW HIRING WORKS                                               */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">The hiring flow</span>
+            <h2 className="bf-h2 mt-4">How hiring through Blockfuse works</h2>
+          </ScrollReveal>
+
+          <ol className="bf-rail bf-rail-stacked max-w-[56rem]">
+            {hiringProcessSteps.map((step, index) => (
+              <li key={step.number} className="bf-stage">
+                <span className="bf-stage-dot">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="bf-stage-content">
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* 8. WHAT EMPLOYERS SAY                                             */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Employer endorsements</span>
+            <h2 className="bf-h2 mt-4">What employers say</h2>
+          </ScrollReveal>
+
+          <div className="bf-quote-grid bf-quote-grid-2 mt-12 sm:mt-14">
+            {employerTestimonials.map((item, i) => (
+              <ScrollReveal key={item.author} delay={i + 1}>
+                <figure className="bf-quote" data-cursor="QUOTE">
+                  <blockquote>
+                    <p>{item.quote}</p>
+                  </blockquote>
+                  <figcaption>
+                    <span
+                      className={`bf-avatar ${AVATAR_TONES[i % AVATAR_TONES.length]}`}
+                      aria-hidden="true"
                     >
-                      <span>Request {service.title}</span>
-                      <span
-                        aria-hidden="true"
-                        className="transition group-hover/link:translate-x-1"
-                      >
-                        →
-                      </span>
-                    </Link>
-                  </div>
-                </TiltCard>
+                      {initials(item.author)}
+                    </span>
+                    <span className="bf-quote-person">
+                      <strong>{item.author}</strong>
+                      <span>{item.role}</span>
+                    </span>
+                  </figcaption>
+                </figure>
               </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      <SectionDivider />
+      {/* ================================================================= */}
+      {/* 9. FINAL CTA                                                      */}
+      {/* ================================================================= */}
+      <section className="px-5 sm:px-7">
+        <div className="bf-cta">
+          <div className="bf-cta-media" aria-hidden="true">
+            <Image
+              src="/brand/path2.jpg"
+              alt=""
+              fill
+              sizes="(max-width: 1240px) 100vw, 1240px"
+              className="object-cover"
+            />
+          </div>
+          <span className="bf-orb bf-orb-four" aria-hidden="true" />
 
-      {/* ========================================================================= */}
-      {/* 3. HOW WE WORK */}
-      {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <ScrollReveal className="text-center">
-            <span className="eyebrow">
-              Delivery Principles
+          <ScrollReveal className="bf-cta-inner">
+            <span className="eyebrow bf-eyebrow-light">
+              Tell us what you are solving
             </span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
-              How we work
-            </h2>
-          </ScrollReveal>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {/* Senior Led */}
-            <ScrollReveal delay={1}>
-              <TiltCard className="p-8 sm:p-10 flex flex-col justify-between h-full">
-                <div>
-                  <span className="eyebrow">
-                    Senior Accountability
-                  </span>
-                  <h3 className="mt-2 font-heading text-2xl font-bold text-[var(--page-fg)]">
-                    Senior-led with supervised residency
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-[var(--muted)]">
-                    Every engagement is led by a senior engineer who owns the
-                    technical decisions, the quality, and your relationship with
-                    us. Residents from the Academy work underneath that leadership
-                    on real tasks, reviewed, supervised, and never billed as
-                    senior time.
-                  </p>
-                  <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
-                    It is how engineers here get genuinely good, and it is
-                    reflected in what we charge.
-                  </div>
-                </div>
-              </TiltCard>
-            </ScrollReveal>
-
-            {/* Complete Ownership */}
-            <ScrollReveal delay={2}>
-              <TiltCard className="p-8 sm:p-10 flex flex-col justify-between h-full">
-                <div>
-                  <span className="eyebrow">
-                    IP & Discretion
-                  </span>
-                  <h3 className="mt-2 font-heading text-2xl font-bold text-[var(--page-fg)]">
-                    Your IP remains strictly yours
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-[var(--muted)]">
-                    Your code, your infrastructure, your IP, and your roadmap are
-                    yours. We ask before we put your name on anything, and a good
-                    deal of the work we do is never mentioned at all.
-                  </p>
-                  <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--card)] p-4 text-xs sm:text-sm font-medium text-[var(--page-fg)]">
-                    Delivered into your accounts with documentation written for
-                    clean handover.
-                  </div>
-                </div>
-              </TiltCard>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ========================================================================= */}
-      {/* 4. WE TAKE FEW OF THESE */}
-      {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-4xl">
-          <ScrollReveal>
-            <TiltCard className="p-8 sm:p-12">
-              <span className="eyebrow">
-                Focus & Standards
-              </span>
-              <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
-                We take few of these
-              </h2>
-
-              <div className="mt-6 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8">
-                <p>
-                  Every project needs the right senior lead, a clear problem, and a
-                  realistic path to delivery. We take on a small number of
-                  engagements and staff them properly rather than many and thinly.
-                  If the fit is wrong we will say so early, and we can usually
-                  point you somewhere better.
-                </p>
-                <div className="rounded-2xl border border-[var(--line)] bg-[var(--card)] p-5 text-sm sm:text-base text-[var(--muted)]">
-                  If what you actually need is more engineers inside your own
-                  team,{" "}
-                  <Link
-                    href="/talent"
-                    className="font-semibold text-[var(--accent)] underline decoration-[var(--accent)]/50 underline-offset-4 hover:decoration-[var(--accent)]"
-                  >
-                    hiring or embedding Blockfuse engineers
-                  </Link>{" "}
-                  is probably the better route.
-                </div>
-              </div>
-
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <ButtonLink href="/contact?intent=engineering" dataCursor="PROJECT">
-                  Describe what you need built
-                </ButtonLink>
-                <ButtonLink href="/talent" variant="secondary" dataCursor="HIRE">
-                  Or hire engineers instead
-                </ButtonLink>
-              </div>
-            </TiltCard>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ========================================================================= */}
-      {/* 5. FINAL CTA BANNER */}
-      {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-br from-[var(--accent)]/30 via-transparent to-transparent p-px shadow-2xl">
-          <div className="rounded-3xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
-              Have a problem worth solving?
-              <br />
-              <span className="gradient-text">Let&apos;s build it right.</span>
-            </h2>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8">
-              Whether you need architecture advice, an exploratory prototype, or
-              full end-to-end delivery of AI and blockchain products, our senior
-              engineers are ready to lead.
+            <h2>Have a problem worth solving?</h2>
+            <p>
+              Describe the system you need built, or the role you need filled.
+              We will tell you honestly which route fits, and say so early if
+              neither does.
             </p>
-
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <ButtonLink href="/contact?intent=engineering" dataCursor="PROJECT">
-                Start an Engineering Project
+            <div className="bf-cta-actions">
+              <ButtonLink
+                href="/contact?intent=engineering"
+                dataCursor="PROJECT"
+              >
+                Start a project
               </ButtonLink>
-              <ButtonLink href="/talent" variant="secondary" dataCursor="TALENT">
-                Explore Talent Network
-              </ButtonLink>
+              <ModalButton
+                modal="hire"
+                variant="secondary"
+                className="bf-on-dark-btn"
+                arrow={false}
+              >
+                Tell us about the role
+              </ModalButton>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </main>

@@ -14,22 +14,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Academy", href: "/training" },
-  {
-    label: "Engineering",
-    href: "/engineering",
-    children: [
-      {
-        label: "Engineering Studio",
-        href: "/engineering",
-        desc: "Senior-led product and engineering delivery.",
-      },
-      {
-        label: "Hire Engineers",
-        href: "/talent",
-        desc: "Add vetted Blockfuse engineers to your team.",
-      },
-    ],
-  },
+  { label: "Engineering", href: "/engineering" },
   {
     label: "Events",
     href: "/events",
@@ -97,9 +82,9 @@ export const footerLinks = {
     { label: "Team Training", href: "/training" },
   ],
   organizations: [
-    { label: "Hire Blockfuse engineers", href: "/talent" },
-    { label: "Engage embedded engineers", href: "/talent" },
-    { label: "Sponsor a cohort", href: "/talent" },
+    { label: "Hire Blockfuse engineers", href: "/engineering#hire" },
+    { label: "Engage embedded engineers", href: "/engineering#hire" },
+    { label: "Sponsor a cohort", href: "/engineering#hire" },
     { label: "Train your team", href: "/training" },
     { label: "Become a partner", href: "/contact" },
   ],
