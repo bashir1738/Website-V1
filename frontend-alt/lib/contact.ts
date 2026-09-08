@@ -37,6 +37,9 @@ export const contact = {
   update: (id: number, data: ContactPayload, token: string) =>
     api.put<ContactResponse>(`/contact/${id}`, data, token),
 
+  patch: (id: number, data: Partial<ContactPayload>, token: string) =>
+    api.patch<ContactResponse>(`/contact/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/contact/${id}`, token),
 }

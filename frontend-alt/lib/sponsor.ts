@@ -41,6 +41,9 @@ export const sponsor = {
   update: (id: number, data: SponsorPayload, token: string) =>
     api.put<SponsorResponse>(`/sponsorships/${id}`, data, token),
 
+  patch: (id: number, data: Partial<SponsorPayload>, token: string) =>
+    api.patch<SponsorResponse>(`/sponsorships/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/sponsorships/${id}`, token),
 }

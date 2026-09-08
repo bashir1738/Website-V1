@@ -51,6 +51,9 @@ export const alumni = {
   update: (id: number, data: AlumniPayload, token: string) =>
     api.put<AlumniResponse>(`/alumni-submissions/${id}`, data, token),
 
+  patch: (id: number, data: Partial<AlumniPayload>, token: string) =>
+    api.patch<AlumniResponse>(`/alumni-submissions/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/alumni-submissions/${id}`, token),
 }

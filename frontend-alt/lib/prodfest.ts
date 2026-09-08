@@ -39,6 +39,9 @@ export const prodfest = {
   update: (id: number, data: ProdfestPayload, token: string) =>
     api.put<ProdfestResponse>(`/prodfest-registrations/${id}`, data, token),
 
+  patch: (id: number, data: Partial<ProdfestPayload>, token: string) =>
+    api.patch<ProdfestResponse>(`/prodfest-registrations/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/prodfest-registrations/${id}`, token),
 }
