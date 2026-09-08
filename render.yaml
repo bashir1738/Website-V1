@@ -1,0 +1,66 @@
+# Render Blueprint for the Blockfuse Labs site
+#
+# Deploy flow from the GitHub repo via Render Blueprints ("New -> Blueprint").
+#
+# NOTE: The Postgres database lives on Railway (see backend-alt/.env -> DATABASE_URL).
+#       No secrets are committed here. Set the following in the Render dashboard
+#       after the services are created (right-hand "Environment" tab), then redeploy:
+#         - backend:  DATABASE_URL, ADMIN_PASSWORD, CLOUDINARY_CLOUD_NAME,
+#                     CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, RESEND_API_KEY,
+#                     FRONTEND_URL (https://<frontend-host>/)
+#         - frontend: NEXT_PUBLIC_API_URL (https://<backend-host>/api)
+
+services:
+  # ---------------------------------------------------------------------------
+  # Backend API (Express, port 5000)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: blockfuse-backend
+    runtime: node
+    rootDir: backend-alt
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    preDeployCommand: npm run migrate && npm run seed
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: ADMIN_EMAIL
+        value: admin@blockfuse.io
+      - key: JWT_SECRET
+        generateValue: true
+      # --- set in Render dashboard (secret values, not committed) ---
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+
+  # ---------------------------------------------------------------------------
+  # Frontend (Next.js, port 3001)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: blockfuse-frontend
+    runtime: node
+    rootDir: frontend-alt
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # --- set in Render dashboard after the backend service exists, then redeploy ---
+      - key: NEXT_PUBLIC_API_URL
+        sync: false

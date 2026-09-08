@@ -1,0 +1,100 @@
+'use client'
+
+import { useState } from 'react'
+
+export function EventForm({ onSubmit, loading, submitLabel = 'Create Event', initial }: {
+  onSubmit: (data: {
+    title: string
+    slug: string
+    description: string
+    date: string
+    location?: string
+    link?: string
+    image?: File
+  }) => Promise<void>
+  loading: boolean
+  submitLabel?: string
+  initial?: { title: string; slug: string; description: string; date: string; location?: string; link?: string }
+}) {
+  const [title, setTitle] = useState(initial?.title ?? '')
+  const [slug, setSlug] = useState(initial?.slug ?? '')
+  const [description, setDescription] = useState(initial?.description ?? '')
+  const [date, setDate] = useState(initial?.date ?? '')
+  const [location, setLocation] = useState(initial?.location ?? '')
+  const [link, setLink] = useState(initial?.link ?? '')
+  const [image, setImage] = useState<File | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await onSubmit({
+      title,
+      slug,
+      description,
+      date,
+      location: location || undefined,
+      link: link || undefined,
+      image: image ?? undefined,
+    })
+  }
+
+  const inputCls = "w-full px-3 py-2.5 bg-white/[0.02] border border-dark-border text-text-primary focus:outline-none focus:border-accent-purple text-sm"
+  const labelCls = "block text-[10px] font-mono tracking-widest uppercase text-text-muted mb-1"
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className={labelCls}>Title *</label>
+          <input required value={title} onChange={(e) => { setTitle(e.target.value); setSlug(slugify(e.target.value)) }} className={inputCls} />
+        </div>
+        <div>
+          <label className={labelCls}>Slug *</label>
+          <input required value={slug} onChange={(e) => setSlug(e.target.value)} className={`${inputCls} font-mono text-xs`} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className={labelCls}>Date *</label>
+          <input required type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className={`${inputCls} text-xs`} />
+        </div>
+        <div>
+          <label className={labelCls}>Location</label>
+          <input value={location} onChange={(e) => setLocation(e.target.value)} className={inputCls} />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelCls}>Event Link</label>
+        <input type="url" value={link} onChange={(e) => setLink(e.target.value)} className={inputCls} />
+      </div>
+
+      <div>
+        <label className={labelCls}>Cover Image</label>
+        <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] ?? null)} className={`${inputCls} text-xs`} />
+      </div>
+
+      <div>
+        <label className={labelCls}>Description *</label>
+        <textarea required rows={5} value={description} onChange={(e) => setDescription(e.target.value)} className={`${inputCls} resize-y leading-relaxed`} />
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full py-3 bg-text-primary text-dark-bg text-xs tracking-widest uppercase font-mono hover:bg-accent-purple hover:text-white transition-all disabled:opacity-50"
+      >
+        {loading ? 'Saving…' : submitLabel}
+      </button>
+    </form>
+  )
+}
+
+function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+}

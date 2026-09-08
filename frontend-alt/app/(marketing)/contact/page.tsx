@@ -1,4 +1,13 @@
+'use client'
+
+import { useState } from 'react'
+import { contact } from '@/lib/contact'
+
 export default function ContactPage() {
+  const [form, setForm] = useState({ name: '', email: '', topic: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [error, setError] = useState<string | null>(null)
+
   const contactMethods = [
     {
       icon: '✉️',
@@ -6,13 +15,6 @@ export default function ContactPage() {
       value: 'connect@blockfuselabs.com',
       href: 'mailto:connect@blockfuselabs.com',
       description: 'Best for detailed inquiries',
-    },
-    {
-      icon: '📞',
-      label: 'Phone',
-      value: '+1 (555) 123',
-      href: 'tel:+1-555-123',
-      description: 'Quick conversation',
     },
     {
       icon: '📍',
@@ -30,12 +32,25 @@ export default function ContactPage() {
     { title: 'Partnerships', description: 'Explore ecosystem collaborations' },
   ]
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setStatus('loading')
+    setError(null)
+    try {
+      await contact.submit(form)
+      setStatus('success')
+      setForm({ name: '', email: '', topic: '', message: '' })
+    } catch (err) {
+      setStatus('error')
+      setError(err instanceof Error ? err.message : 'Message failed to send')
+    }
+  }
+
   return (
     <>
       {/* Hero - Direct & Minimal Layout */}
       <section className="min-h-[70vh] flex flex-col justify-center border-b border-dark-border mb-24 py-12">
         <div className="max-w-6xl mx-auto w-full space-y-12">
-          {/* Main Heading - Centered */}
           <div className="text-center space-y-6 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent-pink/10 border border-accent-pink/30 text-[11px] font-mono tracking-widest text-accent-pink uppercase w-fit mx-auto">
               <span className="h-1.5 w-1.5 bg-accent-pink inline-block animate-pulse" />
@@ -55,9 +70,9 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {/* Three Contact Cards - Side by Side */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto w-full">
-            {contactMethods.map((method, i) => (
+          {/* Two Contact Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto w-full">
+            {contactMethods.map((method) => (
               <a
                 key={method.label}
                 href={method.href}
@@ -80,6 +95,77 @@ export default function ContactPage() {
                 </p>
               </a>
             ))}
+          </div>
+
+          {/* Contact Form */}
+          <div className="max-w-2xl mx-auto w-full border border-dark-border bg-white/[0.01]">
+            <div className="border-b border-dark-border px-6 py-4 flex items-center justify-between">
+              <span className="text-[11px] font-mono tracking-widest text-accent-pink uppercase">
+                Send us a message
+              </span>
+              {status === 'success' && (
+                <span className="text-emerald-400 text-xs">Message sent ✓</span>
+              )}
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-mono tracking-widest uppercase text-text-muted mb-1">Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-white/[0.02] border border-dark-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-pink text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-mono tracking-widest uppercase text-text-muted mb-1">Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="w-full px-3 py-2.5 bg-white/[0.02] border border-dark-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-pink text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-mono tracking-widest uppercase text-text-muted mb-1">Topic</label>
+                <input
+                  type="text"
+                  required
+                  value={form.topic}
+                  onChange={(e) => setForm({ ...form, topic: e.target.value })}
+                  className="w-full px-3 py-2.5 bg-white/[0.02] border border-dark-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-pink text-sm"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-mono tracking-widest uppercase text-text-muted mb-1">Message</label>
+                <textarea
+                  required
+                  rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="w-full px-3 py-2.5 bg-white/[0.02] border border-dark-border text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-pink text-sm resize-none"
+                />
+              </div>
+
+              {status === 'error' && (
+                <p className="text-accent-pink text-sm">{error}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full py-3.5 bg-text-primary text-dark-bg text-xs tracking-widest uppercase font-mono hover:bg-transparent hover:text-text-primary hover:border hover:border-text-primary transition-all duration-300 disabled:opacity-50"
+              >
+                {status === 'loading' ? 'Sending…' : 'Send Message →'}
+              </button>
+            </form>
           </div>
 
           {/* Reason Cards */}
