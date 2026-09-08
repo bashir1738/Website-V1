@@ -35,6 +35,9 @@ export const newsletter = {
   update: (id: number, data: NewsletterPayload, token: string) =>
     api.put<NewsletterResponse>(`/newsletter/${id}`, data, token),
 
+  patch: (id: number, data: Partial<NewsletterPayload>, token: string) =>
+    api.patch<NewsletterResponse>(`/newsletter/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/newsletter/${id}`, token),
 }

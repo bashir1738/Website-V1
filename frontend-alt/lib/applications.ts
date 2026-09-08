@@ -49,6 +49,9 @@ export const applications = {
   update: (id: number, data: ApplicationPayload, token: string) =>
     api.put<ApplicationResponse>(`/applications/${id}`, data, token),
 
+  patch: (id: number, data: Partial<ApplicationPayload>, token: string) =>
+    api.patch<ApplicationResponse>(`/applications/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/applications/${id}`, token),
 }

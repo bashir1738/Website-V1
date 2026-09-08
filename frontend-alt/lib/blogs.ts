@@ -33,6 +33,9 @@ export const blogs = {
   update: (id: number, formData: FormData, token: string) =>
     api.upload<BlogSingleResponse>(`/blogs/${id}`, formData, token, 'PUT'),
 
+  patch: (id: number, data: Partial<Blog>, token: string) =>
+    api.patch<BlogSingleResponse>(`/blogs/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/blogs/${id}`, token),
 }

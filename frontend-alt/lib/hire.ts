@@ -47,6 +47,9 @@ export const hire = {
   update: (id: number, data: HirePayload, token: string) =>
     api.put<HireResponse>(`/hiring-requests/${id}`, data, token),
 
+  patch: (id: number, data: Partial<HirePayload>, token: string) =>
+    api.patch<HireResponse>(`/hiring-requests/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/hiring-requests/${id}`, token),
 }

@@ -41,6 +41,9 @@ export const opensource = {
   update: (id: number, data: OpensourcePayload, token: string) =>
     api.put<OpensourceResponse>(`/opensource-applications/${id}`, data, token),
 
+  patch: (id: number, data: Partial<OpensourcePayload>, token: string) =>
+    api.patch<OpensourceResponse>(`/opensource-applications/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/opensource-applications/${id}`, token),
 }

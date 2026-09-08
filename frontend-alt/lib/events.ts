@@ -34,6 +34,9 @@ export const events = {
   update: (id: number, formData: FormData, token: string) =>
     api.upload<EventSingleResponse>(`/events/${id}`, formData, token, 'PUT'),
 
+  patch: (id: number, data: Partial<Event>, token: string) =>
+    api.patch<EventSingleResponse>(`/events/${id}`, data, token),
+
   remove: (id: number, token: string) =>
     api.delete<{ success: boolean }>(`/events/${id}`, token),
 }

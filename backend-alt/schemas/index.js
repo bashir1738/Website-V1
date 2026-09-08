@@ -220,6 +220,20 @@ const newsletterSchema = Joi.object({
   topics: Joi.array().items(Joi.string().valid(...NEWSLETTER_TOPICS)).min(1).max(4).allow(null),
 });
 
+const makePartial = (schema) =>
+  schema.fork(Object.keys(schema.describe().keys), (field) => field.optional());
+
+const blogUpdateSchema = makePartial(blogSchema);
+const eventUpdateSchema = makePartial(eventSchema);
+const contactUpdateSchema = makePartial(contactSchema);
+const applicationUpdateSchema = makePartial(applicationSchema);
+const hireUpdateSchema = makePartial(hireSchema);
+const prodfestUpdateSchema = makePartial(prodfestSchema);
+const sponsorUpdateSchema = makePartial(sponsorSchema);
+const opensourceUpdateSchema = makePartial(opensourceSchema);
+const alumniUpdateSchema = makePartial(alumniSchema);
+const newsletterUpdateSchema = makePartial(newsletterSchema);
+
 module.exports = {
   loginSchema,
   blogSchema,
@@ -232,4 +246,14 @@ module.exports = {
   opensourceSchema,
   alumniSchema,
   newsletterSchema,
+  blogUpdateSchema,
+  eventUpdateSchema,
+  contactUpdateSchema,
+  applicationUpdateSchema,
+  hireUpdateSchema,
+  prodfestUpdateSchema,
+  sponsorUpdateSchema,
+  opensourceUpdateSchema,
+  alumniUpdateSchema,
+  newsletterUpdateSchema,
 };
