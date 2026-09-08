@@ -16,60 +16,21 @@ export const navItems: NavItem[] = [
   { label: "Academy", href: "/training" },
   { label: "Engineering", href: "/engineering" },
   {
-    label: "Events",
+    label: "Community",
     href: "/events",
     children: [
       {
-        label: "ProdFest",
-        href: "/prodfest",
-        flag: true,
-        desc: "Annual demo festival — the flagship.",
+        label: "Events",
+        href: "/events",
+        desc: "Meetups, workshops, hackathons, and demo days.",
       },
       {
-        label: "Hackathons",
-        href: "/events#hackathons",
-        desc: "48-hour builds with ecosystem partners.",
-      },
-      {
-        label: "Meetups",
-        href: "/events#meetups",
-        desc: "Monthly community nights in Jos.",
-      },
-      {
-        label: "Workshops",
-        href: "/events#workshops",
-        desc: "Short, hands-on technical sessions.",
-      },
-      {
-        label: "Demo days",
-        href: "/events#demo-days",
-        desc: "End-of-cohort project reviews.",
-      },
-      {
-        label: "Past events",
-        href: "/events#past-events",
-        desc: "The archive, 2024 onward.",
+        label: "Blog",
+        href: "/blog",
+        desc: "Stories, ideas, and updates from Blockfuse.",
       },
     ],
   },
-  {
-    label: "Community",
-    href: "/team",
-    children: [
-      { label: "Team", href: "/team", desc: "The people who review the work." },
-      {
-        label: "Alumni",
-        href: "/alumni",
-        desc: "Graduates from Cohorts I and II.",
-      },
-      {
-        label: "Open Source",
-        href: "/open-source",
-        desc: "Repos maintained by our students.",
-      },
-    ],
-  },
-  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

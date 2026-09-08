@@ -93,3 +93,19 @@ export const pastEvents: PastEvent[] = [
     kind: "Meetup",
   },
 ];
+
+const eventImages = ["heropic.jpg", "path2.jpg", "path1.jpg", "path3.jpg", "heropic2.jpg"];
+const eventDescriptions = [
+  "Our annual demo festival brings finished products into the room with founders, hiring partners, and the community. Explore the work behind the 2025 edition and get involved in the next one.",
+  "A 48-hour build with ecosystem partners. Teams turn ideas into working prototypes and put their decisions in front of engineering reviewers.",
+  "An opportunity for cohort teams to present their projects and defend the choices behind them. The focus is on demonstrated ability and clear technical communication.",
+  "A series of practical sessions focused on applied AI. Each workshop creates space to work through a technique, ask questions, and learn alongside other builders.",
+  "An open community night for conversations, demos, and new connections. A place to meet the people building the Jos technology community.",
+];
+
+export const eventDetails = pastEvents.map((event, index) => ({
+  ...event,
+  slug: event.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-$/, ""),
+  image: `/brand/${eventImages[index]}`,
+  description: eventDescriptions[index],
+}));

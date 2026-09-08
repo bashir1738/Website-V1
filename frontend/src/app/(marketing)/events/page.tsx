@@ -1,126 +1,66 @@
-import React from "react";
 import type { Metadata } from "next";
-import { PageHero, PageShell } from "@/components/ui/page-hero";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import Image from "next/image";
+import Link from "next/link";
 import { ModalButton } from "@/components/ui/modal-button";
-import { prodfestFacts, eventKinds, pastEvents } from "@/features/events/content";
+import { eventDetails } from "@/features/events/content";
 
 export const metadata: Metadata = {
   title: "Events | Blockfuse Labs",
-  description:
-    "ProdFest, hackathons, meetups, workshops, and demo days — everything Blockfuse runs to put students in front of the people who can hire them.",
+  description: "Meet the builders. Explore Blockfuse festivals, hackathons, workshops, and community events.",
 };
 
 export default function EventsPage() {
   return (
-    <PageShell>
-      <PageHero
-        eyebrow="Events"
-        title="Where the work meets the room."
-        lead="Everything we run is built to put students in front of people who can hire them, fund them, or push them harder."
-      />
+    <main>
+      <section className="relative isolate overflow-hidden bg-[var(--color-surface-2)] px-5 py-16 text-[var(--color-paper)] sm:px-7 sm:py-20">
+        <Image src="/brand/heropic.jpg" alt="" fill preload sizes="100vw" className="-z-20 object-cover object-center" />
+        <div className="absolute inset-0 -z-10 bg-[var(--color-ink)]/80" />
+        <div className="mx-auto max-w-[1240px]">
+          <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">Blockfuse / Community events</p>
+          <h1 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Good things happen<br />when builders meet.</h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-[var(--color-muted-light)]">From first demos to late-night builds. Find your people, share your work, and be part of what happens next.</p>
+          <a href="#events" className="mt-8 inline-flex min-h-11 items-center gap-6 rounded-full bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
 
-      {/* Flagship — ProdFest */}
-      <ScrollReveal className="mt-12" delay={1}>
-        <div className="feature-panel !rounded-[26px] px-7 py-10 sm:px-10 sm:py-11">
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <div className="max-w-[54ch]">
-              <span className="mono-tag !text-[9.5px] !tracking-[0.18em] text-[var(--page-fg)]">
-                Flagship
-              </span>
-              <h2 className="mt-5 font-heading text-[clamp(2.125rem,4.4vw,3.375rem)] font-bold leading-none tracking-[-0.035em] text-[var(--page-fg)]">
-                ProdFest
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-[var(--bright)]">
-                Our annual demo festival. Cohort teams present finished products
-                to a live audience of founders, investors, hiring partners, and
-                the wider Jos tech community. Twelve dApps and AI products have
-                launched off that stage.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2.5">
-                <ModalButton modal="prodfest" variant="contrast" arrow={false}>
-                  Register for ProdFest 2026 <span aria-hidden="true">→</span>
-                </ModalButton>
-                <ModalButton modal="sponsor" variant="ghost" arrow={false}>
-                  Become a sponsor
-                </ModalButton>
-              </div>
-            </div>
+      <section className="mx-auto max-w-[1240px] px-5 py-12 sm:px-7 sm:py-16">
+        <div className="grid gap-8 border-b border-[var(--line-strong)] pb-12 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <span className="eyebrow">The next chapter</span>
+            <h2 className="mt-3 text-3xl font-bold">ProdFest 2026</h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted)]">Our flagship demo festival returns. Register your interest to hear about the next edition. Date and venue to be announced.</p>
+          </div>
+          <ModalButton modal="prodfest">Register interest</ModalButton>
+        </div>
 
-            <div className="grid min-w-[180px] gap-[18px]">
-              {prodfestFacts.map((fact) => (
-                <div key={fact.label}>
-                  <div className="font-heading text-[26px] font-bold tracking-[-0.02em] text-[var(--page-fg)]">
-                    {fact.value}
-                  </div>
-                  <div className="mt-1 text-xs text-[var(--bright)]">
-                    {fact.label}
-                  </div>
+        <div id="events" className="scroll-mt-28 pt-12">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div><span className="eyebrow">The community in action</span><h2 id="past-events" className="mt-3 scroll-mt-28 text-3xl font-bold">Past events</h2></div>
+            <p className="text-sm text-[var(--muted)]">Festivals. Workshops. A shared love of building.</p>
+          </div>
+          <div className="grid gap-7 md:grid-cols-2">
+            {eventDetails.map((event) => (
+              <Link key={event.slug} href={`/events/${event.slug}`} className="group overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]">
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <Image src={event.image} alt="" fill sizes="(min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw" className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105" />
+                  <span className="absolute bottom-4 left-4 rounded-lg bg-[var(--surface)] px-4 py-3 font-mono text-sm font-semibold">{event.date}</span>
+                  <span className="absolute right-4 top-4 rounded-full bg-[var(--color-ink)]/85 px-3 py-2 text-xs text-[var(--color-paper)]">Past event</span>
                 </div>
-              ))}
-            </div>
+                <div className="p-6 sm:p-8">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">{event.kind}</p>
+                  <h3 className="mt-3 text-2xl font-bold group-hover:text-[var(--accent)]">{event.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{event.description}</p>
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] pt-5 text-sm"><span className="text-[var(--muted)]">{event.meta}</span><span className="font-semibold">Explore event <span aria-hidden="true">↗</span></span></div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
-      </ScrollReveal>
-
-      {/* What we run */}
-      <div className="mt-[18px] grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
-        {eventKinds.map((kind, i) => (
-          <ScrollReveal key={kind.id} delay={Math.min(i + 1, 4)}>
-            <div
-              id={kind.id}
-              className="surface-card h-full scroll-mt-24 px-6 py-7 hover:-translate-y-1"
-            >
-              <div className="mb-4 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--accent)]">
-                {kind.cadence}
-              </div>
-              <h3 className="font-heading text-[19px] font-bold tracking-[-0.02em] text-[var(--page-fg)]">
-                {kind.title}
-              </h3>
-              <p className="mt-2.5 text-[13.5px] leading-relaxed text-[var(--muted)]">
-                {kind.description}
-              </p>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
-
-      {/* Past events */}
-      <ScrollReveal className="mt-16" delay={1}>
-        <h2
-          id="past-events"
-          className="scroll-mt-24 font-heading text-[28px] font-bold tracking-[-0.025em] text-[var(--page-fg)]"
-        >
-          Past events
-        </h2>
-        <div className="row-list mt-6">
-          {pastEvents.map((event) => (
-            <div
-              key={event.title}
-              className="flex flex-wrap items-center gap-5 px-6 py-5"
-            >
-              <div className="w-[92px] shrink-0 font-mono text-[11.5px] text-[var(--dim)]">
-                {event.date}
-              </div>
-              <div className="min-w-[180px] flex-1 text-[15px] font-semibold text-[var(--page-fg)]">
-                {event.title}
-              </div>
-              <div className="text-[12.5px] text-[var(--muted)]">
-                {event.meta}
-              </div>
-              <span className="mono-tag">{event.kind}</span>
-            </div>
-          ))}
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-[var(--surface-2)] p-8">
+          <div><h2 className="text-2xl font-bold">Bring something to the room.</h2><p className="mt-2 text-sm text-[var(--muted)]">Partner with us on a workshop, a build, or the next big gathering.</p></div>
+          <ModalButton modal="sponsor" variant="secondary">Partner with us</ModalButton>
         </div>
-      </ScrollReveal>
-
-      {/* Close */}
-      <ScrollReveal className="mt-16 flex flex-wrap items-center gap-3.5" delay={1}>
-        <ModalButton modal="prodfest">Register interest</ModalButton>
-        <ModalButton modal="sponsor" variant="secondary" arrow={false}>
-          Partner with us
-        </ModalButton>
-      </ScrollReveal>
-    </PageShell>
+      </section>
+    </main>
   );
 }

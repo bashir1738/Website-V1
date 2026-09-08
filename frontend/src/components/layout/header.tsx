@@ -35,7 +35,7 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const desktopNavItems = navItems.filter((item) =>
-    ["Home", "Academy", "Engineering", "Events", "About"].includes(item.label),
+    ["Home", "Academy", "Engineering", "Community", "About"].includes(item.label),
   );
 
   // Close everything when the route changes.
