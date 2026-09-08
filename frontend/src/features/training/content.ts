@@ -45,7 +45,6 @@ export interface DetailedProgram {
   description: string;
   topics: string[];
   outcome: string;
-  note?: string;
   ctaText: string;
 }
 
@@ -108,7 +107,6 @@ export const detailedPrograms: DetailedProgram[] = [
     ],
     outcome:
       "Funded places and sponsorship arrangements are announced when applications open.",
-    note: "Funded places and sponsorship arrangements are announced when applications open.",
     ctaText: "Learn about Blockchain Engineering",
   },
   {
@@ -125,7 +123,6 @@ export const detailedPrograms: DetailedProgram[] = [
     ],
     outcome:
       "Programs can be delivered at Blockfuse in Jos, at your organisation's offices, or remotely.",
-    note: "Programs can be delivered at Blockfuse in Jos, at your organisation’s offices, or remotely.",
     ctaText: "Discuss a team training program",
   },
 ];

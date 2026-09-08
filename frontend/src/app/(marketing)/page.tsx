@@ -7,6 +7,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { TeamNetwork } from "@/features/home/team-network";
 import {
+  closingPaths,
   howBlockfuseWorks,
   programPaths,
 } from "@/features/home/content";
@@ -230,62 +231,52 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 13. FINAL CTA */}
+      {/* 13. NEXT STEPS — one clear card per audience, no gimmicks */}
       {/* ================================================================= */}
-      <section className="final-path-section" aria-labelledby="final-path-title">
-        <div className="final-path-copy">
-          <ScrollReveal blur>
-            <span className="eyebrow">Choose what comes next</span>
-            <h2 id="final-path-title">
-              Potential deserves a path. Companies deserve proof.
-            </h2>
-          </ScrollReveal>
+      <section className="px-5 py-24 sm:px-7 sm:py-32">
+        <div className="mx-auto max-w-[1120px]">
+          <div className="mx-auto max-w-[42rem] text-center">
+            <ScrollReveal>
+              <span className="eyebrow">Where to start</span>
+            </ScrollReveal>
+            <ScrollReveal delay={1}>
+              <h2 className="mt-4 font-heading text-[clamp(2.25rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[var(--page-fg)]">
+                Learn. Hire. Build. Partner.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={2}>
+              <p className="mx-auto mt-6 max-w-[46ch] text-base leading-[1.7] text-[var(--muted)] sm:text-lg">
+                Learn the work, hire engineers who can already do it, ship a
+                product with our studio, or help fund the next cohort.
+              </p>
+            </ScrollReveal>
+          </div>
 
-          <ScrollReveal delay={1}>
-            <p>
-              Learn the work, hire proven engineers, build a serious product, or
-              help create the next opportunity. Blockfuse is where it starts.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal className="final-path-primary" delay={2}>
-            <ButtonLink href="#choose-your-path">Find your path</ButtonLink>
-          </ScrollReveal>
-        </div>
-
-        <div className="final-path-window">
-          <div className="final-path-track">
-            <article className="final-path-card">
-              <span className="final-path-index">01 · Academy</span>
-              <h3>Become an engineer worth hiring.</h3>
-              <p>Train through real products, deadlines, and direct technical review.</p>
-              <ButtonLink href="/training" variant="secondary">Explore the Academy</ButtonLink>
-            </article>
-
-            <article className="final-path-card">
-              <span className="final-path-index">02 · Talent</span>
-              <h3>Add proven engineers to your team.</h3>
-              <p>Meet vetted builders trained to contribute inside production teams.</p>
-              <ModalButton modal="hire" variant="secondary" arrow={false}>
-                Hire our engineers
-              </ModalButton>
-            </article>
-
-            <article className="final-path-card">
-              <span className="final-path-index">03 · Studio</span>
-              <h3>Turn an ambitious idea into a shipped product.</h3>
-              <p>Work with our senior-led engineering studio from scope to delivery.</p>
-              <ButtonLink href="/engineering" variant="secondary">Start a project</ButtonLink>
-            </article>
-
-            <article className="final-path-card">
-              <span className="final-path-index">04 · Partnership</span>
-              <h3>Create more opportunities for African engineers.</h3>
-              <p>Support cohorts, events, and pathways from potential to production.</p>
-              <ModalButton modal="sponsor" variant="secondary" arrow={false}>
-                Partner with us
-              </ModalButton>
-            </article>
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
+            {closingPaths.map((path, i) => (
+              <ScrollReveal key={path.title} delay={i < 3 ? i + 1 : 3}>
+                <TiltCard dataCursorText="GO" className="h-full p-7 sm:p-8">
+                  <span className="eyebrow">{path.kicker}</span>
+                  <h3 className="mt-3 font-heading text-xl font-bold leading-snug text-[var(--page-fg)] sm:text-2xl">
+                    {path.title}
+                  </h3>
+                  <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-[var(--muted)] sm:text-[0.95rem]">
+                    {path.description}
+                  </p>
+                  <div className="mt-6">
+                    {path.href ? (
+                      <ButtonLink href={path.href} variant="secondary">
+                        {path.cta}
+                      </ButtonLink>
+                    ) : (
+                      <ModalButton modal={path.modal!} variant="secondary" arrow={false}>
+                        {path.cta}
+                      </ModalButton>
+                    )}
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>

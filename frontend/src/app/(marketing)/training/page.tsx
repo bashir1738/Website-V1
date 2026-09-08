@@ -43,11 +43,6 @@ const PROGRAM_MEDIA: Record<string, { src: string; alt: string }> = {
 
 const AVATAR_TONES = ["tone-violet", "tone-blue", "tone-amber"] as const;
 
-/** Two tracks repeat their outcome line as the note; only show a note that adds something. */
-function sameSentence(a: string, b: string) {
-  return a.replace(/[\u2018\u2019]/g, "'") === b.replace(/[\u2018\u2019]/g, "'");
-}
-
 function initials(name: string) {
   return name
     .split(" ")
@@ -109,28 +104,18 @@ export default function TrainingPage() {
               through demanding, project-based programs in AI-native software
               engineering, applied AI, and blockchain.
             </p>
-            <p>
-              You will learn by building real systems, get told plainly what is
-              not good enough yet, and be assessed against a clear professional
-              standard. You will leave with more than a certificate. You will
-              leave with evidence of what you can do, whether you go on to join
-              a company or start one.
-            </p>
             <p className="bf-hero-punch">
-              It is not an easy program. That is the point.
+              You leave with evidence of what you can do, not just a
+              certificate. It is not an easy program — that is the point.
             </p>
           </ScrollReveal>
 
           <ScrollReveal className="bf-hero-actions" delay={3}>
             <ButtonLink href="#programs">Apply to the next cohort</ButtonLink>
-            <ButtonLink
-              href="#assessment"
-              variant="secondary"
-              className="bf-on-dark-btn"
-              dataCursor="EXPLORE"
-            >
+            <Link href="#assessment" className="bf-hero-link">
               How we assess you
-            </ButtonLink>
+              <span aria-hidden="true">→</span>
+            </Link>
           </ScrollReveal>
         </div>
       </section>
@@ -250,87 +235,73 @@ export default function TrainingPage() {
             <h2 className="bf-h2 mt-4">Choose your program</h2>
           </ScrollReveal>
 
-          <div className="mt-16 space-y-24 sm:mt-20 sm:space-y-32">
+          <div className="bf-program-grid mt-16 sm:mt-20">
             {detailedPrograms.map((program, i) => {
               const media = PROGRAM_MEDIA[program.id];
+              const shownTopics = program.topics.slice(0, 4);
+              const remaining = program.topics.length - shownTopics.length;
               return (
-                <article
-                  key={program.id}
-                  id={program.id}
-                  className={`bf-program scroll-mt-24 ${
-                    i % 2 === 1 ? "bf-program-reverse" : ""
-                  }`}
-                >
-                  <ScrollReveal
-                    className="bf-program-visual"
-                    delay={1}
-                    threshold={0.08}
-                  >
-                    <span className="bf-program-index" aria-hidden="true">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="bf-program-image">
+                <ScrollReveal key={program.id} delay={i < 3 ? i + 1 : 3} threshold={0.08}>
+                  <article id={program.id} className="bf-program-card scroll-mt-24">
+                    <div className="bf-program-card-media">
+                      <span className="bf-program-index" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                       <Image
                         src={media.src}
                         alt={media.alt}
                         fill
-                        sizes="(max-width: 1023px) 100vw, 44vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1023px) 50vw, 28vw"
                         className="object-cover"
                       />
                     </div>
-                  </ScrollReveal>
 
-                  <ScrollReveal className="bf-program-copy" delay={2}>
-                    <span className="bf-program-target">
-                      {program.target}
-                    </span>
-                    <h3>{program.title}</h3>
-                    <p className="bf-program-description">
-                      {program.description}
-                    </p>
-                    <p className="bf-program-outcome">{program.outcome}</p>
-                    {program.note && !sameSentence(program.note, program.outcome) && (
-                      <p className="bf-program-note">{program.note}</p>
-                    )}
+                    <div className="bf-program-card-body">
+                      <span className="bf-program-target">
+                        {program.target}
+                      </span>
+                      <h3>{program.title}</h3>
+                      <p className="bf-program-description">
+                        {program.description}
+                      </p>
 
-                    <p className="bf-topics-label">You will learn</p>
-                    <ul className="bf-topics">
-                      {program.topics.map((topic) => (
-                        <li key={topic} className="bf-topic">
-                          <span aria-hidden="true">✦</span>
-                          {topic}
-                        </li>
-                      ))}
-                    </ul>
+                      <ul className="bf-program-card-topics">
+                        {shownTopics.map((topic) => (
+                          <li key={topic} className="bf-topic-chip">
+                            {topic}
+                          </li>
+                        ))}
+                        {remaining > 0 && (
+                          <li className="bf-topic-chip bf-topic-chip-muted">
+                            +{remaining} more
+                          </li>
+                        )}
+                      </ul>
 
-                    <div className="bf-program-actions">
-                      <ModalButton
-                        modal={
-                          program.id === "team-training" ? "hire" : "program"
-                        }
-                        prefill={
-                          program.id === "team-training"
-                            ? undefined
-                            : { Track: program.title }
-                        }
-                      >
-                        Apply for this track
-                      </ModalButton>
-                      <Link
-                        href={`/contact?program=${program.id}`}
-                        className="link-hover group inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]"
-                      >
-                        <span>{program.ctaText}</span>
-                        <span
-                          aria-hidden="true"
-                          className="transition group-hover:translate-x-1"
+                      <div className="bf-program-card-actions">
+                        <ModalButton
+                          modal={
+                            program.id === "team-training" ? "hire" : "program"
+                          }
+                          prefill={
+                            program.id === "team-training"
+                              ? undefined
+                              : { Track: program.title }
+                          }
                         >
-                          →
-                        </span>
-                      </Link>
+                          Apply for this track
+                        </ModalButton>
+                        <Link
+                          href={`/contact?program=${program.id}`}
+                          className="bf-cell-link"
+                        >
+                          <span>Full curriculum</span>
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </div>
                     </div>
-                  </ScrollReveal>
-                </article>
+                  </article>
+                </ScrollReveal>
               );
             })}
           </div>

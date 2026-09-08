@@ -46,7 +46,7 @@ export default function EngineeringPage() {
       {/* ================================================================= */}
       {/* 1. HERO                                                           */}
       {/* ================================================================= */}
-      <section className="bf-hero">
+      <section className="bf-hero bf-hero--fork">
         <div className="bf-hero-media" aria-hidden="true">
           <Image
             src="/brand/path3.jpg"
@@ -74,23 +74,16 @@ export default function EngineeringPage() {
 
           <ScrollReveal delay={1}>
             <h1>
-              Build with us.
-              <em>Or hire from us.</em>
+              Build it with us, or{" "}
+              <span className="bf-hero-accent">hire who already can</span>.
             </h1>
           </ScrollReveal>
 
           <ScrollReveal className="bf-hero-lead" delay={2}>
             <p className="bf-hero-lead-strong">
-              Blockfuse Engineering helps startups, companies, and technology
-              ecosystems design and deliver dependable AI, web, and blockchain
-              systems — and introduces the production-ready engineers who can
-              carry that work inside your own team.
-            </p>
-            <p>
-              The same senior engineers who set the standard our Academy trains
-              to lead these engagements. That is why our teaching stays tied to
-              how software is actually shipped, and why the work we hand over
-              holds up after we leave.
+              Blockfuse Engineering designs and delivers dependable AI, web,
+              and blockchain systems — led by the same senior engineers who
+              train our Academy, so the work holds up after we leave.
             </p>
             <p className="bf-hero-punch">
               One standard, whichever route you take.
@@ -114,10 +107,11 @@ export default function EngineeringPage() {
       </section>
 
       {/* ================================================================= */}
-      {/* 2. THE TWO ROUTES — riding the hero edge                          */}
+      {/* 2. THE TWO ROUTES — the fork the rest of the page is organised around */}
       {/* ================================================================= */}
-      <div className="bf-stats-wrap">
+      <div className="bf-route-wrap">
         <ScrollReveal>
+          <p className="bf-route-label">Two ways to work with Blockfuse</p>
           <div className="bf-choice">
             <Link href="#build" className="bf-choice-card">
               <span>Route 01 — Studio</span>
@@ -152,7 +146,7 @@ export default function EngineeringPage() {
       <section id="build" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className="eyebrow">Scope &amp; engagements</span>
+            <span className="eyebrow">Studio — Scope &amp; engagements</span>
             <h2 className="bf-h2 mt-4">What we take on</h2>
           </ScrollReveal>
 
@@ -192,7 +186,7 @@ export default function EngineeringPage() {
         <div className="relative z-[1] mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
             <span className="eyebrow bf-eyebrow-light">
-              Delivery principles
+              Studio — Delivery principles
             </span>
             <h2 className="bf-h2 mt-4">How we work</h2>
           </ScrollReveal>
@@ -205,6 +199,7 @@ export default function EngineeringPage() {
                     <span className="bf-cell-index">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
+                    <span className="bf-cell-chip">{principle.eyebrow}</span>
                   </div>
                   <h3>{principle.title}</h3>
                   <p>{principle.copy}</p>
@@ -223,7 +218,7 @@ export default function EngineeringPage() {
         <div className="mx-auto max-w-[1240px]">
           <div className="bf-split">
             <ScrollReveal>
-              <span className="eyebrow">The hiring reality</span>
+              <span className="eyebrow">Talent — The hiring reality</span>
               <h2 className="bf-h2 mt-4">
                 Applications are abundant. Evidence is scarce.
               </h2>
@@ -266,7 +261,7 @@ export default function EngineeringPage() {
           </div>
 
           <ScrollReveal className="mt-20 max-w-[46rem] sm:mt-24" delay={1}>
-            <span className="eyebrow">Specialisations</span>
+            <span className="eyebrow">Talent — Specialisations</span>
             <h2 className="bf-h2 mt-4">Engineers you can hire</h2>
           </ScrollReveal>
 
@@ -296,7 +291,7 @@ export default function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className="eyebrow">Engagement models</span>
+            <span className="eyebrow">Talent — Engagement models</span>
             <h2 className="bf-h2 mt-4">Ways to work with us</h2>
           </ScrollReveal>
 
@@ -329,7 +324,7 @@ export default function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className="eyebrow">The hiring flow</span>
+            <span className="eyebrow">Talent — The hiring flow</span>
             <h2 className="bf-h2 mt-4">How hiring through Blockfuse works</h2>
           </ScrollReveal>
 
@@ -357,7 +352,7 @@ export default function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className="eyebrow">Employer endorsements</span>
+            <span className="eyebrow">Talent — Employer endorsements</span>
             <h2 className="bf-h2 mt-4">What employers say</h2>
           </ScrollReveal>
 

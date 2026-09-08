@@ -111,6 +111,50 @@ export const engineerBenefits = [
   "Gain access to employers, partners, and technical communities",
 ];
 
+export interface ClosingPath {
+  kicker: string;
+  title: string;
+  description: string;
+  cta: string;
+  href?: string;
+  modal?: "hire" | "sponsor";
+}
+
+export const closingPaths: ClosingPath[] = [
+  {
+    kicker: "For learners",
+    title: "Become an engineer worth hiring.",
+    description:
+      "Train through real products, deadlines, and direct technical review.",
+    cta: "Explore the Academy",
+    href: "/training",
+  },
+  {
+    kicker: "For companies",
+    title: "Add proven engineers to your team.",
+    description:
+      "Meet vetted builders trained to contribute inside production teams.",
+    cta: "Hire our engineers",
+    modal: "hire",
+  },
+  {
+    kicker: "For companies",
+    title: "Turn an ambitious idea into a shipped product.",
+    description:
+      "Work with our senior-led engineering studio from scope to delivery.",
+    cta: "Start a project",
+    href: "/engineering",
+  },
+  {
+    kicker: "For partners",
+    title: "Create more opportunities for African engineers.",
+    description:
+      "Support cohorts, events, and pathways from potential to production.",
+    cta: "Partner with us",
+    modal: "sponsor",
+  },
+];
+
 export const orgWorkWithUsPoints = [
   "Hire qualified Blockfuse graduates",
   "Engage engineers for contract or embedded roles",
