@@ -1,81 +1,34 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { events } from '@/lib/events'
+import type { Event } from '@/lib/events'
+
 export default function EventsPage() {
-  const upcomingEvents = [
-    {
-      date: 'Sep 15 - 17, 2024',
-      title: 'Web3 Engineering Workshop: Smart Contracts & Security',
-      description: 'Three-day intensive workshop covering smart contract architecture, security patterns, and audit-ready development practices.',
-      location: 'Jos, Nigeria',
-      type: 'Workshop',
-      capacity: '25 engineers',
-      link: '#',
-    },
-    {
-      date: 'Oct 5, 2024',
-      title: 'ProdFest 2024: Showcase Your Web3 Projects',
-      description: 'Annual demo day where our engineers and ecosystem builders showcase production dApps, protocols, and AI projects.',
-      location: 'Jos Engineering Studio + Virtual',
-      type: 'Demo Day',
-      capacity: 'Open to public',
-      link: '#',
-    },
-    {
-      date: 'Oct 20 - 22, 2024',
-      title: 'Protocol Development Hackathon',
-      description: 'Build and compete: 48-hour hackathon focused on EVM and Solana protocol development with $50K in prizes.',
-      location: 'Jos + Remote',
-      type: 'Hackathon',
-      capacity: '100+ participants',
-      link: '#',
-    },
-  ]
+  const [upcoming, setUpcoming] = useState<Event[]>([])
+  const [past, setPast] = useState<Event[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const pastEvents = [
-    {
-      date: 'Aug 10, 2024',
-      title: 'AI Agents in DeFi: Technical Deep Dive',
-      type: 'Workshop',
-      attendees: '30+',
-    },
-    {
-      date: 'Jul 28, 2024',
-      title: 'Cohort 4 Graduation & Hiring Showcase',
-      type: 'Hiring Event',
-      attendees: '50+',
-    },
-    {
-      date: 'Jul 15, 2024',
-      title: 'Open Source Contribution Sprint',
-      type: 'Community Event',
-      attendees: '45+',
-    },
-    {
-      date: 'Jul 1, 2024',
-      title: 'Infrastructure & DevOps for Web3 Systems',
-      type: 'Workshop',
-      attendees: '35+',
-    },
-    {
-      date: 'Jun 18, 2024',
-      title: 'Frontend Development for dApps',
-      type: 'Workshop',
-      attendees: '40+',
-    },
-    {
-      date: 'Jun 5, 2024',
-      title: 'Smart Contract Auditing & Security',
-      type: 'Workshop',
-      attendees: '28+',
-    },
-  ]
-
-  const eventTypes = ['All', 'Workshops', 'Hackathons', 'Demo Days', 'Community']
+  useEffect(() => {
+    let active = true
+    events.getAll()
+      .then(({ data }) => {
+        if (!active) return
+        const now = new Date()
+        setUpcoming(data.filter((e) => new Date(e.date) >= now))
+        setPast(data.filter((e) => new Date(e.date) < now))
+      })
+      .catch(() => { if (active) setError('Could not load events') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [])
 
   return (
     <>
       {/* Hero - Calendar Focus Layout */}
       <section className="border-b border-dark-border mb-24 py-12">
         <div className="max-w-6xl mx-auto space-y-12">
-          {/* Header */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent-purple/10 border border-accent-purple/30 text-[11px] font-mono tracking-widest text-accent-purple uppercase w-fit">
               <span className="h-1.5 w-1.5 bg-accent-purple inline-block animate-pulse" />
@@ -95,8 +48,14 @@ export default function EventsPage() {
             </p>
           </div>
 
+          {error && (
+            <div className="p-4 border border-accent-pink/30 bg-accent-pink/5 text-accent-pink text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Next Event Highlight - Card Style */}
-          {upcomingEvents.length > 0 && (
+          {!loading && upcoming.length > 0 && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8">
                 <div className="p-8 border border-accent-purple/50 bg-gradient-to-br from-accent-purple/10 to-transparent relative overflow-hidden group">
@@ -107,37 +66,38 @@ export default function EventsPage() {
                       <span className="inline-block text-[11px] font-mono tracking-widest text-accent-purple bg-accent-purple/20 border border-accent-purple/30 px-3 py-1">
                         NEXT EVENT
                       </span>
-                      <span className="inline-block text-[11px] font-mono tracking-widest text-accent-pink bg-accent-pink/10 border border-accent-pink/20 px-3 py-1">
-                        {upcomingEvents[0].type}
-                      </span>
                     </div>
 
                     <h2 className="text-2xl font-light text-text-primary leading-tight">
-                      {upcomingEvents[0].title}
+                      {upcoming[0].title}
                     </h2>
 
                     <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary font-light">
                       <div className="flex items-center gap-1">
                         <span>📅</span>
-                        <span>{upcomingEvents[0].date}</span>
+                        <span>{new Date(upcoming[0].date).toLocaleDateString()}</span>
                       </div>
-                      <span>•</span>
-                      <div className="flex items-center gap-1">
-                        <span>📍</span>
-                        <span>{upcomingEvents[0].location}</span>
-                      </div>
+                      {upcoming[0].location && <span>•</span>}
+                      {upcoming[0].location && (
+                        <div className="flex items-center gap-1">
+                          <span>📍</span>
+                          <span>{upcoming[0].location}</span>
+                        </div>
+                      )}
                     </div>
 
                     <p className="text-sm text-text-secondary font-light leading-relaxed">
-                      {upcomingEvents[0].description}
+                      {upcoming[0].description}
                     </p>
 
-                    <a
-                      href={upcomingEvents[0].link}
-                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 border border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-dark-bg transition-all text-xs tracking-widest uppercase font-mono"
-                    >
-                      Learn More <span>→</span>
-                    </a>
+                    {upcoming[0].link && (
+                      <a
+                        href={upcoming[0].link}
+                        className="inline-flex items-center gap-2 mt-4 px-4 py-2 border border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-dark-bg transition-all text-xs tracking-widest uppercase font-mono"
+                      >
+                        Learn More <span>→</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -146,23 +106,16 @@ export default function EventsPage() {
               <div className="lg:col-span-4 space-y-4">
                 <div className="p-6 border border-dark-border hover:border-accent-pink hover:bg-accent-pink/5 transition-all text-center">
                   <p className="text-4xl font-light text-accent-purple mb-2">
-                    {upcomingEvents.length}
+                    {upcoming.length}
                   </p>
                   <p className="text-xs text-text-muted font-light">Upcoming Events</p>
                 </div>
 
                 <div className="p-6 border border-dark-border hover:border-accent-pink hover:bg-accent-pink/5 transition-all text-center">
                   <p className="text-4xl font-light text-accent-purple mb-2">
-                    1000+
+                    {past.length + upcoming.length}
                   </p>
-                  <p className="text-xs text-text-muted font-light">Engineers Engaged</p>
-                </div>
-
-                <div className="p-6 border border-dark-border hover:border-accent-pink hover:bg-accent-pink/5 transition-all text-center">
-                  <p className="text-4xl font-light text-accent-purple mb-2">
-                    3
-                  </p>
-                  <p className="text-xs text-text-muted font-light">Events Per Quarter</p>
+                  <p className="text-xs text-text-muted font-light">Total Events</p>
                 </div>
               </div>
             </div>
@@ -170,79 +123,60 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* Event Type Filter */}
-      <div className="mb-16 pb-12 border-b border-dark-border">
-        <p className="text-xs tracking-widest text-text-muted uppercase mb-6 font-normal">Filter events</p>
-        <div className="flex flex-wrap gap-3">
-          {eventTypes.map((type) => (
-            <button
-              key={type}
-              className={`px-4 py-2 border text-xs tracking-widest font-light transition-all duration-300 ${
-                type === 'All'
-                  ? 'border-accent-purple text-accent-purple bg-accent-purple/10'
-                  : 'border-dark-border text-text-primary hover:border-accent-purple hover:text-accent-purple'
-              }`}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Upcoming Events */}
       <section className="mb-24 pb-12 border-b border-dark-border">
         <h2 className="text-3xl font-light mb-12 tracking-tighter text-text-primary">
           Upcoming <em className="italic font-light text-text-secondary">events</em>
         </h2>
-        <div className="space-y-6 max-w-4xl">
-          {upcomingEvents.map((event, i) => (
-            <a
-              key={event.title}
-              href={event.link}
-              className="group block p-8 border border-dark-border hover:border-accent-purple hover:bg-accent-purple/5 transition-all duration-300 relative"
-            >
-              <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-accent-purple to-accent-pink group-hover:w-full transition-all duration-500" />
+        {loading ? (
+          <p className="text-sm text-text-muted font-light">Loading events…</p>
+        ) : upcoming.length === 0 ? (
+          <p className="text-sm text-text-muted font-light">No upcoming events right now. Check back soon.</p>
+        ) : (
+          <div className="space-y-6 max-w-4xl">
+            {upcoming.map((event, i) => (
+              <a
+                key={event.id}
+                href={event.link ?? '#'}
+                className="group block p-8 border border-dark-border hover:border-accent-purple hover:bg-accent-purple/5 transition-all duration-300 relative"
+              >
+                <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-accent-purple to-accent-pink group-hover:w-full transition-all duration-500" />
 
-              <div className="flex items-start gap-6">
-                <div className="flex-shrink-0 pt-1">
-                  <span className="text-xs font-mono text-accent-purple">
-                    [{String(i + 1).padStart(2, '0')}]
-                  </span>
-                </div>
-
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                    <div>
-                      <p className="text-xs text-text-muted font-light mb-2">{event.date}</p>
-                      <h3 className="text-xl font-light text-text-primary group-hover:text-accent-purple transition-all mb-3">
-                        {event.title}
-                      </h3>
-                    </div>
-                    <span className="text-[10px] font-mono tracking-widest text-accent-pink bg-accent-pink/10 border border-accent-pink/20 px-2.5 py-0.5 whitespace-nowrap">
-                      {event.type}
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0 pt-1">
+                    <span className="text-xs font-mono text-accent-purple">
+                      [{String(i + 1).padStart(2, '0')}]
                     </span>
                   </div>
 
-                  <p className="text-sm text-text-secondary font-light leading-relaxed mb-4">
-                    {event.description}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-text-muted font-light">
-                    <div className="flex items-center gap-1">
-                      <span>📍</span>
-                      <span>{event.location}</span>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+                      <div>
+                        <p className="text-xs text-text-muted font-light mb-2">{new Date(event.date).toLocaleDateString()}</p>
+                        <h3 className="text-xl font-light text-text-primary group-hover:text-accent-purple transition-all mb-3">
+                          {event.title}
+                        </h3>
+                      </div>
                     </div>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <span>👥</span>
-                      <span>{event.capacity}</span>
+
+                    <p className="text-sm text-text-secondary font-light leading-relaxed mb-4">
+                      {event.description}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-text-muted font-light">
+                      {event.location && (
+                        <div className="flex items-center gap-1">
+                          <span>📍</span>
+                          <span>{event.location}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Past Events */}
@@ -250,25 +184,32 @@ export default function EventsPage() {
         <h2 className="text-3xl font-light mb-12 tracking-tighter text-text-primary">
           Recent <em className="italic font-light text-text-secondary">events</em>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
-          {pastEvents.map((event) => (
-            <div
-              key={event.title}
-              className="group p-6 border border-dark-border hover:border-accent-purple hover:bg-accent-purple/5 transition-all duration-300 relative"
-            >
-              <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-accent-purple to-accent-pink group-hover:w-full transition-all duration-500" />
+        {loading ? (
+          <p className="text-sm text-text-muted font-light">Loading events…</p>
+        ) : past.length === 0 ? (
+          <p className="text-sm text-text-muted font-light">No past events recorded yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
+            {past.map((event) => (
+              <div
+                key={event.id}
+                className="group p-6 border border-dark-border hover:border-accent-purple hover:bg-accent-purple/5 transition-all duration-300 relative"
+              >
+                <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-accent-purple to-accent-pink group-hover:w-full transition-all duration-500" />
 
-              <p className="text-xs text-text-muted font-light mb-3">{event.date}</p>
-              <h3 className="text-base font-light text-text-primary mb-4 leading-tight group-hover:text-accent-purple transition-colors">
-                {event.title}
-              </h3>
-              <div className="flex items-center justify-between text-xs text-text-muted font-light">
-                <span className="px-2 py-1 border border-dark-border text-[10px]">{event.type}</span>
-                <span>{event.attendees} attended</span>
+                <p className="text-xs text-text-muted font-light mb-3">{new Date(event.date).toLocaleDateString()}</p>
+                <h3 className="text-base font-light text-text-primary mb-4 leading-tight group-hover:text-accent-purple transition-colors">
+                  {event.title}
+                </h3>
+                {event.location && (
+                  <div className="flex items-center justify-between text-xs text-text-muted font-light">
+                    <span>📍 {event.location}</span>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Event Info */}
