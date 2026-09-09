@@ -981,6 +981,12 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(0.98);
 }
 
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
 .btn-primary .btn-arrow {
   transition: transform 0.25s ease;
 }

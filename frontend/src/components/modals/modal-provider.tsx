@@ -10,6 +10,18 @@ import React, {
   useState,
 } from "react";
 import { forms, type FormKey, type FormField } from "@/lib/forms";
+import { postForm, postJson, ApiError } from "@/lib/api";
+
+/** Browser autofill hints, keyed by API field name. */
+const AUTOCOMPLETE: Record<string, string> = {
+  name: "name",
+  email: "email",
+  phone: "tel",
+  company: "organization",
+  organisation: "organization",
+  github: "url",
+  linkedin: "url",
+};
 
 /** Field label → value, for opening a form with an answer already chosen. */
 export type Prefill = Record<string, string>;
@@ -71,6 +83,8 @@ function FormModal({
 }) {
   const form = forms[formKey];
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [chips, setChips] = useState<Record<string, string[]>>({});
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -103,9 +117,56 @@ function FormModal({
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
+
+    const raw = new FormData(e.currentTarget);
+
+    try {
+      if (form.multipart) {
+        const body = new FormData();
+        for (const field of form.fields) {
+          if (field.kind === "chips") {
+            for (const value of chips[field.label] ?? []) {
+              body.append(field.name, value);
+            }
+            continue;
+          }
+          if (field.kind === "file") {
+            const file = raw.get(field.name);
+            if (file instanceof File && file.size > 0) body.append(field.name, file);
+            continue;
+          }
+          const value = raw.get(field.name);
+          if (typeof value === "string" && value !== "") body.append(field.name, value);
+        }
+        await postForm(`/${form.endpoint}`, body);
+      } else {
+        const body: Record<string, unknown> = {};
+        for (const field of form.fields) {
+          if (field.kind === "chips") {
+            const values = chips[field.label] ?? [];
+            if (values.length > 0) body[field.name] = values;
+            continue;
+          }
+          const value = raw.get(field.name);
+          if (typeof value === "string" && value !== "") body[field.name] = value;
+        }
+        await postJson(`/${form.endpoint}`, body);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "We couldn't reach the server. Check your connection and try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -196,7 +257,11 @@ function FormModal({
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="mx-auto max-w-[880px]">
+              <form
+                onSubmit={handleSubmit}
+                encType={form.multipart ? "multipart/form-data" : undefined}
+                className="mx-auto max-w-[880px]"
+              >
                 <div className="grid gap-[22px] [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
                   {form.fields.map((field) => (
                     <Field
@@ -211,10 +276,24 @@ function FormModal({
                   ))}
                 </div>
 
+                {error && (
+                  <p
+                    role="alert"
+                    className="mt-8 rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm leading-relaxed text-[#fca5a5]"
+                  >
+                    {error}
+                  </p>
+                )}
+
                 <div className="mt-10 flex flex-wrap items-center gap-5 border-t border-[var(--line)] pt-7">
-                  <button type="submit" className="btn-primary">
-                    {form.cta}
-                    <span aria-hidden="true">→</span>
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    disabled={submitting}
+                    aria-busy={submitting}
+                  >
+                    {submitting ? "Sending…" : form.cta}
+                    {!submitting && <span aria-hidden="true">→</span>}
                   </button>
                   <p className="max-w-[44ch] text-xs leading-relaxed text-[var(--dim)]">
                     {form.note}
@@ -240,7 +319,7 @@ function Field({
   selected: string[];
   onToggleChip: (option: string) => void;
 }) {
-  const id = `f-${field.label.replace(/\W+/g, "-").toLowerCase()}`;
+  const id = `f-${field.name}`;
   const kind = field.kind ?? "input";
 
   return (
@@ -253,9 +332,11 @@ function Field({
       {kind === "input" && (
         <input
           id={id}
+          name={field.name}
           type={field.type ?? "text"}
           placeholder={field.placeholder}
           required={field.required}
+          autoComplete={AUTOCOMPLETE[field.name]}
           defaultValue={value}
           className="field-input"
         />
@@ -264,6 +345,7 @@ function Field({
       {kind === "select" && (
         <select
           id={id}
+          name={field.name}
           className="field-select"
           defaultValue={value ?? ""}
           required={field.required}
@@ -282,6 +364,7 @@ function Field({
       {kind === "textarea" && (
         <textarea
           id={id}
+          name={field.name}
           rows={4}
           placeholder={field.placeholder}
           required={field.required}
@@ -295,7 +378,7 @@ function Field({
             ↑
           </span>
           <span>{field.placeholder}</span>
-          <input id={id} type="file" className="sr-only" />
+          <input id={id} name={field.name} type="file" className="sr-only" />
         </label>
       )}
 

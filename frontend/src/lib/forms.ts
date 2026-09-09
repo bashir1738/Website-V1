@@ -11,6 +11,8 @@ export type FieldKind = "text" | "select" | "textarea" | "file" | "chips";
 
 export interface FormField {
   label: string;
+  /** API field name this maps to (see API.pdf). */
+  name: string;
   kind?: FieldKind;
   /** Native input type when `kind` is omitted. */
   type?: string;
@@ -29,6 +31,10 @@ export interface FormSpec {
   note: string;
   successTitle: string;
   successBody: string;
+  /** API path this form posts to, e.g. "applications" for POST /api/applications. */
+  endpoint: string;
+  /** True when the form includes a file field and must submit as multipart/form-data. */
+  multipart?: boolean;
   fields: FormField[];
 }
 
@@ -43,28 +49,39 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "Application received",
     successBody:
       "We've logged your application for Cohort III. Watch your inbox for the technical screen invite.",
+    endpoint: "applications",
+    multipart: true,
     fields: [
       {
         label: "Full name",
+        name: "name",
         type: "text",
         placeholder: "Amina Bello",
         required: true,
       },
       {
         label: "Email",
+        name: "email",
         type: "email",
         placeholder: "you@email.com",
         required: true,
       },
       {
         label: "Phone / WhatsApp",
+        name: "phone",
         type: "tel",
         placeholder: "+234 800 000 0000",
         required: true,
       },
-      { label: "Location", type: "text", placeholder: "Jos, Plateau State" },
+      {
+        label: "Location",
+        name: "location",
+        type: "text",
+        placeholder: "Jos, Plateau State",
+      },
       {
         label: "Track",
+        name: "track",
         kind: "select",
         options: [
           "AI-Native Software Engineering",
@@ -75,6 +92,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Experience level",
+        name: "experience_level",
         kind: "select",
         options: [
           "Complete beginner",
@@ -85,11 +103,13 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "GitHub or portfolio",
+        name: "github",
         type: "url",
-        placeholder: "github.com/username",
+        placeholder: "https://github.com/username",
       },
       {
         label: "How did you hear about us?",
+        name: "referral",
         kind: "select",
         options: [
           "A Blockfuse graduate",
@@ -101,12 +121,18 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Why are you applying?",
+        name: "motivation",
         kind: "textarea",
         placeholder: "What you want to build, and what you've already tried.",
         span: "1 / -1",
         required: true,
       },
-      { label: "Resume", kind: "file", placeholder: "PDF or DOCX, up to 5MB" },
+      {
+        label: "Resume",
+        name: "resume",
+        kind: "file",
+        placeholder: "PDF or DOCX, up to 5MB",
+      },
     ],
   },
 
@@ -120,27 +146,32 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "Request received",
     successBody:
       "Our talent team will come back within three working days with matched, assessed candidates.",
+    endpoint: "hiring-requests",
     fields: [
       {
         label: "Company",
+        name: "company",
         type: "text",
         placeholder: "Company name",
         required: true,
       },
       {
         label: "Your name",
+        name: "name",
         type: "text",
         placeholder: "Full name",
         required: true,
       },
       {
         label: "Work email",
+        name: "email",
         type: "email",
         placeholder: "you@company.com",
         required: true,
       },
       {
         label: "Roles you're hiring for",
+        name: "roles",
         kind: "chips",
         options: [
           "Frontend",
@@ -154,6 +185,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Engagement type",
+        name: "engagement_type",
         kind: "select",
         options: [
           "Full-time hire",
@@ -165,6 +197,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Seniority",
+        name: "seniority",
         kind: "select",
         options: [
           "Junior, supervised",
@@ -175,11 +208,13 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "How many engineers?",
+        name: "count",
         kind: "select",
         options: ["1", "2 – 3", "4 – 6", "More than 6"],
       },
       {
         label: "When do you need them?",
+        name: "timeline",
         kind: "select",
         options: [
           "Immediately",
@@ -190,6 +225,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "What will they be working on?",
+        name: "details",
         kind: "textarea",
         placeholder: "The product, the stack, and the problems the role owns.",
         span: "1 / -1",
@@ -208,21 +244,25 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "You're on the list",
     successBody:
       "We'll send the date, the venue, and your registration link before it goes public.",
+    endpoint: "prodfest-registrations",
     fields: [
       {
         label: "Full name",
+        name: "name",
         type: "text",
         placeholder: "Full name",
         required: true,
       },
       {
         label: "Email",
+        name: "email",
         type: "email",
         placeholder: "you@email.com",
         required: true,
       },
       {
         label: "Attending as",
+        name: "attending_as",
         kind: "select",
         options: [
           "Builder or founder",
@@ -232,9 +272,15 @@ export const forms: Record<FormKey, FormSpec> = {
           "Community attendee",
         ],
       },
-      { label: "Organisation", type: "text", placeholder: "Where you work" },
+      {
+        label: "Organisation",
+        name: "organisation",
+        type: "text",
+        placeholder: "Where you work",
+      },
       {
         label: "Anything you want to get out of the day?",
+        name: "goals",
         kind: "textarea",
         placeholder: "Optional.",
         span: "1 / -1",
@@ -252,27 +298,32 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "Thank you",
     successBody:
       "Our partnerships lead will reach out with the deck and a time to talk.",
+    endpoint: "sponsorships",
     fields: [
       {
         label: "Organisation",
+        name: "organisation",
         type: "text",
         placeholder: "Company or foundation",
         required: true,
       },
       {
         label: "Contact name",
+        name: "name",
         type: "text",
         placeholder: "Full name",
         required: true,
       },
       {
         label: "Work email",
+        name: "email",
         type: "email",
         placeholder: "you@company.com",
         required: true,
       },
       {
         label: "Interested in",
+        name: "interests",
         kind: "chips",
         options: [
           "ProdFest sponsorship",
@@ -285,6 +336,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Indicative budget",
+        name: "budget",
         kind: "select",
         options: [
           "Under $5k",
@@ -296,6 +348,7 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "What would success look like?",
+        name: "metrics",
         kind: "textarea",
         placeholder: "Goals, audience, and timing.",
         span: "1 / -1",
@@ -313,27 +366,32 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "You're in the queue",
     successBody:
       "We'll add you to the next onboarding batch and introduce you to a maintainer.",
+    endpoint: "opensource-applications",
     fields: [
       {
         label: "Full name",
+        name: "name",
         type: "text",
         placeholder: "Full name",
         required: true,
       },
       {
         label: "Email",
+        name: "email",
         type: "email",
         placeholder: "you@email.com",
         required: true,
       },
       {
-        label: "GitHub handle",
+        label: "Repo you want to contribute to",
+        name: "github",
         type: "text",
-        placeholder: "github.com/username",
+        placeholder: "blockfuse/contract-kit",
         required: true,
       },
       {
         label: "Areas of interest",
+        name: "interests",
         kind: "chips",
         options: [
           "Solidity",
@@ -347,11 +405,13 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "Hours per week",
+        name: "hours",
         kind: "select",
         options: ["2–4 hours", "5–8 hours", "9–15 hours", "More than 15"],
       },
       {
         label: "What do you want to work on?",
+        name: "focus",
         kind: "textarea",
         placeholder: "A repo, an issue, or a problem you care about.",
         span: "1 / -1",
@@ -369,27 +429,33 @@ export const forms: Record<FormKey, FormSpec> = {
     successTitle: "Sent for verification",
     successBody:
       "We've received your profile. Once we've matched it against your assessment record, it will appear in the directory and we'll email you the link.",
+    endpoint: "alumni-submissions",
+    multipart: true,
     fields: [
       {
         label: "Full name",
+        name: "name",
         type: "text",
         placeholder: "As it appears on your assessment record",
         required: true,
       },
       {
         label: "Email",
+        name: "email",
         type: "email",
         placeholder: "you@email.com",
         required: true,
       },
       {
         label: "Cohort",
+        name: "cohort",
         kind: "select",
         options: ["Cohort I", "Cohort II"],
         required: true,
       },
       {
         label: "Track",
+        name: "track",
         kind: "select",
         options: [
           "AI-Native Software Engineering",
@@ -400,24 +466,33 @@ export const forms: Record<FormKey, FormSpec> = {
       },
       {
         label: "What you're doing now",
+        name: "current_status",
         type: "text",
         placeholder: "Backend engineer, logistics platform",
         required: true,
         span: "1 / -1",
       },
-      { label: "Location", type: "text", placeholder: "Jos, Plateau State" },
+      {
+        label: "Location",
+        name: "location",
+        type: "text",
+        placeholder: "Jos, Plateau State",
+      },
       {
         label: "GitHub or portfolio",
+        name: "github",
         type: "url",
-        placeholder: "github.com/username",
+        placeholder: "https://github.com/username",
       },
       {
         label: "LinkedIn",
+        name: "linkedin",
         type: "url",
-        placeholder: "linkedin.com/in/username",
+        placeholder: "https://linkedin.com/in/username",
       },
       {
         label: "Open to",
+        name: "open_to",
         kind: "chips",
         options: [
           "Full-time roles",
@@ -428,9 +503,15 @@ export const forms: Record<FormKey, FormSpec> = {
         ],
         span: "1 / -1",
       },
-      { label: "Profile photo", kind: "file", placeholder: "JPG or PNG, up to 2MB" },
+      {
+        label: "Profile photo",
+        name: "photo",
+        kind: "file",
+        placeholder: "JPG or PNG, up to 2MB",
+      },
       {
         label: "Anything that helps us verify you",
+        name: "verification_info",
         kind: "textarea",
         placeholder:
           "Your project from the cohort, who reviewed your work, or the demo you presented.",
@@ -448,16 +529,19 @@ export const forms: Record<FormKey, FormSpec> = {
     note: "No sharing, no selling. Unsubscribe in one click.",
     successTitle: "Subscribed",
     successBody: "You'll get the next dispatch. Nothing else.",
+    endpoint: "newsletter",
     fields: [
-      { label: "Name", type: "text", placeholder: "Full name" },
+      { label: "Name", name: "name", type: "text", placeholder: "Full name" },
       {
         label: "Email",
+        name: "email",
         type: "email",
         placeholder: "you@email.com",
         required: true,
       },
       {
         label: "What should we send you?",
+        name: "topics",
         kind: "chips",
         options: [
           "Cohort openings",

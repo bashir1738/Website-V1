@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { postJson, ApiError } from "@/lib/api";
 
 const topicOptions = [
   "Hiring engineers",
@@ -21,6 +22,8 @@ export function ContactForm() {
   const [topic, setTopic] = useState("Hiring engineers");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const intent = searchParams.get("intent") || "";
@@ -50,17 +53,42 @@ export function ContactForm() {
     }
   }, [searchParams]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
 
-    const subject = encodeURIComponent(`[${topic}] Inquiry from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\nDetails:\n${message}`
-    );
-
-    window.location.href = `mailto:hello@blockfuselabs.com?subject=${subject}&body=${body}`;
+    try {
+      await postJson("/contact", { name, email, topic, message });
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "We couldn't reach the server. Check your connection and try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (submitted) {
+    return (
+      <div className="rounded-xl border border-[rgba(52,211,153,0.35)] bg-[rgba(52,211,153,0.1)] px-6 py-8 text-center">
+        <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full border border-[rgba(52,211,153,0.4)] bg-[rgba(52,211,153,0.16)] text-xl text-[#34d399]">
+          ✓
+        </div>
+        <p className="font-heading text-lg font-bold text-[var(--page-fg)]">
+          Message sent
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+          We&apos;ll get back to you at {email}, usually within a couple of
+          working days.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,6 +105,8 @@ export function ContactForm() {
           name="name"
           type="text"
           required
+          minLength={2}
+          autoComplete="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Alex Johnson"
@@ -97,6 +127,7 @@ export function ContactForm() {
           name="email"
           type="email"
           required
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="alex@company.com"
@@ -139,6 +170,8 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={4}
+          required
+          minLength={10}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="A sentence or two about what you need, your team size, or your timeline..."
@@ -146,14 +179,25 @@ export function ContactForm() {
         />
       </div>
 
+      {error && (
+        <p
+          role="alert"
+          className="rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm leading-relaxed text-[#fca5a5]"
+        >
+          {error}
+        </p>
+      )}
+
       {/* Submit Button */}
       <div className="pt-2">
         <button
           type="submit"
           data-cursor="SEND"
-          className="w-full rounded-xl action-color px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02]  active:scale-95 cursor-pointer"
+          disabled={submitting}
+          aria-busy={submitting}
+          className="w-full rounded-xl action-color px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
         >
-          {submitted ? "Opening Email Client..." : "Send Enquiry →"}
+          {submitting ? "Sending…" : "Send Enquiry →"}
         </button>
       </div>
     </form>
