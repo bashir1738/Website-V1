@@ -1,3 +1,56 @@
+export interface ProductHighlight {
+  name: string;
+  tag: string;
+  description: string;
+  proof: string;
+}
+
+/** Real products and tools shipped and maintained by Blockfuse engineers. */
+export const productHighlights: ProductHighlight[] = [
+  {
+    name: "Contract Kit",
+    tag: "Solidity",
+    description:
+      "Audited base contracts and test harnesses used across client and cohort projects alike.",
+    proof: "412 stars · 87 forks",
+  },
+  {
+    name: "Assess",
+    tag: "TypeScript",
+    description:
+      "The assessment platform that produces every graduate's verified ability record.",
+    proof: "187 stars · 29 forks",
+  },
+  {
+    name: "Agent Lab",
+    tag: "Python",
+    description:
+      "Evaluation harness for applied AI systems — agentic workflows, retrieval, and tool use.",
+    proof: "233 stars · 41 forks",
+  },
+  {
+    name: "Curriculum",
+    tag: "MDX",
+    description:
+      "Every module we teach, maintained in the open — exercises, rubrics, and reading.",
+    proof: "968 stars · 214 forks",
+  },
+  {
+    name: "ProdFest Platform",
+    tag: "Next.js",
+    description:
+      "The ProdFest event platform — submissions, judging, and the live stage board.",
+    proof: "74 stars · 18 forks",
+  },
+  {
+    name: "Jos Dev Map",
+    tag: "TypeScript",
+    description:
+      "Community-maintained directory of developers and teams across Plateau State.",
+    proof: "96 stars · 33 forks",
+  },
+];
+
 export const engineeringServices = [
   {
     title: "Technical advisory",

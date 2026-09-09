@@ -29,6 +29,11 @@ export const navItems: NavItem[] = [
         href: "/blog",
         desc: "Stories, ideas, and updates from Blockfuse.",
       },
+      {
+        label: "Alumni",
+        href: "/alumni",
+        desc: "Graduates from Cohorts I and II, assessed and on record.",
+      },
     ],
   },
   { label: "About", href: "/about" },

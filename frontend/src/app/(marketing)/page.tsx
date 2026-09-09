@@ -43,7 +43,7 @@ export default function Home() {
             </ScrollReveal>
 
             <ScrollReveal delay={1}>
-              <h1 className="mt-6 max-w-[12ch] font-heading text-[clamp(3rem,6vw,5.6rem)] font-bold leading-[0.96] tracking-[-0.055em] text-[var(--page-fg)]">
+              <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-[var(--page-fg)]">
                 We build engineers who can build the future.
               </h1>
             </ScrollReveal>
@@ -197,32 +197,17 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-10 border-t border-[var(--line-strong)]">
             {howBlockfuseWorks.map((step, i) => (
-              <ScrollReveal key={step.number} delay={i < 3 ? i + 1 : 3}>
-                <TiltCard dataCursorText="STEP" className="p-6 sm:p-8">
-                  <span className="step-number">{step.number}</span>
-
-                  <div className="relative z-10 flex items-start gap-5">
-                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-sm font-bold text-white shadow-md">
-                      {step.number}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
-                        {step.title}
-                      </h3>
-                      <p className="mt-3 text-base leading-relaxed text-[var(--muted)]">
-                        {step.description}
-                      </p>
-                      {step.subDescription && (
-                        <p className="mt-3 text-sm font-medium text-[var(--page-fg)]">
-                          {step.subDescription}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </TiltCard>
-              </ScrollReveal>
+              <details key={step.number} name="blockfuse-process" open={i === 0} className="group border-b border-[var(--line-strong)]">
+                <summary className="flex min-h-20 cursor-pointer list-none items-center gap-5 rounded-lg py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] [&::-webkit-details-marker]:hidden">
+                  <span className="w-8 shrink-0 font-mono text-sm text-[var(--accent)]">0{step.number}</span>
+                  <h3 className="flex-1 font-heading text-lg font-medium text-[var(--page-fg)] sm:text-xl">{step.title}</h3>
+                  <span aria-hidden="true" className="text-xl text-[var(--muted)] group-open:hidden">+</span>
+                  <span aria-hidden="true" className="hidden text-xl text-[var(--muted)] group-open:inline">−</span>
+                </summary>
+                <p className="max-w-prose pb-7 pl-12 text-sm leading-relaxed text-[var(--muted)] sm:text-base">{step.description}</p>
+              </details>
             ))}
           </div>
         </div>

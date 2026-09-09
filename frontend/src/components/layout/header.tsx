@@ -175,7 +175,7 @@ export function Header() {
 
             <Link
               href={applyHref}
-              className="hidden h-10 items-center gap-2 whitespace-nowrap rounded-full bg-[var(--accent)] px-5 text-[13px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(191,100,231,0.7)] transition-[transform,background-color] duration-100 ease-out hover:-translate-y-px hover:bg-[var(--accent-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] sm:inline-flex"
+              className="hidden h-10 items-center gap-2 whitespace-nowrap rounded-full action-color px-5 text-[13px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(191,100,231,0.7)] transition-[transform,background-color] duration-100 ease-out hover:-translate-y-px  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] sm:inline-flex"
             >
               Apply
               <span aria-hidden="true" className="text-sm">

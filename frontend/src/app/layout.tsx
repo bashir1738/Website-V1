@@ -8,8 +8,36 @@ import { ModalProvider } from "@/components/modals/modal-provider";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
+  keywords: [
+    "Blockfuse Labs",
+    "engineering training",
+    "AI training Nigeria",
+    "software engineering bootcamp",
+    "blockchain development",
+    "Jos Nigeria tech",
+  ],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  openGraph: {
+    type: "website",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

@@ -19,7 +19,7 @@ export default function EventsPage() {
           <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">Blockfuse / Community events</p>
           <h1 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Good things happen<br />when builders meet.</h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-[var(--color-muted-light)]">From first demos to late-night builds. Find your people, share your work, and be part of what happens next.</p>
-          <a href="#events" className="mt-8 inline-flex min-h-11 items-center gap-6 rounded-full bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
+          <a href="#events" className="mt-8 inline-flex min-h-11 items-center gap-6 rounded-full action-color px-6 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
         </div>
       </section>
 

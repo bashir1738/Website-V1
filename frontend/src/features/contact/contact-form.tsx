@@ -151,7 +151,7 @@ export function ContactForm() {
         <button
           type="submit"
           data-cursor="SEND"
-          className="w-full rounded-xl bg-[var(--accent)] px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02] hover:bg-[var(--accent-dim)] active:scale-95 cursor-pointer"
+          className="w-full rounded-xl action-color px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02]  active:scale-95 cursor-pointer"
         >
           {submitted ? "Opening Email Client..." : "Send Enquiry →"}
         </button>

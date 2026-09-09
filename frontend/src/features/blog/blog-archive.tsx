@@ -51,7 +51,7 @@ export function BlogArchive() {
                   <p className="mt-5 text-sm leading-[1.75] text-[var(--color-muted-light)] sm:text-base">{featuredPost.excerpt}</p>
                 </div>
                 <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6">
-                  <span className="inline-flex min-h-11 items-center gap-5 rounded-full bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-ink)]">Read story <span aria-hidden="true">↗</span></span>
+                  <span className="inline-flex min-h-11 items-center gap-5 rounded-full action-color px-5 text-sm font-semibold text-white">Read story <span aria-hidden="true">↗</span></span>
                   <span className="text-xs text-[var(--color-muted-light)]">{featuredPost.readTime}</span>
                 </div>
               </div>
@@ -71,7 +71,7 @@ export function BlogArchive() {
               {blogCategories.map((item) => {
                 const selected = item === category;
                 return (
-                  <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={selected} className={`min-h-10 shrink-0 rounded-full border px-4 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] ${selected ? "border-[var(--accent)] bg-[var(--accent)] text-white" : "border-[var(--line-strong)] text-[var(--muted)] hover:bg-[var(--card)] hover:text-[var(--page-fg)]"}`}>
+                  <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={selected} className={`min-h-10 shrink-0 rounded-full border px-4 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] ${selected ? "border-[var(--accent)] action-color text-white" : "border-[var(--line-strong)] text-[var(--muted)] hover:bg-[var(--card)] hover:text-[var(--page-fg)]"}`}>
                     {item}
                   </button>
                 );

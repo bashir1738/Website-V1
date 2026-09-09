@@ -1,5 +1,6 @@
 export const siteConfig = {
   name: "Blockfuse Labs",
+  url: "https://blockfuselabs.com",
   title: "Blockfuse Labs | Training and Engineering",
   description:
     "Blockfuse Labs trains production-ready engineers and builds dependable AI, web, and blockchain systems.",

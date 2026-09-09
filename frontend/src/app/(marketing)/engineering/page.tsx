@@ -9,12 +9,14 @@ import {
   engineeringServices,
   deliveryPrinciples,
   hiringModels,
+  productHighlights,
 } from "@/features/engineering/content";
 import {
   talentCategories,
   hiringProcessSteps,
   employerTestimonials,
 } from "@/features/talent/content";
+import { EngineerShowcase } from "@/features/engineering/engineer-showcase";
 
 export const metadata: Metadata = {
   title: "Blockfuse Engineering: build with us, or hire from us",
@@ -179,7 +181,49 @@ export default function EngineeringPage() {
       </section>
 
       {/* ================================================================= */}
-      {/* 4. HOW WE WORK — violet band                                      */}
+      {/* 4. WHAT WE'VE BUILT                                               */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Studio — Proof of work</span>
+            <h2 className="bf-h2 mt-4">What we&apos;ve built</h2>
+            <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
+              Client work stays private, but our tools don&apos;t. These are
+              products our own engineers designed, shipped, and still
+              maintain — held to the same standard as anything we deliver.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12" delay={1}>
+            <div className="bf-cells bf-cells-3">
+              {productHighlights.map((product, idx) => (
+                <article key={product.name} className="bf-cell">
+                  <div className="bf-cell-head">
+                    <span className="bf-cell-index">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="bf-cell-chip">{product.tag}</span>
+                  </div>
+                  <h3>{product.name}</h3>
+                  <p>{product.description}</p>
+                  <p className="bf-cell-fine">{product.proof}</p>
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-8" delay={2}>
+            <Link href="/open-source" className="bf-cell-link">
+              See everything we maintain in the open
+              <span aria-hidden="true">→</span>
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 5. HOW WE WORK — violet band                                      */}
       {/* ================================================================= */}
       <section className="bf-band px-5 py-24 sm:px-7 sm:py-32">
         <span className="bf-orb bf-orb-three" aria-hidden="true" />
@@ -212,7 +256,7 @@ export default function EngineeringPage() {
       </section>
 
       {/* ================================================================= */}
-      {/* 5. HIRING — evidence, then the specialisms                        */}
+      {/* 6. HIRING — evidence, then the specialisms                        */}
       {/* ================================================================= */}
       <section id="hire" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
@@ -280,13 +324,29 @@ export default function EngineeringPage() {
               ))}
             </div>
           </ScrollReveal>
+
+          <div className="mt-20 flex flex-wrap items-end justify-between gap-4 sm:mt-24">
+            <ScrollReveal className="max-w-[46rem]">
+              <span className="eyebrow">Talent — The network in practice</span>
+              <h2 className="bf-h2 mt-4">Meet our engineers</h2>
+              <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
+                A sample of the Blockfuse Talent Network. Every profile here
+                passed the same assessment before an employer ever saw it.
+              </p>
+            </ScrollReveal>
+            <p className="mono-tag">Auto-rotating — click any profile</p>
+          </div>
+
+          <ScrollReveal className="mt-10" delay={2} threshold={0.08}>
+            <EngineerShowcase />
+          </ScrollReveal>
         </div>
       </section>
 
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 6. WAYS TO WORK WITH US                                           */}
+      {/* 7. WAYS TO WORK WITH US                                           */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
@@ -319,7 +379,7 @@ export default function EngineeringPage() {
       </section>
 
       {/* ================================================================= */}
-      {/* 7. HOW HIRING WORKS                                               */}
+      {/* 8. HOW HIRING WORKS                                               */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
@@ -347,7 +407,7 @@ export default function EngineeringPage() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 8. WHAT EMPLOYERS SAY                                             */}
+      {/* 9. WHAT EMPLOYERS SAY                                             */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
@@ -383,7 +443,7 @@ export default function EngineeringPage() {
       </section>
 
       {/* ================================================================= */}
-      {/* 9. FINAL CTA                                                      */}
+      {/* 10. FINAL CTA                                                      */}
       {/* ================================================================= */}
       <section className="px-5 sm:px-7">
         <div className="bf-cta">

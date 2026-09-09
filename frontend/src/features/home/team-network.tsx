@@ -28,7 +28,7 @@ export function TeamNetwork() {
     <section className="network-section py-24 sm:py-28 lg:py-8" aria-labelledby="network-title">
       <div className="mx-auto max-w-[1240px] px-5 text-center sm:px-7">
         <span className="network-kicker">The people behind the standard</span>
-        <h2 id="network-title" className="mx-auto mt-4 max-w-[22ch] font-heading text-[clamp(2.5rem,5vw,4.75rem)] font-bold leading-[1] tracking-[-0.05em] text-[var(--page-fg)] lg:text-[clamp(2.75rem,4vw,3.75rem)]">
+        <h2 id="network-title" className="mx-auto mt-4 max-w-[32ch] font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-[1.15] tracking-[-0.035em] text-[var(--page-fg)]">
           More than a programme. Join a technology community built for the long term.
         </h2>
         <p className="mx-auto mt-4 max-w-[64ch] text-base leading-[1.6] text-[var(--muted)] sm:text-lg lg:text-base">

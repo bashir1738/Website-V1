@@ -22,6 +22,8 @@
    Design tokens — light
    ───────────────────────────────────────────────────────────── */
 :root {
+  --action-bg: #35147a;
+  --action-hover: #48218f;
   color-scheme: light;
   --page-bg: #f6f5fa;
   --page-fg: #0d0d12;
@@ -375,7 +377,7 @@ h1, h2, h3, h4, h5, h6 {
   --path-journey-muted: rgba(255, 255, 255, 0.72);
   position: relative;
   overflow: hidden;
-  background: #35147a;
+  background: var(--action-bg);
   color: #ffffff;
 }
 
@@ -1070,6 +1072,28 @@ h1, h2, h3, h4, h5, h6 {
 .btn-ghost:hover {
   transform: translateY(-2px);
   background: var(--card-hover);
+}
+
+/* Shared action palette matches the Choose your path section. */
+.btn-primary,
+.btn-secondary,
+.btn-contrast,
+.btn-ghost,
+.action-color {
+  background: var(--action-bg);
+  color: #fff;
+  border-color: var(--action-bg);
+  box-shadow: none;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-contrast:hover,
+.btn-ghost:hover,
+.action-color:hover {
+  background: var(--action-hover);
+  color: #fff;
+  border-color: var(--action-hover);
 }
 
 /* Underlined inline action */
@@ -2456,6 +2480,185 @@ body[data-modal-open="true"] {
   font-size: 0.65rem !important;
   letter-spacing: 0.08em;
   color: var(--accent) !important;
+}
+
+/* ─── Engineer showcase — auto-rotating talent sample ─── */
+.bf-engineers {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1.75rem;
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+@media (min-width: 900px) {
+  .bf-engineers {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  }
+}
+
+.bf-engineer-detail {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--line);
+  padding: 2rem;
+}
+
+@media (min-width: 900px) {
+  .bf-engineer-detail {
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+  }
+}
+
+.bf-engineer-portrait {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 4 / 3;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  padding: 1.1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.75rem, 7vw, 4rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.94);
+  transition: background 400ms ease;
+}
+
+.bf-engineer-portrait.tone-violet {
+  background: linear-gradient(155deg, #8a4fc4 0%, #2d1259 78%);
+}
+
+.bf-engineer-portrait.tone-blue {
+  background: linear-gradient(155deg, #5b7bc9 0%, #14224a 78%);
+}
+
+.bf-engineer-portrait.tone-amber {
+  background: linear-gradient(155deg, #c98149 0%, #4a2513 78%);
+}
+
+.bf-engineer-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.bf-engineer-portrait > span:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+.bf-engineer-tag {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.bf-engineer-meta {
+  margin-top: 1.5rem;
+}
+
+.bf-engineer-meta h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--page-fg);
+}
+
+.bf-engineer-role {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.bf-engineer-now {
+  margin-top: 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.bf-engineer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: auto;
+  padding-top: 1.75rem;
+}
+
+.bf-engineer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  max-height: 36rem;
+  overflow-y: auto;
+}
+
+@media (min-width: 480px) {
+  .bf-engineer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.bf-engineer-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  aspect-ratio: 1;
+  border: 0;
+  background: var(--surface);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.bf-engineer-tile:hover {
+  background: var(--card-hover);
+}
+
+.bf-engineer-tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+.bf-engineer-tile[data-active="true"] {
+  background: var(--accent-dim);
+}
+
+.bf-engineer-tile[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  pointer-events: none;
+}
+
+.bf-engineer-tile-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.bf-engineer-tile[data-active="true"] .bf-engineer-tile-name {
+  color: var(--page-fg);
 }
 
 /* ─── Closing CTA ─── */

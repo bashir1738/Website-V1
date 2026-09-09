@@ -34,13 +34,13 @@ export const howBlockfuseWorks: HowItWorksStep[] = [
     number: "1",
     title: "We select",
     description:
-      "Admission is based on demonstrated ability, commitment, and readiness to learn. We take fewer people than apply, because the room only works if everyone in it is carrying their own weight.",
+      "We select people with the ability, commitment, and readiness to learn in a demanding, collaborative environment.",
   },
   {
     number: "2",
     title: "We train hard",
     description:
-      "Our programs are shaped by the skills technology teams need now. Students learn by building, to real deadlines, in software engineering, applied AI, and blockchain. Work is reviewed the way it is reviewed on a professional team: directly, and without flattery.",
+      "Build real projects to real deadlines, with direct feedback from working engineers in software, AI, and blockchain.",
   },
   {
     number: "3",
@@ -54,13 +54,13 @@ export const howBlockfuseWorks: HowItWorksStep[] = [
     number: "4",
     title: "We build production experience",
     description:
-      "Students who meet our standards can progress into supervised residency, where they work within professional engineering practices and receive feedback from experienced engineers.",
+      "Qualified students progress into supervised residency, gaining production experience alongside experienced engineers.",
   },
   {
     number: "5",
     title: "We open doors",
     description:
-      "We introduce qualified graduates to companies, ecosystem partners, and opportunities that match their capabilities. For the ones building something of their own, what we have is the network: partners, mentors, ecosystems, and a stage at ProdFest.",
+      "We connect qualified graduates with hiring partners, mentors, and opportunities—including a stage for their own products at ProdFest.",
   },
 ];
 
