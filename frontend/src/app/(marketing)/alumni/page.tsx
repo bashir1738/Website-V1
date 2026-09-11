@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { PageHero, PageShell } from "@/components/ui/page-hero";
+import Image from "next/image";
+import { PageShell } from "@/components/ui/page-hero";
 import { ModalButton } from "@/components/ui/modal-button";
 import { AlumniDirectory } from "@/features/alumni/alumni-directory";
 
@@ -13,19 +14,66 @@ export const metadata: Metadata = {
 export default function AlumniPage() {
   return (
     <PageShell>
-      <PageHero
-        eyebrow="Alumni"
-        title="Built here. Building everywhere."
-        lead="Meet the engineers taking what they learned at Blockfuse into product teams, protocols, startups, and new ideas."
-      >
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <ModalButton modal="alumni">Add your profile</ModalButton>
-          <p className="max-w-[38ch] text-[13px] leading-relaxed text-[var(--dim)]">
-            Graduated from a Blockfuse cohort? Submit your profile and we&apos;ll
-            verify it against your assessment record before it appears here.
+      <section className="alumni-hero" aria-labelledby="alumni-hero-title">
+        <div className="alumni-hero-copy">
+          <span className="eyebrow">Our alumni</span>
+          <h1 id="alumni-hero-title">
+            Learn.
+            <br />
+            Build.
+            <br />
+            Lead.
+          </h1>
+          <p>
+            Meet the engineers taking Blockfuse into product teams, protocols,
+            startups, and new ideas.
           </p>
+          <ModalButton modal="alumni" variant="link">
+            Add your profile
+          </ModalButton>
         </div>
-      </PageHero>
+
+        <div className="alumni-hero-panel alumni-hero-panel-main">
+          <Image
+            src="/brand/IMG_1604.JPG"
+            alt="Blockfuse alumnus"
+            fill
+            priority
+            sizes="(max-width: 767px) 76vw, (max-width: 1100px) 45vw, 32vw"
+          />
+          <div className="alumni-hero-panel-label">
+            <span>Alumni network</span>
+            <strong>12</strong>
+          </div>
+        </div>
+
+        <div className="alumni-hero-panel alumni-hero-panel-narrow">
+          <Image
+            src="/brand/DSC09798.jpg"
+            alt="Blockfuse alumnus"
+            fill
+            priority
+            sizes="(max-width: 767px) 38vw, 14vw"
+          />
+          <span className="alumni-hero-vertical-label">Builders</span>
+        </div>
+
+        <div className="alumni-hero-panel alumni-hero-panel-narrow alumni-hero-panel-last">
+          <Image
+            src="/brand/IMG_1607.JPG"
+            alt="Blockfuse alumnus"
+            fill
+            priority
+            sizes="(max-width: 767px) 38vw, 14vw"
+          />
+          <span className="alumni-hero-vertical-label">Leaders</span>
+        </div>
+
+        <a className="alumni-hero-action" href="#alumni-directory">
+          <span>Explore the alumni directory</span>
+          <strong aria-hidden="true">Go&nbsp;&nbsp;↘</strong>
+        </a>
+      </section>
       <AlumniDirectory />
     </PageShell>
   );

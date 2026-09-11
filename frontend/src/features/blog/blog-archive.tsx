@@ -13,51 +13,67 @@ export function BlogArchive() {
 
   return (
     <main>
-      <section className="px-5 pb-8 pt-10 sm:px-7 sm:pt-14">
-        <div className="mx-auto max-w-[1240px]">
-          <ScrollReveal>
-            <div className="flex flex-col gap-4 border-b border-[var(--line-strong)] pb-7 md:flex-row md:items-end md:justify-between md:gap-10">
-              <div>
-                <span className="eyebrow">Inside Blockfuse</span>
-                <h1 className="mt-3 font-heading text-4xl font-bold leading-tight tracking-[-0.045em] text-[var(--page-fg)] sm:text-5xl">
-                  The Journal<span className="text-[var(--accent)]">.</span>
-                </h1>
-              </div>
-              <div className="max-w-sm">
-                <p className="text-sm leading-relaxed text-[var(--muted)] sm:text-base">
-                  The people, projects, and lessons behind the work. Stories from our community in Jos and beyond.
-                </p>
-              </div>
+      <section className="journal-hero-shell" aria-labelledby="journal-title">
+        <ScrollReveal>
+          <div className="journal-hero">
+            <div className="journal-issue-mark" aria-hidden="true">
+              Journal / 01
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
+            <span className="journal-tape journal-tape-one" aria-hidden="true">
+              Ideas in practice
+            </span>
+            <span className="journal-tape journal-tape-two" aria-hidden="true">
+              From Jos, outward
+            </span>
 
-      <section aria-label="Featured story" className="px-5 pb-10 sm:px-7 sm:pb-14">
-        <div className="mx-auto max-w-[1240px]">
-          <ScrollReveal>
+            <div className="journal-hero-copy">
+              <span className="eyebrow">Inside Blockfuse</span>
+              <h1 id="journal-title">
+                Field
+                <br />
+                notes<span>.</span>
+              </h1>
+              <p>
+                The people, projects, and hard-won lessons behind the work.
+                Written from our community in Jos and beyond.
+              </p>
+            </div>
+
             <Link
               href={`/blog/${featuredPost.slug}`}
-              className="group grid overflow-hidden rounded-2xl bg-[var(--color-surface-2)] text-[var(--color-paper)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--page-bg)] md:grid-cols-[1.1fr_1fr]"
+              className="journal-feature group"
               aria-label={`Read ${featuredPost.title}`}
             >
-              <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-96">
-                <Image src={featuredPost.image} alt={featuredPost.imageAlt} fill preload sizes="(min-width: 1280px) 650px, (min-width: 768px) 55vw, 100vw" className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02]" />
+              <div className="journal-feature-image">
+                <Image
+                  src={featuredPost.image}
+                  alt={featuredPost.imageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 767px) 92vw, 52vw"
+                />
+                <span aria-hidden="true">Featured story ↗</span>
               </div>
-              <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12">
-                <div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">In focus / {featuredPost.category}</span>
-                  <h2 className="mt-6 font-heading text-3xl font-bold leading-[1.12] tracking-[-0.035em] lg:text-4xl">{featuredPost.title}</h2>
-                  <p className="mt-5 text-sm leading-[1.75] text-[var(--color-muted-light)] sm:text-base">{featuredPost.excerpt}</p>
+              <div className="journal-feature-copy">
+                <div className="journal-feature-meta">
+                  <span>{featuredPost.category}</span>
+                  <span>{featuredPost.readTime}</span>
                 </div>
-                <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6">
-                  <span className="inline-flex min-h-11 items-center gap-5 rounded-full action-color px-5 text-sm font-semibold text-white">Read story <span aria-hidden="true">↗</span></span>
-                  <span className="text-xs text-[var(--color-muted-light)]">{featuredPost.readTime}</span>
-                </div>
+                <h2>{featuredPost.title}</h2>
               </div>
             </Link>
-          </ScrollReveal>
-        </div>
+
+            <div className="journal-headline-stack" aria-label="More from the journal">
+              {archivePosts.slice(0, 3).map((post, index) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`}>
+                  <span>0{index + 2}</span>
+                  <strong>{post.title}</strong>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       <section className="px-5 pb-28 pt-8 sm:px-7 sm:pt-12">

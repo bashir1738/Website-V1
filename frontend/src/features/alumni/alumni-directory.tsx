@@ -18,7 +18,7 @@ export function AlumniDirectory() {
 
   return (
     <>
-      <div className="alumni-toolbar">
+      <div className="alumni-toolbar" id="alumni-directory">
         <p className="alumni-toolbar-label">Browse the directory</p>
         <div className="alumni-filters" aria-label="Filter alumni">
           {alumniFilters.map((f) => (
@@ -44,10 +44,7 @@ export function AlumniDirectory() {
 
       <div className="alumni-grid" aria-live="polite">
         {shown.map((a, index) => (
-          <article
-            key={a.name}
-            className="alumni-card"
-          >
+          <article key={a.name} className="alumni-card">
             <div
               className="alumni-portrait"
               data-focus={a.imageFocus ?? "center"}
@@ -75,6 +72,25 @@ export function AlumniDirectory() {
               </div>
               <h2>{a.name}</h2>
               <p>{a.now}</p>
+              <a
+                className="alumni-social-link"
+                href={a.social.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Find ${a.name} on ${a.social.platform}`}
+              >
+                <span className="alumni-social-mark" aria-hidden="true">
+                  {a.social.platform === "LinkedIn"
+                    ? "in"
+                    : a.social.platform === "Discord"
+                      ? "D"
+                      : "X"}
+                </span>
+                <span>Find on {a.social.platform}</span>
+                <span className="alumni-social-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
             </div>
           </article>
         ))}

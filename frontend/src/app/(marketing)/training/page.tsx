@@ -65,57 +65,52 @@ export default function TrainingPage() {
       {/* ================================================================= */}
       {/* 1. HERO — the room, the standard, the invitation                  */}
       {/* ================================================================= */}
-      <section className="bf-hero">
-        <div className="bf-hero-media" aria-hidden="true">
-          <Image
-            src="/brand/path1.jpg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        <span className="bf-orb bf-orb-one" aria-hidden="true" />
-        <span className="bf-orb bf-orb-two" aria-hidden="true" />
-        <div className="grain-overlay" aria-hidden="true" />
+      <section className="academy-clean-hero" aria-labelledby="academy-title">
+        <div className="academy-clean-inner">
+          <div className="academy-clean-copy">
+            <ScrollReveal>
+              <span className="academy-clean-kicker">Blockfuse Academy</span>
+            </ScrollReveal>
 
-        <div className="bf-hero-inner">
-          <ScrollReveal>
-            <span className="bf-kicker">
-              <span className="bf-kicker-mark" aria-hidden="true">
-                <span />
-                <span />
-              </span>
-              Blockfuse Academy
-            </span>
-          </ScrollReveal>
+            <ScrollReveal delay={1}>
+              <h1 id="academy-title">
+                Learn deeply.
+                <br />
+                Build for real.
+              </h1>
+            </ScrollReveal>
 
-          <ScrollReveal delay={1}>
-            <h1>
-              Train for the work.
-              <em>Prove you are ready.</em>
-            </h1>
-          </ScrollReveal>
+            <ScrollReveal delay={2}>
+              <p className="academy-clean-lead">
+                Rigorous, project-based training for engineers ready to do the
+                work—not simply collect another certificate.
+              </p>
+            </ScrollReveal>
 
-          <ScrollReveal className="bf-hero-lead" delay={2}>
-            <p className="bf-hero-lead-strong">
-              Blockfuse Academy trains students into production-ready engineers
-              through demanding, project-based programs in AI-native software
-              engineering, applied AI, and blockchain.
-            </p>
-            <p className="bf-hero-punch">
-              You leave with evidence of what you can do, not just a
-              certificate. It is not an easy program — that is the point.
-            </p>
-          </ScrollReveal>
+            <ScrollReveal className="academy-clean-actions" delay={3}>
+              <ButtonLink href="#programs">Explore programs</ButtonLink>
+              <Link href="#assessment" className="academy-clean-link">
+                See how we assess
+                <span aria-hidden="true">↘</span>
+              </Link>
+            </ScrollReveal>
+          </div>
 
-          <ScrollReveal className="bf-hero-actions" delay={3}>
-            <ButtonLink href="#programs">Apply to the next cohort</ButtonLink>
-            <Link href="#assessment" className="bf-hero-link">
-              How we assess you
-              <span aria-hidden="true">→</span>
-            </Link>
+          <ScrollReveal className="academy-clean-visual" delay={2}>
+            <div className="academy-clean-glow" aria-hidden="true" />
+            <figure className="academy-clean-portrait">
+              <Image
+                src="/brand/IMG_1602.JPG"
+                alt="A Blockfuse Academy student"
+                fill
+                priority
+                sizes="(max-width: 767px) 100vw, 48vw"
+              />
+              <figcaption>
+                <span>Cohort IV</span>
+                <strong>Builders at Blockfuse</strong>
+              </figcaption>
+            </figure>
           </ScrollReveal>
         </div>
       </section>

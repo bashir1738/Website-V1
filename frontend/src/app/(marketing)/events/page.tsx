@@ -12,14 +12,79 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <main>
-      <section className="relative isolate overflow-hidden bg-[var(--color-surface-2)] px-5 py-16 text-[var(--color-paper)] sm:px-7 sm:py-20">
-        <Image src="/brand/heropic.jpg" alt="" fill preload sizes="100vw" className="-z-20 object-cover object-center" />
-        <div className="absolute inset-0 -z-10 bg-[var(--color-ink)]/80" />
-        <div className="mx-auto max-w-[1240px]">
-          <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">Blockfuse / Community events</p>
-          <h1 className="mt-5 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Good things happen<br />when builders meet.</h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-[var(--color-muted-light)]">From first demos to late-night builds. Find your people, share your work, and be part of what happens next.</p>
-          <a href="#events" className="mt-8 inline-flex min-h-11 items-center gap-6 rounded-full action-color px-6 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">Explore events <span aria-hidden="true">↓</span></a>
+      <section className="events-poster-hero" aria-labelledby="events-hero-title">
+        <div className="events-poster-inner">
+          <span className="events-poster-tag events-poster-tag-top">
+            Community events
+          </span>
+          <span className="events-poster-tag events-poster-tag-place">
+            Jos, Nigeria
+          </span>
+          <span className="events-poster-tag events-poster-tag-format">
+            Workshops · demos · meetups
+          </span>
+          <span
+            className="events-poster-burst events-poster-burst-left"
+            aria-hidden="true"
+          />
+          <span
+            className="events-poster-burst events-poster-burst-right"
+            aria-hidden="true"
+          />
+
+          <div className="events-poster-heading">
+            <p>Blockfuse Labs presents</p>
+            <h1 id="events-hero-title">
+              Builders meet.
+              <br />
+              Ideas move.
+            </h1>
+            <p className="events-poster-intro">
+              The room where engineers share the work, challenge the thinking,
+              and find the people who help an idea travel further.
+            </p>
+          </div>
+
+          <div
+            className="events-poster-collage"
+            aria-label="Scenes from Blockfuse events"
+          >
+            <figure className="events-poster-photo events-poster-photo-one">
+              <Image
+                src="/brand/DSC00191.jpg"
+                alt="A speaker addressing builders at a Blockfuse event"
+                fill
+                priority
+                sizes="(max-width: 767px) 62vw, 28vw"
+              />
+            </figure>
+            <figure className="events-poster-photo events-poster-photo-two">
+              <Image
+                src="/brand/DSC09993.jpg"
+                alt="An audience listening during a Blockfuse community session"
+                fill
+                priority
+                sizes="(max-width: 767px) 46vw, 22vw"
+              />
+            </figure>
+            <figure className="events-poster-photo events-poster-photo-three">
+              <Image
+                src="/brand/DSC02430.jpg"
+                alt="Builders gathered around laptops during an event"
+                fill
+                priority
+                sizes="(max-width: 767px) 52vw, 24vw"
+              />
+            </figure>
+            <figure className="events-poster-photo events-poster-photo-four">
+              <Image
+                src="/brand/DSC09999.jpg"
+                alt="A workshop in progress at Blockfuse Labs"
+                fill
+                sizes="(max-width: 767px) 45vw, 23vw"
+              />
+            </figure>
+          </div>
         </div>
       </section>
 
