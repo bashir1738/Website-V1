@@ -1222,17 +1222,54 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Filter pill (alumni) */
+.alumni-toolbar {
+  display: grid;
+  gap: 1rem;
+  margin-block: 3.5rem 2rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--line);
+}
+
+.alumni-toolbar-label {
+  margin: 0;
+  color: var(--dim);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.alumni-filters {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+}
+
+.alumni-filters::-webkit-scrollbar {
+  display: none;
+}
+
 .filter-pill {
-  position: relative;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.781rem;
-  font-weight: 500;
+  display: inline-flex;
+  min-height: 2.5rem;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.375rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
   border: 1px solid var(--line);
   color: var(--muted);
   background: var(--card);
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: color 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .filter-pill:hover {
@@ -1242,8 +1279,149 @@ h1, h2, h3, h4, h5, h6 {
 
 .filter-pill[data-active="true"] {
   color: var(--page-fg);
+  background: var(--surface-3);
+  border-color: var(--line-strong);
+}
+
+.filter-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.filter-count {
+  color: var(--dim);
+  font-size: 0.625rem;
+}
+
+.alumni-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem 1.25rem;
+}
+
+.alumni-card {
+  min-width: 0;
+}
+
+.alumni-portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.alumni-portrait-image {
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.88) contrast(1.03);
+  transition: transform 450ms cubic-bezier(0.23, 1, 0.32, 1), filter 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.alumni-portrait[data-focus="right"] .alumni-portrait-image {
+  object-position: 68% top;
+}
+
+.alumni-card:hover .alumni-portrait-image {
+  transform: scale(1.025);
+  filter: saturate(1) contrast(1.02);
+}
+
+.alumni-portrait-fallback {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: var(--accent);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
   background: var(--accent-dim);
-  border-color: rgba(191, 100, 231, 0.5);
+}
+
+.alumni-card-copy {
+  padding-top: 0.875rem;
+}
+
+.alumni-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  color: var(--dim);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.alumni-card h2 {
+  margin: 0.6rem 0 0;
+  color: var(--page-fg);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.alumni-card-copy > p {
+  max-width: 34ch;
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.alumni-empty {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  padding-block: 4rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.alumni-empty p {
+  margin: 0;
+}
+
+@media (min-width: 48rem) {
+  .alumni-toolbar {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .alumni-filters {
+    justify-content: flex-end;
+  }
+
+  .alumni-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 68.75rem) {
+  .alumni-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 6rem;
+  }
+
+  .alumni-card:nth-child(3n + 2) {
+    transform: translateY(3rem);
+  }
+
+  .alumni-card:nth-child(3n + 2) .alumni-portrait {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alumni-portrait-image {
+    transition: none;
+  }
+
+  .alumni-card:hover .alumni-portrait-image {
+    transform: none;
+  }
 }
 
 /* ─── Scroll reveal ─── */

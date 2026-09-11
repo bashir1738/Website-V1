@@ -7,7 +7,7 @@ import { AlumniDirectory } from "@/features/alumni/alumni-directory";
 export const metadata: Metadata = {
   title: "Alumni | Blockfuse Labs",
   description:
-    "Graduates from Cohorts I and II — every one assessed across coding, testing, system design, and communication.",
+    "Meet Blockfuse Labs graduates building products, protocols, and engineering careers.",
 };
 
 export default function AlumniPage() {
@@ -15,8 +15,8 @@ export default function AlumniPage() {
     <PageShell>
       <PageHero
         eyebrow="Alumni"
-        title="Two cohorts. On record."
-        lead="Every graduate here passed assessment across coding, testing, system design, and communication. Filter by cohort or track."
+        title="Built here. Building everywhere."
+        lead="Meet the engineers taking what they learned at Blockfuse into product teams, protocols, startups, and new ideas."
       >
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <ModalButton modal="alumni">Add your profile</ModalButton>

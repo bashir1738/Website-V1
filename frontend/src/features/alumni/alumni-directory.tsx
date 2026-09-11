@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import { alumni, alumniFilters } from "@/features/alumni/content";
 import { initials } from "@/lib/utils";
 
@@ -17,54 +18,82 @@ export function AlumniDirectory() {
 
   return (
     <>
-      <div className="mb-8 mt-9 flex flex-wrap gap-2">
-        {alumniFilters.map((f) => (
-          <button
-            key={f}
-            type="button"
-            className="filter-pill"
-            data-active={filter === f}
-            aria-pressed={filter === f}
-            onClick={() => setFilter(f)}
-          >
-            {f}
-          </button>
-        ))}
+      <div className="alumni-toolbar">
+        <p className="alumni-toolbar-label">Browse the directory</p>
+        <div className="alumni-filters" aria-label="Filter alumni">
+          {alumniFilters.map((f) => (
+            <button
+              key={f}
+              type="button"
+              className="filter-pill"
+              data-active={filter === f}
+              aria-pressed={filter === f}
+              onClick={() => setFilter(f)}
+            >
+              <span>{f}</span>
+              <span aria-hidden="true" className="filter-count">
+                {f === "All"
+                  ? alumni.length
+                  : alumni.filter((a) => a.cohort === f || a.track === f)
+                      .length}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(230px,1fr))]">
-        {shown.map((a) => (
-          <div
+      <div className="alumni-grid" aria-live="polite">
+        {shown.map((a, index) => (
+          <article
             key={a.name}
-            className="surface-card !rounded-[18px] px-[22px] pb-5 pt-[22px] transition-transform hover:-translate-y-1"
+            className="alumni-card"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <div className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full bg-[linear-gradient(140deg,rgba(191,100,231,0.35),rgba(78,46,245,0.25))] font-heading text-sm font-bold text-[var(--page-fg)]">
-                {initials(a.name)}
-              </div>
-              <div className="min-w-0">
-                <div className="text-[14.5px] font-semibold tracking-[-0.01em] text-[var(--page-fg)]">
-                  {a.name}
+            <div
+              className="alumni-portrait"
+              data-focus={a.imageFocus ?? "center"}
+            >
+              {a.image ? (
+                <Image
+                  src={a.image}
+                  alt={`Portrait of ${a.name}`}
+                  fill
+                  sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                  className="alumni-portrait-image"
+                  priority={index < 3}
+                />
+              ) : (
+                <div className="alumni-portrait-fallback" aria-hidden="true">
+                  {initials(a.name)}
                 </div>
-                <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--dim)]">
-                  {a.cohort}
-                </div>
+              )}
+            </div>
+            <div className="alumni-card-copy">
+              <div className="alumni-meta">
+                <span>{a.track}</span>
+                <span aria-hidden="true">—</span>
+                <span>{a.cohort}</span>
               </div>
+              <h2>{a.name}</h2>
+              <p>{a.now}</p>
             </div>
-            <div className="mb-2 text-[12.5px] font-medium text-[var(--accent)]">
-              {a.track}
-            </div>
-            <div className="text-[13px] leading-relaxed text-[var(--muted)]">
-              {a.now}
-            </div>
-          </div>
+          </article>
         ))}
       </div>
 
       {shown.length === 0 && (
-        <p className="text-sm text-[var(--muted)]">
-          No graduates match that filter yet.
-        </p>
+        <div className="alumni-empty">
+          <p className="font-heading text-lg font-semibold">
+            No profiles here yet.
+          </p>
+          <p>Try another track or cohort to keep exploring.</p>
+          <button
+            type="button"
+            className="filter-pill"
+            onClick={() => setFilter("All")}
+          >
+            Show all alumni
+          </button>
+        </div>
       )}
     </>
   );
