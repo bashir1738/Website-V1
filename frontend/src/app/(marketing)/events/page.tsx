@@ -35,14 +35,22 @@ export default function EventsPage() {
           <div className="events-poster-heading">
             <p>Blockfuse Labs presents</p>
             <h1 id="events-hero-title">
-              Builders meet.
+              COMMUNITY
               <br />
-              Ideas move.
+              EVENTS
+              <br />
+              <span className="text-text-secondary">WORKSHOPS!</span>
             </h1>
             <p className="events-poster-intro">
-              The room where engineers share the work, challenge the thinking,
-              and find the people who help an idea travel further.
+              We bring engineers together to build, learn, and showcase — through workshops, hackathons, and demo days that actually matter.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <ModalButton modal="prodfest">See upcoming events</ModalButton>
+              <Link href="/contact" className="btn-secondary bf-on-dark-btn inline-flex items-center gap-2">
+                Host an event
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
 
           <div

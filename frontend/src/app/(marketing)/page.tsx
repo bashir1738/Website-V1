@@ -10,6 +10,9 @@ import {
   closingPaths,
   howBlockfuseWorks,
   programPaths,
+  whyBlockfusePoints,
+  proofStats,
+  engagementModels,
 } from "@/features/home/content";
 
 function SectionDivider() {
@@ -38,28 +41,32 @@ export default function Home() {
                   <span />
                   <span />
                 </span>
-                From potential to production
+                WEB3 &amp; BLOCKCHAIN ENGINEERING STUDIO
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={1}>
               <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-[var(--page-fg)]">
-                We build engineers who can build the future.
+                We build decentralized systems &amp; deploy vetted engineering talent.
               </h1>
             </ScrollReveal>
 
             <ScrollReveal delay={2}>
               <p className="mt-7 max-w-[55ch] text-base leading-[1.7] text-[var(--muted)] sm:text-lg">
-                Blockfuse Labs turns high-potential people into production-ready
-                software engineers through demanding training, real deadlines,
-                and direct review from working engineers.
+                Blockfuse Labs is a premier Web3 &amp; Blockchain engineering studio.
+                We architect production-grade protocols, smart contracts, and
+                AI-powered Web3 products while deploying battle-tested engineering
+                talent to global technology teams.
               </p>
             </ScrollReveal>
 
-            <ScrollReveal className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center" delay={3}>
-              <ButtonLink href="#choose-your-path">Explore our programs</ButtonLink>
-              <Link href="/engineering" className="hero-text-link">
-                Build with our engineers
+            <ScrollReveal className="mt-8 flex flex-wrap items-start gap-4 sm:flex-row sm:items-center" delay={3}>
+              <ButtonLink href="/engineering">Start an Engineering Project</ButtonLink>
+              <ButtonLink href="/hire-engineers" variant="secondary">
+                Hire Vetted Web3 Engineers
+              </ButtonLink>
+              <Link href="/training" className="hero-text-link">
+                Explore Academy Pipeline
                 <span aria-hidden="true">↗</span>
               </Link>
             </ScrollReveal>
@@ -117,7 +124,7 @@ export default function Home() {
               Build the ability, judgment, and proof to move forward.
             </h2>
             <p className="mx-auto mt-6 max-w-[58ch] text-base leading-[1.7] text-[var(--path-journey-muted)] sm:text-lg">
-              Three focused routes. Each one is built around real work,
+              Four focused routes. Each one is built around real work,
               professional review, and outcomes that can be examined.
             </p>
           </div>
@@ -137,12 +144,12 @@ export default function Home() {
                   <p className="path-journey-description">{program.description}</p>
                   <p className="path-journey-audience">{program.audience}</p>
                   <ModalButton
-                    modal={i === 2 ? "hire" : "program"}
+                    modal={i === 3 ? "hire" : "program"}
                     variant="link"
                     className="path-journey-action"
-                    prefill={i === 2 ? undefined : { Track: program.title }}
+                    prefill={i === 3 ? undefined : { Track: program.title }}
                   >
-                    {i === 2 ? "Train your team" : "Explore this path"}
+                    {i === 3 ? "Hire engineers" : "Explore this path"}
                   </ModalButton>
                 </ScrollReveal>
 
@@ -159,7 +166,9 @@ export default function Home() {
                           ? "Engineers learning together in a Blockfuse classroom"
                           : i === 1
                             ? "A technical speaker presenting to the Blockfuse community"
-                            : "Engineers collaborating during a Blockfuse working session"
+                            : i === 2
+                              ? "Engineers collaborating during a Blockfuse working session"
+                              : "A Blockfuse engineer working on a client project"
                       }
                       fill
                       sizes="(max-width: 1023px) 100vw, 33vw"
@@ -181,34 +190,66 @@ export default function Home() {
 
       <SectionDivider />
 
-      <TeamNetwork />
-
-      <SectionDivider />
+      {/* ================================================================= */}
+      {/* THE PEOPLE BEHIND THE STANDARD — commented out, preserved for later */}
+      {/* ================================================================= */}
+      {/* <TeamNetwork /> */}
+      {/* <SectionDivider /> */}
 
       {/* ================================================================= */}
-      {/* 7. HOW BLOCKFUSE WORKS */}
+      {/* THE INDUSTRY CHALLENGE */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-7">
-        <div className="mx-auto max-w-4xl">
-          <ScrollReveal>
-            <span className="eyebrow">The System</span>
-            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
-              How Blockfuse works
-            </h2>
-          </ScrollReveal>
+      <section id="core-reality" className="py-24 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[var(--accent-dim)] blur-[120px] pointer-events-none" />
 
-          <div className="mt-10 border-t border-[var(--line-strong)]">
-            {howBlockfuseWorks.map((step, i) => (
-              <details key={step.number} name="blockfuse-process" open={i === 0} className="group border-b border-[var(--line-strong)]">
-                <summary className="flex min-h-20 cursor-pointer list-none items-center gap-5 rounded-lg py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] [&::-webkit-details-marker]:hidden">
-                  <span className="w-8 shrink-0 font-mono text-sm text-[var(--accent)]">0{step.number}</span>
-                  <h3 className="flex-1 font-heading text-lg font-medium text-[var(--page-fg)] sm:text-xl">{step.title}</h3>
-                  <span aria-hidden="true" className="text-xl text-[var(--muted)] group-open:hidden">+</span>
-                  <span aria-hidden="true" className="hidden text-xl text-[var(--muted)] group-open:inline">−</span>
-                </summary>
-                <p className="max-w-prose pb-7 pl-12 text-sm leading-relaxed text-[var(--muted)] sm:text-base">{step.description}</p>
-              </details>
-            ))}
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Left Column */}
+            <div className="lg:col-span-5 space-y-6">
+              <ScrollReveal>
+                <span className="eyebrow">The Industry Challenge</span>
+              </ScrollReveal>
+
+              <h2 className="bf-h2">
+                The bottleneck is not ideas.
+                <br />
+                <em className="font-light text-[var(--muted)]">It is execution &amp; talent.</em>
+              </h2>
+
+              <div className="pt-4 hidden lg:block">
+                <div className="surface-card p-4 space-y-2 text-xs font-mono text-[var(--muted)]">
+                  <div className="flex justify-between text-[var(--accent)]">
+                    <span>MARKET REALITY</span>
+                    <span>PRODUCTION PROOF</span>
+                  </div>
+                  <p className="font-sans text-[var(--muted)]">
+                    80% of blockchain projects stall due to unverified code or shortage of senior protocol engineers.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <ScrollReveal className="lg:col-span-7" delay={1}>
+              <div className="surface-card surface-card-accent p-8 sm:p-10 space-y-6">
+                <p className="text-lg sm:text-xl text-[var(--page-fg)] leading-relaxed">
+                  Web3 protocols and tech enterprises move fast, but finding production-ready smart contract developers and full-stack Web3 engineers remains an uphill battle.
+                </p>
+
+                <div className="bf-note">
+                  <p className="text-base text-[var(--page-fg)] font-medium tracking-tight">
+                    Blockfuse Labs bridges the execution gap.
+                  </p>
+                  <p className="mt-2 text-sm text-[var(--muted)]">
+                    We combine turnkey engineering delivery with an elite internal talent engine — giving founders and enterprises immediate access to verified technical capability.
+                  </p>
+                </div>
+
+                <p className="text-sm text-[var(--muted)] leading-relaxed">
+                  Our engineering team does not write code to pass online courses. We design protocols, test smart contracts against security vulnerabilities, ship dApps to live networks, and embed pre-vetted engineers directly into client sprint cycles.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -216,7 +257,339 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 13. NEXT STEPS — one clear card per audience, no gimmicks */}
+      {/* ENGAGEMENT MODELS */}
+      {/* ================================================================= */}
+      <section id="engagement" className="py-24">
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-4">
+              <ScrollReveal>
+                <span className="eyebrow">Engagement Models</span>
+              </ScrollReveal>
+              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
+                How companies{" "}
+                <em className="font-light text-[var(--muted)]">partner with us.</em>
+              </h2>
+            </div>
+            <div className="text-xs font-mono text-[var(--muted)]">
+              MANAGED DELIVERY • EMBEDDED PODS • CUSTOM PIPELINES
+            </div>
+          </div>
+
+          {/* Cards — bf-cells hairline grid */}
+          <ScrollReveal delay={1}>
+            <div className="bf-cells bf-cells-3">
+              {engagementModels.map((model, i) => (
+                <article key={model.title} className="bf-cell !p-0 flex flex-col group">
+                  {/* Image top — cards 1 & 3 */}
+                  {i !== 1 && (
+                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
+                      <div
+                        className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.22] transition-opacity duration-300"
+                        style={{
+                          backgroundImage: "linear-gradient(to right, var(--accent) 1px, transparent 1px), linear-gradient(to bottom, var(--accent) 1px, transparent 1px)",
+                          backgroundSize: "24px 24px",
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-[9px] font-mono tracking-widest text-[var(--muted)] uppercase opacity-40">
+                          Image placeholder
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-[1.9rem]">
+                    <div className="bf-cell-head">
+                      <span className="bf-cell-index">{model.number}</span>
+                      <span className="bf-cell-chip">{model.subtitle}</span>
+                    </div>
+                    <h3 className="group-hover:text-[var(--accent)] transition-colors duration-200">{model.title}</h3>
+                    <p>{model.description}</p>
+                    <ul className="mt-3 space-y-1.5">
+                      {model.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-[0.75rem] text-[var(--muted)]">
+                          <span className="w-1 h-1 rounded-full bg-[var(--accent)] inline-block shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href={model.href} className="bf-cell-link">
+                      {model.ctaText}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+
+                  {/* Image bottom — middle card only */}
+                  {i === 1 && (
+                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
+                      <div
+                        className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.22] transition-opacity duration-300"
+                        style={{
+                          backgroundImage: "linear-gradient(to right, var(--accent) 1px, transparent 1px), linear-gradient(to bottom, var(--accent) 1px, transparent 1px)",
+                          backgroundSize: "24px 24px",
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-[9px] font-mono tracking-widest text-[var(--muted)] uppercase opacity-40">
+                          Image placeholder
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* THE BLOCKFUSE ADVANTAGE */}
+      {/* ================================================================= */}
+      <section id="why-us" className="py-24">
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Left Column */}
+          <div className="lg:col-span-5 space-y-6">
+            <ScrollReveal>
+              <span className="eyebrow">The Blockfuse Advantage</span>
+            </ScrollReveal>
+
+            <h2 className="bf-h2">
+              Why teams choose
+              <br />
+              <em className="font-light text-[var(--muted)]">Blockfuse Labs.</em>
+            </h2>
+
+            <p className="bf-prose">
+              Whether you need a full turnkey dApp build or embedded Web3 engineers, we deliver with senior oversight, verified code, and zero onboarding latency.
+            </p>
+
+            <div className="hidden lg:block pt-2">
+              <div className="bf-note text-xs font-mono space-y-2">
+                <div className="text-[var(--accent)]">// CLIENT GUARANTEE</div>
+                <p className="font-sans text-[var(--muted)]">
+                  Direct senior lead accountability, daily GitHub commits, and complete IP sovereignty on all client engagements.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column — row-list pattern */}
+          <ScrollReveal className="lg:col-span-7" delay={1}>
+            <div className="row-list">
+              {whyBlockfusePoints.map((point, i) => (
+                <div key={point.title} className="py-6 px-6 flex items-start gap-5">
+                  <span className="mono-tag mono-tag-accent shrink-0 mt-0.5">0{i + 1}</span>
+                  <div className="space-y-1.5 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                      <h3 className="font-heading text-base font-semibold text-[var(--page-fg)]">
+                        {point.title}
+                      </h3>
+                      <span className="mono-tag shrink-0">{point.tag}</span>
+                    </div>
+                    <p className="text-sm text-[var(--muted)] leading-relaxed">
+                      {point.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* PHYSICAL LABS + INTERNAL TALENT ENGINE */}
+      {/* ================================================================= */}
+      <section id="cohort-showcase" className="py-24 relative overflow-hidden">
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
+          {/* Physical Labs */}
+          <div className="space-y-6">
+            <ScrollReveal>
+              <span className="eyebrow">Physical Labs</span>
+            </ScrollReveal>
+
+            <ScrollReveal delay={1}>
+              <div className="feature-panel p-8 sm:p-12 space-y-8 overflow-hidden relative">
+                <div
+                  className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                  style={{ backgroundImage: "radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)", backgroundSize: "32px 32px" }}
+                />
+                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-[var(--muted)] border-b border-[var(--line)] pb-4 gap-4 relative z-10">
+                  <span className="flex items-center gap-2 text-[var(--page-fg)]">
+                    <span className="status-pill">
+                      <span className="dot" />
+                      <span className="label">JOS PRODUCTION WORKSPACE — ONLINE</span>
+                    </span>
+                  </span>
+                  <span className="eyebrow">Cohort II · 115 Engineers</span>
+                </div>
+                <div className="space-y-4 max-w-2xl relative z-10">
+                  <h3 className="font-heading text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
+                    Cohort at work.
+                  </h3>
+                  <p className="bf-prose">
+                    Jos Production Space: where real software systems get designed, reviewed, benchmarked, and shipped under live production conditions.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[var(--muted)] border-t border-[var(--line)] pt-4 gap-4 relative z-10">
+                  <span>LAT / LONG: 09.8965° N, 8.8583° E</span>
+                  <span>LOCATION: PLATEAU STATE • NIGERIA</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Internal Talent Engine */}
+          <div className="space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <ScrollReveal>
+                <span className="eyebrow">Internal Talent Engine</span>
+              </ScrollReveal>
+              <span className="mono-tag">Blockfuse Academy</span>
+            </div>
+
+            <ScrollReveal delay={1}>
+              <div className="surface-card surface-card-accent p-8 sm:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  <div className="lg:col-span-8 space-y-4">
+                    <h3 className="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
+                      Cultivating Africa&apos;s top Web3 &amp; AI engineering talent.
+                    </h3>
+                    <p className="bf-prose">
+                      Behind our engineering studio is Blockfuse Academy — a rigorous, project-driven training pipeline where ambitious developers learn AI-native workflows, EVM/Solana smart contract engineering, and production testing standards.
+                    </p>
+                  </div>
+                  <div className="lg:col-span-4 flex flex-col justify-end gap-3">
+                    <ButtonLink href="/training">
+                      Explore Academy Curriculum
+                    </ButtonLink>
+                    <p className="text-[11px] font-mono text-[var(--muted)] text-center">
+                      For aspiring engineers &amp; cohort applicants
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* EVENTS & OPEN SOURCE */}
+      {/* ================================================================= */}
+      <section id="prodfest-opensource" className="py-24">
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-4">
+              <ScrollReveal>
+                <span className="eyebrow">Initiatives &amp; Stage</span>
+              </ScrollReveal>
+              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
+                Events &amp; <span className="text-[var(--muted)]">Open Source.</span>
+              </h2>
+            </div>
+            <div className="text-xs font-mono text-[var(--muted)]">
+              FLAGSHIP EVENTS • PUBLIC CODE • COMMUNITY
+            </div>
+          </div>
+
+          <ScrollReveal delay={1}>
+            <div className="bf-cells bf-cells-2">
+              {/* ProdFest Cell */}
+              <article className="bf-cell">
+                <div className="bf-cell-head">
+                  <span className="bf-cell-index">01</span>
+                  <span className="bf-cell-chip">Annual Demo Day</span>
+                </div>
+                <h3>ProdFest 2026</h3>
+                <p>
+                  One day, one stage. Cohort teams ship in front of founders, investors, and ecosystem partners — and the room decides what deserves to keep going.
+                </p>
+                <div className="mt-auto pt-6 flex flex-wrap items-center gap-5">
+                  <ModalButton modal="program" variant="link" className="bf-cell-link">
+                    Register interest <span aria-hidden="true"></span>
+                  </ModalButton>
+                  <ModalButton modal="sponsor" variant="link" className="bf-cell-link">
+                    Sponsor event <span aria-hidden="true"></span>
+                  </ModalButton>
+                </div>
+              </article>
+
+              {/* Open Source Cell */}
+              <article className="bf-cell">
+                <div className="bf-cell-head">
+                  <span className="bf-cell-index">02</span>
+                  <span className="bf-cell-chip">6 Active Repos</span>
+                </div>
+                <h3>Build in public with us</h3>
+                <p>
+                  Six repos maintained by students and residents. Contributions reviewed under the exact same rigor as client production code.
+                </p>
+                <Link href="/open-source" className="bf-cell-link">
+                  Explore GitHub repos <span aria-hidden="true">→</span>
+                </Link>
+              </article>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* PROOF & METRICS */}
+      {/* ================================================================= */}
+      <section id="about" className="py-24">
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div className="lg:col-span-6 space-y-4">
+              <ScrollReveal>
+                <span className="eyebrow">Proof &amp; Metrics</span>
+              </ScrollReveal>
+              <h2 className="bf-h2">
+                Proven in code,
+                <br />
+                <em className="font-light text-[var(--muted)]">measured in production.</em>
+              </h2>
+            </div>
+            <div className="lg:col-span-6">
+              <p className="bf-prose">
+                We don&apos;t train for certificates. We train for engineering capability that holds up under professional scrutiny and live production benchmarks.
+              </p>
+            </div>
+          </div>
+
+          <ScrollReveal delay={1}>
+            <div className="hairline-grid sm:grid-cols-2 lg:grid-cols-4">
+              {proofStats.map((stat, i) => (
+                <div key={stat.label} className="hairline-cell p-8 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="mono-tag mono-tag-accent">0{i + 1}</span>
+                    <span className="mono-tag">[{stat.tag}]</span>
+                  </div>
+                  <div className="stat-figure text-4xl sm:text-5xl">{stat.value}</div>
+                  <p className="text-xs text-[var(--muted)] leading-relaxed">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* WHERE TO START — Learn. Hire. Build. Partner. */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-7 sm:py-32">
         <div className="mx-auto max-w-[1120px]">
@@ -262,6 +635,103 @@ export default function Home() {
                 </TiltCard>
               </ScrollReveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* HOW BLOCKFUSE WORKS */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7">
+        <div className="mx-auto max-w-4xl">
+          <ScrollReveal>
+            <span className="eyebrow">The System</span>
+            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+              How Blockfuse works
+            </h2>
+          </ScrollReveal>
+
+          <div className="mt-10 border-t border-[var(--line-strong)]">
+            {howBlockfuseWorks.map((step, i) => (
+              <details key={step.number} name="blockfuse-process" open={i === 0} className="group border-b border-[var(--line-strong)]">
+                <summary className="flex min-h-20 cursor-pointer list-none items-center gap-5 rounded-lg py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] [&::-webkit-details-marker]:hidden">
+                  <span className="w-8 shrink-0 font-mono text-sm text-[var(--accent)]">0{step.number}</span>
+                  <h3 className="flex-1 font-heading text-lg font-medium text-[var(--page-fg)] sm:text-xl">{step.title}</h3>
+                  <span aria-hidden="true" className="text-xl text-[var(--muted)] group-open:hidden">+</span>
+                  <span aria-hidden="true" className="hidden text-xl text-[var(--muted)] group-open:inline">−</span>
+                </summary>
+                <p className="max-w-prose pb-7 pl-12 text-sm leading-relaxed text-[var(--muted)] sm:text-base">{step.description}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* FINAL CTA */}
+      {/* ================================================================= */}
+      <section id="final-cta" className="py-24 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[200px] sm:h-[280px] lg:h-[350px] bg-[var(--accent)]/10 blur-[150px] pointer-events-none" />
+
+        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 relative z-10">
+          <div className="p-6 sm:p-10 lg:p-14 rounded-2xl border border-[var(--accent)]/40 bg-[var(--card)] backdrop-blur-2xl relative overflow-hidden shadow-2xl space-y-8 sm:space-y-12">
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-7 space-y-6">
+                <ScrollReveal>
+                  <span className="eyebrow">Ready to build?</span>
+                </ScrollReveal>
+
+                <h2 className="font-heading text-[clamp(2rem,4vw,3.5rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)] leading-tight">
+                  Build your next protocol.
+                  <br />
+                  <em className="font-light text-[var(--muted)]">Scale with vetted talent.</em>
+                </h2>
+
+                <p className="max-w-lg text-sm text-[var(--muted)] font-light leading-relaxed">
+                  Whether you need a turnkey decentralized protocol build or vetted engineers embedded into your team, Blockfuse Labs delivers production-grade execution.
+                </p>
+              </div>
+              
+              {/* links */}
+              <div className="lg:col-span-5">
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/engineering"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                  >
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Start an Engineering Project</span>
+                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+                  </Link>
+
+                  <Link
+                    href="/hire-engineers"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                  >
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Hire Vetted Web3 Engineers</span>
+                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+                  </Link>
+
+                  <Link
+                    href="/training"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                  >
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--muted)] group-hover:text-[var(--page-fg)] transition-colors duration-300">Apply to Blockfuse Academy</span>
+                    <span className="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-200">→</span>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[var(--muted)] border-t border-[var(--line-strong)]/80 pt-6">
+              <span>BLOCKFUSE LABS • JOS, NIGERIA</span>
+              <span>EST. 2024 • WEB3 &amp; AI ENGINEERING STUDIO</span>
+            </div>
           </div>
         </div>
       </section>

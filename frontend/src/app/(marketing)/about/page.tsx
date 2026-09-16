@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
-import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
 import { CounterStat } from "@/components/ui/counter-stat";
 import { aboutBeliefs, aboutPartners } from "@/features/about/content";
 import { stats } from "@/features/home/content";
@@ -29,35 +28,19 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Heading with Kinetic Typography */}
-          <div>
-            <KineticHeroTitle
-              prefix="Talent should be judged by what it can build,"
-              cycleWords={["not where it comes from.", "backed by working code.", "proven in production."]}
-              suffix=""
-              className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-[1.08]"
-            />
-          </div>
-
-          <ScrollReveal className="mt-8 space-y-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8" delay={1}>
-            <p className="font-medium text-[var(--page-fg)] text-lg sm:text-xl">
-              Blockfuse Labs trains engineers for the AI-native world and builds
-              dependable software for organisations.
-            </p>
-            <p>
-              We are based in Jos, Plateau State, Nigeria. Everything we do is
-              built around one standard: the work has to hold up in the real
-              world.
-            </p>
+      <section className="relative min-h-[calc(100vh-76px)] flex items-center justify-center px-5 sm:px-8 py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <ScrollReveal>
+            <span className="eyebrow">About Us</span>
+            <h1 className="mt-4 font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
+              About the company
+            </h1>
           </ScrollReveal>
 
-          <ScrollReveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" delay={2}>
-            <ButtonLink href="/training" dataCursor="ACADEMY">Explore the Academy</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary" dataCursor="WORK">
-              Work with us
-            </ButtonLink>
+          <ScrollReveal className="mt-8 mx-auto max-w-2xl" delay={1}>
+            <p className="text-base text-[var(--muted)] sm:text-lg leading-relaxed">
+              We develop engineers, not certificates. Production-grade software engineering and technical talent built from Jos, Nigeria for the global Web3 ecosystem.
+            </p>
           </ScrollReveal>
         </div>
       </section>

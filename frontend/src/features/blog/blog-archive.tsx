@@ -27,15 +27,14 @@ export function BlogArchive() {
             </span>
 
             <div className="journal-hero-copy">
-              <span className="eyebrow">Inside Blockfuse</span>
+              <span className="eyebrow">Engineering Insights</span>
               <h1 id="journal-title">
-                Field
+                Your Source For
                 <br />
-                notes<span>.</span>
+                Engineering Inspiration
               </h1>
               <p>
-                The people, projects, and hard-won lessons behind the work.
-                Written from our community in Jos and beyond.
+                Dive into technical deep-dives, protocol architectures, and developer insights curated by Blockfuse Labs engineers.
               </p>
             </div>
 

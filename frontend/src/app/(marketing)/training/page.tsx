@@ -6,6 +6,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CounterStat } from "@/components/ui/counter-stat";
+import { TestimonialsCarousel } from "@/features/training/testimonials-carousel";
 import {
   academyPillars,
   academyStats,
@@ -74,9 +75,9 @@ export default function TrainingPage() {
 
             <ScrollReveal delay={1}>
               <h1 id="academy-title">
-                Learn deeply.
+                Blockfuse
                 <br />
-                Build for real.
+                Academy.
               </h1>
             </ScrollReveal>
 
@@ -89,9 +90,12 @@ export default function TrainingPage() {
 
             <ScrollReveal className="academy-clean-actions" delay={3}>
               <ButtonLink href="#programs">Explore programs</ButtonLink>
-              <Link href="#assessment" className="academy-clean-link">
-                See how we assess
-                <span aria-hidden="true">↘</span>
+              <ModalButton modal="program" variant="secondary">
+                Apply now
+              </ModalButton>
+              <Link href="/contact" className="academy-clean-link">
+                Ask a question
+                <span aria-hidden="true">↗</span>
               </Link>
             </ScrollReveal>
           </div>
@@ -118,7 +122,7 @@ export default function TrainingPage() {
       {/* ================================================================= */}
       {/* 2. PROOF STRIP — overlapping the hero                             */}
       {/* ================================================================= */}
-      <div className="bf-stats-wrap">
+      {/* <div className="bf-stats-wrap">
         <ScrollReveal>
           <dl className="bf-stats">
             {academyStats.map((stat) => (
@@ -134,58 +138,10 @@ export default function TrainingPage() {
             ))}
           </dl>
         </ScrollReveal>
-      </div>
+      </div> */}
 
       {/* ================================================================= */}
-      {/* 3. THE STANDARD FOR ENGINEERING HAS CHANGED                       */}
-      {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-7 sm:py-28">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="bf-split">
-            <ScrollReveal>
-              <span className="eyebrow">The modern paradigm</span>
-              <h2 className="bf-h2 mt-4">
-                The standard for engineering has changed.
-              </h2>
-              <div className="bf-prose mt-7">
-                <p>
-                  AI can help almost anyone produce code. That makes engineering
-                  judgment more valuable, not less.
-                </p>
-                <p>
-                  Companies need engineers who can understand systems, evaluate
-                  AI-generated output, solve unfamiliar problems, collaborate
-                  with a team, and take responsibility for what they ship.
-                </p>
-              </div>
-              <p className="bf-pullquote">
-                That is what Blockfuse Academy is designed to develop.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={2} threshold={0.08}>
-              <figure className="bf-frame">
-                <div className="bf-frame-img">
-                  <Image
-                    src="/brand/path3.jpg"
-                    alt="Blockfuse engineers reviewing code together during a working session"
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 46vw"
-                    className="object-cover"
-                  />
-                </div>
-                <figcaption className="bf-frame-badge">
-                  <strong>Direct review</strong>
-                  <span>The way it happens on a professional team</span>
-                </figcaption>
-              </figure>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================= */}
-      {/* 4. WHY TRAIN AT BLOCKFUSE — 7 pillars on the violet band          */}
+      {/* 3. WHY TRAIN AT BLOCKFUSE — The Blockfuse difference              */}
       {/* ================================================================= */}
       <section className="bf-band px-5 py-24 sm:px-7 sm:py-32">
         <span className="bf-orb bf-orb-three" aria-hidden="true" />
@@ -194,25 +150,41 @@ export default function TrainingPage() {
             <span className="eyebrow bf-eyebrow-light">
               The Blockfuse difference
             </span>
-            <h2 className="bf-h2 mt-4">Why train at Blockfuse?</h2>
+            <h2 className="bf-h2 mt-4">We don&apos;t train for certificates</h2>
+            <p className="mt-6 text-[clamp(1rem,1.25vw,1.1rem)] leading-[1.75] text-[rgba(255,255,255,0.72)] max-w-[52ch]">
+              We train engineers who can think independently, solve unfamiliar
+              problems, ship production code, and thrive in real technical
+              environments.
+            </p>
           </ScrollReveal>
 
-          <div className="bf-pillar-grid mt-14 sm:mt-16">
+          <div className="mt-14 sm:mt-16 space-y-5">
             {academyPillars.map((pillar, idx) => (
-              <ScrollReveal
-                key={pillar.title}
-                className={idx === 0 ? "bf-pillar-wide" : undefined}
-                delay={idx < 4 ? idx + 1 : 4}
-              >
-                <article className="bf-pillar" data-cursor="PILLAR">
-                  <span className="bf-pillar-index">
+              <ScrollReveal key={pillar.title} delay={idx < 4 ? idx + 1 : 4}>
+                <article className="bf-pillar relative overflow-hidden" data-cursor="PILLAR">
+                  {/* Large background number */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none select-none absolute right-6 top-1/2 -translate-y-1/2 font-heading font-bold leading-none text-[7rem] sm:text-[9rem] text-white/[0.04]"
+                  >
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.copy}</p>
-                  {pillar.subCopy && (
-                    <p className="bf-pillar-note">{pillar.subCopy}</p>
-                  )}
+                  <div className="relative z-10 grid gap-6 sm:grid-cols-[1fr_minmax(0,1.2fr)] sm:items-center">
+                    <div>
+                      <span className="bf-pillar-index">{String(idx + 1).padStart(2, "0")}</span>
+                      <h3 className="mt-2 text-white text-[clamp(1.5rem,2.8vw,2.2rem)]">
+                        {pillar.title}
+                      </h3>
+                    </div>
+                    <div>
+                      <p className="text-[rgba(255,255,255,0.72)] text-[0.95rem] leading-[1.75]">
+                        {pillar.copy}
+                      </p>
+                      {pillar.subCopy && (
+                        <p className="bf-pillar-note mt-4">{pillar.subCopy}</p>
+                      )}
+                    </div>
+                  </div>
                 </article>
               </ScrollReveal>
             ))}
@@ -306,8 +278,68 @@ export default function TrainingPage() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* 6. YOUR PATH THROUGH BLOCKFUSE                                    */}
+      {/* 6. WHAT WE MEASURE                                                */}
       {/* ================================================================= */}
+      <section id="assessment" className="scroll-mt-24 border-b border-[var(--line-strong)]">
+        {/* Full-bleed header bar */}
+        <div className="border-b border-[var(--line-strong)] py-12 px-5 sm:px-7">
+          <div className="mx-auto max-w-[1240px] flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-4">
+              <ScrollReveal>
+                <span className="eyebrow">Graduation standards</span>
+              </ScrollReveal>
+              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)] leading-tight">
+                What we measure,
+                <br />
+                <em className="font-light text-[var(--muted)]">not grades.</em>
+              </h2>
+            </div>
+            <p className="text-sm text-[var(--muted)] leading-relaxed max-w-sm">
+              Graduation requires demonstrated competency across multiple
+              dimensions. We assess what employers actually care about.
+            </p>
+          </div>
+        </div>
+
+        {/* Criteria rows */}
+        <div className="px-5 sm:px-7">
+          <div className="mx-auto max-w-[1240px] divide-y divide-[var(--line)]">
+            {assessmentMatrix.map((row, i) => (
+              <ScrollReveal key={row.area} delay={i < 4 ? 1 : 2}>
+                <div className="group grid grid-cols-12 gap-6 items-center py-7 hover:bg-[var(--panel-fill-hover)] transition-colors duration-200 px-2 rounded-lg -mx-2">
+                  {/* Index */}
+                  <div className="col-span-1">
+                    <span className="font-mono text-[11px] text-[var(--accent)] opacity-50 group-hover:opacity-100 transition-opacity">
+                      0{i + 1}
+                    </span>
+                  </div>
+
+                  {/* Area name */}
+                  <div className="col-span-5 md:col-span-4">
+                    <h4 className="text-base font-semibold text-[var(--page-fg)] font-heading tracking-[-0.02em] group-hover:text-[var(--accent)] transition-colors duration-200">
+                      {row.area}
+                    </h4>
+                  </div>
+
+                  {/* Divider line that fills on hover */}
+                  <div className="col-span-3 hidden md:block">
+                    <div className="h-px bg-[var(--line)] group-hover:bg-[var(--accent-line)] transition-colors duration-300" />
+                  </div>
+
+                  {/* Description */}
+                  <div className="col-span-6 md:col-span-4">
+                    <p className="text-sm text-[var(--muted)] leading-relaxed group-hover:text-[var(--page-fg)] transition-colors duration-200">
+                      {row.whatWeAssess}
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
       <section className="px-5 py-24 sm:px-7 sm:py-32">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[52rem]">
@@ -390,39 +422,32 @@ export default function TrainingPage() {
       {/* ================================================================= */}
       {/* 8. WHAT OUR GRADUATES SAY                                         */}
       {/* ================================================================= */}
-      <section className="px-5 py-24 sm:px-7 sm:py-32">
-        <div className="mx-auto max-w-[1240px]">
-          <ScrollReveal className="max-w-[46rem]">
-            <span className="eyebrow">Alumni outcomes</span>
-            <h2 className="bf-h2 mt-4">What our graduates say</h2>
-          </ScrollReveal>
-
-          <div className="bf-quote-grid mt-14 sm:mt-16">
-            {graduateTestimonials.map((item, i) => (
-              <ScrollReveal key={item.author} delay={i + 1}>
-                <figure className="bf-quote" data-cursor="QUOTE">
-                  <blockquote>
-                    <p>{item.quote}</p>
-                  </blockquote>
-                  <figcaption>
-                    <span
-                      className={`bf-avatar ${AVATAR_TONES[i % AVATAR_TONES.length]}`}
-                      aria-hidden="true"
-                    >
-                      {initials(item.author)}
-                    </span>
-                    <span className="bf-quote-person">
-                      <strong>{item.author}</strong>
-                      <span>{item.role}</span>
-                      <span className="bf-quote-cohort">
-                        {item.cohort}
-                      </span>
-                    </span>
-                  </figcaption>
-                </figure>
+      <section className="px-5 py-24 sm:px-7 sm:py-32 border-b border-[var(--line-strong)]">
+        <div className="mx-auto max-w-[1240px] space-y-12">
+          {/* Header — two-column */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div className="lg:col-span-6 space-y-4">
+              <ScrollReveal>
+                <span className="eyebrow">Alumni voices</span>
               </ScrollReveal>
-            ))}
+              <h2 className="bf-h2">
+                What <em className="font-light text-[var(--muted)]">graduates</em> say
+              </h2>
+            </div>
+            <div className="lg:col-span-6">
+              <p className="bf-prose">
+                Real engineers, real feedback. Here&apos;s what our alumni say
+                about training at Blockfuse.
+              </p>
+            </div>
           </div>
+
+          <ScrollReveal delay={1}>
+            <TestimonialsCarousel
+              testimonials={graduateTestimonials}
+              stats={academyStats}
+            />
+          </ScrollReveal>
         </div>
       </section>
 
