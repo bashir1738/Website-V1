@@ -17,7 +17,7 @@ export const navItems: NavItem[] = [
   { label: "Engineering", href: "/engineering" },
   {
     label: "Community",
-    href: "/events",
+    href: "/community",
     children: [
       {
         label: "Events",

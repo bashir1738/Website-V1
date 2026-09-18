@@ -16,17 +16,18 @@ export default function AlumniPage() {
     <PageShell>
       <section className="alumni-hero" aria-labelledby="alumni-hero-title">
         <div className="alumni-hero-copy">
-          <span className="eyebrow">Our alumni</span>
+          <span className="eyebrow">Meet the Blockfuse alumni</span>
           <h1 id="alumni-hero-title">
-            Learn.
+            The alumni
             <br />
-            Build.
+            driving
             <br />
-            Lead.
+            innovation
           </h1>
           <p>
-            Meet the engineers taking Blockfuse into product teams, protocols,
-            startups, and new ideas.
+            Engineers who trained with Blockfuse Labs and are now deployed
+            across top Web3 protocols, AI companies, and startups. Meet the
+            people powering the next generation of technology.
           </p>
           <ModalButton modal="alumni" variant="link">
             Add your profile

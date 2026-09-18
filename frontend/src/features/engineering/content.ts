@@ -142,3 +142,71 @@ export const hiringModels: HiringModel[] = [
     href: "/contact?intent=team-training",
   },
 ];
+
+export interface EngineeringCapability {
+  title: string;
+  tagline: string;
+  description: string;
+  techs: string[];
+}
+
+export const engineeringCapabilities: EngineeringCapability[] = [
+  {
+    title: "Protocol & Smart Contract Development",
+    tagline: "EVM & Solana / Security-First",
+    description: "Design, build, and verify high-throughput smart contracts and decentralized protocols. Built with rigorous unit testing, formal verification patterns, and security audit readiness.",
+    techs: ["Solidity", "Rust / Anchor", "Foundry", "Hardhat", "Viem / Ethers"],
+  },
+  {
+    title: "Full-Stack Decentralized Applications",
+    tagline: "Production dApps & Subgraphs",
+    description: "End-to-end Web3 web applications built for speed, seamless wallet connections, real-time data indexing, and high-performance RPC interaction.",
+    techs: ["Next.js", "TypeScript", "The Graph", "Subgraphs", "Wallet Standard"],
+  },
+  {
+    title: "Applied AI & Web3 Autonomous Systems",
+    tagline: "AI Agents & On-Chain Inference",
+    description: "Architect autonomous AI agents, automated on-chain execution bots, intelligent copy-trading systems, and RAG pipelines integrated into Web3 products.",
+    techs: ["Python", "LangChain", "LLMs", "Vector DBs", "Automated Agents"],
+  },
+  {
+    title: "Infrastructure & DevOps",
+    tagline: "Scalable Backend Systems",
+    description: "Production infrastructure for Web3 systems including RPC nodes, indexers, monitoring stacks, and deployment pipelines optimized for high-throughput, low-latency systems.",
+    techs: ["Kubernetes", "Docker", "AWS / GCP", "Monitoring", "CI/CD Pipelines"],
+  },
+];
+
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export const processsteps: ProcessStep[] = [
+  {
+    step: "01",
+    title: "Discovery & Architecture",
+    description: "Deep dive on your requirements, token economics, protocol design, and technical constraints.",
+  },
+  {
+    step: "02",
+    title: "Design & Scoping",
+    description: "Comprehensive technical specification, system diagrams, and development roadmap with senior architect oversight.",
+  },
+  {
+    step: "03",
+    title: "Development & Testing",
+    description: "Iterative development with daily standups, rigorous unit testing, integration tests, and staged audits.",
+  },
+  {
+    step: "04",
+    title: "Audit & Security Review",
+    description: "Full formal verification patterns, security audits, and vulnerability assessments before production deployment.",
+  },
+  {
+    step: "05",
+    title: "Production Deployment",
+    description: "Mainnet deployment, monitoring setup, incident response playbooks, and ongoing technical support.",
+  },
+];

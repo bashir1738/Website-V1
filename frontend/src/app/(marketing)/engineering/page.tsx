@@ -5,11 +5,14 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { TiltCard } from "@/components/ui/tilt-card";
 import {
   engineeringServices,
   deliveryPrinciples,
   hiringModels,
   productHighlights,
+  engineeringCapabilities,
+  processsteps,
 } from "@/features/engineering/content";
 import {
   talentCategories,
@@ -70,14 +73,14 @@ export default function EngineeringPage() {
                 <span />
                 <span />
               </span>
-              Blockfuse Engineering
+              BFL Engineering Studio
             </span>
           </ScrollReveal>
 
           <ScrollReveal delay={1}>
             <h1>
-              Build it with us, or{" "}
-              <span className="bf-hero-accent">hire who already can</span>.
+              Architecting <br />
+              <span className="bf-hero-accent">High-Scale Protocols</span>
             </h1>
           </ScrollReveal>
 
@@ -104,12 +107,66 @@ export default function EngineeringPage() {
             >
               Hire our engineers
             </ButtonLink>
+            <Link href="#build" className="bf-hero-link">
+              View our work
+              <span aria-hidden="true">↓</span>
+            </Link>
           </ScrollReveal>
         </div>
       </section>
 
       {/* ================================================================= */}
-      {/* 2. THE TWO ROUTES — the fork the rest of the page is organised around */}
+      {/* 2. WHAT WE BUILD — Core Capabilities */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Studio — Core Capabilities</span>
+            <h2 className="bf-h2 mt-4">What we build</h2>
+            <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
+              End-to-end solutions across protocol development, full-stack dApps, AI systems, and production infrastructure.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12" delay={1}>
+            <div className="space-y-6">
+              {engineeringCapabilities.map((capability, idx) => (
+                <TiltCard key={capability.title} className="p-8 surface-card">
+                  <div className="flex items-start gap-4 mb-4">
+                    <span className="text-sm font-mono font-bold text-[var(--accent)]">
+                      [{String(idx + 1).padStart(2, "0")}]
+                    </span>
+                    <div className="flex-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-[var(--page-fg)] mb-1">
+                        {capability.title}
+                      </h3>
+                      <span className="text-xs font-mono tracking-widest text-[var(--dim)] uppercase">
+                        {capability.tagline}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-[var(--muted)] leading-relaxed mb-4">
+                    {capability.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {capability.techs.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs font-mono border border-[var(--line-strong)] bg-[var(--card)] px-2.5 py-1 text-[var(--dim)] rounded"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </TiltCard>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 3. THE TWO ROUTES — the fork the rest of the page is organised around */}
       {/* ================================================================= */}
       <div className="bf-route-wrap">
         <ScrollReveal>
@@ -339,6 +396,102 @@ export default function EngineeringPage() {
 
           <ScrollReveal className="mt-10" delay={2} threshold={0.08}>
             <EngineerShowcase />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* 6B. OUR PROCESS — Development Workflow */}
+      {/* ================================================================= */}
+      <section className="px-5 py-24 sm:px-7 sm:py-28 border-t border-[var(--line)]">
+        <div className="mx-auto max-w-[1240px]">
+          <ScrollReveal className="max-w-[46rem]">
+            <span className="eyebrow">Studio — Development Methodology</span>
+            <h2 className="bf-h2 mt-4">Our process</h2>
+            <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
+              A structured, milestone-driven approach ensuring quality and security at every stage.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal className="mt-12" delay={1}>
+            <div className="grid gap-1 lg:grid-cols-2">
+              {/* Process Steps */}
+              <div className="border border-[var(--line)] bg-[var(--card)]/30 p-8 space-y-8">
+                {processsteps.map((item) => (
+                  <div key={item.step} className="flex gap-6 items-start">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-px bg-[var(--accent)]" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-base font-bold text-[var(--page-fg)] mb-2">
+                        <span className="font-mono text-sm text-[var(--accent)]">{item.step}.</span> {item.title}
+                      </h3>
+                      <p className="text-sm text-[var(--muted)] leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Summary Box */}
+              <div className="border border-[var(--line)] bg-[var(--card)]/30 p-8 flex flex-col justify-center">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-lg font-bold text-[var(--page-fg)] tracking-wide mb-2">IMPLEMENTATION PROCESS</h3>
+                    <p className="text-sm text-[var(--muted)]">Structured approach to Web3 development</p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-sm text-[var(--muted)] leading-relaxed">
+                      We follow a methodical, milestone-driven process that ensures quality at every stage:
+                    </p>
+
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-3">
+                        <span className="text-[var(--accent)] font-bold mt-0.5">•</span>
+                        <span className="text-sm text-[var(--muted)]">
+                          <strong className="text-[var(--page-fg)]">Discovery Phase:</strong> Understanding requirements and design
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[var(--accent)] font-bold mt-0.5">•</span>
+                        <span className="text-sm text-[var(--muted)]">
+                          <strong className="text-[var(--page-fg)]">Architecture:</strong> Senior oversight on technical decisions
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[var(--accent)] font-bold mt-0.5">•</span>
+                        <span className="text-sm text-[var(--muted)]">
+                          <strong className="text-[var(--page-fg)]">Development:</strong> Rigorous testing and iterative work
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[var(--accent)] font-bold mt-0.5">•</span>
+                        <span className="text-sm text-[var(--muted)]">
+                          <strong className="text-[var(--page-fg)]">Security:</strong> Formal audits and verification
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-[var(--accent)] font-bold mt-0.5">•</span>
+                        <span className="text-sm text-[var(--muted)]">
+                          <strong className="text-[var(--page-fg)]">Deployment:</strong> Mainnet launch and monitoring
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 border-t border-[var(--line)]">
+                    <p className="text-[10px] font-mono text-[var(--dim)] uppercase tracking-widest mb-3">Key Deliverables</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-[9px] font-mono border border-[var(--accent-line)] bg-[var(--accent-dim)] text-[var(--accent)] px-3 py-1 rounded">Production Code</span>
+                      <span className="text-[9px] font-mono border border-[var(--accent-line)] bg-[var(--accent-dim)] text-[var(--accent)] px-3 py-1 rounded">100% Tests</span>
+                      <span className="text-[9px] font-mono border border-[var(--accent-line)] bg-[var(--accent-dim)] text-[var(--accent)] px-3 py-1 rounded">Audit Ready</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ScrollReveal>
         </div>
       </section>

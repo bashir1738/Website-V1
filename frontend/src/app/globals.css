@@ -1766,7 +1766,7 @@ h1, h2, h3, h4, h5, h6 {
 .alumni-hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.45fr) minmax(5rem, 0.45fr) minmax(5rem, 0.45fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr) minmax(5rem, 0.45fr) minmax(5rem, 0.45fr);
   gap: 1rem;
   min-height: 34rem;
   padding: 1rem;
@@ -1775,8 +1775,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .alumni-hero-copy {
+  position: relative;
+  z-index: 2;
   align-self: center;
-  padding: 2rem 1rem 5.5rem;
+  padding: 2rem 1rem 5.5rem 2rem;
 }
 
 .alumni-hero-copy h1 {
@@ -1785,7 +1787,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(3.5rem, 6.5vw, 6rem);
   font-weight: 600;
   letter-spacing: -0.065em;
-  line-height: 0.82;
+  line-height: 0.9;
 }
 
 .alumni-hero-copy > p {
