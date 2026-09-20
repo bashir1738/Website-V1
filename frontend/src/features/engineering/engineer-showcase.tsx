@@ -1,23 +1,26 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { alumni } from "@/features/alumni/content";
 
-const TONES = ["tone-violet", "tone-blue", "tone-amber"] as const;
 const ROTATE_MS = 4000;
+const ENGINEER_PHOTOS = [
+  "/engineers/WAL_7287.jpeg",
+  "/engineers/WAL_7290.jpeg",
+  "/engineers/WAL_7302.jpeg",
+  "/engineers/WAL_7326.jpeg",
+  "/engineers/WAL_7358.jpeg",
+  "/engineers/WAL_7388.jpeg",
+  "/engineers/WAL_7424.jpeg",
+  "/engineers/WAL_7429.jpeg",
+] as const;
 
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-}
-
-function toneFor(index: number) {
-  return TONES[index % TONES.length];
-}
+const engineers = alumni.slice(0, ENGINEER_PHOTOS.length).map((person, index) => ({
+  ...person,
+  image: ENGINEER_PHOTOS[index],
+}));
 
 /**
  * A sample of the Blockfuse Talent Network, auto-rotating through profiles.
@@ -36,13 +39,13 @@ export function EngineerShowcase() {
 
     const id = setInterval(() => {
       if (pausedRef.current) return;
-      setActiveIndex((i) => (i + 1) % alumni.length);
+      setActiveIndex((i) => (i + 1) % engineers.length);
     }, ROTATE_MS);
 
     return () => clearInterval(id);
   }, []);
 
-  const active = alumni[activeIndex];
+  const active = engineers[activeIndex];
 
   return (
     <div
@@ -57,8 +60,15 @@ export function EngineerShowcase() {
       }}
     >
       <div className="bf-engineer-detail">
-        <div className={`bf-engineer-portrait ${toneFor(activeIndex)}`}>
-          <span aria-hidden="true">{initials(active.name)}</span>
+        <div className="bf-engineer-portrait">
+          <Image
+            key={active.image}
+            src={active.image}
+            alt={`${active.name}, ${active.track} engineer`}
+            fill
+            priority
+            sizes="(max-width: 899px) 90vw, 34vw"
+          />
           <span className="bf-engineer-tag">{active.cohort}</span>
         </div>
 
@@ -84,7 +94,7 @@ export function EngineerShowcase() {
       </div>
 
       <div className="bf-engineer-grid">
-        {alumni.map((person, i) => (
+        {engineers.map((person, i) => (
           <button
             key={`${person.name}-${i}`}
             type="button"
@@ -94,8 +104,13 @@ export function EngineerShowcase() {
             aria-label={`Show ${person.name}, ${person.track}`}
             onClick={() => setActiveIndex(i)}
           >
-            <span className={`bf-avatar ${toneFor(i)}`} aria-hidden="true">
-              {initials(person.name)}
+            <span className="bf-avatar bf-engineer-avatar" aria-hidden="true">
+              <Image
+                src={person.image}
+                alt=""
+                fill
+                sizes="46px"
+              />
             </span>
             <span className="bf-engineer-tile-name">
               {person.name.split(" ")[0]}

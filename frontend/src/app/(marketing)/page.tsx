@@ -23,6 +23,21 @@ function SectionDivider() {
   );
 }
 
+const ENGAGEMENT_MEDIA = [
+  {
+    src: "/brand/companies1.JPG",
+    alt: "A company team in conversation with Blockfuse engineers",
+  },
+  {
+    src: "/brand/compaines2.JPG",
+    alt: "A Blockfuse engineer presenting a product workshop",
+  },
+  {
+    src: "/brand/companie3.jpeg",
+    alt: "Blockfuse engineers and open-source partners gathered together",
+  },
+] as const;
+
 export default function Home() {
   return (
     <main className="relative overflow-hidden">
@@ -65,10 +80,6 @@ export default function Home() {
               <ButtonLink href="/hire-engineers" variant="secondary">
                 Hire Vetted Web3 Engineers
               </ButtonLink>
-              <Link href="/training" className="hero-text-link">
-                Explore Academy Pipeline
-                <span aria-hidden="true">↗</span>
-              </Link>
             </ScrollReveal>
           </div>
 
@@ -95,12 +106,12 @@ export default function Home() {
             </div>
             <div className="hero-photo hero-photo-bottom">
               <Image
-                src="/brand/heropic.jpg"
-                alt=""
+                src="/brand/image00089.jpeg"
+                alt="Blockfuse community members gathered after a learning session"
                 fill
                 priority
                 sizes="(max-width: 1023px) 45vw, 21vw"
-                className="object-cover object-[70%_45%]"
+                className="object-cover object-center"
               />
             </div>
             <div className="hero-proof" aria-label="Over 115 engineers graduated">
@@ -285,18 +296,13 @@ export default function Home() {
                   {/* Image top — cards 1 & 3 */}
                   {i !== 1 && (
                     <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
-                      <div
-                        className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.22] transition-opacity duration-300"
-                        style={{
-                          backgroundImage: "linear-gradient(to right, var(--accent) 1px, transparent 1px), linear-gradient(to bottom, var(--accent) 1px, transparent 1px)",
-                          backgroundSize: "24px 24px",
-                        }}
+                      <Image
+                        src={ENGAGEMENT_MEDIA[i].src}
+                        alt={ENGAGEMENT_MEDIA[i].alt}
+                        fill
+                        sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[9px] font-mono tracking-widest text-[var(--muted)] uppercase opacity-40">
-                          Image placeholder
-                        </span>
-                      </div>
                     </div>
                   )}
 
@@ -325,18 +331,13 @@ export default function Home() {
                   {/* Image bottom — middle card only */}
                   {i === 1 && (
                     <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
-                      <div
-                        className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.22] transition-opacity duration-300"
-                        style={{
-                          backgroundImage: "linear-gradient(to right, var(--accent) 1px, transparent 1px), linear-gradient(to bottom, var(--accent) 1px, transparent 1px)",
-                          backgroundSize: "24px 24px",
-                        }}
+                      <Image
+                        src={ENGAGEMENT_MEDIA[i].src}
+                        alt={ENGAGEMENT_MEDIA[i].alt}
+                        fill
+                        sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[9px] font-mono tracking-widest text-[var(--muted)] uppercase opacity-40">
-                          Image placeholder
-                        </span>
-                      </div>
                     </div>
                   )}
                 </article>
@@ -446,103 +447,9 @@ export default function Home() {
               </div>
             </ScrollReveal>
           </div>
-
-          {/* Internal Talent Engine */}
-          <div className="space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <ScrollReveal>
-                <span className="eyebrow">Internal Talent Engine</span>
-              </ScrollReveal>
-              <span className="mono-tag">Blockfuse Academy</span>
-            </div>
-
-            <ScrollReveal delay={1}>
-              <div className="surface-card surface-card-accent p-8 sm:p-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                  <div className="lg:col-span-8 space-y-4">
-                    <h3 className="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
-                      Cultivating Africa&apos;s top Web3 &amp; AI engineering talent.
-                    </h3>
-                    <p className="bf-prose">
-                      Behind our engineering studio is Blockfuse Academy — a rigorous, project-driven training pipeline where ambitious developers learn AI-native workflows, EVM/Solana smart contract engineering, and production testing standards.
-                    </p>
-                  </div>
-                  <div className="lg:col-span-4 flex flex-col justify-end gap-3">
-                    <ButtonLink href="/training">
-                      Explore Academy Curriculum
-                    </ButtonLink>
-                    <p className="text-[11px] font-mono text-[var(--muted)] text-center">
-                      For aspiring engineers &amp; cohort applicants
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
         </div>
       </section>
 
-      <SectionDivider />
-
-      {/* ================================================================= */}
-      {/* EVENTS & OPEN SOURCE */}
-      {/* ================================================================= */}
-      <section id="prodfest-opensource" className="py-24">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-4">
-              <ScrollReveal>
-                <span className="eyebrow">Initiatives &amp; Stage</span>
-              </ScrollReveal>
-              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
-                Events &amp; <span className="text-[var(--muted)]">Open Source.</span>
-              </h2>
-            </div>
-            <div className="text-xs font-mono text-[var(--muted)]">
-              FLAGSHIP EVENTS • PUBLIC CODE • COMMUNITY
-            </div>
-          </div>
-
-          <ScrollReveal delay={1}>
-            <div className="bf-cells bf-cells-2">
-              {/* ProdFest Cell */}
-              <article className="bf-cell">
-                <div className="bf-cell-head">
-                  <span className="bf-cell-index">01</span>
-                  <span className="bf-cell-chip">Annual Demo Day</span>
-                </div>
-                <h3>ProdFest 2026</h3>
-                <p>
-                  One day, one stage. Cohort teams ship in front of founders, investors, and ecosystem partners — and the room decides what deserves to keep going.
-                </p>
-                <div className="mt-auto pt-6 flex flex-wrap items-center gap-5">
-                  <ModalButton modal="program" variant="link" className="bf-cell-link">
-                    Register interest <span aria-hidden="true"></span>
-                  </ModalButton>
-                  <ModalButton modal="sponsor" variant="link" className="bf-cell-link">
-                    Sponsor event <span aria-hidden="true"></span>
-                  </ModalButton>
-                </div>
-              </article>
-
-              {/* Open Source Cell */}
-              <article className="bf-cell">
-                <div className="bf-cell-head">
-                  <span className="bf-cell-index">02</span>
-                  <span className="bf-cell-chip">6 Active Repos</span>
-                </div>
-                <h3>Build in public with us</h3>
-                <p>
-                  Six repos maintained by students and residents. Contributions reviewed under the exact same rigor as client production code.
-                </p>
-                <Link href="/open-source" className="bf-cell-link">
-                  Explore GitHub repos <span aria-hidden="true">→</span>
-                </Link>
-              </article>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
       <SectionDivider />
 

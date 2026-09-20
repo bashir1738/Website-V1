@@ -14,6 +14,15 @@ export default function EventsPage() {
     <main>
       <section className="events-poster-hero" aria-labelledby="events-hero-title">
         <div className="events-poster-inner">
+          <Image
+            src="/brand/eventbg.JPG"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="events-poster-background"
+          />
+          <div className="events-poster-background-veil" aria-hidden="true" />
           <span className="events-poster-tag events-poster-tag-top">
             Community events
           </span>
@@ -59,8 +68,8 @@ export default function EventsPage() {
           >
             <figure className="events-poster-photo events-poster-photo-one">
               <Image
-                src="/brand/DSC00191.jpg"
-                alt="A speaker addressing builders at a Blockfuse event"
+                src="/brand/event1.JPG"
+                alt="A team presenting a Web3 project at a Blockfuse event"
                 fill
                 priority
                 sizes="(max-width: 767px) 62vw, 28vw"
@@ -68,8 +77,8 @@ export default function EventsPage() {
             </figure>
             <figure className="events-poster-photo events-poster-photo-two">
               <Image
-                src="/brand/DSC09993.jpg"
-                alt="An audience listening during a Blockfuse community session"
+                src="/brand/event2.jpeg"
+                alt="A mentor supporting a builder during a Blockfuse workshop"
                 fill
                 priority
                 sizes="(max-width: 767px) 46vw, 22vw"
@@ -77,8 +86,8 @@ export default function EventsPage() {
             </figure>
             <figure className="events-poster-photo events-poster-photo-three">
               <Image
-                src="/brand/DSC02430.jpg"
-                alt="Builders gathered around laptops during an event"
+                src="/brand/event3.JPG"
+                alt="Builders collaborating during a Blockfuse community session"
                 fill
                 priority
                 sizes="(max-width: 767px) 52vw, 24vw"
@@ -86,8 +95,8 @@ export default function EventsPage() {
             </figure>
             <figure className="events-poster-photo events-poster-photo-four">
               <Image
-                src="/brand/DSC09999.jpg"
-                alt="A workshop in progress at Blockfuse Labs"
+                src="/brand/event4.jpeg"
+                alt="Two builders working together during a Blockfuse event"
                 fill
                 sizes="(max-width: 767px) 45vw, 23vw"
               />

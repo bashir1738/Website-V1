@@ -104,8 +104,8 @@ export default function TrainingPage() {
             <div className="academy-clean-glow" aria-hidden="true" />
             <figure className="academy-clean-portrait">
               <Image
-                src="/brand/IMG_1602.JPG"
-                alt="A Blockfuse Academy student"
+                src="/brand/Deborah.jpeg"
+                alt="Deborah at Blockfuse Academy"
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 48vw"
