@@ -17,7 +17,7 @@ services:
   - type: web
     name: blockfuse-backend
     runtime: node
-    rootDir: backend-alt
+    rootDir: backend
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -54,7 +54,7 @@ services:
   - type: web
     name: blockfuse-frontend
     runtime: node
-    rootDir: frontend-alt
+    rootDir: frontend
     plan: free
     buildCommand: npm install && npm run build
     startCommand: npm start
