@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { postJson, ApiError } from "@/lib/api";
 
@@ -17,6 +17,7 @@ const topicOptions = [
 
 export function ContactForm() {
   const searchParams = useSearchParams();
+  const [prevSearchParams, setPrevSearchParams] = useState(searchParams);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [topic, setTopic] = useState("Hiring engineers");
@@ -25,7 +26,8 @@ export function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  if (prevSearchParams !== searchParams) {
+    setPrevSearchParams(searchParams);
     const intent = searchParams.get("intent") || "";
     const program = searchParams.get("program") || "";
     const service = searchParams.get("service") || "";
@@ -51,7 +53,7 @@ export function ContactForm() {
     } else if (intent.includes("prodfest")) {
       setTopic("ProdFest");
     }
-  }, [searchParams]);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

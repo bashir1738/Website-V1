@@ -11,7 +11,10 @@ export function CounterStat({
   duration?: number;
   className?: string;
 }) {
-  const [displayValue, setDisplayValue] = useState<string>("0");
+  const [displayValue, setDisplayValue] = useState<string>(() => {
+    const initialMatch = value.match(/(\d+)(.*)/);
+    return initialMatch ? "0" : value;
+  });
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
 
@@ -21,10 +24,7 @@ export function CounterStat({
 
     // Parse numeric part and prefix/suffix
     const match = value.match(/(\d+)(.*)/);
-    if (!match) {
-      setDisplayValue(value);
-      return;
-    }
+    if (!match) return;
 
     const targetNum = parseInt(match[1], 10);
     const suffix = match[2] || "";
@@ -64,7 +64,7 @@ export function CounterStat({
 
   return (
     <span ref={containerRef} className={className}>
-      {hasAnimated ? displayValue : "0"}
+      {hasAnimated || !/\d/.test(value) ? displayValue : "0"}
     </span>
   );
 }

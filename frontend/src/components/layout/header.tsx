@@ -33,16 +33,18 @@ export function Header() {
   const applyHref = applyHrefFor(pathname);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [prevPathname, setPrevPathname] = useState(pathname);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const desktopNavItems = navItems.filter((item) =>
     ["Home", "Academy", "Engineering", "Community", "About", "Contact"].includes(item.label),
   );
 
   // Close everything when the route changes.
-  useEffect(() => {
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setMobileOpen(false);
     setOpenMenu(null);
-  }, [pathname]);
+  }
 
   // Keep the page behind the full-screen mobile nav from scrolling.
   useEffect(() => {

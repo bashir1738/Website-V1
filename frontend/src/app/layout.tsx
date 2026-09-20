@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { ModalProvider } from "@/components/modals/modal-provider";
@@ -46,16 +45,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col">
+    <html lang="en" suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
         <ThemeProvider>
           <ModalProvider>
             <LoadingScreen />
-            <div className="relative isolate z-[2] flex min-h-screen flex-col">
-              <Header />
-              <div className="flex-1">{children}</div>
-              <Footer />
-            </div>
+            <SiteChrome>{children}</SiteChrome>
           </ModalProvider>
         </ThemeProvider>
       </body>

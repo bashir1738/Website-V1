@@ -30,7 +30,7 @@ export function ContactFormClient() {
           Message Sent!
         </h3>
         <p className="text-sm text-[var(--muted)] mb-6">
-          Thank you for reaching out. We'll get back to you shortly.
+          Thank you for reaching out. We&apos;ll get back to you shortly.
         </p>
         <button
           onClick={() => {

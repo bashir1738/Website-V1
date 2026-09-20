@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { CounterStat } from "@/components/ui/counter-stat";
 import { TestimonialsCarousel } from "@/features/training/testimonials-carousel";
 import {
   academyPillars,
@@ -41,16 +40,6 @@ const PROGRAM_MEDIA: Record<string, { src: string; alt: string }> = {
     alt: "Attendees at a Blockfuse community session in Jos",
   },
 };
-
-const AVATAR_TONES = ["tone-violet", "tone-blue", "tone-amber"] as const;
-
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-}
 
 function SectionDivider() {
   return (

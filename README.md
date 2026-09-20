@@ -3,8 +3,6 @@
 The official website for **Blockfuse Labs** — training production-ready engineers
 and building dependable AI, web, and blockchain systems from Jos, Nigeria.
 
-→ **Live site:** [blockfuselabs.com](https://blockfuselabs.com)
-
 ## About the website
 
 This site is home to Blockfuse Labs:

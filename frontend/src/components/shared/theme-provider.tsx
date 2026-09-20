@@ -15,14 +15,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const savedTheme = localStorage.getItem("blockfuse-theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      const systemPreference = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      setTheme(systemPreference);
-    }
+    const id = requestAnimationFrame(() => {
+      setMounted(true);
+      const savedTheme = localStorage.getItem("blockfuse-theme") as Theme;
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        const systemPreference = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        setTheme(systemPreference);
+      }
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
   useEffect(() => {

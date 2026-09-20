@@ -1223,7 +1223,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Filter pill (alumni) */
 .journal-hero-shell {
-  padding: 1rem;
+  padding: 0;
 }
 
 .journal-hero {
@@ -1529,7 +1529,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .events-poster-hero {
-  padding: 1rem;
+  padding: 0;
   color: var(--color-ink);
 }
 
@@ -2670,7 +2670,7 @@ body[data-modal-open="true"] {
 
 .academy-clean-portrait {
   position: absolute;
-  inset: 2rem 2rem 2rem 0;
+  inset: 0;
   margin: 0;
   overflow: hidden;
   background: var(--color-ink);

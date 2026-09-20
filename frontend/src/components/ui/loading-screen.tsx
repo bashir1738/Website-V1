@@ -2,23 +2,29 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export function LoadingScreen() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    // Check session storage safely
-    try {
-      const visited = window.sessionStorage.getItem("bf-visited");
-      if (!visited) {
-        setShouldRender(true);
+    const id = requestAnimationFrame(() => {
+      try {
+        const visited = window.sessionStorage.getItem("bf-visited");
+        if (!visited) {
+          setShouldRender(true);
+        }
+      } catch {
+        // In case storage is disabled
       }
-    } catch {
-      // In case storage is disabled
-    }
-    setMounted(true);
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
+
+  const isAdmin = pathname.startsWith("/admin");
 
   const handleAnimationEnd = (e: React.AnimationEvent) => {
     // When root container completes its exit animation
@@ -30,8 +36,8 @@ export function LoadingScreen() {
     }
   };
 
-  // Don't render during SSR or if already visited
-  if (!mounted || !shouldRender) return null;
+  // Don't render during SSR, on admin pages, or if already visited
+  if (isAdmin || !mounted || !shouldRender) return null;
 
   const text = "BLOCKFUSE LABS";
   const letters = text.split("");

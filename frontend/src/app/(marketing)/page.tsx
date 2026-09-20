@@ -5,7 +5,6 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
-import { TeamNetwork } from "@/features/home/team-network";
 import {
   closingPaths,
   howBlockfuseWorks,
@@ -372,7 +371,7 @@ export default function Home() {
 
             <div className="hidden lg:block pt-2">
               <div className="bf-note text-xs font-mono space-y-2">
-                <div className="text-[var(--accent)]">// CLIENT GUARANTEE</div>
+                <div className="text-[var(--accent)]">{"// CLIENT GUARANTEE"}</div>
                 <p className="font-sans text-[var(--muted)]">
                   Direct senior lead accountability, daily GitHub commits, and complete IP sovereignty on all client engagements.
                 </p>

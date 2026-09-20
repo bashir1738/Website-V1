@@ -152,7 +152,7 @@ export default function CommunityPage() {
                 <TiltCard className="surface-card p-8 h-full flex flex-col justify-between">
                   <div>
                     <span className="text-xs font-mono tracking-widest text-[var(--dim)] uppercase block mb-4">
-                      // {item.tag}
+                      {"// " + item.tag}
                     </span>
                     <h3 className="font-heading text-2xl font-bold text-[var(--page-fg)] mb-4">
                       {item.title}

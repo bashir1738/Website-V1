@@ -18,9 +18,9 @@ export default function ContactPage() {
           ═══════════════════════════════════════════════════════════ */}
       <section className="relative min-h-[calc(100vh-76px)] flex flex-col items-center justify-center text-center py-16 px-5 sm:px-8 border-b border-[var(--line)]">
         <ScrollReveal className="max-w-4xl">
-          <span className="eyebrow block mb-6">// CONTACT US</span>
+          <span className="eyebrow block mb-6">{"// CONTACT US"}</span>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08] mb-6">
-            We'd love to hear from you
+            We&apos;d love to hear from you
           </h1>
           <p className="text-base text-[var(--muted)] sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Whether you have questions about our training cohorts, studio engineering services, or ecosystem partnerships.
@@ -37,12 +37,12 @@ export default function ContactPage() {
             {/* Left: Heading */}
             <ScrollReveal>
               <div>
-                <span className="eyebrow block mb-4">// CONTACT DETAILS</span>
+                <span className="eyebrow block mb-4">{"// CONTACT DETAILS"}</span>
                 <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl leading-[1.1] mb-6">
                   Feel free to get in touch with us
                 </h2>
                 <p className="text-base text-[var(--muted)] leading-relaxed">
-                  We're glad to hear from you. Let's keep in touch for software engineering, protocol audits, or talent deployment.
+                  We&apos;re glad to hear from you. Let&apos;s keep in touch for software engineering, protocol audits, or talent deployment.
                 </p>
               </div>
             </ScrollReveal>
@@ -59,7 +59,7 @@ export default function ContactPage() {
       <section className="border-t border-[var(--line)] px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal className="mb-12">
-            <span className="eyebrow block mb-4">// SEND US A MESSAGE</span>
+            <span className="eyebrow block mb-4">{"// SEND US A MESSAGE"}</span>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
               Get in Touch
             </h2>

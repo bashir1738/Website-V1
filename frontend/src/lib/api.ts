@@ -75,3 +75,22 @@ export async function getJson(path: string, token?: string) {
   });
   return parse(res);
 }
+
+/** PUT a multipart payload (file upload) to an admin endpoint. */
+export async function putForm(path: string, data: FormData, token?: string) {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "PUT",
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    body: data,
+  });
+  return parse(res);
+}
+
+/** DELETE from an admin endpoint. */
+export async function deleteJson(path: string, token?: string) {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "DELETE",
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+  });
+  return parse(res);
+}
