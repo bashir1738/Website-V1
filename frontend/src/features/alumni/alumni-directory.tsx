@@ -2,10 +2,10 @@
 
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { alumni, alumniFilters } from "@/features/alumni/content";
+import { alumniFilters, type Alumnus } from "@/features/alumni/content";
 import { initials } from "@/lib/utils";
 
-export function AlumniDirectory() {
+export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
   const [filter, setFilter] = useState("All");
 
   const shown = useMemo(
@@ -13,7 +13,7 @@ export function AlumniDirectory() {
       alumni.filter(
         (a) => filter === "All" || a.cohort === filter || a.track === filter,
       ),
-    [filter],
+    [filter, alumni],
   );
 
   return (
@@ -82,9 +82,11 @@ export function AlumniDirectory() {
                 <span className="alumni-social-mark" aria-hidden="true">
                   {a.social.platform === "LinkedIn"
                     ? "in"
-                    : a.social.platform === "Discord"
-                      ? "D"
-                      : "X"}
+                    : a.social.platform === "GitHub"
+                      ? "GH"
+                      : a.social.platform === "Discord"
+                        ? "D"
+                        : "X"}
                 </span>
                 <span>Find on {a.social.platform}</span>
                 <span className="alumni-social-arrow" aria-hidden="true">

@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 
@@ -258,9 +259,17 @@ export default function CommunityPage() {
             <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg max-w-2xl mx-auto mb-8">
               Connect with builders, share your work, and grow alongside the Blockfuse community.
             </p>
-            <ButtonLink href="/contact" dataCursor="COMMUNITY">
-              Get Involved
-            </ButtonLink>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
+              <ButtonLink href="/contact" dataCursor="COMMUNITY">
+                Get Involved
+              </ButtonLink>
+              <ModalButton modal="opensource" variant="secondary">
+                Join the open-source programme
+              </ModalButton>
+              <ModalButton modal="newsletter" variant="secondary">
+                Join the dispatch
+              </ModalButton>
+            </div>
           </ScrollReveal>
         </div>
       </section>

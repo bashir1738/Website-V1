@@ -10,7 +10,35 @@ export const metadata: Metadata = {
     "Get in touch with Blockfuse Labs for training, engineering, partnerships, or any other inquiries.",
 };
 
-export default function ContactPage() {
+/** Human-readable topic labels for the ?intent= links across the site. */
+const INTENT_TOPICS: Record<string, string> = {
+  "direct-hire": "Hiring engineers",
+  embedded: "Embedded engineers",
+  sponsor: "Sponsorship",
+  "team-training": "Team training",
+  project: "Starting a project",
+  engineering: "Engineering services",
+  "prodfest-attend": "ProdFest attendance",
+  "prodfest-speak": "ProdFest speaking",
+  "prodfest-sponsor": "ProdFest sponsorship",
+};
+
+interface ContactPageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+function first(value?: string | string[]): string {
+  return typeof value === "string" ? value : Array.isArray(value) ? value[0] ?? "" : "";
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const params = await searchParams;
+  let initialTopic = INTENT_TOPICS[first(params.intent)] ?? "";
+  if (initialTopic) {
+    const detail = first(params.service) || first(params.track);
+    if (detail) initialTopic = `${initialTopic} — ${detail}`;
+  }
+
   return (
     <main className="relative overflow-hidden pb-20">
       {/* ═══════════════════════════════════════════════════════════
@@ -67,7 +95,7 @@ export default function ContactPage() {
 
           <ScrollReveal delay={1}>
             <TiltCard className="surface-card p-8 sm:p-10">
-              <ContactFormClient />
+              <ContactFormClient initialTopic={initialTopic} />
             </TiltCard>
           </ScrollReveal>
         </div>

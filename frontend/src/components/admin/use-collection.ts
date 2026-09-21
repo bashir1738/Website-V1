@@ -3,10 +3,10 @@ import { getJson } from "@/lib/api";
 
 
 // Simple in-memory cache so switching tabs doesn't cause a refetch
-const cache: Record<string, any[]> = {};
+const cache: Record<string, unknown[]> = {};
 
 export function useCollection<T extends Record<string, unknown>>(path: string) {
-  const [data, setData] = useState<T[]>(cache[path] || []);
+  const [data, setData] = useState<T[]>(cache[path] as T[] || []);
   // Only loading if not in cache
   const [loading, setLoading] = useState(!cache[path]);
   const [error, setError] = useState<string | null>(null);
@@ -22,9 +22,8 @@ export function useCollection<T extends Record<string, unknown>>(path: string) {
       return;
     }
 
-    setLoading(true);
-    // getJson() → parse() already extracts body.data from the API envelope,
-    // so `res` IS the array directly. Do not try to access .data on it.
+    // `loading` already starts true whenever the path isn't cached
+    // (useState(!cache[path])), so no synchronous setState is needed here.
     getJson(`/${path}`)
       .then((res) => {
         if (!active) return;

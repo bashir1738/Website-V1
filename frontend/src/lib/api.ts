@@ -69,6 +69,20 @@ export async function postJson(
   return parse(res);
 }
 
+/** PATCH a plain-JSON payload to an admin endpoint (e.g. status changes). */
+export async function patchJson(
+  path: string,
+  data: Record<string, unknown>,
+) {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return parse(res);
+}
+
 /** POST a multipart payload (file upload) to a public or admin endpoint. */
 export async function postForm(path: string, data: FormData) {
   const res = await fetch(`${API_URL}${path}`, {

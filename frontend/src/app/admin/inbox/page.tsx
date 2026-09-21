@@ -3,14 +3,31 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import { DataTable, formatDate, type DataColumn } from "@/components/admin/data-table";
+import { DataTable, SubmissionDetail, formatDate, type DataColumn } from "@/components/admin/data-table";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { useCollection } from "@/components/admin/use-collection";
-import { deleteJson } from "@/lib/api";
+import { deleteJson, patchJson } from "@/lib/api";
+
+type SubmissionStatus = "pending" | "approved" | "rejected";
 
 interface Row extends Record<string, unknown> {
   id: number;
   createdAt?: string;
+}
+
+function StatusBadge({ status }: { status: unknown }) {
+  const tone =
+    status === "approved"
+      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+      : status === "rejected"
+        ? "border-red-500/40 bg-red-500/10 text-red-400"
+        : "border-amber-500/40 bg-amber-500/10 text-amber-300";
+
+  return (
+    <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-semibold capitalize ${tone}`}>
+      {String(status ?? "pending")}
+    </span>
+  );
 }
 
 const VIEWS: {
@@ -199,19 +216,73 @@ export default function AdminInboxPage() {
     }
   };
 
-  const columnsWithActions = [
+  const handleStatus = async (id: number, status: SubmissionStatus) => {
+    try {
+      await patchJson(`/${activeView.path}/${id}`, { status });
+      reload();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to update";
+      alert(message);
+    }
+  };
+
+  const isAlumni = activeView.key === "alumni-submissions";
+
+  const columnsWithActions: DataColumn<Record<string, unknown>>[] = [
     ...activeView.columns,
+    ...(isAlumni
+      ? [
+          {
+            key: "status",
+            label: "Status",
+            render: (r: Record<string, unknown>) => (
+              <StatusBadge status={r.status} />
+            ),
+          },
+        ]
+      : []),
     {
       key: "actions",
       label: "",
-      render: (r: Record<string, unknown>) => (
-        <button
-          onClick={() => handleDelete(r.id as number)}
-          className="text-xs font-semibold text-[#fca5a5] hover:underline"
-        >
-          Delete
-        </button>
-      ),
+      render: (r) => {
+        if (isAlumni) {
+          const status = (r.status as SubmissionStatus | undefined) ?? "pending";
+          return (
+            <div className="flex flex-wrap items-center gap-2">
+              {status !== "approved" && (
+                <button
+                  onClick={() => handleStatus(r.id as number, "approved")}
+                  className="rounded-full border border-emerald-500/40 px-3 py-1 text-xs font-semibold text-emerald-400 transition-colors hover:bg-emerald-500/10"
+                >
+                  Approve
+                </button>
+              )}
+              {status !== "rejected" && (
+                <button
+                  onClick={() => handleStatus(r.id as number, "rejected")}
+                  className="rounded-full border border-red-500/40 px-3 py-1 text-xs font-semibold text-red-400 transition-colors hover:bg-red-500/10"
+                >
+                  Reject
+                </button>
+              )}
+              <button
+                onClick={() => handleDelete(r.id as number)}
+                className="text-xs font-semibold text-[#fca5a5] hover:underline"
+              >
+                Delete
+              </button>
+            </div>
+          );
+        }
+        return (
+          <button
+            onClick={() => handleDelete(r.id as number)}
+            className="text-xs font-semibold text-[#fca5a5] hover:underline"
+          >
+            Delete
+          </button>
+        );
+      },
     },
   ];
 
@@ -259,9 +330,10 @@ export default function AdminInboxPage() {
 
           {!loading && !error && (
             <DataTable
-              columns={columnsWithActions as DataColumn<Record<string, unknown>>[]}
+              columns={columnsWithActions}
               rows={data as Row[]}
               emptyLabel={`No ${activeView.label.toLowerCase()} yet.`}
+              renderDetail={(row) => <SubmissionDetail row={row} />}
             />
           )}
         </div>

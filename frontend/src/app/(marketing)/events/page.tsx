@@ -2,15 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ModalButton } from "@/components/ui/modal-button";
-import { eventDetails as staticEventDetails } from "@/features/events/content";
 import { API_URL } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Events | Blockfuse Labs",
   description: "Meet the builders. Explore Blockfuse festivals, hackathons, workshops, and community events.",
 };
-
-export const revalidate = 60;
 
 interface BackendEvent {
   slug: string;
@@ -26,9 +23,7 @@ interface BackendEvent {
 export default async function EventsPage() {
   let backendEvents: BackendEvent[] = [];
   try {
-    // Not cached at the fetch layer: Next strips the abort signal on stale
-    // revalidation fetches, so a cached fetch would hang for undici's 10s
-    // connect timeout. We time out inline and fall back to static events.
+    // Fetch-only: content comes from the backend, never a static fallback.
     const res = await fetch(`${API_URL}/events`, {
       cache: "no-store",
       signal: AbortSignal.timeout(5000),
@@ -38,10 +33,10 @@ export default async function EventsPage() {
       backendEvents = json.data;
     }
   } catch {
-    // Unreachable API — render the static events below.
+    // Backend unreachable — the archive renders the empty state.
   }
 
-  const eventDetails = backendEvents.length > 0 ? backendEvents.map((event) => ({
+  const eventDetails = backendEvents.map((event) => ({
     slug: event.slug,
     title: event.title,
     description: event.description,
@@ -51,8 +46,9 @@ export default async function EventsPage() {
     }).toUpperCase(),
     meta: event.location || "Online",
     kind: "Event",
-    image: event.image_url || "/brand/eventbg.JPG"
-  })) : staticEventDetails;
+    image: event.image_url || "/brand/eventbg.JPG",
+    upcoming: new Date(event.date || event.createdAt) > new Date(),
+  }));
 
   return (
     <main>
@@ -170,7 +166,7 @@ export default async function EventsPage() {
                 <div className="relative aspect-video overflow-hidden">
                   <Image src={event.image} alt="" fill sizes="(min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw" className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105" />
                   <span className="absolute bottom-4 left-4 rounded-lg bg-(--surface) px-4 py-3 font-mono text-sm font-semibold">{event.date}</span>
-                  <span className="absolute right-4 top-4 rounded-full bg-ink/85 px-3 py-2 text-xs text-paper">Past event</span>
+                  <span className="absolute right-4 top-4 rounded-full bg-ink/85 px-3 py-2 text-xs text-paper">{event.upcoming ? "Upcoming" : "Past event"}</span>
                 </div>
                 <div className="p-6 sm:p-8">
                   <p className="text-xs font-semibold uppercase tracking-widest text-(--accent)">{event.kind}</p>

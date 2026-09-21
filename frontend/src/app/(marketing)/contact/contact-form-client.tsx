@@ -27,8 +27,13 @@ function validate(form: FormState): Record<string, string> {
   return errors;
 }
 
-export function ContactFormClient() {
-  const [form, setForm] = useState<FormState>({ name: "", email: "", topic: "", message: "" });
+export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string }) {
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    email: "",
+    topic: initialTopic,
+    message: "",
+  });
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 

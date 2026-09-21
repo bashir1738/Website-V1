@@ -43,6 +43,20 @@ exports.getAll = async (req, res) => {
   }
 };
 
+/** Public listing — only approved profiles are shown to the website. */
+exports.getPublic = async (req, res) => {
+  try {
+    const profiles = await AlumniProfile.findAll({
+      where: { status: 'approved' },
+      order: [['createdAt', 'DESC']],
+    });
+    return res.json({ success: true, data: profiles });
+  } catch (err) {
+    console.error('Get public alumni error:', err);
+    return res.status(500).json({ success: false, error: 'Server error' });
+  }
+};
+
 
 exports.remove = async (req, res) => {
   try {

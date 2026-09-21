@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BlogArchive } from "@/features/blog/blog-archive";
-import { posts, type Post } from "@/features/blog/content";
+import type { Post } from "@/features/blog/content";
 import { API_URL } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -20,9 +20,7 @@ interface BackendBlog {
 export default async function BlogPage() {
   let backendBlogs: BackendBlog[] = [];
   try {
-    // Not cached at the fetch layer: Next strips the abort signal on stale
-    // revalidation fetches, so a cached fetch would hang for undici's 10s
-    // connect timeout. We time out inline and fall back to static posts.
+    // Fetch-only: content comes from the backend, never a static fallback.
     const res = await fetch(`${API_URL}/blogs`, {
       cache: "no-store",
       signal: AbortSignal.timeout(5000),
@@ -32,12 +30,12 @@ export default async function BlogPage() {
       backendBlogs = json.data;
     }
   } catch {
-    // Unreachable API — render the static posts below.
+    // Backend unreachable — the archive renders the empty state.
   }
 
-  const allPosts = backendBlogs.length > 0 ? backendBlogs.map((blog) => ({
+  const posts: Post[] = backendBlogs.map((blog) => ({
     slug: blog.slug,
-    category: "Engineering", // Fallback since backend lacks category
+    category: "Engineering", // Backend lacks a category field.
     title: blog.title,
     excerpt: blog.content ? blog.content.substring(0, 150) + "..." : "",
     date: new Date(blog.published_at || blog.createdAt).toLocaleDateString("en-US", {
@@ -45,10 +43,10 @@ export default async function BlogPage() {
       day: "numeric",
       year: "numeric",
     }),
-    readTime: "5 min read", // Fallback
+    readTime: "5 min read", // Backend lacks a read time field.
     image: blog.image_url || "/brand/heropic.jpg",
     imageAlt: blog.title,
-  })) satisfies Post[] : posts;
+  })) satisfies Post[];
 
-  return <BlogArchive posts={allPosts} />;
+  return <BlogArchive posts={posts} />;
 }

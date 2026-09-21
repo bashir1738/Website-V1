@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { alumni } from "@/features/alumni/content";
+import type { Alumnus } from "@/features/alumni/content";
 
 const ROTATE_MS = 4000;
 const ENGINEER_PHOTOS = [
@@ -17,21 +17,23 @@ const ENGINEER_PHOTOS = [
   "/engineers/WAL_7429.jpeg",
 ] as const;
 
-const engineers = alumni.slice(0, ENGINEER_PHOTOS.length).map((person, index) => ({
-  ...person,
-  image: ENGINEER_PHOTOS[index],
-}));
-
 /**
  * A sample of the Blockfuse Talent Network, auto-rotating through profiles.
  * Pauses on hover/focus and never animates under prefers-reduced-motion —
  * the full, filterable roster always remains one click away at /alumni.
+ * Profiles come from the backend (approved alumni), never hardcoded.
  */
-export function EngineerShowcase() {
+export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
+  const engineers = alumni.slice(0, ENGINEER_PHOTOS.length).map((person, index) => ({
+    ...person,
+    image: person.image || ENGINEER_PHOTOS[index % ENGINEER_PHOTOS.length],
+  }));
+
   const [activeIndex, setActiveIndex] = useState(0);
   const pausedRef = useRef(false);
 
   useEffect(() => {
+    if (engineers.length === 0) return;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -43,9 +45,11 @@ export function EngineerShowcase() {
     }, ROTATE_MS);
 
     return () => clearInterval(id);
-  }, []);
+  }, [engineers.length]);
 
   const active = engineers[activeIndex];
+
+  if (!active) return null;
 
   return (
     <div

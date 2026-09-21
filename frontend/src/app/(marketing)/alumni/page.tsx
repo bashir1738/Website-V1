@@ -4,6 +4,8 @@ import Image from "next/image";
 import { PageShell } from "@/components/ui/page-hero";
 import { ModalButton } from "@/components/ui/modal-button";
 import { AlumniDirectory } from "@/features/alumni/alumni-directory";
+import { linkedinSearch, type Alumnus } from "@/features/alumni/content";
+import { API_URL } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Alumni | Blockfuse Labs",
@@ -11,7 +13,55 @@ export const metadata: Metadata = {
     "Meet Blockfuse Labs graduates building products, protocols, and engineering careers.",
 };
 
-export default function AlumniPage() {
+interface ApprovedAlumnus {
+  name: string;
+  cohort: string;
+  track: string;
+  current_status: string;
+  github: string | null;
+  linkedin: string | null;
+  photo_url: string | null;
+}
+
+function toAlumnus(profile: ApprovedAlumnus): Alumnus {
+  const social: Alumnus["social"] = profile.linkedin
+    ? { platform: "LinkedIn", url: profile.linkedin }
+    : profile.github
+      ? { platform: "GitHub", url: profile.github }
+      : { platform: "LinkedIn", url: linkedinSearch(profile.name) };
+
+  return {
+    name: profile.name,
+    cohort: profile.cohort,
+    track: profile.track,
+    now: profile.current_status,
+    image: profile.photo_url || undefined,
+    social,
+  };
+}
+
+async function loadAlumni(): Promise<Alumnus[]> {
+  try {
+    const res = await fetch(`${API_URL}/alumni-submissions/public`, {
+      // No fetch-layer cache: stale revalidation strips the abort signal (see
+      // patch-fetch), so we bound the request inline and render the roster the
+      // backend approves. No static fallback.
+      cache: "no-store",
+      signal: AbortSignal.timeout(5000),
+    });
+    const json = await res.json() as { success: boolean; data: ApprovedAlumnus[] };
+    if (json.success && Array.isArray(json.data)) {
+      return json.data.map(toAlumnus);
+    }
+  } catch {
+    // Backend unreachable — the directory renders the empty state.
+  }
+  return [];
+}
+
+export default async function AlumniPage() {
+  const directoryAlumni = await loadAlumni();
+
   return (
     <PageShell>
       <section className="alumni-hero" aria-labelledby="alumni-hero-title">
@@ -44,7 +94,7 @@ export default function AlumniPage() {
           />
           <div className="alumni-hero-panel-label">
             <span>Alumni network</span>
-            <strong>12</strong>
+            <strong>{directoryAlumni.length}</strong>
           </div>
         </div>
 
@@ -75,7 +125,7 @@ export default function AlumniPage() {
           <strong aria-hidden="true">Go&nbsp;&nbsp;↘</strong>
         </a>
       </section>
-      <AlumniDirectory />
+      <AlumniDirectory alumni={directoryAlumni} />
     </PageShell>
   );
 }

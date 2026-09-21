@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { CounterStat } from "@/components/ui/counter-stat";
@@ -250,6 +251,12 @@ export default function AboutPage() {
               </div>
             </TiltCard>
           </ScrollReveal>
+
+          <ScrollReveal className="mt-10 text-center" delay={2}>
+            <ModalButton modal="sponsor" variant="secondary">
+              Become a partner
+            </ModalButton>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -275,16 +282,16 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" delay={2}>
-            <ButtonLink href="/training" dataCursor="JOIN">Join a program</ButtonLink>
-            <ButtonLink href="/engineering#hire" variant="secondary" dataCursor="HIRE">
+            <ModalButton modal="program">Join a program</ModalButton>
+            <ModalButton modal="hire" variant="secondary">
               Hire engineers
-            </ButtonLink>
-            <ButtonLink href="/engineering" variant="secondary" dataCursor="BUILD">
+            </ModalButton>
+            <ButtonLink href="/contact?intent=project" variant="secondary" dataCursor="BUILD">
               Start a project
             </ButtonLink>
-            <ButtonLink href="/contact?intent=partner" variant="secondary" dataCursor="PARTNER">
+            <ModalButton modal="sponsor" variant="secondary">
               Partner with us
-            </ButtonLink>
+            </ModalButton>
           </ScrollReveal>
         </div>
       </section>

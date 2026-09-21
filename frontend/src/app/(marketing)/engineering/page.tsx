@@ -20,6 +20,8 @@ import {
   employerTestimonials,
 } from "@/features/talent/content";
 import { EngineerShowcase } from "@/features/engineering/engineer-showcase";
+import { linkedinSearch, type Alumnus } from "@/features/alumni/content";
+import { API_URL } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Blockfuse Engineering: build with us, or hire from us",
@@ -45,7 +47,49 @@ function SectionDivider() {
   );
 }
 
-export default function EngineeringPage() {
+interface ApprovedAlumnus {
+  name: string;
+  cohort: string;
+  track: string;
+  current_status: string;
+  github: string | null;
+  linkedin: string | null;
+  photo_url: string | null;
+}
+
+async function loadApprovedAlumni(): Promise<Alumnus[]> {
+  try {
+    const res = await fetch(`${API_URL}/alumni-submissions/public`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(5000),
+    });
+    const json = await res.json() as { success: boolean; data: ApprovedAlumnus[] };
+    if (json.success && Array.isArray(json.data)) {
+      return json.data.map((profile) => {
+        const social: Alumnus["social"] = profile.linkedin
+          ? { platform: "LinkedIn", url: profile.linkedin }
+          : profile.github
+            ? { platform: "GitHub", url: profile.github }
+            : { platform: "LinkedIn", url: linkedinSearch(profile.name) };
+        return {
+          name: profile.name,
+          cohort: profile.cohort,
+          track: profile.track,
+          now: profile.current_status,
+          image: profile.photo_url || undefined,
+          social,
+        };
+      });
+    }
+  } catch {
+    // Backend unreachable — no hardcoded roster.
+  }
+  return [];
+}
+
+export default async function EngineeringPage() {
+  const approvedAlumni = await loadApprovedAlumni();
+
   return (
     <main className="relative overflow-hidden pb-24">
       {/* ================================================================= */}
@@ -395,7 +439,7 @@ export default function EngineeringPage() {
           </div>
 
           <ScrollReveal className="mt-10" delay={2} threshold={0.08}>
-            <EngineerShowcase />
+            <EngineerShowcase alumni={approvedAlumni} />
           </ScrollReveal>
         </div>
       </section>

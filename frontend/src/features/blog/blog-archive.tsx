@@ -11,6 +11,22 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
   const [featuredPost, ...archivePosts] = posts;
   const visiblePosts = category === "All" ? archivePosts : posts.filter((post) => post.category === category);
 
+  if (posts.length === 0) {
+    return (
+      <main>
+        <section className="px-5 py-28 text-center sm:px-7">
+          <span className="eyebrow">Journal</span>
+          <h1 className="mt-4 font-heading text-3xl font-bold tracking-[-0.04em] text-(--page-fg) sm:text-4xl">
+            No stories published yet.
+          </h1>
+          <p className="mt-3 text-sm text-(--muted)">
+            Field notes and engineering insights are on the way.
+          </p>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main>
       <section className="journal-hero-shell" aria-labelledby="journal-title">
