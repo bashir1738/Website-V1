@@ -291,7 +291,7 @@ export default function AdminEventsPage() {
             {existingImage && (
               <div className="mt-5">
                 <span className="field-label">Current image</span>
-                <div className="relative mt-1.5 aspect-[16/8] max-w-[360px] overflow-hidden rounded-xl bg-(--surface-2)">
+                <div className="relative mt-1.5 aspect-16/8 max-w-90 overflow-hidden rounded-xl bg-(--surface-2)">
                   <Image
                     src={existingImage}
                     alt="Current event image"
@@ -368,7 +368,7 @@ export default function AdminEventsPage() {
 
         {!loading && !error && (
           <div className="custom-scroll overflow-x-auto rounded-xl border border-(--line)">
-            <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+            <table className="w-full min-w-180 border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-(--line-strong) bg-(--surface-2) text-[11px] uppercase tracking-wider text-(--dim)">
                   <th className="px-4 py-3 font-semibold">Event</th>

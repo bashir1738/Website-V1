@@ -8,4 +8,6 @@ const { contactSchema } = require('../schemas');
 router.post('/', validate(contactSchema), contactController.submit);
 router.get('/', authMiddleware, contactController.getAll);
 
+router.delete('/:id', authMiddleware, contactController.remove);
+
 module.exports = router;

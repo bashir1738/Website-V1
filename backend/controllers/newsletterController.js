@@ -49,3 +49,16 @@ exports.getAll = async (req, res) => {
     return res.status(500).json({ success: false, error: 'Server error' });
   }
 };
+
+
+exports.remove = async (req, res) => {
+  try {
+    const item = await NewsletterSubscriber.findByPk(req.params.id);
+    if (!item) return res.status(404).json({ success: false, error: 'Not found' });
+    await item.destroy();
+    return res.json({ success: true, message: 'Deleted successfully' });
+  } catch (err) {
+    console.error('Delete error:', err);
+    return res.status(500).json({ success: false, error: 'Server error' });
+  }
+};

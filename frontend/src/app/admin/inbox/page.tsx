@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { DataTable, formatDate, type DataColumn } from "@/components/admin/data-table";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { useCollection } from "@/components/admin/use-collection";
+import { deleteJson } from "@/lib/api";
 
 interface Row extends Record<string, unknown> {
   id: number;
@@ -187,6 +188,33 @@ export default function AdminInboxPage() {
     activeView.path,
   );
 
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Are you sure you want to delete this?")) return;
+    try {
+      await deleteJson(`/${activeView.path}/${id}`);
+      reload();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to delete";
+      alert(message);
+    }
+  };
+
+  const columnsWithActions = [
+    ...activeView.columns,
+    {
+      key: "actions",
+      label: "",
+      render: (r: Record<string, unknown>) => (
+        <button
+          onClick={() => handleDelete(r.id as number)}
+          className="text-xs font-semibold text-[#fca5a5] hover:underline"
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div className="pb-16">
       <AdminHeader eyebrow="Admin" title="Inbox" />
@@ -231,7 +259,7 @@ export default function AdminInboxPage() {
 
           {!loading && !error && (
             <DataTable
-              columns={activeView.columns}
+              columns={columnsWithActions as DataColumn<Record<string, unknown>>[]}
               rows={data as Row[]}
               emptyLabel={`No ${activeView.label.toLowerCase()} yet.`}
             />

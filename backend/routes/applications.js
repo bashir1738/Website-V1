@@ -9,4 +9,6 @@ const { applicationSchema } = require('../schemas');
 router.post('/', upload.single('resume'), validate(applicationSchema), applicationController.submit);
 router.get('/', authMiddleware, applicationController.getAll);
 
+router.delete('/:id', authMiddleware, applicationController.remove);
+
 module.exports = router;

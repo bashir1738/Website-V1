@@ -8,4 +8,6 @@ const { hireSchema } = require('../schemas');
 router.post('/', validate(hireSchema), hireController.submit);
 router.get('/', authMiddleware, hireController.getAll);
 
+router.delete('/:id', authMiddleware, hireController.remove);
+
 module.exports = router;

@@ -8,4 +8,6 @@ const { opensourceSchema } = require('../schemas');
 router.post('/', validate(opensourceSchema), opensourceController.submit);
 router.get('/', authMiddleware, opensourceController.getAll);
 
+router.delete('/:id', authMiddleware, opensourceController.remove);
+
 module.exports = router;

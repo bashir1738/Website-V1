@@ -8,4 +8,6 @@ const { newsletterSchema } = require('../schemas');
 router.post('/', validate(newsletterSchema), newsletterController.subscribe);
 router.get('/', authMiddleware, newsletterController.getAll);
 
+router.delete('/:id', authMiddleware, newsletterController.remove);
+
 module.exports = router;

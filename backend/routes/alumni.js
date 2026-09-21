@@ -9,4 +9,6 @@ const { alumniSchema } = require('../schemas');
 router.post('/', upload.single('photo'), validate(alumniSchema), alumniController.submit);
 router.get('/', authMiddleware, alumniController.getAll);
 
+router.delete('/:id', authMiddleware, alumniController.remove);
+
 module.exports = router;

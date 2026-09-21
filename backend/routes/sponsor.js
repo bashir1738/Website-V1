@@ -8,4 +8,6 @@ const { sponsorSchema } = require('../schemas');
 router.post('/', validate(sponsorSchema), sponsorController.submit);
 router.get('/', authMiddleware, sponsorController.getAll);
 
+router.delete('/:id', authMiddleware, sponsorController.remove);
+
 module.exports = router;

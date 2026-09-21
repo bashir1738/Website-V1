@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { blogCategories, posts, type BlogCategory } from "./content";
+import { blogCategories, type BlogCategory, type Post } from "./content";
 
-export function BlogArchive() {
+export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
   const [category, setCategory] = useState<BlogCategory>("All");
   const [featuredPost, ...archivePosts] = posts;
   const visiblePosts = category === "All" ? archivePosts : posts.filter((post) => post.category === category);
@@ -76,17 +76,17 @@ export function BlogArchive() {
       </section>
 
       <section className="px-5 pb-28 pt-8 sm:px-7 sm:pt-12">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="flex flex-col gap-7 border-b border-[var(--line)] pb-7 md:flex-row md:items-end md:justify-between">
+        <div className="mx-auto max-w-310">
+          <div className="flex flex-col gap-7 border-b border-(--line) pb-7 md:flex-row md:items-end md:justify-between">
             <div>
               <span className="eyebrow">Archive</span>
-              <h2 className="mt-3 font-heading text-3xl font-bold tracking-[-0.04em] text-[var(--page-fg)] sm:text-4xl">Ideas worth carrying forward.</h2>
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-[-0.04em] text-(--page-fg) sm:text-4xl">Ideas worth carrying forward.</h2>
             </div>
             <div className="flex max-w-full gap-2 overflow-x-auto pb-1" aria-label="Filter articles by category">
               {blogCategories.map((item) => {
                 const selected = item === category;
                 return (
-                  <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={selected} className={`min-h-10 shrink-0 rounded-full border px-4 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)] ${selected ? "border-[var(--accent)] action-color text-white" : "border-[var(--line-strong)] text-[var(--muted)] hover:bg-[var(--card)] hover:text-[var(--page-fg)]"}`}>
+                  <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={selected} className={`min-h-10 shrink-0 rounded-full border px-4 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--page-bg) ${selected ? "border-(--accent) action-color text-white" : "border-(--line-strong) text-(--muted) hover:bg-(--card) hover:text-(--page-fg)"}`}>
                     {item}
                   </button>
                 );
@@ -100,21 +100,21 @@ export function BlogArchive() {
                 <ScrollReveal key={post.slug} delay={Math.min(index + 1, 3)}>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--page-bg)]"
+                    className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-4 focus-visible:ring-offset-(--page-bg)"
                     aria-label={`Read ${post.title}`}
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--surface-2)]">
+                    <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-(--surface-2)">
                       <Image src={post.image} alt={post.imageAlt} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]" />
                     </div>
                     <div className="pt-5">
-                      <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.11em] text-[var(--dim)]">
-                        <span className="text-[var(--accent)]">{post.category}</span>
+                      <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.11em] text-(--dim)">
+                        <span className="text-(--accent)">{post.category}</span>
                         <span>{post.readTime}</span>
                       </div>
-                      <h3 className="mt-3 font-heading text-[1.35rem] font-bold leading-[1.18] tracking-[-0.03em] text-[var(--page-fg)]">{post.title}</h3>
-                      <p className="mt-3 text-sm leading-[1.7] text-[var(--muted)]">{post.excerpt}</p>
-                      <p className="mt-5 text-xs font-medium text-[var(--dim)]">{post.date}</p>
-                      <span className="mt-4 inline-block text-sm font-semibold text-[var(--page-fg)] transition-colors duration-150 group-hover:text-[var(--accent)]">
+                      <h3 className="mt-3 font-heading text-[1.35rem] font-bold leading-[1.18] tracking-[-0.03em] text-(--page-fg)">{post.title}</h3>
+                      <p className="mt-3 text-sm leading-[1.7] text-(--muted)">{post.excerpt}</p>
+                      <p className="mt-5 text-xs font-medium text-(--dim)">{post.date}</p>
+                      <span className="mt-4 inline-block text-sm font-semibold text-(--page-fg) transition-colors duration-150 group-hover:text-(--accent)">
                         Read story <span aria-hidden="true">→</span>
                       </span>
                     </div>
@@ -124,8 +124,8 @@ export function BlogArchive() {
             </div>
           ) : (
             <div className="py-20 text-center">
-              <h3 className="font-heading text-xl font-bold text-[var(--page-fg)]">No stories in this category yet.</h3>
-              <p className="mt-2 text-sm text-[var(--muted)]">More field notes are already in the works.</p>
+              <h3 className="font-heading text-xl font-bold text-(--page-fg)">No stories in this category yet.</h3>
+              <p className="mt-2 text-sm text-(--muted)">More field notes are already in the works.</p>
             </div>
           )}
         </div>
