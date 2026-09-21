@@ -19,6 +19,8 @@ export interface FormField {
   placeholder?: string;
   required?: boolean;
   options?: string[];
+  /** Comma-separated accept list for file inputs, e.g. ".pdf,.doc,.docx". */
+  accept?: string;
   /** CSS grid-column value; "1 / -1" spans the full width. */
   span?: string;
 }
@@ -131,7 +133,8 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Resume",
         name: "resume",
         kind: "file",
-        placeholder: "PDF or DOCX, up to 5MB",
+        accept: ".pdf,.doc,.docx",
+        placeholder: "PDF or DOCX, up to 1MB",
       },
     ],
   },
@@ -507,7 +510,8 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Profile photo",
         name: "photo",
         kind: "file",
-        placeholder: "JPG or PNG, up to 2MB",
+        accept: "image/jpeg,image/png",
+        placeholder: "JPG or PNG, up to 1MB",
       },
       {
         label: "Anything that helps us verify you",

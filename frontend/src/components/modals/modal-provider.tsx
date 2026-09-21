@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import { forms, type FormKey, type FormField } from "@/lib/forms";
 import { postForm, postJson, ApiError } from "@/lib/api";
+import { formatFileSize, validateUpload } from "@/lib/file-upload";
 
 /** Browser autofill hints, keyed by API field name. */
 const AUTOCOMPLETE: Record<string, string> = {
@@ -137,7 +138,11 @@ function FormModal({
           }
           if (field.kind === "file") {
             const file = raw.get(field.name);
-            if (file instanceof File && file.size > 0) body.append(field.name, file);
+            if (file instanceof File && file.size > 0) {
+              const problem = validateUpload(file, field.accept);
+              if (problem) throw new ApiError(problem, 0);
+              body.append(field.name, file);
+            }
             continue;
           }
           const value = raw.get(field.name);
@@ -372,15 +377,7 @@ function Field({
         />
       )}
 
-      {kind === "file" && (
-        <label htmlFor={id} className="field-file">
-          <span aria-hidden="true" className="text-[15px]">
-            ↑
-          </span>
-          <span>{field.placeholder}</span>
-          <input id={id} name={field.name} type="file" className="sr-only" />
-        </label>
-      )}
+      {kind === "file" && <FileField field={field} />}
 
       {kind === "chips" && (
         <div className="flex flex-wrap gap-2">
@@ -399,5 +396,48 @@ function Field({
         </div>
       )}
     </div>
+  );
+}
+
+function FileField({ field }: { field: FormField }) {
+  const id = `f-${field.name}`;
+  const [label, setLabel] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  return (
+    <>
+      <label htmlFor={id} className="field-file" data-invalid={Boolean(error)}>
+        <span aria-hidden="true" className="text-[15px]">
+          ↑
+        </span>
+        <span className="truncate">{label ?? field.placeholder}</span>
+        <input
+          id={id}
+          name={field.name}
+          type="file"
+          accept={field.accept}
+          required={field.required}
+          className="sr-only"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (!file) {
+              setLabel(null);
+              setError(null);
+              return;
+            }
+            const problem = validateUpload(file, field.accept);
+            if (problem) {
+              setError(problem);
+              setLabel(null);
+              e.target.value = "";
+              return;
+            }
+            setError(null);
+            setLabel(`${file.name} · ${formatFileSize(file.size)}`);
+          }}
+        />
+      </label>
+      {error && <p className="mt-2 text-xs text-[#fca5a5]">{error}</p>}
+    </>
   );
 }

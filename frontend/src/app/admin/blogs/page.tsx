@@ -9,6 +9,7 @@ import { AdminHeader } from "@/components/admin/admin-header";
 import { formatDate } from "@/components/admin/data-table";
 import { useCollection } from "@/components/admin/use-collection";
 import { toLocalInput, fromLocalInput } from "@/lib/utils";
+import { MAX_UPLOAD_LABEL, validateUpload } from "@/lib/file-upload";
 
 interface Blog extends Record<string, unknown> {
   id: number;
@@ -87,6 +88,13 @@ export default function AdminBlogsPage() {
     if (!SLUG_PATTERN.test(slug)) {
       setFormError("Slug must be lowercase letters, numbers, and hyphens.");
       return;
+    }
+    if (image) {
+      const problem = validateUpload(image, "image/jpeg,image/jpg,image/png");
+      if (problem) {
+        setFormError(problem);
+        return;
+      }
     }
 
     setSaving(true);
@@ -223,13 +231,28 @@ export default function AdminBlogsPage() {
 
             <label htmlFor="blog-image" className="field-file mt-5">
               <span aria-hidden="true" className="text-[15px]">↑</span>
-              <span>{image ? image.name : "Upload an image (JPG or PNG)"}</span>
+              <span>{image ? image.name : `Upload an image (JPG or PNG, up to ${MAX_UPLOAD_LABEL})`}</span>
               <input
                 id="blog-image"
                 type="file"
                 accept="image/jpeg,image/jpg,image/png"
                 className="sr-only"
-                onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  setFormError(null);
+                  if (!file) {
+                    setImage(null);
+                    return;
+                  }
+                  const problem = validateUpload(file, "image/jpeg,image/jpg,image/png");
+                  if (problem) {
+                    setFormError(problem);
+                    setImage(null);
+                    e.target.value = "";
+                    return;
+                  }
+                  setImage(file);
+                }}
               />
             </label>
 
