@@ -73,10 +73,10 @@ export default function AdminOverviewPage() {
   const fetchAll = useCallback(async (): Promise<ActivityItem[] & { counts: Record<string, number> }> => {
     const entries = await Promise.all(
       COLLECTIONS.map(async (collection) => {
-        const res = (await getJson(`/${collection.path}`)) as {
-          data: Record<string, unknown>[];
-        };
-        return { path: collection.path, items: res.data ?? [] };
+        // getJson() → parse() already unwraps body.data from the API envelope.
+        // `res` is the array directly — do NOT access .data on it again.
+        const items = (await getJson(`/${collection.path}`)) as Record<string, unknown>[];
+        return { path: collection.path, items: items ?? [] };
       }),
     );
 

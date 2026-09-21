@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { DataTable, formatDate, type DataColumn } from "@/components/admin/data-table";
@@ -191,12 +192,16 @@ export default function AdminInboxPage() {
       <AdminHeader eyebrow="Admin" title="Inbox" />
 
       <div className="px-5 py-6 sm:px-8">
-        {/* Tabs */}
+        {/* Tabs — use Next.js <Link> with scroll={false} so switching tabs is
+            instant client-side navigation with no full page reload and no
+            scroll-to-top jump. */}
         <div className="custom-scroll flex gap-1.5 overflow-x-auto pb-1" role="tablist">
           {VIEWS.map((view) => (
-            <a
+            <Link
               key={view.key}
               href={`/admin/inbox?tab=${view.key}`}
+              scroll={false}
+              replace
               role="tab"
               aria-selected={view.key === activeView.key}
               className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
@@ -206,7 +211,7 @@ export default function AdminInboxPage() {
               }`}
             >
               {view.label}
-            </a>
+            </Link>
           ))}
         </div>
 
