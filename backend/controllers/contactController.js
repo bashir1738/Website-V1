@@ -1,22 +1,25 @@
 const { ContactMessage } = require('../models');
 const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
+const { escHtml } = require('../utils/escHtml');
 
 exports.submit = async (req, res) => {
   try {
     const contact = await ContactMessage.create(req.body);
 
-    await sendConfirmationEmail({
-      to: req.body.email,
-      subject: 'We received your message — Blockfuse',
-      html: `<p>Hi ${req.body.name},</p><p>Thanks for reaching out. We'll get back to you shortly.</p>`,
-    });
+    // Fire-and-forget: email failures must not roll back a successful DB write.
+    Promise.all([
+      sendConfirmationEmail({
+        to: req.body.email,
+        subject: 'We received your message — Blockfuse',
+        html: `<p>Hi ${escHtml(req.body.name)},</p><p>Thanks for reaching out. We'll get back to you shortly.</p>`,
+      }),
+      notifyAdmin({
+        subject: `New contact: ${escHtml(req.body.topic)}`,
+        html: `<p><strong>${escHtml(req.body.name)}</strong> (${escHtml(req.body.email)}) wrote about <em>${escHtml(req.body.topic)}</em>:</p><p>${escHtml(req.body.message)}</p>`,
+      }),
+    ]).catch((err) => console.error('Contact email error:', err));
 
-    await notifyAdmin({
-      subject: `New contact: ${req.body.topic}`,
-      html: `<p><strong>${req.body.name}</strong> (${req.body.email}) wrote about <em>${req.body.topic}</em>:</p><p>${req.body.message}</p>`,
-    });
-
-    return res.status(201).json({ success: true, data: contact });
+    return res.status(201).json({ success: true, data: { id: contact.id } });
   } catch (err) {
     console.error('Contact error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });

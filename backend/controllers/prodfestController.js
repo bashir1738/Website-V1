@@ -1,22 +1,25 @@
 const { ProdfestRegistration } = require('../models');
 const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
+const { escHtml } = require('../utils/escHtml');
 
 exports.submit = async (req, res) => {
   try {
     const reg = await ProdfestRegistration.create(req.body);
 
-    await sendConfirmationEmail({
-      to: req.body.email,
-      subject: 'ProdFest registration received — Blockfuse',
-      html: `<p>Hi ${req.body.name},</p><p>You're on the list for ProdFest 2026. We'll send the date and venue before it goes public.</p>`,
-    });
+    // Fire-and-forget: email failures must not roll back a successful DB write.
+    Promise.all([
+      sendConfirmationEmail({
+        to: req.body.email,
+        subject: 'ProdFest registration received — Blockfuse',
+        html: `<p>Hi ${escHtml(req.body.name)},</p><p>You're on the list for ProdFest 2026. We'll send the date and venue before it goes public.</p>`,
+      }),
+      notifyAdmin({
+        subject: `New ProdFest registration: ${escHtml(req.body.name)}`,
+        html: `<p><strong>${escHtml(req.body.name)}</strong> (${escHtml(req.body.email)}) registered for ProdFest as <em>${escHtml(req.body.attending_as || 'N/A')}</em>.</p>`,
+      }),
+    ]).catch((err) => console.error('ProdFest email error:', err));
 
-    await notifyAdmin({
-      subject: `New ProdFest registration: ${req.body.name}`,
-      html: `<p><strong>${req.body.name}</strong> (${req.body.email}) registered for ProdFest as <em>${req.body.attending_as || 'N/A'}</em>.</p>`,
-    });
-
-    return res.status(201).json({ success: true, data: reg });
+    return res.status(201).json({ success: true, data: { id: reg.id } });
   } catch (err) {
     console.error('Prodfest error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });

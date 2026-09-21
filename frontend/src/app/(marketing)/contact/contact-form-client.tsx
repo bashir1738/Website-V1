@@ -1,24 +1,66 @@
 "use client";
 
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { contact } from "@/lib/contact";
 
+type FormState = { name: string; email: string; topic: string; message: string };
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(form: FormState): Record<string, string> {
+  const errors: Record<string, string> = {};
+  if (form.name.trim().length < 2) {
+    errors.name = "Please enter your name.";
+  }
+  if (!form.email.trim()) {
+    errors.email = "Email is required.";
+  } else if (!EMAIL_PATTERN.test(form.email.trim())) {
+    errors.email = "Enter a valid email address.";
+  }
+  if (!form.topic.trim()) {
+    errors.topic = "Please tell us what this is about.";
+  }
+  if (form.message.trim().length < 10) {
+    errors.message = "Please add at least 10 characters of detail.";
+  }
+  return errors;
+}
+
 export function ContactFormClient() {
-  const [form, setForm] = useState({ name: "", email: "", topic: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState<FormState>({ name: "", email: "", topic: "", message: "" });
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const update = (key: keyof FormState, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    setFieldErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = validate(form);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
+
+    setFieldErrors({});
     setStatus("loading");
-    setError(null);
     try {
       await contact.submit(form);
       setStatus("success");
       setForm({ name: "", email: "", topic: "", message: "" });
+      toast.success("Message sent. We'll get back to you shortly.");
     } catch (err) {
-      setStatus("error");
-      setError(err instanceof Error ? err.message : "Message failed to send");
+      setStatus("idle");
+      toast.error(err instanceof Error ? err.message : "Message failed to send");
     }
   };
 
@@ -46,69 +88,95 @@ export function ContactFormClient() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} noValidate className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label className="field-label">
+          <label htmlFor="contact-name" className="field-label">
             Name <span className="text-[var(--accent)]">*</span>
           </label>
           <input
+            id="contact-name"
             type="text"
-            required
             value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onChange={(e) => update("name", e.target.value)}
             placeholder="Your name"
             className="field-input"
+            data-invalid={fieldErrors.name ? "true" : undefined}
+            aria-invalid={Boolean(fieldErrors.name)}
+            aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
           />
+          {fieldErrors.name && (
+            <p id="contact-name-error" className="field-error">
+              {fieldErrors.name}
+            </p>
+          )}
         </div>
         <div>
-          <label className="field-label">
+          <label htmlFor="contact-email" className="field-label">
             Email <span className="text-[var(--accent)]">*</span>
           </label>
           <input
+            id="contact-email"
             type="email"
-            required
             value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            onChange={(e) => update("email", e.target.value)}
             placeholder="your@email.com"
             className="field-input"
+            data-invalid={fieldErrors.email ? "true" : undefined}
+            aria-invalid={Boolean(fieldErrors.email)}
+            aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
           />
+          {fieldErrors.email && (
+            <p id="contact-email-error" className="field-error">
+              {fieldErrors.email}
+            </p>
+          )}
         </div>
       </div>
 
       <div>
-        <label className="field-label">
+        <label htmlFor="contact-topic" className="field-label">
           Topic <span className="text-[var(--accent)]">*</span>
         </label>
         <input
+          id="contact-topic"
           type="text"
-          required
           value={form.topic}
-          onChange={(e) => setForm({ ...form, topic: e.target.value })}
+          onChange={(e) => update("topic", e.target.value)}
           placeholder="What is this about?"
           className="field-input"
+          data-invalid={fieldErrors.topic ? "true" : undefined}
+          aria-invalid={Boolean(fieldErrors.topic)}
+          aria-describedby={fieldErrors.topic ? "contact-topic-error" : undefined}
         />
+        {fieldErrors.topic && (
+          <p id="contact-topic-error" className="field-error">
+            {fieldErrors.topic}
+          </p>
+        )}
       </div>
 
       <div>
-        <label className="field-label">
+        <label htmlFor="contact-message" className="field-label">
           Message <span className="text-[var(--accent)]">*</span>
         </label>
         <textarea
-          required
+          id="contact-message"
           rows={6}
           value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
+          onChange={(e) => update("message", e.target.value)}
           placeholder="Your message..."
           className="field-textarea"
+          data-invalid={fieldErrors.message ? "true" : undefined}
+          aria-invalid={Boolean(fieldErrors.message)}
+          aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
         />
+        {fieldErrors.message && (
+          <p id="contact-message-error" className="field-error">
+            {fieldErrors.message}
+          </p>
+        )}
       </div>
-
-      {error && (
-        <div className="rounded-xl border border-[var(--accent-dim)] bg-[var(--accent-dim)] px-4 py-3 text-sm text-[var(--page-fg)]">
-          {error}
-        </div>
-      )}
 
       <button
         type="submit"

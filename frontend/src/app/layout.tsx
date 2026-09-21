@@ -4,6 +4,8 @@ import { SiteChrome } from "@/components/layout/site-chrome";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { ModalProvider } from "@/components/modals/modal-provider";
+import { ToasterProvider } from "@/components/ui/toaster";
+import { CookieConsent } from "@/components/layout/cookie-consent";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -52,6 +54,8 @@ export default function RootLayout({
             <LoadingScreen />
             <SiteChrome>{children}</SiteChrome>
           </ModalProvider>
+          <ToasterProvider />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

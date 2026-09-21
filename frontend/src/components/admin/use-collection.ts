@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getJson } from "@/lib/api";
-import { getAdminToken } from "@/lib/admin/auth";
+
 
 export function useCollection<T extends Record<string, unknown>>(path: string) {
   const [data, setData] = useState<T[]>([]);
@@ -10,9 +10,7 @@ export function useCollection<T extends Record<string, unknown>>(path: string) {
 
   useEffect(() => {
     let active = true;
-    const token = getAdminToken() ?? undefined;
-
-    getJson(`/${path}`, token)
+    getJson(`/${path}`)
       .then((res) => {
         if (!active) return;
         const body = res as { data?: T[] };

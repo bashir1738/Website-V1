@@ -1,7 +1,15 @@
-const DEFAULT_API_URL = "https://website-v1-vrl5.onrender.com/api";
+/**
+ * MED-4: No hardcoded fallback URL. If NEXT_PUBLIC_API_URL is missing the app
+ * will fail at build/boot time with a clear error rather than silently hitting
+ * a stale production URL.
+ */
+if (!process.env.NEXT_PUBLIC_API_URL) {
+  throw new Error(
+    "NEXT_PUBLIC_API_URL is not set. Add it to .env.local (development) or your hosting env vars (production)."
+  );
+}
 
-export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "") || DEFAULT_API_URL;
+export const API_URL = process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, "");
 
 export class ApiError extends Error {
   status: number;
@@ -42,55 +50,57 @@ async function parse(res: Response) {
   return body && "data" in body ? body.data : body;
 }
 
+/**
+ * HIGH-3: All fetch calls include `credentials: 'include'` so the browser
+ * automatically attaches the HttpOnly auth cookie. No manual token passing needed.
+ */
+
 /** POST a plain-JSON payload to a public or admin endpoint. */
 export async function postJson(
   path: string,
   data: Record<string, unknown>,
-  token?: string,
 ) {
   const res = await fetch(`${API_URL}${path}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   return parse(res);
 }
 
 /** POST a multipart payload (file upload) to a public or admin endpoint. */
-export async function postForm(path: string, data: FormData, token?: string) {
+export async function postForm(path: string, data: FormData) {
   const res = await fetch(`${API_URL}${path}`, {
     method: "POST",
-    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    credentials: "include",
     body: data,
   });
   return parse(res);
 }
 
-export async function getJson(path: string, token?: string) {
+export async function getJson(path: string) {
   const res = await fetch(`${API_URL}${path}`, {
-    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    credentials: "include",
   });
   return parse(res);
 }
 
 /** PUT a multipart payload (file upload) to an admin endpoint. */
-export async function putForm(path: string, data: FormData, token?: string) {
+export async function putForm(path: string, data: FormData) {
   const res = await fetch(`${API_URL}${path}`, {
     method: "PUT",
-    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    credentials: "include",
     body: data,
   });
   return parse(res);
 }
 
 /** DELETE from an admin endpoint. */
-export async function deleteJson(path: string, token?: string) {
+export async function deleteJson(path: string) {
   const res = await fetch(`${API_URL}${path}`, {
     method: "DELETE",
-    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    credentials: "include",
   });
   return parse(res);
 }

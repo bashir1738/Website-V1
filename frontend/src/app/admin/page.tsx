@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Loader2, RefreshCw } from "lucide-react";
 import { getJson } from "@/lib/api";
-import { getAdminToken } from "@/lib/admin/auth";
 import { AdminHeader } from "@/components/admin/admin-header";
 
 interface CollectionStats {
@@ -72,10 +71,9 @@ export default function AdminOverviewPage() {
   const [activity, setActivity] = useState<ActivityItem[]>([]);
 
   const fetchAll = useCallback(async (): Promise<ActivityItem[] & { counts: Record<string, number> }> => {
-    const token = getAdminToken() ?? undefined;
     const entries = await Promise.all(
       COLLECTIONS.map(async (collection) => {
-        const res = (await getJson(`/${collection.path}`, token)) as {
+        const res = (await getJson(`/${collection.path}`)) as {
           data: Record<string, unknown>[];
         };
         return { path: collection.path, items: res.data ?? [] };

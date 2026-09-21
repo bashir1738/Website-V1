@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Pencil, Trash2, X, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 import { postForm, putForm, deleteJson, ApiError } from "@/lib/api";
-import { getAdminToken } from "@/lib/admin/auth";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { formatDate } from "@/components/admin/data-table";
 import { useCollection } from "@/components/admin/use-collection";
@@ -36,8 +36,17 @@ export default function AdminEventsPage() {
   const [link, setLink] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [existingImage, setExistingImage] = useState<string | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+
+  const clearFieldError = (name: string) => {
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  };
 
   const openCreate = () => {
     setMode("create");
@@ -50,7 +59,7 @@ export default function AdminEventsPage() {
     setLink("");
     setImage(null);
     setExistingImage(null);
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const openEdit = (event: EventRow) => {
@@ -64,67 +73,71 @@ export default function AdminEventsPage() {
     setLink(event.link ?? "");
     setImage(null);
     setExistingImage(event.image_url ?? null);
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const closeEditor = () => {
     setMode("closed");
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const handleDelete = async (event: EventRow) => {
     if (!window.confirm(`Delete "${event.title}"? This can't be undone.`)) return;
-    try {
-      await deleteJson(`/events/${event.id}`, getAdminToken() ?? undefined);
-      reload();
-    } catch (err) {
-      window.alert(err instanceof ApiError ? err.message : "Delete failed.");
-    }
+    toast.promise(
+      deleteJson(`/events/${event.id}`).then(() => {
+        reload();
+      }),
+      {
+        loading: "Deleting event…",
+        success: "Event deleted.",
+        error: (err) => (err instanceof ApiError ? err.message : "Delete failed."),
+      },
+    );
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (saving) return;
-    setFormError(null);
 
+    const nextErrors: Record<string, string> = {};
     if (!SLUG_PATTERN.test(slug)) {
-      setFormError("Slug must be lowercase letters, numbers, and hyphens.");
-      return;
+      nextErrors.slug = "Slug must be lowercase letters, numbers, and hyphens.";
     }
-    const dateIso = fromLocalInput(date);
-    if (!dateIso) {
-      setFormError("Pick a date and time for the event.");
-      return;
+    if (!fromLocalInput(date)) {
+      nextErrors.date = "Pick a date and time for the event.";
     }
     if (image) {
       const problem = validateUpload(image, "image/jpeg,image/jpg,image/png");
-      if (problem) {
-        setFormError(problem);
-        return;
-      }
+      if (problem) nextErrors.image = problem;
     }
-
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors);
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
+    setFieldErrors({});
     setSaving(true);
     try {
       const body = new FormData();
       body.append("title", title);
       body.append("slug", slug);
       body.append("description", description);
-      body.append("date", dateIso);
+      body.append("date", fromLocalInput(date) as string);
       if (location) body.append("location", location);
       if (link) body.append("link", link);
       if (image) body.append("image", image);
 
-      const token = getAdminToken() ?? undefined;
       if (mode === "edit" && editingId !== null) {
-        await putForm(`/events/${editingId}`, body, token);
+        await putForm(`/events/${editingId}`, body);
+        toast.success("Changes saved.");
       } else {
-        await postForm("/events", body, token);
+        await postForm("/events", body);
+        toast.success("Event created.");
       }
       closeEditor();
       reload();
     } catch (err) {
-      setFormError(err instanceof ApiError ? err.message : "Save failed.");
+      toast.error(err instanceof ApiError ? err.message : "Save failed.");
     } finally {
       setSaving(false);
     }
@@ -169,9 +182,20 @@ export default function AdminEventsPage() {
                   required
                   minLength={3}
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    clearFieldError("title");
+                  }}
                   className="field-input mt-1.5"
+                  data-invalid={fieldErrors.title ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.title)}
+                  aria-describedby={fieldErrors.title ? "event-title-error" : undefined}
                 />
+                {fieldErrors.title && (
+                  <p id="event-title-error" className="field-error">
+                    {fieldErrors.title}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="event-slug" className="field-label">Slug</label>
@@ -180,10 +204,21 @@ export default function AdminEventsPage() {
                   required
                   pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={(e) => {
+                    setSlug(e.target.value);
+                    clearFieldError("slug");
+                  }}
                   className="field-input mt-1.5 font-mono text-xs"
                   placeholder="prodfest-2026"
+                  data-invalid={fieldErrors.slug ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.slug)}
+                  aria-describedby={fieldErrors.slug ? "event-slug-error" : undefined}
                 />
+                {fieldErrors.slug && (
+                  <p id="event-slug-error" className="field-error">
+                    {fieldErrors.slug}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="event-date" className="field-label">Date &amp; time</label>
@@ -192,9 +227,20 @@ export default function AdminEventsPage() {
                   type="datetime-local"
                   required
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                    clearFieldError("date");
+                  }}
                   className="field-input mt-1.5"
+                  data-invalid={fieldErrors.date ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.date)}
+                  aria-describedby={fieldErrors.date ? "event-date-error" : undefined}
                 />
+                {fieldErrors.date && (
+                  <p id="event-date-error" className="field-error">
+                    {fieldErrors.date}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="event-location" className="field-label">Location</label>
@@ -226,9 +272,20 @@ export default function AdminEventsPage() {
                 minLength={10}
                 rows={7}
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  clearFieldError("description");
+                }}
                 className="field-textarea mt-1.5"
+                data-invalid={fieldErrors.description ? "true" : undefined}
+                aria-invalid={Boolean(fieldErrors.description)}
+                aria-describedby={fieldErrors.description ? "event-description-error" : undefined}
               />
+              {fieldErrors.description && (
+                <p id="event-description-error" className="field-error">
+                  {fieldErrors.description}
+                </p>
+              )}
             </div>
 
             {existingImage && (
@@ -246,7 +303,7 @@ export default function AdminEventsPage() {
               </div>
             )}
 
-            <label htmlFor="event-image" className="field-file mt-5">
+            <label htmlFor="event-image" className="field-file mt-5" data-invalid={fieldErrors.image ? "true" : undefined}>
               <span aria-hidden="true" className="text-[15px]">↑</span>
               <span>{image ? image.name : `Upload an image (JPG or PNG, up to ${MAX_UPLOAD_LABEL})`}</span>
               <input
@@ -256,14 +313,14 @@ export default function AdminEventsPage() {
                 className="sr-only"
                 onChange={(e) => {
                   const file = e.target.files?.[0] ?? null;
-                  setFormError(null);
+                  clearFieldError("image");
                   if (!file) {
                     setImage(null);
                     return;
                   }
                   const problem = validateUpload(file, "image/jpeg,image/jpg,image/png");
                   if (problem) {
-                    setFormError(problem);
+                    setFieldErrors((prev) => ({ ...prev, image: problem }));
                     setImage(null);
                     e.target.value = "";
                     return;
@@ -272,13 +329,9 @@ export default function AdminEventsPage() {
                 }}
               />
             </label>
-
-            {formError && (
-              <p
-                role="alert"
-                className="mt-5 rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm text-[#fca5a5]"
-              >
-                {formError}
+            {fieldErrors.image && (
+              <p id="event-image-error" className="field-error">
+                {fieldErrors.image}
               </p>
             )}
 

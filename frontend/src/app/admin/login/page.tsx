@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Loader2, ShieldCheck } from "lucide-react";
+import toast from "react-hot-toast";
 import { postJson, ApiError } from "@/lib/api";
 import { setAdminAuth } from "@/lib/admin/auth";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { siteConfig } from "@/config/site";
 
 interface LoginResponse {
-  token: string;
   admin: { id: number; email: string };
 }
 
@@ -19,21 +19,22 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
-    setError(null);
     setSubmitting(true);
 
     try {
       const res = (await postJson("/auth/login", { email, password })) as LoginResponse;
-      setAdminAuth(res.token, res.admin.email);
+      // HIGH-3: The JWT is now in an HttpOnly cookie set by the server.
+      // We only store the display email locally.
+      setAdminAuth(res.admin.email);
+      toast.success("Signed in. Welcome back, Admin.");
       router.replace("/admin");
     } catch (err) {
-      setError(
+      toast.error(
         err instanceof ApiError
           ? err.message
           : "Couldn't reach the server. Try again.",
@@ -182,15 +183,6 @@ export default function AdminLoginPage() {
                   placeholder="••••••••"
                 />
               </div>
-
-              {error && (
-                <div
-                  role="alert"
-                  className="animate-in fade-in slide-in-from-top-1 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-500"
-                >
-                  {error}
-                </div>
-              )}
 
               <button
                 type="submit"

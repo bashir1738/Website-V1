@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Pencil, Trash2, X, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 import { postForm, putForm, deleteJson, ApiError } from "@/lib/api";
-import { getAdminToken } from "@/lib/admin/auth";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { formatDate } from "@/components/admin/data-table";
 import { useCollection } from "@/components/admin/use-collection";
@@ -36,8 +36,17 @@ export default function AdminBlogsPage() {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [existingImage, setExistingImage] = useState<string | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+
+  const clearFieldError = (name: string) => {
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  };
 
   const openCreate = () => {
     setMode("create");
@@ -49,7 +58,7 @@ export default function AdminBlogsPage() {
     setContent("");
     setImage(null);
     setExistingImage(null);
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const openEdit = (blog: Blog) => {
@@ -62,41 +71,46 @@ export default function AdminBlogsPage() {
     setContent(blog.content);
     setImage(null);
     setExistingImage(blog.image_url ?? null);
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const closeEditor = () => {
     setMode("closed");
-    setFormError(null);
+    setFieldErrors({});
   };
 
   const handleDelete = async (blog: Blog) => {
     if (!window.confirm(`Delete "${blog.title}"? This can't be undone.`)) return;
-    try {
-      await deleteJson(`/blogs/${blog.id}`, getAdminToken() ?? undefined);
-      reload();
-    } catch (err) {
-      window.alert(err instanceof ApiError ? err.message : "Delete failed.");
-    }
+    toast.promise(
+      deleteJson(`/blogs/${blog.id}`).then(() => {
+        reload();
+      }),
+      {
+        loading: "Deleting post…",
+        success: "Post deleted.",
+        error: (err) => (err instanceof ApiError ? err.message : "Delete failed."),
+      },
+    );
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (saving) return;
-    setFormError(null);
 
+    const nextErrors: Record<string, string> = {};
     if (!SLUG_PATTERN.test(slug)) {
-      setFormError("Slug must be lowercase letters, numbers, and hyphens.");
-      return;
+      nextErrors.slug = "Slug must be lowercase letters, numbers, and hyphens.";
     }
     if (image) {
       const problem = validateUpload(image, "image/jpeg,image/jpg,image/png");
-      if (problem) {
-        setFormError(problem);
-        return;
-      }
+      if (problem) nextErrors.image = problem;
     }
-
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors);
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
+    setFieldErrors({});
     setSaving(true);
     try {
       const body = new FormData();
@@ -108,16 +122,17 @@ export default function AdminBlogsPage() {
       body.append("published_at", publishedIso ?? "");
       if (image) body.append("image", image);
 
-      const token = getAdminToken() ?? undefined;
       if (mode === "edit" && editingId !== null) {
-        await putForm(`/blogs/${editingId}`, body, token);
+        await putForm(`/blogs/${editingId}`, body);
+        toast.success("Changes saved.");
       } else {
-        await postForm("/blogs", body, token);
+        await postForm("/blogs", body);
+        toast.success("Post published.");
       }
       closeEditor();
       reload();
     } catch (err) {
-      setFormError(err instanceof ApiError ? err.message : "Save failed.");
+      toast.error(err instanceof ApiError ? err.message : "Save failed.");
     } finally {
       setSaving(false);
     }
@@ -162,9 +177,20 @@ export default function AdminBlogsPage() {
                   required
                   minLength={3}
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    clearFieldError("title");
+                  }}
                   className="field-input mt-1.5"
+                  data-invalid={fieldErrors.title ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.title)}
+                  aria-describedby={fieldErrors.title ? "blog-title-error" : undefined}
                 />
+                {fieldErrors.title && (
+                  <p id="blog-title-error" className="field-error">
+                    {fieldErrors.title}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="blog-slug" className="field-label">Slug</label>
@@ -173,10 +199,21 @@ export default function AdminBlogsPage() {
                   required
                   pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
                   value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
+                  onChange={(e) => {
+                    setSlug(e.target.value);
+                    clearFieldError("slug");
+                  }}
                   className="field-input mt-1.5 font-mono text-xs"
                   placeholder="field-notes-from-jos"
+                  data-invalid={fieldErrors.slug ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.slug)}
+                  aria-describedby={fieldErrors.slug ? "blog-slug-error" : undefined}
                 />
+                {fieldErrors.slug && (
+                  <p id="blog-slug-error" className="field-error">
+                    {fieldErrors.slug}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="blog-author" className="field-label">Author</label>
@@ -185,9 +222,20 @@ export default function AdminBlogsPage() {
                   required
                   minLength={2}
                   value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
+                  onChange={(e) => {
+                    setAuthor(e.target.value);
+                    clearFieldError("author");
+                  }}
                   className="field-input mt-1.5"
+                  data-invalid={fieldErrors.author ? "true" : undefined}
+                  aria-invalid={Boolean(fieldErrors.author)}
+                  aria-describedby={fieldErrors.author ? "blog-author-error" : undefined}
                 />
+                {fieldErrors.author && (
+                  <p id="blog-author-error" className="field-error">
+                    {fieldErrors.author}
+                  </p>
+                )}
               </div>
               <div>
                 <label htmlFor="blog-published" className="field-label">Published at</label>
@@ -195,7 +243,10 @@ export default function AdminBlogsPage() {
                   id="blog-published"
                   type="datetime-local"
                   value={publishedAt}
-                  onChange={(e) => setPublishedAt(e.target.value)}
+                  onChange={(e) => {
+                    setPublishedAt(e.target.value);
+                    clearFieldError("published_at");
+                  }}
                   className="field-input mt-1.5"
                 />
               </div>
@@ -209,15 +260,26 @@ export default function AdminBlogsPage() {
                 minLength={10}
                 rows={10}
                 value={content}
-                onChange={(e) => setContent(e.target.value)}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                  clearFieldError("content");
+                }}
                 className="field-textarea mt-1.5"
+                data-invalid={fieldErrors.content ? "true" : undefined}
+                aria-invalid={Boolean(fieldErrors.content)}
+                aria-describedby={fieldErrors.content ? "blog-content-error" : undefined}
               />
+              {fieldErrors.content && (
+                <p id="blog-content-error" className="field-error">
+                  {fieldErrors.content}
+                </p>
+              )}
             </div>
 
             {existingImage && (
               <div className="mt-5">
                 <span className="field-label">Current image</span>
-                <div className="relative mt-1.5 aspect-[16/8] max-w-[360px] overflow-hidden rounded-xl bg-(--surface-2)">
+                <div className="relative mt-1.5 aspect-16/8 max-w-90 overflow-hidden rounded-xl bg-(--surface-2)">
                   <Image
                     src={existingImage}
                     alt="Current post image"
@@ -229,7 +291,7 @@ export default function AdminBlogsPage() {
               </div>
             )}
 
-            <label htmlFor="blog-image" className="field-file mt-5">
+            <label htmlFor="blog-image" className="field-file mt-5" data-invalid={fieldErrors.image ? "true" : undefined}>
               <span aria-hidden="true" className="text-[15px]">↑</span>
               <span>{image ? image.name : `Upload an image (JPG or PNG, up to ${MAX_UPLOAD_LABEL})`}</span>
               <input
@@ -239,14 +301,14 @@ export default function AdminBlogsPage() {
                 className="sr-only"
                 onChange={(e) => {
                   const file = e.target.files?.[0] ?? null;
-                  setFormError(null);
+                  clearFieldError("image");
                   if (!file) {
                     setImage(null);
                     return;
                   }
                   const problem = validateUpload(file, "image/jpeg,image/jpg,image/png");
                   if (problem) {
-                    setFormError(problem);
+                    setFieldErrors((prev) => ({ ...prev, image: problem }));
                     setImage(null);
                     e.target.value = "";
                     return;
@@ -255,13 +317,9 @@ export default function AdminBlogsPage() {
                 }}
               />
             </label>
-
-            {formError && (
-              <p
-                role="alert"
-                className="mt-5 rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm text-[#fca5a5]"
-              >
-                {formError}
+            {fieldErrors.image && (
+              <p id="blog-image-error" className="field-error">
+                {fieldErrors.image}
               </p>
             )}
 
@@ -298,7 +356,7 @@ export default function AdminBlogsPage() {
 
         {!loading && !error && (
           <div className="custom-scroll overflow-x-auto rounded-xl border border-(--line)">
-            <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+            <table className="w-full min-w-180 border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-(--line-strong) bg-(--surface-2) text-[11px] uppercase tracking-wider text-(--dim)">
                   <th className="px-4 py-3 font-semibold">Post</th>

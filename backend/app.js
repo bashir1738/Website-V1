@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const { limiter, submissionLimiter } = require('./middlewares/rateLimiter');
 const sanitize = require('./middlewares/sanitizeMiddleware');
 
@@ -9,6 +11,16 @@ const FRONTEND_URLS = (process.env.FRONTEND_URL || 'http://localhost:3000')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean);
+
+// MED-3: helmet sets essential HTTP security headers in one call.
+// crossOriginResourcePolicy is set to 'cross-origin' because this is a
+// pure API server — all legitimate consumers are on different origins.
+// The cors() middleware below controls which origins are actually allowed.
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  }),
+);
 
 app.use(
   cors({
@@ -25,6 +37,9 @@ app.use(
     credentials: true,
   }),
 );
+
+// HIGH-3: cookie-parser must come before any middleware that reads req.cookies.
+app.use(cookieParser());
 app.use(limiter);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));

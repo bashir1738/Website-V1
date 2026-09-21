@@ -7,10 +7,20 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadToCloudinary = async (fileBuffer, folder = 'blockfuse') => {
+/**
+ * Upload a file buffer to Cloudinary.
+ *
+ * @param {Buffer} fileBuffer  - File content as a Buffer.
+ * @param {string} folder      - Destination folder inside Cloudinary.
+ * @param {'image'|'raw'|'video'} resourceType
+ *   - Explicit resource type. Do NOT use 'auto'; callers must declare the
+ *     expected type so Cloudinary rejects unexpected content.
+ *     Use 'image' for photos, 'raw' for PDFs/DOCX, 'video' for video.
+ */
+const uploadToCloudinary = async (fileBuffer, folder = 'blockfuse', resourceType = 'image') => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { folder, resource_type: 'auto' },
+      { folder, resource_type: resourceType },
       (error, result) => {
         if (error) return reject(error);
         resolve(result);

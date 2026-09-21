@@ -26,7 +26,8 @@ exports.create = async (req, res) => {
   try {
     const data = req.body;
     if (req.file) {
-      const result = await uploadToCloudinary(req.file.buffer, 'blockfuse/events');
+      // Event cover images are always image resources.
+      const result = await uploadToCloudinary(req.file.buffer, 'blockfuse/events', 'image');
       data.image_url = result.secure_url;
     }
     const event = await Event.create(data);
@@ -44,7 +45,7 @@ exports.update = async (req, res) => {
 
     const data = req.body;
     if (req.file) {
-      const result = await uploadToCloudinary(req.file.buffer, 'blockfuse/events');
+      const result = await uploadToCloudinary(req.file.buffer, 'blockfuse/events', 'image');
       data.image_url = result.secure_url;
     }
     await event.update(data);

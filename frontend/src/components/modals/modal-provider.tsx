@@ -9,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import { forms, type FormKey, type FormField } from "@/lib/forms";
 import { postForm, postJson, ApiError } from "@/lib/api";
 import { formatFileSize, validateUpload } from "@/lib/file-upload";
@@ -85,7 +86,7 @@ function FormModal({
   const form = forms[formKey];
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [chips, setChips] = useState<Record<string, string[]>>({});
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -118,13 +119,40 @@ function FormModal({
     });
   };
 
+  const clearFieldError = (name: string) => {
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (submitting) return;
-    setError(null);
-    setSubmitting(true);
 
     const raw = new FormData(e.currentTarget);
+
+    // Client-side validation — surface errors under the offending fields.
+    const nextErrors: Record<string, string> = {};
+    if (form.multipart) {
+      for (const field of form.fields) {
+        if (field.kind !== "file") continue;
+        const file = raw.get(field.name);
+        if (file instanceof File && file.size > 0) {
+          const problem = validateUpload(file, field.accept);
+          if (problem) nextErrors[field.name] = problem;
+        }
+      }
+    }
+    if (Object.keys(nextErrors).length > 0) {
+      setFieldErrors(nextErrors);
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
+    setFieldErrors({});
+    setSubmitting(true);
 
     try {
       if (form.multipart) {
@@ -138,11 +166,7 @@ function FormModal({
           }
           if (field.kind === "file") {
             const file = raw.get(field.name);
-            if (file instanceof File && file.size > 0) {
-              const problem = validateUpload(file, field.accept);
-              if (problem) throw new ApiError(problem, 0);
-              body.append(field.name, file);
-            }
+            if (file instanceof File && file.size > 0) body.append(field.name, file);
             continue;
           }
           const value = raw.get(field.name);
@@ -163,8 +187,9 @@ function FormModal({
         await postJson(`/${form.endpoint}`, body);
       }
       setSubmitted(true);
+      toast.success(form.successTitle);
     } catch (err) {
-      setError(
+      toast.error(
         err instanceof ApiError
           ? err.message
           : "We couldn't reach the server. Check your connection and try again.",
@@ -274,21 +299,14 @@ function FormModal({
                       field={field}
                       value={prefill[field.label]}
                       selected={chips[field.label] ?? []}
+                      error={fieldErrors[field.name]}
+                      onClearError={() => clearFieldError(field.name)}
                       onToggleChip={(option) =>
                         toggleChip(field.label, option)
                       }
                     />
                   ))}
                 </div>
-
-                {error && (
-                  <p
-                    role="alert"
-                    className="mt-8 rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm leading-relaxed text-[#fca5a5]"
-                  >
-                    {error}
-                  </p>
-                )}
 
                 <div className="mt-10 flex flex-wrap items-center gap-5 border-t border-[var(--line)] pt-7">
                   <button
@@ -317,11 +335,15 @@ function Field({
   field,
   value,
   selected,
+  error,
+  onClearError,
   onToggleChip,
 }: {
   field: FormField;
   value?: string;
   selected: string[];
+  error?: string;
+  onClearError: () => void;
   onToggleChip: (option: string) => void;
 }) {
   const id = `f-${field.name}`;
@@ -335,49 +357,84 @@ function Field({
       </label>
 
       {kind === "input" && (
-        <input
-          id={id}
-          name={field.name}
-          type={field.type ?? "text"}
-          placeholder={field.placeholder}
-          required={field.required}
-          autoComplete={AUTOCOMPLETE[field.name]}
-          defaultValue={value}
-          className="field-input"
-        />
+        <>
+          <input
+            id={id}
+            name={field.name}
+            type={field.type ?? "text"}
+            placeholder={field.placeholder}
+            required={field.required}
+            autoComplete={AUTOCOMPLETE[field.name]}
+            defaultValue={value}
+            onChange={onClearError}
+            className="field-input"
+            data-invalid={error ? "true" : undefined}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? `${id}-error` : undefined}
+          />
+          {error && (
+            <p id={`${id}-error`} className="field-error">
+              {error}
+            </p>
+          )}
+        </>
       )}
 
       {kind === "select" && (
-        <select
-          id={id}
-          name={field.name}
-          className="field-select"
-          defaultValue={value ?? ""}
-          required={field.required}
-        >
-          <option value="" disabled>
-            Select one
-          </option>
-          {(field.options ?? []).map((o) => (
-            <option key={o} value={o}>
-              {o}
+        <>
+          <select
+            id={id}
+            name={field.name}
+            className="field-select"
+            defaultValue={value ?? ""}
+            required={field.required}
+            onChange={onClearError}
+            data-invalid={error ? "true" : undefined}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? `${id}-error` : undefined}
+          >
+            <option value="" disabled>
+              Select one
             </option>
-          ))}
-        </select>
+            {(field.options ?? []).map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+          {error && (
+            <p id={`${id}-error`} className="field-error">
+              {error}
+            </p>
+          )}
+        </>
       )}
 
       {kind === "textarea" && (
-        <textarea
-          id={id}
-          name={field.name}
-          rows={4}
-          placeholder={field.placeholder}
-          required={field.required}
-          className="field-textarea"
-        />
+        <>
+          <textarea
+            id={id}
+            name={field.name}
+            rows={4}
+            placeholder={field.placeholder}
+            required={field.required}
+            className="field-textarea"
+            onChange={onClearError}
+            data-invalid={error ? "true" : undefined}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? `${id}-error` : undefined}
+          />
+          {error && (
+            <p id={`${id}-error`} className="field-error">
+              {error}
+            </p>
+          )}
+        </>
       )}
 
-      {kind === "file" && <FileField field={field} />}
+      {kind === "file" && (
+        <FileField field={field} error={error} onClearError={onClearError} />
+      )}
 
       {kind === "chips" && (
         <div className="flex flex-wrap gap-2">
@@ -399,14 +456,23 @@ function Field({
   );
 }
 
-function FileField({ field }: { field: FormField }) {
+function FileField({
+  field,
+  error,
+  onClearError,
+}: {
+  field: FormField;
+  error?: string;
+  onClearError: () => void;
+}) {
   const id = `f-${field.name}`;
   const [label, setLabel] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
+  const shownError = error ?? localError;
 
   return (
     <>
-      <label htmlFor={id} className="field-file" data-invalid={Boolean(error)}>
+      <label htmlFor={id} className="field-file" data-invalid={shownError ? "true" : undefined}>
         <span aria-hidden="true" className="text-[15px]">
           ↑
         </span>
@@ -420,24 +486,29 @@ function FileField({ field }: { field: FormField }) {
           className="sr-only"
           onChange={(e) => {
             const file = e.target.files?.[0];
+            onClearError();
             if (!file) {
               setLabel(null);
-              setError(null);
+              setLocalError(null);
               return;
             }
             const problem = validateUpload(file, field.accept);
             if (problem) {
-              setError(problem);
+              setLocalError(problem);
               setLabel(null);
               e.target.value = "";
               return;
             }
-            setError(null);
+            setLocalError(null);
             setLabel(`${file.name} · ${formatFileSize(file.size)}`);
           }}
         />
       </label>
-      {error && <p className="mt-2 text-xs text-[#fca5a5]">{error}</p>}
+      {shownError && (
+        <p id={`${id}-error`} className="mt-2 text-xs text-[#fca5a5]">
+          {shownError}
+        </p>
+      )}
     </>
   );
 }

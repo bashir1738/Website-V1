@@ -1,5 +1,6 @@
 const { NewsletterSubscriber } = require('../models');
 const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
+const { escHtml } = require('../utils/escHtml');
 
 exports.subscribe = async (req, res) => {
   try {
@@ -12,20 +13,27 @@ exports.subscribe = async (req, res) => {
       await subscriber.update({ name: req.body.name, topics: req.body.topics });
     }
 
-    await sendConfirmationEmail({
-      to: req.body.email,
-      subject: 'Subscribed to Blockfuse Dispatch',
-      html: `<p>Hi ${req.body.name || 'there'},</p><p>You're now subscribed to the Blockfuse dispatch.</p>`,
-    });
+    // Fire-and-forget: email failures must not roll back a successful DB write.
+    const emailTasks = [
+      sendConfirmationEmail({
+        to: req.body.email,
+        subject: 'Subscribed to Blockfuse Dispatch',
+        html: `<p>Hi ${escHtml(req.body.name || 'there')},</p><p>You're now subscribed to the Blockfuse dispatch.</p>`,
+      }),
+    ];
 
     if (created) {
-      await notifyAdmin({
-        subject: `New subscriber: ${req.body.email}`,
-        html: `<p><strong>${req.body.email}</strong> subscribed to the newsletter.</p>`,
-      });
+      emailTasks.push(
+        notifyAdmin({
+          subject: `New subscriber: ${escHtml(req.body.email)}`,
+          html: `<p><strong>${escHtml(req.body.email)}</strong> subscribed to the newsletter.</p>`,
+        }),
+      );
     }
 
-    return res.status(201).json({ success: true, data: subscriber });
+    Promise.all(emailTasks).catch((err) => console.error('Newsletter email error:', err));
+
+    return res.status(201).json({ success: true, data: { id: subscriber.id } });
   } catch (err) {
     console.error('Newsletter error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });

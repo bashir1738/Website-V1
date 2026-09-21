@@ -1198,6 +1198,20 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--bright);
 }
 
+.field-input[data-invalid="true"],
+.field-select[data-invalid="true"],
+.field-textarea[data-invalid="true"],
+.field-file[data-invalid="true"] {
+  border-color: rgba(248, 113, 113, 0.55);
+}
+
+.field-error {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #f87171;
+}
+
 .chip {
   padding: 0.5rem 0.875rem;
   border-radius: 999px;

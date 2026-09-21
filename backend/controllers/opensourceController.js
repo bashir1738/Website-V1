@@ -1,22 +1,25 @@
 const { OpenSourceApplication } = require('../models');
 const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
+const { escHtml } = require('../utils/escHtml');
 
 exports.submit = async (req, res) => {
   try {
     const app = await OpenSourceApplication.create(req.body);
 
-    await sendConfirmationEmail({
-      to: req.body.email,
-      subject: 'Open source application received — Blockfuse',
-      html: `<p>Hi ${req.body.name},</p><p>You're in the queue. We'll add you to the next onboarding batch and introduce you to a maintainer.</p>`,
-    });
+    // Fire-and-forget: email failures must not roll back a successful DB write.
+    Promise.all([
+      sendConfirmationEmail({
+        to: req.body.email,
+        subject: 'Open source application received — Blockfuse',
+        html: `<p>Hi ${escHtml(req.body.name)},</p><p>You're in the queue. We'll add you to the next onboarding batch and introduce you to a maintainer.</p>`,
+      }),
+      notifyAdmin({
+        subject: `New open source application: ${escHtml(req.body.name)}`,
+        html: `<p><strong>${escHtml(req.body.name)}</strong> (${escHtml(req.body.github)}) wants to contribute to open source.</p>`,
+      }),
+    ]).catch((err) => console.error('Open source email error:', err));
 
-    await notifyAdmin({
-      subject: `New open source application: ${req.body.name}`,
-      html: `<p><strong>${req.body.name}</strong> (${req.body.github}) wants to contribute to open source.</p>`,
-    });
-
-    return res.status(201).json({ success: true, data: app });
+    return res.status(201).json({ success: true, data: { id: app.id } });
   } catch (err) {
     console.error('Open source error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });
