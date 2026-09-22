@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: __dirname,
+  },
+
   // Blog / event cover images are served from Cloudinary.
   images: {
     remotePatterns: [
