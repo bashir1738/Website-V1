@@ -31,7 +31,7 @@ app.use(
       if (!origin || FRONTEND_URLS.includes(origin)) {
         callback(null, true);
       } else {
-        callback(null, false);
+        callback(new Error(`Origin '${origin}' is not allowed by CORS policy`));
       }
     },
     credentials: true,
