@@ -41,7 +41,6 @@ export const academyPillars: AcademyPillar[] = [
 export interface DetailedProgram {
   id: string;
   title: string;
-  target: string;
   description: string;
   topics: string[];
   outcome: string;
@@ -52,7 +51,6 @@ export const detailedPrograms: DetailedProgram[] = [
   {
     id: "ai-native",
     title: "AI-Native Software Engineering",
-    target: "For beginners and early-career developers",
     description:
       "A practical path into modern software engineering, with AI integrated into the development process from the beginning.",
     topics: [
@@ -73,7 +71,6 @@ export const detailedPrograms: DetailedProgram[] = [
   {
     id: "applied-ai",
     title: "Applied AI Engineering",
-    target: "For software engineers who can already build and ship",
     description:
       "Learn to design, evaluate, and deploy dependable AI-powered systems, not just prototypes that work during a demonstration.",
     topics: [
@@ -93,7 +90,6 @@ export const detailedPrograms: DetailedProgram[] = [
   {
     id: "blockchain",
     title: "Blockchain Engineering",
-    target: "For developers entering blockchain and protocol development",
     description:
       "This is the program Blockfuse became known for, now delivered through paid or ecosystem-sponsored cohorts.",
     topics: [
@@ -112,7 +108,6 @@ export const detailedPrograms: DetailedProgram[] = [
   {
     id: "team-training",
     title: "Team Training",
-    target: "For companies and technology organisations",
     description:
       "We design private training programs around the technologies, tools, and engineering capabilities your organisation needs.",
     topics: [
@@ -224,32 +219,103 @@ export const fundingChannels = [
 export interface GraduateTestimonial {
   quote: string;
   author: string;
-  role: string;
-  cohort: string;
+  image?: string;
+  role?: string;
+  cohort?: string;
 }
 
 export const graduateTestimonials: GraduateTestimonial[] = [
   {
-    quote:
-      "I had done three online courses before this and thought I could code. The first review here took my project apart in about four minutes. It was the most useful four minutes of my career.",
-    author: "Chidi Nwosu",
-    role: "Backend Engineer at Northgate Systems",
-    cohort: "Cohort II, 2025",
+    author: "Luckify",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731314243/testimony/o2lsuc71lbotpudzjabs.jpg",
+    quote: "BlockfuseLabs is the best",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
   },
   {
-    quote:
-      "Nobody told me it would be easy, and it was not. What I did not expect was that they would tell me exactly where I was falling short while there was still time to do something about it.",
-    author: "Halima Yakubu",
-    role: "Smart Contract Engineer, contracting independently",
-    cohort: "Cohort II, 2025",
+    author: "Kingsley Gbutemu Kefas",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731394621/testimony/abshxxnsutgjn9qncbhg.jpg",
+    quote: "Learning at Blockfuse Labs has been a transformative experience. The hands-on projects gave me confidence in real-world blockchain applications. The mentors at Blockfuse Labs are industry experts who provided invaluable support and insights every step of the way. Blockfuse Labs has been the perfect launchpad for my Web3 journey, and I couldn't be more grateful!",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
   },
   {
-    quote:
-      "I came in wanting a job and left starting a company. The thing Blockfuse actually gave me was the confidence that I could build something and it would hold.",
-    author: "Emeka Obi",
-    role: "Co-founder at a logistics startup in Abuja",
-    cohort: "Cohort I, 2025",
+    author: "Filibus Yilrit Dimka",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731488326/testimony/gwplgxpw61ufexjebgoh.jpg",
+    quote: "Learning at Blockfuse Lab has been an incredibly enriching experience. As a beginner in blockchain technology, the structured curriculum and hands-on approach have provided me with a solid foundation in the Web3 ecosystem.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
   },
+  {
+    author: "Emmanuel Doji",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731490624/testimony/e4cus5x1khtmaeesbyzo.jpg",
+    quote: "My experience at Blockfuse Labs has transformed the way I approach development. The knowledge I've gained here has been invaluable, making the learning journey both challenging and rewarding. I highly recommend Blockfuse Labs to anyone looking to transition into web2 or web3 development.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Jethro Lopwus",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731497558/testimony/plydq1iqaxferxtjxuik.jpg",
+    quote: "BlockfuseLabs is a game changer for me, Thank God I made the choice to be at this Great Learning Zenvironment. Learn! Innovate!! Disrup!!!",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Shaaibu Suleiman",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731499628/testimony/mcyfrywr7axlibupetwc.jpg",
+    quote: "Blockfuse Labs has taught me far more than just building — it’s shown me the value of teamwork, collaboration, and creative problem-solving within a truly supportive community. The energy at Blockfuse Labs is contagious, constantly driving us to push our limits. The results speak for themselves, with each project and skill learned being a testament to the incredible environment they’ve cultivated.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Valentine Kefas Kasuwa",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201811/testimony/nxc3w0czbvw11tgbx9lk.jpg",
+    quote: "My experience at Blockfuse labs, for the past months I learn a lot, because for someone like me who never code before, is really a privilege to be at Blockfuse labs to learn and interact with great minds. And we have great tutors who want to see us progressing.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Samuel Nanbam Luka",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201867/testimony/togkosxpdjl2gi3gudmi.jpg",
+    quote: "My experience at Blockfuse labs, for the past months I learn a lot, because for someone like me who never code before, is really a privilege to be at Blockfuse labs to learn and interact with great minds. And we have great tutors who want to see us progressing.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Clement Raymond",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201896/testimony/y8e3ygxaccdbenvxzg4w.jpg",
+    quote: "Blockfuse Labs not only taught me how to code, but also how to think critically and problem-solve like a true programmer. The lessons are interactive and provide opportunities for hands-on learning, which really helped me understand the theory in practice. The small class sizes allowed for more personalized attention from the instructors, and the community of fellow students made the learning process even more enjoyable.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Ch3fdev",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201932/testimony/fqgtdhynl12dqlbellim.jpg",
+    quote: "It's been an awesome time. Though I am not where I want to be but, I am very much better than what I used to be. Blockfuse Labs has given me the hope I had lost some years back. I am already seeing myself as a web3 dev, though JavaScript is still giving me a tough time. I am no longer settling for less, I will give it all it takes.\nThank you @teamBlockfuseLabs.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Marcus David Gyang",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201958/testimony/iahtrtej4xhiyelecwyv.jpg",
+    quote: "My experience at Blockfuse labs has been a life changing experience, nothing short of Amazing. From the quality of knowledge being taught, to participating in real life projects and having the opportunity to learn from the best mentors and other brilliant minds in the community,Blockfuse Labs has really impacted my life and career as a developer (for good).",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Timothy Ogory",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732201976/testimony/vvthsjqtyfsljfrc6v4g.jpg",
+    quote: "First let me start by saying how grateful I am to blocfuse labs. Before blocfuse labs I have little or no knowledge on web2 and the tech world. But since I enrolled into their web2 to web3 boot camp it has been helpful. They gave us access to good instructors and mentors, on hand lessons and practice, tech meetups. Blocfuse made me feel like I am a senior developer even though I am still on my learning path.this is how good they made me to be. With blocfuse I wrote my first hello world. Now saying to the world \"hello world blocfuse is here!\"",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  },
+  {
+    author: "Sendi John",
+    image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1732202104/testimony/xquau8f81hlwpojnpqdx.jpg",
+    quote: "I am thoroughly impressed with BlockfuseLabs commitment to teaching and strengthening my coding skills! The past months has been an incredible journey for me at blockfuse, filled with engaging workshops(hands on code), insightful training sessions, and great mentorship.",
+    role: "Blockfuse Alumni",
+    cohort: "2024",
+  }
 ];
 
 export interface AcademyStat {
@@ -259,8 +325,8 @@ export interface AcademyStat {
 
 /** Proof strip under the Academy hero — the numbers behind the programs. */
 export const academyStats: AcademyStat[] = [
-  { value: "115+", label: "engineers graduated" },
-  { value: "500+", label: "smart contracts written" },
-  { value: "12", label: "dApps shipped in cohort projects" },
-  { value: "2 years", label: "developing talent in Jos" },
+  { value: "115+", label: "Vetted Web3 & AI engineers ready for deployment" },
+  { value: "500+", label: "Smart contracts engineered and security-tested" },
+  { value: "12+", label: "Production-grade dApps shipped for ecosystems" },
+  { value: "2 Years", label: "Operating our physical production workspace in Jos" },
 ];

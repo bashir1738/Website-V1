@@ -169,7 +169,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={FIELD_INPUT}
-                  placeholder="admin@blockfuse.io"
+                  placeholder="admin@blockfuselabs.xyz"
                 />
               </div>
 

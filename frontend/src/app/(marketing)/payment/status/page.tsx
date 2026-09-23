@@ -73,7 +73,7 @@ function PaymentStatusInner() {
               status: "done",
               paid: false,
               title: "No matching submission",
-              body: "We couldn't match this payment to a submission. Please contact hello@blockfuselabs.com if you believe this is a mistake.",
+              body: "We couldn't match this payment to a submission. Please contact admin@blockfuselabs.xyz if you believe this is a mistake.",
             });
           } else {
             setState((prev) => ({
@@ -88,7 +88,7 @@ function PaymentStatusInner() {
             ...prev,
             status: "done",
             paid: false,
-            body: "We couldn't reach the payment service. Give it a moment and revisit this page, or contact hello@blockfuselabs.com.",
+              body: "We couldn't reach the payment service. Give it a moment and revisit this page, or contact admin@blockfuselabs.xyz.",
           }));
         }
       }
@@ -115,7 +115,7 @@ function PaymentStatusInner() {
             <Link href="/" className="btn-primary">
               Back to home
             </Link>
-            <a href="mailto:hello@blockfuselabs.com" className="btn-ghost">
+            <a href="mailto:admin@blockfuselabs.xyz" className="btn-ghost">
               Contact us
             </a>
           </div>

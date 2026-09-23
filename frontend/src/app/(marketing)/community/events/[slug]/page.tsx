@@ -62,7 +62,7 @@ export default async function EventPage({ params }: Props) {
     <main>
       <header className="bg-[var(--color-surface-2)] px-5 py-12 text-[var(--color-paper)] sm:px-7 sm:py-16">
         <div className="mx-auto max-w-[1120px]">
-          <Link href="/events" className="inline-flex min-h-11 items-center text-sm underline underline-offset-4">← All events</Link>
+          <Link href="/community/events" className="inline-flex min-h-11 items-center text-sm underline underline-offset-4">← All events</Link>
           <p className="mt-8 font-mono text-xs uppercase tracking-widest text-[var(--color-accent)]">Community event / {eventDate(event)}</p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">{event.title}</h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-muted-light)]">{event.description}</p>

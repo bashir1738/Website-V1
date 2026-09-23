@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@blockfuselabs",
+    creator: "@blockfuselabs",
     title: siteConfig.title,
     description: siteConfig.description,
   },

@@ -406,7 +406,7 @@ export default function AdminBlogsPage() {
                             {blog.title}
                           </p>
                           <p className="truncate font-mono text-xs text-(--dim)">
-                            /blog/{blog.slug}
+                            /community/blog/{blog.slug}
                           </p>
                         </div>
                       </div>

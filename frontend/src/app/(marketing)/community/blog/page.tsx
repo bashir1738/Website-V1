@@ -17,6 +17,20 @@ interface BackendBlog {
   createdAt: string;
 }
 
+function inferCategory(title: string, content: string): Post["category"] {
+  const haystack = `${title} ${content}`.toLowerCase();
+  if (/(ai |ai-|llm|machine learning|applied ai|model)/.test(haystack)) {
+    return "Applied AI";
+  }
+  if (/(cohort|student|intake|class of|week \d)/.test(haystack)) {
+    return "Cohort notes";
+  }
+  if (/(community|meetup|event|prodfest|workshop)/.test(haystack)) {
+    return "Community";
+  }
+  return "Engineering";
+}
+
 export default async function BlogPage() {
   let backendBlogs: BackendBlog[] = [];
   try {
@@ -35,7 +49,7 @@ export default async function BlogPage() {
 
   const posts: Post[] = backendBlogs.map((blog) => ({
     slug: blog.slug,
-    category: "Engineering", // Backend lacks a category field.
+    category: inferCategory(blog.title, blog.content || ""),
     title: blog.title,
     excerpt: blog.content ? blog.content.substring(0, 150) + "..." : "",
     date: new Date(blog.published_at || blog.createdAt).toLocaleDateString("en-US", {

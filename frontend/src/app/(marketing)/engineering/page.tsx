@@ -28,7 +28,6 @@ import {
   BF_ON_DARK_BTN,
   BF_PROSE,
   EYEBROW,
-  MONO_TAG,
   SURFACE_CARD,
 } from "@/lib/styles";
 
@@ -50,7 +49,7 @@ const HERO =
   "relative isolate overflow-hidden bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[linear-gradient(180deg,rgba(13,13,19,0.35)_0%,rgba(13,13,19,0.5)_52%,rgba(13,13,19,0.75)_100%)]";
 const HERO_MEDIA = "absolute inset-0 -z-[2]";
 const HERO_MEDIA_PIC =
-  "object-cover object-[center_42%] saturate-50 contrast-[1.06] opacity-[0.65]";
+  "object-cover object-[center_42%]  opacity-[0.65]";
 
 const ORB = "absolute z-0 rounded-full pointer-events-none";
 const ORB_ONE = `${ORB} w-[34rem] h-[34rem] -top-[14rem] -right-[10rem] bg-white opacity-[0.06] blur-[6rem]`;
@@ -298,15 +297,12 @@ export default async function EngineeringPage() {
             <ButtonLink
               href="#hire"
               variant="secondary"
-              className={BF_ON_DARK_BTN}
+              className="!bg-white !text-[var(--page-fg)] !border-white hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-white"
               dataCursor="HIRE"
             >
               Hire our engineers
             </ButtonLink>
-            <Link href="#build" className={HERO_LINK}>
-              View our work
-              <span aria-hidden="true">↓</span>
-            </Link>
+
           </ScrollReveal>
         </div>
       </section>
@@ -578,8 +574,8 @@ export default async function EngineeringPage() {
             </div>
           </ScrollReveal>
 
-          <div className="mt-20 flex flex-wrap items-end justify-between gap-4 sm:mt-24">
-            <ScrollReveal className="max-w-[46rem]">
+          <div className="mt-20 grid items-end gap-8 sm:mt-24 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,34rem)] lg:gap-12">
+            <ScrollReveal>
               <span className={EYEBROW}>Talent — The network in practice</span>
               <h2 className={`${BF_H2} mt-4`}>Meet our engineers</h2>
               <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
@@ -587,7 +583,17 @@ export default async function EngineeringPage() {
                 passed the same assessment before an employer ever saw it.
               </p>
             </ScrollReveal>
-            <p className={MONO_TAG}>Auto-rotating — click any profile</p>
+            <ScrollReveal delay={1}>
+              <div className="relative overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--card)] aspect-[4/3] shadow-[var(--shadow-card)]">
+                <Image
+                  src="/about/engineer.JPG"
+                  alt="Blockfuse Talent Network engineer at work"
+                  fill
+                  sizes="(min-width: 1024px) 34rem, 100vw"
+                  className="object-cover object-[center_20%]"
+                />
+              </div>
+            </ScrollReveal>
           </div>
 
           <ScrollReveal className="mt-10" delay={2} threshold={0.08}>

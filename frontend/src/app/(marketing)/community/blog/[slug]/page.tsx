@@ -94,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="px-5 pb-12 pt-14 sm:px-7 sm:pb-16 sm:pt-20">
           <div className="mx-auto max-w-[920px]">
             <Link
-              href="/blog"
+              href="/community/blog"
               className="inline-flex min-h-10 items-center gap-2 rounded-lg text-sm font-semibold text-[var(--muted)] transition-colors duration-150 hover:text-[var(--page-fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]"
             >
               <span aria-hidden="true">←</span> Back to the journal
@@ -138,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-16 border-t border-[var(--line-strong)] pt-8">
               <p className="font-heading text-xl font-bold text-[var(--page-fg)]">Keep building with us.</p>
               <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">Explore more field notes from the Blockfuse community.</p>
-              <Link href="/blog" className={`mt-5 inline-flex min-h-10 items-center rounded-full ${ACTION_COLOR} px-5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]`}>
+              <Link href="/community/blog" className={`mt-5 inline-flex min-h-10 items-center rounded-full ${ACTION_COLOR} px-5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]`}>
                 Browse all stories
               </Link>
             </footer>
@@ -154,11 +154,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span className={EYEBROW}>Continue reading</span>
                 <h2 className="mt-3 font-heading text-3xl font-bold tracking-[-0.04em] text-[var(--page-fg)]">More from the journal</h2>
               </div>
-              <Link href="/blog" className="hidden text-sm font-semibold text-[var(--muted)] hover:text-[var(--page-fg)] sm:block">View all →</Link>
+              <Link href="/community/blog" className="hidden text-sm font-semibold text-[var(--muted)] hover:text-[var(--page-fg)] sm:block">View all →</Link>
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-3">
               {relatedPosts.map((related) => (
-                <Link key={related.slug} href={`/blog/${related.slug}`} className="group block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--page-bg)]">
+                <Link key={related.slug} href={`/community/blog/${related.slug}`} className="group block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--page-bg)]">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--surface-2)]">
                     <Image src={blogImage(related)} alt={related.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]" />
                   </div>

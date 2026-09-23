@@ -92,7 +92,7 @@ export function TeamNetwork() {
         </div>
 
         <div className="mt-8 text-center lg:mt-5">
-          <Link href="/team" className={BTN_SECONDARY}>
+          <Link href="/about/team" className={BTN_SECONDARY}>
             Meet the full team <span aria-hidden="true">→</span>
           </Link>
         </div>

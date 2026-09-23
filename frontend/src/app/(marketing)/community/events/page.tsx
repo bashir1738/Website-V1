@@ -130,7 +130,7 @@ export default async function EventsPage() {
             className="pointer-events-none absolute -bottom-12 -left-8 -right-8 z-[3] grid items-end gap-4 grid-cols-[1.05fr_1.25fr_0.85fr_1.05fr] max-md:-bottom-8 max-md:-left-16 max-md:-right-16 max-md:grid-cols-[1.2fr_0.9fr_1fr] max-md:gap-3"
             aria-label="Scenes from Blockfuse events"
           >
-            <figure className={`${POSTER_PHOTO} h-[16rem] [transform:rotate(-5deg)_translateY(1.5rem)] max-md:h-[15rem]`}>
+            <figure className={`${POSTER_PHOTO} h-[16rem] [transform:rotate(-5deg)_translateY(1.5rem)] max-md:h-[10rem]`}>
               <Image
                 src="/brand/event1.JPG"
                 alt="A team presenting a Web3 project at a Blockfuse event"
@@ -140,7 +140,7 @@ export default async function EventsPage() {
                 className="object-cover object-center"
               />
             </figure>
-            <figure className={`${POSTER_PHOTO} h-[20rem] rotate-[3deg] max-md:h-[15rem]`}>
+            <figure className={`${POSTER_PHOTO} h-[10rem] rotate-[3deg] max-md:h-[10rem]`}>
               <Image
                 src="/brand/event2.jpeg"
                 alt="A mentor supporting a builder during a Blockfuse workshop"
@@ -190,15 +190,15 @@ export default async function EventsPage() {
           </div>
           <div className="grid gap-7 md:grid-cols-2">
             {eventDetails.map((event) => (
-              <Link key={event.slug} href={`/events/${event.slug}`} className="group overflow-hidden rounded-2xl border border-(--line) bg-(--surface) focus-visible:outline-offset-4 focus-visible:outline-(--accent)">
+              <Link key={event.slug} href={`/community/events/${event.slug}`} className="group overflow-hidden rounded-2xl border border-(--line) bg-(--surface) focus-visible:outline-offset-4 focus-visible:outline-(--accent)">
                 <div className="relative aspect-video overflow-hidden">
-                  <Image src={event.image} alt="" fill sizes="(min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw" className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105" />
+                  <Image src={event.image} alt="" fill sizes="(min-width: 1280px) 580px, (min-width: 768px) 50vw, 100vw" className="object-cover motion-safe:transition-transform motion-safe:duration-300 md:motion-safe:group-hover:scale-105" />
                   <span className="absolute bottom-4 left-4 rounded-lg bg-(--surface) px-4 py-3 font-mono text-sm font-semibold">{event.date}</span>
                   <span className="absolute right-4 top-4 rounded-full bg-ink/85 px-3 py-2 text-xs text-paper">{event.upcoming ? "Upcoming" : "Past event"}</span>
                 </div>
                 <div className="p-6 sm:p-8">
                   <p className="text-xs font-semibold uppercase tracking-widest text-(--accent)">{event.kind}</p>
-                  <h3 className="mt-3 text-2xl font-bold group-hover:text-(--accent)">{event.title}</h3>
+                  <h3 className="mt-3 text-2xl font-bold md:group-hover:text-(--accent)">{event.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-(--muted)">{event.description}</p>
                   <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-(--line) pt-5 text-sm"><span className="text-(--muted)">{event.meta}</span><span className="font-semibold">Explore event <span aria-hidden="true">↗</span></span></div>
                 </div>

@@ -24,9 +24,6 @@ import {
   ROW_LIST_ITEM,
   MONO_TAG,
   MONO_TAG_ACCENT,
-  STATUS_PILL,
-  STATUS_PILL_DOT,
-  STATUS_PILL_LABEL,
 } from "@/lib/styles";
 
 const BF_NOTE =
@@ -103,7 +100,11 @@ export default function Home() {
 
             <ScrollReveal className="mt-8 flex flex-wrap items-start gap-4 sm:flex-row sm:items-center" delay={3}>
               <ButtonLink href="/engineering">Start an Engineering Project</ButtonLink>
-              <ButtonLink href="/hire-engineers" variant="secondary">
+              <ButtonLink
+                href="/hire-engineers"
+                variant="secondary"
+                className="!bg-white !text-[var(--page-fg)] !border-[var(--line-strong)] hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-[var(--accent-line)]"
+              >
                 Hire Vetted Web3 Engineers
               </ButtonLink>
             </ScrollReveal>
@@ -249,8 +250,6 @@ export default function Home() {
       {/* THE INDUSTRY CHALLENGE */}
       {/* ================================================================= */}
       <section id="core-reality" className="py-24 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[var(--accent-dim)] blur-[120px] pointer-events-none" />
-
         <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column */}
@@ -462,12 +461,7 @@ export default function Home() {
                   style={{ backgroundImage: "radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)", backgroundSize: "32px 32px" }}
                 />
                 <div className="flex flex-wrap items-center justify-between text-xs font-mono text-[var(--muted)] border-b border-[var(--line)] pb-4 gap-4 relative z-10">
-                  <span className="flex items-center gap-2 text-[var(--page-fg)]">
-                    <span className={STATUS_PILL}>
-                      <span className={STATUS_PILL_DOT} />
-                      <span className={STATUS_PILL_LABEL}>JOS PRODUCTION WORKSPACE — ONLINE</span>
-                    </span>
-                  </span>
+                  <span />
                   <span className={EYEBROW}>Cohort II · 115 Engineers</span>
                 </div>
                 <div className="space-y-4 max-w-2xl relative z-10">

@@ -57,13 +57,13 @@ export const FIELD_LABEL =
   "flex items-center gap-[0.4375rem] text-xs font-semibold tracking-[0.02em] text-(--bright) mb-[0.5625rem]";
 
 export const FIELD_INPUT =
-  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[0.875rem] transition-[border-color,background-color] duration-200 h-[2.875rem] px-[0.9375rem] focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
+  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[1rem] sm:text-[0.875rem] transition-[border-color,background-color] duration-200 h-[2.875rem] px-[0.9375rem] focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
 
 export const FIELD_SELECT =
-  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[0.875rem] transition-[border-color,background-color] duration-200 h-[2.875rem] px-[0.9375rem] appearance-none pr-9 bg-[linear-gradient(45deg,transparent_50%,var(--muted)_50%),linear-gradient(135deg,var(--muted)_50%,transparent_50%)] bg-[length:5px_5px,5px_5px] bg-[position:calc(100%-18px)_50%,calc(100%-13px)_50%] bg-no-repeat focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
+  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[1rem] sm:text-[0.875rem] transition-[border-color,background-color] duration-200 h-[2.875rem] px-[0.9375rem] appearance-none pr-9 bg-[linear-gradient(45deg,transparent_50%,var(--muted)_50%),linear-gradient(135deg,var(--muted)_50%,transparent_50%)] bg-[length:5px_5px,5px_5px] bg-[position:calc(100%-18px)_50%,calc(100%-13px)_50%] bg-no-repeat focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
 
 export const FIELD_TEXTAREA =
-  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[0.875rem] transition-[border-color,background-color] duration-200 py-[0.8125rem] px-[0.9375rem] leading-[1.55] resize-y focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)] custom-scroll";
+  "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[1rem] sm:text-[0.875rem] transition-[border-color,background-color] duration-200 py-[0.8125rem] px-[0.9375rem] leading-[1.55] resize-y focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)] custom-scroll";
 
 export const FIELD_FILE =
   "flex items-center gap-[0.875rem] h-[2.875rem] px-[0.9375rem] rounded-xl border border-dashed border-(--line-strong) bg-(--card) text-(--dim) text-[0.813rem] cursor-pointer transition-[border-color,color] duration-200 hover:border-[rgba(191,100,231,0.5)] hover:text-(--bright) data-[invalid=true]:border-[rgba(248,113,113,0.55)]";

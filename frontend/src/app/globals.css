@@ -300,10 +300,14 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-  background: linear-gradient(140deg, var(--page-fg), var(--accent));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #35147a;
+}
+
+.dark {
+  .stat-figure,
+  [class*="stat-figure"] {
+    color: #c9a0e8;
+  }
 }
 
 /* ─── Scroll reveal ─── */

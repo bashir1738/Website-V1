@@ -29,7 +29,7 @@ const CELL_LINK =
 /**
  * A sample of the Blockfuse Talent Network, auto-rotating through profiles.
  * Pauses on hover/focus and never animates under prefers-reduced-motion —
- * the full, filterable roster always remains one click away at /alumni.
+ * the full, filterable roster always remains one click away at /community/alumni.
  * Profiles come from the backend (approved alumni), never hardcoded.
  */
 export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
@@ -110,7 +110,7 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
               →
             </span>
           </Link>
-          <Link href="/alumni" className={CELL_LINK}>
+          <Link href="/community/alumni" className={CELL_LINK}>
             See the full network
             <span aria-hidden="true" className="transition-transform duration-200 ease-out group-hover:translate-x-[0.3rem]">
               →

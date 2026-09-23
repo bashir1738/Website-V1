@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SURFACE_CARD, HAIRLINE_GRID, HAIRLINE_CELL } from "@/lib/styles";
 import type { GraduateTestimonial, AcademyStat } from "./content";
 
@@ -9,8 +9,6 @@ const AVATAR_BASE =
 
 const AVATAR_TONES = [
   "bg-[linear-gradient(145deg,#7340a8,#321466)]",
-  "bg-[linear-gradient(145deg,#4d68a8,#162b5f)]",
-  "bg-[linear-gradient(145deg,#a96a3b,#63311d)]",
 ] as const;
 
 function initials(name: string) {
@@ -33,6 +31,13 @@ export function TestimonialsCarousel({
   const prev = () => setIdx((i) => (i - 1 + testimonials.length) % testimonials.length);
   const next = () => setIdx((i) => (i + 1) % testimonials.length);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIdx((i) => (i + 1) % testimonials.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [idx, testimonials.length]);
+
   return (
     <div className="max-w-4xl mx-auto">
       {/* Carousel row */}
@@ -53,12 +58,21 @@ export function TestimonialsCarousel({
           </p>
 
           <div className="flex items-center gap-3">
-            <span
-              className={`${AVATAR_BASE} ${AVATAR_TONES[idx % AVATAR_TONES.length]}`}
-              aria-hidden="true"
-            >
-              {initials(t.author)}
-            </span>
+            {t.image ? (
+              <img
+                src={t.image}
+                alt={t.author}
+                className="w-[2.9rem] h-[2.9rem] shrink-0 rounded-[0.9rem] object-cover"
+                aria-hidden="true"
+              />
+            ) : (
+              <span
+                className={`${AVATAR_BASE} ${AVATAR_TONES[idx % AVATAR_TONES.length]}`}
+                aria-hidden="true"
+              >
+                {initials(t.author)}
+              </span>
+            )}
             <div>
               <p className="text-sm font-semibold text-[var(--page-fg)] font-heading">
                 {t.author}

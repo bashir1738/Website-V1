@@ -6,6 +6,10 @@ export const siteConfig = {
     "Blockfuse Labs trains production-ready engineers and builds dependable AI, web, and blockchain systems.",
   tagline:
     "Developing production-ready engineers for the AI-native world. Building dependable software from Jos, Nigeria.",
-  email: "hello@blockfuselabs.com",
-  location: "Jos, Plateau State, Nigeria",
+  email: "admin@blockfuselabs.xyz",
+  phone: "+234-802-546-3838",
+  phoneDisplay: "(+234) 802 546 3838",
+  phoneHref: "tel:+2348025463838",
+  location:
+    "Former Limca House Along Peakfield Academy Favwei Rayfield, Jos, Plateau State, Nigeria",
 } as const;

@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   },
 
   // /talent and /hire-engineers were folded into the Engineering page.
+  // Submenu pages now live under their parent routes.
   async redirects() {
     return [
       { source: "/talent", destination: "/engineering#hire", permanent: false },
@@ -25,6 +26,20 @@ const nextConfig: NextConfig = {
         destination: "/engineering#hire",
         permanent: false,
       },
+      { source: "/team", destination: "/about/team", permanent: true },
+      { source: "/events", destination: "/community/events", permanent: true },
+      {
+        source: "/events/:slug",
+        destination: "/community/events/:slug",
+        permanent: true,
+      },
+      { source: "/blog", destination: "/community/blog", permanent: true },
+      {
+        source: "/blog/:slug",
+        destination: "/community/blog/:slug",
+        permanent: true,
+      },
+      { source: "/alumni", destination: "/community/alumni", permanent: true },
     ];
   },
 

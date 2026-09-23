@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
       },
       {
         label: "Team",
-        href: "/team",
+        href: "/about/team",
         desc: "Meet the engineers and operators behind Blockfuse Labs.",
       },
     ],
@@ -42,17 +42,17 @@ export const navItems: NavItem[] = [
       },
       {
         label: "Events",
-        href: "/events",
+        href: "/community/events",
         desc: "Meetups, workshops, hackathons, and demo days.",
       },
       {
         label: "Blog",
-        href: "/blog",
+        href: "/community/blog",
         desc: "Stories, ideas, and updates from Blockfuse.",
       },
       {
         label: "Alumni",
-        href: "/alumni",
+        href: "/community/alumni",
         desc: "Graduates from Cohorts I and II, assessed and on record.",
       },
     ],
@@ -62,30 +62,25 @@ export const navItems: NavItem[] = [
 
 export const footerLinks = {
   programs: [
-    { label: "AI-Native Software Engineering", href: "/training" },
-    { label: "Applied AI Engineering", href: "/training" },
-    { label: "Blockchain Engineering", href: "/training" },
-    { label: "Team Training", href: "/training" },
+    { label: "Academy", href: "/training" },
+    { label: "Programs", href: "/training#programs" },
+    { label: "Assessment", href: "/training#assessment" },
   ],
   organizations: [
-    { label: "Hire Blockfuse engineers", href: "/engineering#hire" },
-    { label: "Engage embedded engineers", href: "/engineering#hire" },
-    { label: "Sponsor a cohort", href: "/engineering#hire" },
-    { label: "Train your team", href: "/training" },
-    { label: "Become a partner", href: "/contact" },
+    { label: "Hire engineers", href: "/engineering#hire" },
+    { label: "Our work", href: "/engineering#build" },
+    { label: "Sponsor a cohort", href: "/contact" },
   ],
   community: [
-    { label: "Events", href: "/events" },
+    { label: "Events", href: "/community/events" },
+    { label: "Blog", href: "/community/blog" },
+    { label: "Alumni", href: "/community/alumni" },
     { label: "ProdFest", href: "/prodfest" },
-    { label: "Team", href: "/team" },
-    { label: "Alumni", href: "/alumni" },
     { label: "Open Source", href: "/open-source" },
   ],
   company: [
     { label: "About", href: "/about" },
-    { label: "Our story", href: "/about" },
-    { label: "Impact", href: "/about" },
-    { label: "Blog", href: "/blog" },
+    { label: "Team", href: "/about/team" },
     { label: "Contact", href: "/contact" },
   ],
 };

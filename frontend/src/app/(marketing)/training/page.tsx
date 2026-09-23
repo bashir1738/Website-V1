@@ -54,8 +54,6 @@ const ACADEMY_INNER =
   "grid grid-cols-[minmax(0,1.02fr)_minmax(25rem,0.98fr)] min-h-[calc(100svh-4.75rem)] mx-auto max-w-[90rem] max-md:grid-cols-1 max-md:min-h-auto";
 const ACADEMY_COPY =
   "relative z-[2] self-center pt-[5rem] px-[clamp(2rem,6vw,6rem)] pb-[8rem] max-md:pt-16 max-md:px-5 max-md:pb-12";
-const ACADEMY_KICKER =
-  "inline-flex items-center gap-3 text-(--accent) font-mono text-[0.6875rem] font-semibold tracking-[0.12em] uppercase before:content-[''] before:w-6 before:h-px before:bg-current";
 const ACADEMY_TITLE =
   "max-w-[11ch] mt-7 text-(--page-fg) text-[clamp(3.75rem,6.5vw,6.75rem)] font-semibold tracking-[-0.07em] leading-[0.9] max-md:text-[clamp(3.5rem,16vw,5rem)]";
 const ACADEMY_LEAD =
@@ -64,8 +62,6 @@ const ACADEMY_ACTIONS = "flex flex-wrap items-center gap-6 mt-[2.25rem]";
 const ACADEMY_LINK =
   "inline-flex min-h-[2.75rem] items-center gap-2.5 text-(--page-fg) text-[0.875rem] font-semibold underline decoration-(--line-strong) underline-offset-[0.35rem] transition-[color,text-decoration-color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-(--accent) hover:decoration-(--accent) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)";
 const ACADEMY_VISUAL = "relative min-h-[38rem] max-md:min-h-[34rem]";
-const ACADEMY_GLOW =
-  "absolute inset-[8%_4%_7%_-14%] rounded-full bg-(--accent-dim) blur-[3rem] max-md:inset-[-10%_2rem_10%]";
 const ACADEMY_PORTRAIT =
   "absolute inset-0 m-0 overflow-hidden bg-(--ink) max-md:inset-[0_0.75rem_0] after:content-[''] after:absolute after:inset-0 after:pointer-events-none after:bg-[linear-gradient(180deg,transparent_58%,rgba(7,7,10,0.72))]";
 const ACADEMY_PORTRAIT_PIC = "object-cover object-[center_18%]";
@@ -95,18 +91,16 @@ const PILLAR_NOTE =
 
 const PROGRAM_GRID = "grid gap-7 sm:grid-cols-2";
 const PROGRAM_CARD =
-  "group flex h-full flex-col overflow-hidden border border-(--line) rounded-[1.5rem] bg-(--card) shadow-(--shadow-card) [transition:translate_350ms_cubic-bezier(0.23,1,0.32,1),border-color_250ms_ease] hover:-translate-y-1 hover:border-(--accent-line)";
+  "group flex h-full flex-col overflow-hidden border border-(--line) rounded-[1.5rem] bg-(--card) shadow-(--shadow-card) [transition:translate_350ms_cubic-bezier(0.23,1,0.32,1),border-color_250ms_ease] md:hover:-translate-y-1 md:hover:border-(--accent-line)";
 const PROGRAM_MEDIA_BOX =
   "relative aspect-video overflow-hidden bg-(--surface-2)";
 const PROGRAM_MEDIA_PIC =
-  "object-cover scale-[1.05] saturate-[0.84] contrast-[1.03] [transition:scale_500ms_cubic-bezier(0.23,1,0.32,1),filter_250ms_ease-out] group-hover:scale-100 group-hover:saturate-100 group-hover:contrast-[1.01]";
+  "object-cover scale-[1.05] saturate-[0.84] contrast-[1.03] [transition:scale_500ms_cubic-bezier(0.23,1,0.32,1),filter_250ms_ease-out] md:group-hover:scale-100 md:group-hover:saturate-100 md:group-hover:contrast-[1.01]";
 const PROGRAM_INDEX =
   "absolute z-[2] top-4 left-4 grid w-11 h-11 place-items-center rounded-[0.85rem] bg-(--accent) font-heading text-[0.85rem] font-bold text-white shadow-[0_8px_18px_-12px_rgba(191,100,231,0.45)]";
 const PROGRAM_BODY = "flex flex-1 flex-col p-7";
-const PROGRAM_TARGET =
-  "inline-block self-start py-[0.35rem] px-[0.85rem] rounded-full bg-(--accent-dim) border border-(--accent-line) font-mono text-[0.62rem] font-semibold tracking-[0.1em] uppercase text-(--accent)";
 const PROGRAM_H3 =
-  "mt-4 font-heading text-[1.4rem] font-bold leading-[1.12] tracking-[-0.03em] text-(--page-fg)";
+  "font-heading text-[1.4rem] font-bold leading-[1.12] tracking-[-0.03em] text-(--page-fg)";
 const PROGRAM_DESCRIPTION =
   "mt-3 text-[0.92rem] leading-[1.65] text-(--muted)";
 const PROGRAM_TOPICS = "flex flex-wrap gap-2 mt-5";
@@ -148,10 +142,10 @@ const MATRIX_FOOTNOTE =
   "max-w-[62ch] mt-6 text-[0.82rem] leading-[1.65] text-(--dim)";
 
 const CTA =
-  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#1d0743] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[radial-gradient(90%_80%_at_20%_0%,rgba(191,100,231,0.4),transparent_62%),linear-gradient(180deg,rgba(29,7,67,0.78),rgba(15,4,36,0.94))]";
+  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#0f0424] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[rgba(7,7,10,0.72)]";
 const CTA_MEDIA = "absolute inset-0 -z-[2]";
 const CTA_MEDIA_PIC =
-  "object-cover object-[center_35%] saturate-50 contrast-[1.05] opacity-[0.38]";
+  "object-cover object-[center_35%] saturate-50 contrast-[1.05]";
 const CTA_INNER =
   "relative z-[2] py-[clamp(3.5rem,8vw,6.5rem)] px-[clamp(1.5rem,5vw,5rem)] text-center";
 const CTA_H2 =
@@ -177,10 +171,6 @@ export default function TrainingPage() {
       <section className={ACADEMY_HERO} aria-labelledby="academy-title">
         <div className={ACADEMY_INNER}>
           <div className={ACADEMY_COPY}>
-            <ScrollReveal>
-              <span className={ACADEMY_KICKER}>Blockfuse Academy</span>
-            </ScrollReveal>
-
             <ScrollReveal delay={1}>
               <h1 id="academy-title" className={ACADEMY_TITLE}>
                 Blockfuse
@@ -198,9 +188,7 @@ export default function TrainingPage() {
 
             <ScrollReveal className={ACADEMY_ACTIONS} delay={3}>
               <ButtonLink href="#programs">Explore programs</ButtonLink>
-              <ModalButton modal="program" variant="secondary">
-                Apply now
-              </ModalButton>
+
               <Link href="/contact" className={ACADEMY_LINK}>
                 Ask a question
                 <span aria-hidden="true">↗</span>
@@ -209,7 +197,6 @@ export default function TrainingPage() {
           </div>
 
           <ScrollReveal className={ACADEMY_VISUAL} delay={2}>
-            <div className={ACADEMY_GLOW} aria-hidden="true" />
             <figure className={ACADEMY_PORTRAIT}>
               <Image
                 src="/brand/Deborah.jpeg"
@@ -228,26 +215,7 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      {/* ================================================================= */}
-      {/* 2. PROOF STRIP — overlapping the hero                             */}
-      {/* ================================================================= */}
-      {/* <div className="relative z-[4] mx-auto mt-[clamp(-5rem,-7vw,-3.5rem)] max-w-[1240px] px-5 sm:px-7">
-        <ScrollReveal>
-          <dl className="grid grid-cols-2 gap-px m-0 border border-(--line) rounded-[1.5rem] bg-(--line) overflow-hidden shadow-[0_14px_36px_-28px_rgba(20,6,48,0.35)] min-[900px]:grid-cols-4">
-            {academyStats.map((stat) => (
-              <div key={stat.label} className="bg-(--surface) py-7 px-5 text-center transition-[background-color] duration-[250ms] hover:bg-(--card-hover)">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <strong className="block font-heading text-[clamp(1.9rem,3.4vw,2.9rem)] font-bold leading-none tracking-[-0.05em] tabular-nums bg-[linear-gradient(140deg,var(--page-fg),var(--accent))] bg-clip-text text-transparent">
-                    <CounterStat value={stat.value} />
-                  </strong>
-                  <span className="block mt-[0.6rem] text-[0.78rem] leading-[1.45] font-medium text-(--muted)">{stat.label}</span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </ScrollReveal>
-      </div> */}
+    
 
       {/* ================================================================= */}
       {/* 3. WHY TRAIN AT BLOCKFUSE — The Blockfuse difference              */}
@@ -346,9 +314,6 @@ export default function TrainingPage() {
                     </div>
 
                     <div className={PROGRAM_BODY}>
-                      <span className={PROGRAM_TARGET}>
-                        {program.target}
-                      </span>
                       <h3 className={PROGRAM_H3}>{program.title}</h3>
                       <p className={PROGRAM_DESCRIPTION}>
                         {program.description}
@@ -591,7 +556,7 @@ export default function TrainingPage() {
 
           <ScrollReveal className={CTA_INNER}>
             <span className={`${EYEBROW} ${BF_EYEBROW_LIGHT}`}>
-              Cohort III — applications open
+              Cohort  — applications open
             </span>
             <h2 className={CTA_H2}>Ready to prove what you can do?</h2>
             <p className={CTA_P}>

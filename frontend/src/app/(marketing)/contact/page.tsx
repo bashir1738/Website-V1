@@ -3,6 +3,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { ContactFormClient } from "./contact-form-client";
 import { ContactInfo } from "./contact-info";
+import { socialLinks } from "@/config/social";
 import { BTN_SECONDARY, EYEBROW, SURFACE_CARD } from "@/lib/styles";
 
 export const metadata: Metadata = {
@@ -114,30 +115,17 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           </ScrollReveal>
 
           <ScrollReveal className="mt-12 flex flex-wrap justify-center gap-3.5" delay={1}>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={BTN_SECONDARY}
-            >
-              Twitter ↗
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={BTN_SECONDARY}
-            >
-              LinkedIn ↗
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={BTN_SECONDARY}
-            >
-              GitHub ↗
-            </a>
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={BTN_SECONDARY}
+              >
+                {social.label} ↗
+              </a>
+            ))}
           </ScrollReveal>
         </div>
       </section>

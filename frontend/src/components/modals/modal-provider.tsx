@@ -111,14 +111,33 @@ function FormModal({
     };
     document.addEventListener("keydown", onKey);
     document.body.dataset.modalOpen = "true";
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       delete document.body.dataset.modalOpen;
+      document.body.style.overflow = prevOverflow;
     };
   }, [onClose]);
 
   useEffect(() => {
     panelRef.current?.focus();
+  }, []);
+
+  // Keep the focused field visible when the software keyboard opens.
+  useEffect(() => {
+    const onFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const tag = target.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") {
+        window.setTimeout(() => {
+          target.scrollIntoView({ block: "center", behavior: "smooth" });
+        }, 280);
+      }
+    };
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
   }, []);
 
   const toggleChip = (field: string, option: string) => {
@@ -231,7 +250,7 @@ function FormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[90]">
+    <div className="fixed inset-0 z-[90] h-[100dvh] w-full overflow-hidden">
       {/* Backdrop */}
       <div
         onClick={onClose}
@@ -239,29 +258,29 @@ function FormModal({
       />
 
       {/* Sheet */}
-      <div className="animate-bf-up absolute inset-0 flex flex-col">
+      <div className="animate-bf-up absolute inset-0 flex flex-col items-center justify-start sm:justify-center">
         <div
           ref={panelRef}
           tabIndex={-1}
           role="dialog"
           aria-modal="true"
           aria-label={form.title}
-          className="mx-3 mt-5 flex min-h-0 flex-1 flex-col overflow-hidden rounded-t-[26px] border border-b-0 border-(--line-strong) bg-(--card-strong) shadow-[0_-16px_48px_-24px_rgba(0,0,0,0.55)] backdrop-blur-2xl outline-none sm:mx-5 sm:mt-6"
+          className="flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden border-0 border-(--line-strong) bg-(--card-strong) outline-none sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[min(100%-1rem,960px)] sm:flex-none sm:rounded-[24px] sm:border sm:shadow-[0_24px_64px_-28px_rgba(0,0,0,0.55)] sm:backdrop-blur-2xl lg:max-h-[calc(100dvh-3rem)]"
         >
-          {/* Header */}
-          <div className="relative border-b border-(--line) px-6 pb-6 pt-7 sm:px-10">
+          {/* Header — sticky, compact on short/small screens */}
+          <div className="relative shrink-0 border-b border-(--line) bg-(--card-strong)/95 px-4 pb-4 pt-4 backdrop-blur-xl sm:px-8 sm:pb-5 sm:pt-6">
             <div className="mx-auto max-w-[880px] pr-12">
-              <div className={`${EYEBROW} mb-3`}>{form.eyebrow}</div>
-              <h2 className="font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight text-(--page-fg)">
+              <div className={`${EYEBROW} mb-2 sm:mb-3`}>{form.eyebrow}</div>
+              <h2 className="font-heading text-[clamp(1.25rem,4vw,2.125rem)] font-bold leading-tight text-(--page-fg)">
                 {form.title}
               </h2>
-              <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-(--muted)">
+              <p className="mt-1.5 max-w-[62ch] text-[0.8125rem] leading-relaxed text-(--muted) sm:mt-2 sm:text-sm">
                 {form.subtitle}
               </p>
 
               {/* What the visitor already chose on the way in */}
               {Object.entries(prefill).length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
                   {Object.entries(prefill).map(([label, chosen]) => (
                     <span
                       key={label}
@@ -278,7 +297,7 @@ function FormModal({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-5 top-6 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-(--line-strong) text-(--muted) transition-colors hover:bg-(--card-hover) hover:text-(--page-fg) sm:right-8 sm:top-7"
+              className="absolute right-3 top-3 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-(--line-strong) text-(--muted) transition-colors hover:bg-(--card-hover) hover:text-(--page-fg) sm:right-5 sm:top-5"
             >
               <svg
                 className="h-4 w-4"
@@ -296,8 +315,10 @@ function FormModal({
             </button>
           </div>
 
-          {/* Body */}
-          <div className={`${CUSTOM_SCROLL} min-h-0 flex-1 overflow-y-auto px-6 pb-12 pt-8 sm:px-10`}>
+          {/* Body — the only scroll region */}
+          <div
+            className={`${CUSTOM_SCROLL} min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-5 sm:px-8 sm:pb-8 sm:pt-7 [-webkit-overflow-scrolling:touch]`}
+          >
             {submitted ? (
               <div className="animate-bf-pop-slow mx-auto my-10 max-w-[520px] text-center">
                 <div className="mx-auto mb-7 grid h-[66px] w-[66px] place-items-center rounded-full border border-[rgba(52,211,153,0.4)] bg-[rgba(52,211,153,0.14)] text-2xl text-[#34d399]">
@@ -323,7 +344,7 @@ function FormModal({
                 encType={form.multipart ? "multipart/form-data" : undefined}
                 className="mx-auto max-w-[880px]"
               >
-                <div className="grid gap-[22px] [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+                <div className="grid gap-4 sm:gap-[22px] grid-cols-1 min-[22rem]:[grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))]">
                   {form.fields.map((field) => (
                     <Field
                       key={field.label}
@@ -339,10 +360,10 @@ function FormModal({
                   ))}
                 </div>
 
-                <div className="mt-10 flex flex-wrap items-center gap-5 border-t border-(--line) pt-7">
+                <div className="mt-8 flex flex-col gap-4 border-t border-(--line) pt-6 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5 sm:pt-7">
                   <button
                     type="submit"
-                    className={BTN_PRIMARY}
+                    className={`${BTN_PRIMARY} w-full sm:w-auto`}
                     disabled={submitting}
                     aria-busy={submitting}
                   >

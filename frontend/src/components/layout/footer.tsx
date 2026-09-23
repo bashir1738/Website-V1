@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { footerLinks } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
+import { socialLinks } from "@/config/social";
 import { useModal } from "@/components/modals/modal-provider";
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
@@ -46,6 +47,34 @@ export function Footer() {
               →
             </span>
           </button>
+
+          {/* Social */}
+          <div className="mt-6">
+            <div className="mb-3 font-mono text-[9.5px] uppercase tracking-[0.18em] text-(--dim)">
+              Follow us
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="grid h-9 w-9 place-items-center rounded-full border border-(--line-strong) bg-(--card) text-(--muted) transition-colors hover:border-(--accent) hover:text-(--page-fg) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    className="h-4 w-4"
+                  >
+                    <path d={social.icon} />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Link columns */}
@@ -76,6 +105,12 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-2.5 text-[13px] text-(--muted)">
               <p>{siteConfig.location}</p>
+              <a
+                href={siteConfig.phoneHref}
+                className="text-(--muted) transition-colors hover:text-(--page-fg)"
+              >
+                {siteConfig.phoneDisplay}
+              </a>
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="text-(--accent) transition-colors hover:text-(--accent-soft)"

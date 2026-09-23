@@ -1,11 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { BF_H2, EYEBROW, LINK_ACTION, SURFACE_CARD } from "@/lib/styles";
+import { socialLinks } from "@/config/social";
 
 export const metadata: Metadata = {
   title: "Blockfuse Community: Connect with engineers",
@@ -24,19 +26,19 @@ const channels = [
     name: "Telegram",
     description: "Real-time updates, alpha drops, and fast-paced discussions.",
     cta: "Join Telegram",
-    href: "https://t.me/blockfuse",
+    href: socialLinks.find((s) => s.label === "Telegram")!.href,
   },
   {
     name: "Twitter / X",
     description: "Follow for ecosystem news, cohort updates, and community highlights.",
     cta: "Follow us",
-    href: "https://twitter.com/blockfuselabs",
+    href: socialLinks.find((s) => s.label === "X")!.href,
   },
   {
     name: "GitHub",
     description: "Open-source projects, cohort capstones, and contribution sprints.",
     cta: "View repos",
-    href: "https://github.com/blockfuselabs",
+    href: socialLinks.find((s) => s.label === "GitHub")!.href,
   },
 ];
 
@@ -69,7 +71,7 @@ const showcaseItems = [
     tag: "Core Leadership",
     title: "The Team",
     desc: "Meet the engineers, architects, and ecosystem builders driving Blockfuse Labs forward.",
-    href: "/team",
+    href: "/about/team",
     cta: "Meet the Team",
   },
   {
@@ -77,7 +79,7 @@ const showcaseItems = [
     tag: "Talent Pipeline",
     title: "Alumni",
     desc: "Engineers who trained with us and are now deployed across top Web3 protocols globally.",
-    href: "/alumni",
+    href: "/community/alumni",
     cta: "View Alumni",
   },
   {
@@ -104,40 +106,64 @@ export default function CommunityPage() {
       {/* ================================================================= */}
       {/* 1. HERO                                                           */}
       {/* ================================================================= */}
-      <section className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <ScrollReveal>
-            <div className="mb-8">
-              <span className={EYEBROW}>Community Hub</span>
-              <h1 className="font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08] mt-4">
-                The Blockfuse Engineering <br />
-                <span className="text-[var(--muted)]">Community Hub</span>
-              </h1>
-            </div>
-            <p className="text-base text-[var(--muted)] sm:text-lg leading-relaxed max-w-2xl mx-auto">
-              Explore engineering events, connect with builders, and join a dynamic community for knowledge exchange and fresh insights from working engineers.
-            </p>
-          </ScrollReveal>
+      <section className="relative w-full min-h-[85vh] overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#e9d5ff] to-[#d8b4fe] flex flex-col items-center pt-24 sm:pt-28">
+        
+        {/* Background image overlay */}
+        <div 
+          className="absolute inset-0 z-0 opacity-[0.15] mix-blend-overlay bg-cover bg-center"
+          style={{ backgroundImage: 'url("/community/welcome3.jpeg")' }}
+        />
 
-          <ScrollReveal className="mt-12 flex justify-center gap-8" delay={1}>
-            <div className="flex items-center gap-4">
-              <div className="text-center">
-                <p className="font-heading text-2xl font-bold text-[var(--page-fg)]">1,000+</p>
-                <p className="text-xs text-[var(--muted)]">Engineers</p>
-              </div>
-            </div>
-            <div className="h-12 w-px bg-[var(--line)]" />
-            <div className="flex items-center gap-2">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-[var(--accent)]">★</span>
-                ))}
-              </div>
-              <span className="text-sm text-[var(--muted)]">
-                <span className="font-bold text-[var(--page-fg)]">5.0</span>
-              </span>
-            </div>
-          </ScrollReveal>
+        {/* Stickers */}
+        <div className="absolute top-[25%] left-[5%] sm:left-[12%] w-12 h-12 sm:w-20 sm:h-20 hidden md:block z-20">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full fill-white drop-shadow-md">
+            <path d="M100 0 L115 75 L190 50 L135 100 L190 150 L115 125 L100 200 L85 125 L10 150 L65 100 L10 50 L85 75 Z" />
+          </svg>
+        </div>
+
+        <div className="absolute top-[38%] left-[8%] sm:left-[14%] rotate-[-12deg] bg-white border-2 border-black px-2.5 py-1 sm:px-3 sm:py-1.5 hidden md:block shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-20">
+          <span className="font-mono text-[9px] sm:text-[11px] font-bold uppercase tracking-widest text-black">Jos, Nigeria</span>
+        </div>
+
+        <div className="absolute top-[18%] right-[8%] sm:right-[18%] rotate-[10deg] bg-black border-2 border-black px-3 py-1.5 sm:px-5 sm:py-2.5 hidden md:block shadow-[3px_3px_0_0_rgba(0,0,0,0.3)] z-20">
+          <span className="font-mono text-[9px] sm:text-xs font-bold uppercase tracking-widest text-white">Community Events</span>
+        </div>
+
+        <div className="absolute top-[32%] right-[4%] sm:right-[10%] rotate-[-8deg] bg-[#fbcfe8] border-2 border-black px-2.5 py-1 sm:px-4 sm:py-1.5 hidden lg:block shadow-[3px_3px_0_0_rgba(0,0,0,1)] z-20">
+          <span className="font-mono text-[9px] sm:text-[11px] font-bold uppercase tracking-widest text-black">Workshops · Demos · Meetups</span>
+        </div>
+
+        {/* Text Content */}
+        <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center px-5">
+          <span className="font-mono text-[9px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-black mb-4">
+            COMMUNITY HUB
+          </span>
+          <h1 className="font-heading text-[3.5rem] sm:text-[6.5rem] lg:text-[8rem] font-extrabold leading-[0.8] tracking-[-0.04em] text-[#0f0f0f] uppercase">
+             Blockfuse Labs <br /> Engineering <br/> Community 
+          </h1>
+          <p className="mt-6 max-w-xl text-sm sm:text-base font-medium text-[#0f0f0f]/80 leading-relaxed max-sm:px-4">
+              Explore engineering events, connect with builders, and join a dynamic community for knowledge exchange and fresh insights from working engineers.
+          </p>
+        </div>
+
+        {/* Bottom overlapping cards */}
+        <div className="relative z-10 w-full max-w-[1200px] mx-auto h-[220px] sm:h-[300px] lg:h-[350px] mt-auto flex justify-center items-end -mb-6 sm:-mb-12">
+
+          {/* Left card */}
+          <div className="absolute left-[-2%] sm:left-[5%] lg:left-[10%] bottom-0 sm:bottom-4 w-[40%] sm:w-[35%] lg:w-[28%] aspect-[3/4] sm:aspect-[4/3] rounded-xl sm:rounded-[1.75rem] border-[3px] border-black overflow-hidden rotate-[-12deg] sm:rotate-[-8deg] shadow-xl z-20 origin-bottom">
+            <Image src="/community/welcome.jpeg" alt="Community gathering" fill className="object-cover" />
+          </div>
+
+          {/* Center card */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-8 w-[55%] sm:w-[50%] lg:w-[40%] aspect-[4/5] sm:aspect-video rounded-xl sm:rounded-[1.75rem] border-[3px] border-black overflow-hidden z-30 shadow-2xl">
+            <Image src="/community/WAL_7954.jpeg" alt="Community workshop" fill className="object-cover" />
+          </div>
+
+          {/* Right card */}
+          <div className="absolute right-[-2%] sm:right-[5%] lg:right-[10%] bottom-0 sm:bottom-4 w-[40%] sm:w-[35%] lg:w-[28%] aspect-[3/4] sm:aspect-[4/3] rounded-xl sm:rounded-[1.75rem] border-[3px] border-black overflow-hidden rotate-[12deg] sm:rotate-[6deg] shadow-xl z-20 origin-bottom">
+            <Image src="/community/welcome2.jpeg" alt="Community meetup" fill className="object-cover" />
+          </div>
+
         </div>
       </section>
 
@@ -234,7 +260,7 @@ export default function CommunityPage() {
                     {channel.description}
                   </p>
                   <ButtonLink href={channel.href} variant="secondary" className="text-xs">
-                    {channel.cta} →
+                    {channel.cta}
                   </ButtonLink>
                 </TiltCard>
               ))}
@@ -264,11 +290,11 @@ export default function CommunityPage() {
               <ButtonLink href="/contact" dataCursor="COMMUNITY">
                 Get Involved
               </ButtonLink>
-              <ModalButton modal="opensource" variant="secondary">
-                Join the open-source programme
-              </ModalButton>
               <ModalButton modal="newsletter" variant="secondary">
                 Join the dispatch
+              </ModalButton>
+               <ModalButton modal="opensource" variant="secondary">
+                Join the open-source programme
               </ModalButton>
             </div>
           </ScrollReveal>

@@ -418,7 +418,7 @@ export default function AdminEventsPage() {
                             {event.title}
                           </p>
                           <p className="truncate font-mono text-xs text-(--dim)">
-                            /events/{event.slug}
+                            /community/events/{event.slug}
                           </p>
                         </div>
                       </div>

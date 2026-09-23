@@ -5,20 +5,20 @@ export interface MetricStat {
 
 export const stats: MetricStat[] = [
   {
-    value: "115",
-    label: "engineers graduated from Cohort II",
+    value: "115+",
+    label: "Vetted Web3 & AI engineers ready for deployment",
   },
   {
     value: "500+",
-    label: "smart contracts built by students",
+    label: "Smart contracts engineered and security-tested",
   },
   {
-    value: "12",
-    label: "dApps shipped through cohort projects",
+    value: "12+",
+    label: "Production-grade dApps shipped for ecosystems",
   },
   {
-    value: "2 years",
-    label: "developing technology talent in Jos",
+    value: "2 Years",
+    label: "Operating our physical production workspace in Jos",
   },
 ];
 

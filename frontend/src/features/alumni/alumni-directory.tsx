@@ -6,7 +6,7 @@ import { alumniFilters, type Alumnus } from "@/features/alumni/content";
 import { initials } from "@/lib/utils";
 
 const FILTER_PILL =
-  "inline-flex flex-none min-h-10 items-center gap-2 px-[0.875rem] py-2 rounded-[0.375rem] font-mono text-[0.6875rem] font-semibold tracking-[0.04em] uppercase cursor-pointer border border-(--line) text-(--muted) bg-(--card) transition-[color,background-color,border-color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-(--page-fg) hover:bg-(--card-hover) data-[active=true]:text-(--page-fg) data-[active=true]:bg-(--surface-3) data-[active=true]:border-(--line-strong) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-3";
+  "inline-flex flex-none min-h-10 items-center gap-2 px-[0.875rem] py-2 rounded-full font-mono text-[0.6875rem] font-semibold tracking-[0.04em] uppercase cursor-pointer border border-(--line) text-(--muted) bg-(--card) transition-[color,background-color,border-color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-(--page-fg) hover:bg-(--card-hover) data-[active=true]:text-(--page-fg) data-[active=true]:bg-(--surface-3) data-[active=true]:border-(--line-strong) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-3";
 
 export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
   const [filter, setFilter] = useState("All");
@@ -21,7 +21,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
 
   return (
     <>
-      <div className="grid gap-4 mt-14 mb-8 py-4 border-y border-(--line) scroll-mt-24 md:grid-cols-[auto_1fr] md:items-center" id="alumni-directory">
+      <div className="grid gap-4 mt-14 mb-8 py-4 rounded-2xl border border-(--line) bg-(--card) px-4 scroll-mt-24 md:grid-cols-[auto_1fr] md:items-center" id="alumni-directory">
         <p className="m-0 text-(--dim) font-mono text-[0.7rem] font-semibold tracking-[0.1em] uppercase">
           Browse the directory
         </p>
@@ -54,7 +54,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
             className="min-w-0 group min-[68.75rem]:nth-[3n+2]:translate-y-12"
           >
             <div
-              className="group/portrait relative aspect-[4/5] overflow-hidden bg-(--surface-2) min-[68.75rem]:group-nth-[3n+2]:aspect-[3/4]"
+              className="group/portrait relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-(--surface-2) min-[68.75rem]:group-nth-[3n+2]:aspect-[3/4]"
               data-focus={a.imageFocus ?? "center"}
             >
               {a.image ? (
@@ -91,7 +91,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
                 rel="noreferrer"
                 aria-label={`Find ${a.name} on ${a.social.platform}`}
               >
-                <span className="grid w-6 h-6 place-items-center rounded-[0.25rem] text-(--color-paper) bg-(--action-bg) font-sans text-[0.6875rem] font-bold tracking-[-0.02em] normal-case" aria-hidden="true">
+                <span className="grid w-7 h-7 place-items-center rounded-full text-(--color-paper) bg-(--action-bg) font-sans text-[0.6875rem] font-bold tracking-[-0.02em] normal-case" aria-hidden="true">
                   {a.social.platform === "LinkedIn"
                     ? "in"
                     : a.social.platform === "GitHub"
@@ -114,7 +114,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
       </div>
 
       {shown.length === 0 && (
-        <div className="grid justify-items-start gap-3 py-16 border-t border-(--line) text-(--muted)">
+        <div className="grid justify-items-start gap-3 rounded-2xl border border-(--line) bg-(--card) px-5 py-10 text-(--muted)">
           <p className="font-heading text-lg font-semibold">
             No profiles here yet.
           </p>
