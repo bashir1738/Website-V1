@@ -1,10 +1,11 @@
 const { Sponsorship } = require('../models');
-const { PAYMENTS_ENABLED, AMOUNTS_KOBO } = require('../config/payments');
+const { PAYMENTS_ENABLED, AMOUNTS_KOBO, FRONTEND_ORIGIN } = require('../config/payments');
 const {
   PAYSTACK_PUBLIC_KEY,
   generateReference,
   initializePayment,
 } = require('../utils/paystack');
+const { sendPaymentLinkEmail } = require('../utils/paymentEmails');
 
 exports.submit = async (req, res) => {
   try {
@@ -17,7 +18,12 @@ exports.submit = async (req, res) => {
       const amountKobo = AMOUNTS_KOBO.sponsorship;
       const reference = generateReference('SPON');
       // Fund the transaction at Paystack first; a failed init means no row saved.
-      await initializePayment({ email: data.email, amountKobo, reference });
+      const { authorizationUrl } = await initializePayment({
+        email: data.email,
+        amountKobo,
+        reference,
+        callbackUrl: `${FRONTEND_ORIGIN}/payment/status?reference=${encodeURIComponent(reference)}`,
+      });
 
       data.payment_reference = reference;
       data.payment_status = 'pending';
@@ -28,10 +34,23 @@ exports.submit = async (req, res) => {
         reference,
         amountKobo,
         email: data.email,
+        authorizationUrl,
       };
     }
 
     const sponsor = await Sponsorship.create(data);
+
+    // Give the sponsor a secure way back to the checkout if they abandon it.
+    if (paymentPayload) {
+      sendPaymentLinkEmail({
+        kind: 'sponsorship',
+        name: data.name || data.organisation || 'there',
+        email: data.email,
+        reference: paymentPayload.reference,
+        amountKobo: paymentPayload.amountKobo,
+        authorizationUrl: paymentPayload.authorizationUrl,
+      }).catch((err) => console.error('Payment-link email error:', err.message));
+    }
 
     return res.status(201).json({
       success: true,

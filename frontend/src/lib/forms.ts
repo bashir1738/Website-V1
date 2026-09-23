@@ -30,7 +30,7 @@ export interface FormSpec {
   title: string;
   subtitle: string;
   cta: string;
-  note: string;
+  note?: string;
   successTitle: string;
   successBody: string;
   /** API path this form posts to, e.g. "applications" for POST /api/applications. */
@@ -50,7 +50,6 @@ export const forms: Record<FormKey, FormSpec> = {
     subtitle:
       "Admission is based on demonstrated ability and readiness. We take fewer people than apply.",
     cta: "Submit application",
-    note: "You'll hear back within 10 working days. Shortlisted applicants get a technical screen.",
     successTitle: "Application received",
     successBody:
       "We've logged your application for Cohort III. Watch your inbox for the technical screen invite.",

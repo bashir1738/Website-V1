@@ -63,9 +63,11 @@ async function callPaystack(path, { method = 'GET', body } = {}) {
 
 /**
  * Create a transaction server-side so the amount is reserved authoritatively.
- * @returns {Promise<{reference: string}>}
+ * The browser is then redirected to `authorizationUrl` (Paystack standard
+ * checkout); Paystack redirects back to `callbackUrl` after the charge.
+ * @returns {Promise<{reference: string, authorizationUrl: string}>}
  */
-const initializePayment = async ({ email, amountKobo, reference }) => {
+const initializePayment = async ({ email, amountKobo, reference, callbackUrl }) => {
   const json = await callPaystack('/transaction/initialize', {
     method: 'POST',
     body: {
@@ -73,9 +75,15 @@ const initializePayment = async ({ email, amountKobo, reference }) => {
       amount: amountKobo,
       reference,
       currency: 'NGN',
+      ...(callbackUrl ? { callback_url: callbackUrl } : {}),
     },
   });
-  return { reference: json.data.reference || reference };
+  return {
+    reference: json.data.reference || reference,
+    // Standard-checkout page: Paystack hosts the payment and redirects the
+    // visitor back to callbackUrl when they're done (paid or abandoned).
+    authorizationUrl: json.data.authorization_url || '',
+  };
 };
 
 /**

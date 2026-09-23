@@ -14,4 +14,15 @@ const AMOUNTS_KOBO = {
 
 const CURRENCY = 'NGN';
 
-module.exports = { PAYMENTS_ENABLED, AMOUNTS_KOBO, CURRENCY };
+/**
+ * Origin the visitor lands back on after Paystack checkout. Taken from the
+ * CORS allow-list's first entry so local and deployed builds use the right
+ * host without extra config.
+ */
+const FRONTEND_ORIGIN =
+  (process.env.FRONTEND_URL || 'http://localhost:3000')
+    .split(',')
+    .map((u) => u.trim())
+    .filter(Boolean)[0] || 'http://localhost:3000';
+
+module.exports = { PAYMENTS_ENABLED, AMOUNTS_KOBO, CURRENCY, FRONTEND_ORIGIN };

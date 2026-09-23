@@ -13,7 +13,10 @@ if (!RESEND_API_KEY || RESEND_API_KEY.startsWith('re_your')) {
 }
 
 const resend = new Resend(RESEND_API_KEY);
-const FROM_EMAIL = 'Blockfuse <noreply@blockfuse.io>';
+// Overridable sender. Production should use a verified domain you own
+// (e.g. "Blockfuse <noreply@blockfuselabs.xyz>") — Resend rejects unverified
+// from-domains at send time. Verified sandbox domain: blockfuselabs.xyz.
+const FROM_EMAIL = process.env.FROM_EMAIL || 'Blockfuse <noreply@blockfuselabs.xyz>';
 
 const sendConfirmationEmail = async ({ to, subject, html }) => {
   const { error } = await resend.emails.send({ from: FROM_EMAIL, to, subject, html });
