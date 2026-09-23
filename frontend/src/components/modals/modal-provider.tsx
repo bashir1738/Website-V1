@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { forms, type FormKey, type FormField } from "@/lib/forms";
 import { postForm, postJson, ApiError } from "@/lib/api";
 import { formatFileSize, validateUpload } from "@/lib/file-upload";
+import { payWithPaystack } from "@/lib/paystack";
 
 /** Browser autofill hints, keyed by API field name. */
 const AUTOCOMPLETE: Record<string, string> = {
@@ -27,6 +28,40 @@ const AUTOCOMPLETE: Record<string, string> = {
 
 /** Field label → value, for opening a form with an answer already chosen. */
 export type Prefill = Record<string, string>;
+
+/**
+ * Raw Tailwind utilities replicating the global .btn-* / .field-* / .chip
+ * component classes, so the modal's payment and layout UI is self-contained.
+ * Colors come from the site's design tokens via var(--…).
+ */
+const BTN_PRIMARY =
+  "inline-flex h-[3.125rem] items-center justify-center gap-[0.5625rem] whitespace-nowrap rounded-full bg-[var(--action-bg)] px-[1.75rem] text-[0.906rem] font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--action-hover)] active:scale-[0.98] focus-visible:[outline:2px_solid_var(--accent)] focus-visible:outline-offset-[3px] disabled:cursor-not-allowed disabled:translate-y-0 disabled:scale-100 disabled:opacity-60";
+
+const BTN_GHOST =
+  "inline-flex h-[2.875rem] items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[var(--action-bg)] bg-[var(--action-bg)] px-6 text-[0.844rem] font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--action-hover)] active:scale-[0.98] focus-visible:[outline:2px_solid_var(--accent)] focus-visible:outline-offset-[3px]";
+
+const EYEBROW =
+  "mb-3 inline-block font-medium uppercase tracking-[0.22em] text-[var(--accent)] [font-family:'JetBrains_Mono',monospace] text-[0.656rem]";
+
+const FIELD_BASE =
+  "w-full rounded-xl border border-[var(--line-strong)] bg-[var(--card)] text-sm text-[var(--page-fg)] transition-colors duration-200 focus:border-[rgba(191,100,231,0.6)] focus:outline-none data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
+
+const FIELD_INPUT = `${FIELD_BASE} h-[2.875rem] px-[0.9375rem]`;
+
+const FIELD_SELECT = `${FIELD_BASE} h-[2.875rem] appearance-none bg-[linear-gradient(45deg,transparent_50%,var(--muted)_50%),linear-gradient(135deg,var(--muted)_50%,transparent_50%)] bg-[position:calc(100%_-_18px)_50%,calc(100%_-_13px)_50%] bg-[size:5px_5px,5px_5px] bg-no-repeat pr-9`;
+
+const FIELD_TEXTAREA = `${FIELD_BASE} resize-y px-[0.9375rem] py-[0.8125rem] leading-[1.55]`;
+
+const FIELD_LABEL =
+  "mb-[0.5625rem] flex items-center gap-[0.4375rem] text-xs font-semibold tracking-[0.02em] text-[var(--bright)]";
+
+const FIELD_ERROR = "mt-[0.4rem] text-xs leading-[1.45] text-[#f87171]";
+
+const FIELD_FILE =
+  "flex h-[2.875rem] cursor-pointer items-center gap-[0.875rem] rounded-xl border border-dashed border-[var(--line-strong)] bg-[var(--card)] px-[0.9375rem] text-[0.813rem] text-[var(--dim)] transition duration-200 hover:border-[rgba(191,100,231,0.5)] hover:text-[var(--bright)] data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
+
+const CHIP =
+  "cursor-pointer rounded-full border border-[var(--line-strong)] bg-[var(--card)] px-[0.875rem] py-2 text-[0.781rem] text-[var(--muted)] transition-colors duration-100 hover:border-[rgba(191,100,231,0.55)] hover:bg-[var(--accent-dim)] hover:text-[var(--page-fg)] data-[selected=true]:border-[rgba(191,100,231,0.6)] data-[selected=true]:bg-[var(--accent-dim)] data-[selected=true]:text-[var(--page-fg)]";
 
 interface ModalContextValue {
   openModal: (key: FormKey, prefill?: Prefill) => void;
@@ -86,6 +121,7 @@ function FormModal({
   const form = forms[formKey];
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [paying, setPaying] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [chips, setChips] = useState<Record<string, string[]>>({});
   const panelRef = useRef<HTMLDivElement>(null);
@@ -130,7 +166,7 @@ function FormModal({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (submitting) return;
+    if (submitting || paying) return;
 
     const raw = new FormData(e.currentTarget);
 
@@ -155,6 +191,7 @@ function FormModal({
     setSubmitting(true);
 
     try {
+      let res: unknown;
       if (form.multipart) {
         const body = new FormData();
         for (const field of form.fields) {
@@ -172,7 +209,7 @@ function FormModal({
           const value = raw.get(field.name);
           if (typeof value === "string" && value !== "") body.append(field.name, value);
         }
-        await postForm(`/${form.endpoint}`, body);
+        res = await postForm(`/${form.endpoint}`, body);
       } else {
         const body: Record<string, unknown> = {};
         for (const field of form.fields) {
@@ -184,8 +221,39 @@ function FormModal({
           const value = raw.get(field.name);
           if (typeof value === "string" && value !== "") body[field.name] = value;
         }
-        await postJson(`/${form.endpoint}`, body);
+        res = await postJson(`/${form.endpoint}`, body);
       }
+
+      // Payment-backed flows: the submit response carries the server-set price
+      // and reference. Pay inline, then verify server-side.
+      const paymentInfo = paymentOf(res);
+      if (form.paid && paymentInfo) {
+        setPaying(true);
+        try {
+          const outcome = await payWithPaystack(paymentInfo);
+          if (outcome === "cancelled") {
+            toast("Payment wasn't completed. Your form is saved, and you can resubmit to try again.");
+            return;
+          }
+          await postJson("/payments/verify", { reference: paymentInfo.reference });
+        } catch (err) {
+          if (err instanceof ApiError) {
+            toast.error(
+              err.status === 402
+                ? "Payment didn't go through. You can try submitting again."
+                : err.message,
+            );
+          } else {
+            toast.error(
+              "Payment couldn't be confirmed right now. If you were charged, your submission is saved and will be confirmed shortly.",
+            );
+          }
+          return;
+        } finally {
+          setPaying(false);
+        }
+      }
+
       setSubmitted(true);
       toast.success(form.successTitle);
     } catch (err) {
@@ -220,7 +288,7 @@ function FormModal({
           {/* Header */}
           <div className="relative border-b border-[var(--line)] px-6 pb-6 pt-7 sm:px-10">
             <div className="mx-auto max-w-[880px] pr-12">
-              <div className="eyebrow mb-3">{form.eyebrow}</div>
+              <div className={EYEBROW}>{form.eyebrow}</div>
               <h2 className="font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight text-[var(--page-fg)]">
                 {form.title}
               </h2>
@@ -281,7 +349,7 @@ function FormModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="btn-ghost mt-8"
+                  className={`${BTN_GHOST} mt-8`}
                 >
                   Close
                 </button>
@@ -311,12 +379,16 @@ function FormModal({
                 <div className="mt-10 flex flex-wrap items-center gap-5 border-t border-[var(--line)] pt-7">
                   <button
                     type="submit"
-                    className="btn-primary"
-                    disabled={submitting}
-                    aria-busy={submitting}
+                    className={BTN_PRIMARY}
+                    disabled={submitting || paying}
+                    aria-busy={submitting || paying}
                   >
-                    {submitting ? "Sending…" : form.cta}
-                    {!submitting && <span aria-hidden="true">→</span>}
+                    {paying
+                      ? "Complete payment…"
+                      : submitting
+                        ? "Sending…"
+                        : form.cta}
+                    {!submitting && !paying && <span aria-hidden="true">→</span>}
                   </button>
                   <p className="max-w-[44ch] text-xs leading-relaxed text-[var(--dim)]">
                     {form.note}
@@ -329,6 +401,21 @@ function FormModal({
       </div>
     </div>
   );
+}
+
+interface PaymentInfo {
+  publicKey: string;
+  email: string;
+  amountKobo: number;
+  reference: string;
+}
+
+/** Extract the server-issued payment payload from a submit response, if any. */
+function paymentOf(res: unknown): PaymentInfo | null {
+  if (res && typeof res === "object" && "payment" in res && res.payment) {
+    return res.payment as PaymentInfo;
+  }
+  return null;
 }
 
 function Field({
@@ -351,7 +438,7 @@ function Field({
 
   return (
     <div className="min-w-0" style={{ gridColumn: field.span ?? "auto" }}>
-      <label htmlFor={id} className="field-label">
+      <label htmlFor={id} className={FIELD_LABEL}>
         {field.label}
         {field.required && <span className="text-[var(--accent)]">*</span>}
       </label>
@@ -367,13 +454,13 @@ function Field({
             autoComplete={AUTOCOMPLETE[field.name]}
             defaultValue={value}
             onChange={onClearError}
-            className="field-input"
+            className={FIELD_INPUT}
             data-invalid={error ? "true" : undefined}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? `${id}-error` : undefined}
           />
           {error && (
-            <p id={`${id}-error`} className="field-error">
+            <p id={`${id}-error`} className={FIELD_ERROR}>
               {error}
             </p>
           )}
@@ -385,7 +472,7 @@ function Field({
           <select
             id={id}
             name={field.name}
-            className="field-select"
+            className={FIELD_SELECT}
             defaultValue={value ?? ""}
             required={field.required}
             onChange={onClearError}
@@ -403,7 +490,7 @@ function Field({
             ))}
           </select>
           {error && (
-            <p id={`${id}-error`} className="field-error">
+            <p id={`${id}-error`} className={FIELD_ERROR}>
               {error}
             </p>
           )}
@@ -418,14 +505,14 @@ function Field({
             rows={4}
             placeholder={field.placeholder}
             required={field.required}
-            className="field-textarea"
+            className={FIELD_TEXTAREA}
             onChange={onClearError}
             data-invalid={error ? "true" : undefined}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? `${id}-error` : undefined}
           />
           {error && (
-            <p id={`${id}-error`} className="field-error">
+            <p id={`${id}-error`} className={FIELD_ERROR}>
               {error}
             </p>
           )}
@@ -442,7 +529,7 @@ function Field({
             <button
               key={o}
               type="button"
-              className="chip"
+              className={CHIP}
               data-selected={selected.includes(o)}
               aria-pressed={selected.includes(o)}
               onClick={() => onToggleChip(o)}
@@ -472,7 +559,7 @@ function FileField({
 
   return (
     <>
-      <label htmlFor={id} className="field-file" data-invalid={shownError ? "true" : undefined}>
+      <label htmlFor={id} className={FIELD_FILE} data-invalid={shownError ? "true" : undefined}>
         <span aria-hidden="true" className="text-[15px]">
           ↑
         </span>

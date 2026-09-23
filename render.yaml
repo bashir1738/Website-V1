@@ -47,6 +47,17 @@ services:
         sync: false
       - key: RESEND_API_KEY
         sync: false
+      # --- Paystack (set PAYMENTS_ENABLED=false to ship without payments) ---
+      - key: PAYMENTS_ENABLED
+        value: "true"
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        sync: false
+      - key: APPLICATION_FEE_KOBO
+        sync: false
+      - key: SPONSORSHIP_FEE_KOBO
+        sync: false
 
   # ---------------------------------------------------------------------------
   # Frontend (Next.js, port 3001)

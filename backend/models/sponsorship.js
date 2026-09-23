@@ -43,6 +43,24 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 'pending',
       },
+      payment_reference: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+      payment_status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'none',
+      },
+      payment_amount: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      payment_paid_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,

@@ -1,25 +1,42 @@
 const { Sponsorship } = require('../models');
-const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
-const { escHtml } = require('../utils/escHtml');
+const { PAYMENTS_ENABLED, AMOUNTS_KOBO } = require('../config/payments');
+const {
+  PAYSTACK_PUBLIC_KEY,
+  generateReference,
+  initializePayment,
+} = require('../utils/paystack');
 
 exports.submit = async (req, res) => {
   try {
-    const sponsor = await Sponsorship.create(req.body);
+    const data = req.body;
 
-    // Fire-and-forget: email failures must not roll back a successful DB write.
-    Promise.all([
-      sendConfirmationEmail({
-        to: req.body.email,
-        subject: 'Partnership inquiry received — Blockfuse',
-        html: `<p>Hi ${escHtml(req.body.name)},</p><p>Thank you for your interest in partnering with Blockfuse. Our partnerships lead will reach out with the deck and a time to talk.</p>`,
-      }),
-      notifyAdmin({
-        subject: `New sponsorship inquiry: ${escHtml(req.body.organisation)}`,
-        html: `<p><strong>${escHtml(req.body.name)}</strong> from <em>${escHtml(req.body.organisation)}</em> is interested in sponsoring.</p>`,
-      }),
-    ]).catch((err) => console.error('Sponsor email error:', err));
+    let paymentPayload = null;
 
-    return res.status(201).json({ success: true, data: { id: sponsor.id } });
+    if (PAYMENTS_ENABLED) {
+      // Fixed amount lives server-side only — never trust a client-supplied price.
+      const amountKobo = AMOUNTS_KOBO.sponsorship;
+      const reference = generateReference('SPON');
+      // Fund the transaction at Paystack first; a failed init means no row saved.
+      await initializePayment({ email: data.email, amountKobo, reference });
+
+      data.payment_reference = reference;
+      data.payment_status = 'pending';
+      data.payment_amount = amountKobo;
+
+      paymentPayload = {
+        publicKey: PAYSTACK_PUBLIC_KEY,
+        reference,
+        amountKobo,
+        email: data.email,
+      };
+    }
+
+    const sponsor = await Sponsorship.create(data);
+
+    return res.status(201).json({
+      success: true,
+      data: { id: sponsor.id, payment: paymentPayload },
+    });
   } catch (err) {
     console.error('Sponsor error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });

@@ -1,7 +1,11 @@
 const { ProgramApplication } = require('../models');
 const { uploadToCloudinary } = require('../utils/cloudinary');
-const { sendConfirmationEmail, notifyAdmin } = require('../utils/resend');
-const { escHtml } = require('../utils/escHtml');
+const { PAYMENTS_ENABLED, AMOUNTS_KOBO } = require('../config/payments');
+const {
+  PAYSTACK_PUBLIC_KEY,
+  generateReference,
+  initializePayment,
+} = require('../utils/paystack');
 
 exports.submit = async (req, res) => {
   try {
@@ -12,22 +16,33 @@ exports.submit = async (req, res) => {
       data.resume_url = result.secure_url;
     }
 
+    let paymentPayload = null;
+
+    if (PAYMENTS_ENABLED) {
+      // Fixed amount lives server-side only — never trust a client-supplied price.
+      const amountKobo = AMOUNTS_KOBO.application;
+      const reference = generateReference('APP');
+      // Fund the transaction at Paystack first; a failed init means no row saved.
+      await initializePayment({ email: data.email, amountKobo, reference });
+
+      data.payment_reference = reference;
+      data.payment_status = 'pending';
+      data.payment_amount = amountKobo;
+
+      paymentPayload = {
+        publicKey: PAYSTACK_PUBLIC_KEY,
+        reference,
+        amountKobo,
+        email: data.email,
+      };
+    }
+
     const application = await ProgramApplication.create(data);
 
-    // Fire-and-forget: email failures must not roll back a successful DB write.
-    Promise.all([
-      sendConfirmationEmail({
-        to: data.email,
-        subject: 'Application received — Blockfuse Academy',
-        html: `<p>Hi ${escHtml(data.name)},</p><p>We've received your application. You'll hear back within 10 working days.</p>`,
-      }),
-      notifyAdmin({
-        subject: `New program application from ${escHtml(data.name)}`,
-        html: `<p><strong>${escHtml(data.name)}</strong> (${escHtml(data.email)}) applied for <em>${escHtml(data.track || 'TBD')}</em>.</p>`,
-      }),
-    ]).catch((err) => console.error('Application email error:', err));
-
-    return res.status(201).json({ success: true, data: { id: application.id } });
+    return res.status(201).json({
+      success: true,
+      data: { id: application.id, payment: paymentPayload },
+    });
   } catch (err) {
     console.error('Application error:', err);
     return res.status(500).json({ success: false, error: 'Server error' });
