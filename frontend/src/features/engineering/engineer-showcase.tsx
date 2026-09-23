@@ -17,6 +17,15 @@ const ENGINEER_PHOTOS = [
   "/engineers/WAL_7429.jpeg",
 ] as const;
 
+const ENGINEER_AVATAR =
+  "grid w-[3.5rem] h-[3.5rem] shrink-0 place-items-center rounded-[1rem] overflow-hidden bg-(--card) grayscale font-heading text-[0.95rem] font-semibold tracking-[-0.03em] text-[rgba(255,255,255,0.94)] transition-[filter,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] group-data-[active=true]:grayscale-0 group-data-[active=true]:-translate-y-0.5 motion-reduce:group-data-[active=true]:translate-y-0 sm:w-[4.5rem] sm:h-[4.5rem] sm:rounded-[1.15rem]";
+
+const ENGINEER_TILE =
+  "group relative flex items-center justify-start gap-3 min-h-[5.5rem] bg-(--surface) p-3 text-left cursor-pointer transition-[background-color] duration-100 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-(--card-hover) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:-outline-offset-4 focus-visible:z-[1] data-[active=true]:bg-(--accent-dim) data-[active=true]:after:absolute data-[active=true]:after:inset-x-0 data-[active=true]:after:bottom-0 data-[active=true]:after:h-[3px] data-[active=true]:after:bg-(--accent) data-[active=true]:after:content-[''] data-[active=true]:after:pointer-events-none sm:flex-col sm:justify-center sm:min-h-[8.5rem] sm:px-2 sm:py-4 sm:text-center";
+
+const CELL_LINK =
+  "group inline-flex items-center gap-2 mt-auto pt-6 text-[0.82rem] font-semibold text-(--accent) no-underline";
+
 /**
  * A sample of the Blockfuse Talent Network, auto-rotating through profiles.
  * Pauses on hover/focus and never animates under prefers-reduced-motion —
@@ -53,7 +62,7 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
 
   return (
     <div
-      className="bf-engineers"
+      className="overflow-hidden border border-(--line) rounded-[1.75rem] bg-(--card) shadow-(--shadow-card)"
       onMouseEnter={() => (pausedRef.current = true)}
       onMouseLeave={() => (pausedRef.current = false)}
       onFocus={() => (pausedRef.current = true)}
@@ -63,8 +72,8 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
         }
       }}
     >
-      <div className="bf-engineer-detail">
-        <div className="bf-engineer-portrait">
+      <div className="flex flex-col gap-6 border-b border-(--line) p-4 min-[900px]:grid min-[900px]:grid-cols-[minmax(18rem,0.9fr)_minmax(0,1.1fr)] min-[900px]:grid-rows-[1fr_auto] min-[900px]:gap-x-[clamp(2rem,5vw,5rem)] min-[900px]:p-5">
+        <div className="relative flex items-end aspect-[4/3] rounded-[1.25rem] overflow-hidden bg-(--surface) min-[900px]:row-start-1 min-[900px]:row-end-3 min-[900px]:min-h-[22rem] after:absolute after:inset-0 after:content-[''] after:bg-[linear-gradient(180deg,transparent_40%,rgba(0,0,0,0.5)_100%)]">
           <Image
             key={active.image}
             src={active.image}
@@ -72,51 +81,65 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
             fill
             priority
             sizes="(max-width: 899px) 90vw, 34vw"
+            className="object-cover object-[center_22%]"
           />
-          <span className="bf-engineer-tag">{active.cohort}</span>
+          <span className="relative z-[2] ml-auto mr-[1.1rem] mb-[1.1rem] font-mono text-[0.62rem] font-semibold tracking-[0.14em] uppercase text-[rgba(255,255,255,0.88)]">
+            {active.cohort}
+          </span>
         </div>
 
-        <div className="bf-engineer-meta">
-          <h3>{active.name}</h3>
-          <p className="bf-engineer-role">{active.track}</p>
-          <p className="bf-engineer-now">{active.now}</p>
+        <div className="self-end">
+          <h3 className="font-heading text-[clamp(1.75rem,3.5vw,3rem)] font-bold leading-[0.98] tracking-[-0.045em] text-(--page-fg)">
+            {active.name}
+          </h3>
+          <p className="mt-3 text-[0.78rem] font-semibold tracking-[0.04em] uppercase text-(--accent)">
+            {active.track}
+          </p>
+          <p className="mt-4 max-w-[36ch] text-[0.95rem] leading-[1.6] text-(--muted)">
+            {active.now}
+          </p>
         </div>
 
-        <div className="bf-engineer-links">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
           <Link
             href={`/contact?intent=direct-hire&track=${encodeURIComponent(active.track)}`}
-            className="bf-cell-link"
+            className={CELL_LINK}
           >
             Ask about engineers like this
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="transition-transform duration-200 ease-out group-hover:translate-x-[0.3rem]">
+              →
+            </span>
           </Link>
-          <Link href="/alumni" className="bf-cell-link">
+          <Link href="/alumni" className={CELL_LINK}>
             See the full network
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="transition-transform duration-200 ease-out group-hover:translate-x-[0.3rem]">
+              →
+            </span>
           </Link>
         </div>
       </div>
 
-      <div className="bf-engineer-grid">
+      <div className="grid grid-cols-2 gap-px bg-(--line) sm:grid-cols-4 lg:grid-cols-8">
         {engineers.map((person, i) => (
           <button
             key={`${person.name}-${i}`}
             type="button"
-            className="bf-engineer-tile"
+            className={ENGINEER_TILE}
             data-active={i === activeIndex}
             aria-current={i === activeIndex ? "true" : undefined}
             aria-label={`Show ${person.name}, ${person.track}`}
             onClick={() => setActiveIndex(i)}
           >
-            <span className="bf-avatar bf-engineer-avatar" aria-hidden="true">
+            <span className={ENGINEER_AVATAR} aria-hidden="true">
               <Image
                 src={person.image}
                 alt=""
                 fill
                 sizes="46px"
+                className="object-cover object-[center_20%]"
               />
             </span>
-            <span className="bf-engineer-tile-name">
+            <span className="text-[0.7rem] font-semibold text-(--muted) group-data-[active=true]:text-(--page-fg)">
               {person.name.split(" ")[0]}
             </span>
           </button>

@@ -3,11 +3,18 @@
 import React from "react";
 import { useModal, type Prefill } from "@/components/modals/modal-provider";
 import type { FormKey } from "@/lib/forms";
+import {
+  BTN_PRIMARY,
+  BTN_SECONDARY,
+  BTN_CONTRAST,
+  BTN_GHOST,
+  LINK_ACTION,
+} from "@/lib/styles";
 
 function ArrowIcon() {
   return (
     <svg
-      className="btn-arrow h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
+      className="h-4 w-4 transition-transform duration-[250ms] ease group-hover:translate-x-[3px]"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -25,11 +32,11 @@ function ArrowIcon() {
 type Variant = "primary" | "secondary" | "contrast" | "ghost" | "link";
 
 const CLASS: Record<Variant, string> = {
-  primary: "btn-primary",
-  secondary: "btn-secondary",
-  contrast: "btn-contrast",
-  ghost: "btn-ghost",
-  link: "link-action",
+  primary: BTN_PRIMARY,
+  secondary: BTN_SECONDARY,
+  contrast: BTN_CONTRAST,
+  ghost: BTN_GHOST,
+  link: LINK_ACTION,
 };
 
 /**
@@ -62,7 +69,7 @@ export function ModalButton({
       <span>{children}</span>
       {arrow &&
         (variant === "link" ? (
-          <span aria-hidden="true" className="arrow">
+          <span aria-hidden="true" className="arrow text-(--accent)">
             →
           </span>
         ) : (

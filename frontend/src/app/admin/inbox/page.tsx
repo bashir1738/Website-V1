@@ -7,6 +7,7 @@ import { DataTable, SubmissionDetail, formatDate, type DataColumn } from "@/comp
 import { AdminHeader } from "@/components/admin/admin-header";
 import { useCollection } from "@/components/admin/use-collection";
 import { deleteJson, patchJson } from "@/lib/api";
+import { BTN_GHOST, CUSTOM_SCROLL } from "@/lib/styles";
 
 type SubmissionStatus = "pending" | "approved" | "rejected";
 
@@ -294,7 +295,7 @@ export default function AdminInboxPage() {
         {/* Tabs — use Next.js <Link> with scroll={false} so switching tabs is
             instant client-side navigation with no full page reload and no
             scroll-to-top jump. */}
-        <div className="custom-scroll flex gap-1.5 overflow-x-auto pb-1" role="tablist">
+        <div className={`${CUSTOM_SCROLL} flex gap-1.5 overflow-x-auto pb-1`} role="tablist">
           {VIEWS.map((view) => (
             <Link
               key={view.key}
@@ -339,7 +340,7 @@ export default function AdminInboxPage() {
         </div>
 
         {!loading && !error && (
-          <button type="button" onClick={reload} className="btn-ghost mt-5">
+          <button type="button" onClick={reload} className={`${BTN_GHOST} mt-5`}>
             Refresh
           </button>
         )}

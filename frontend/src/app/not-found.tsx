@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BTN_PRIMARY } from "@/lib/styles";
 
 export default function NotFound() {
   return (
@@ -12,7 +13,7 @@ export default function NotFound() {
       <p className="mt-4 max-w-[46ch] text-base leading-relaxed text-[var(--muted)]">
         The page you&apos;re looking for doesn&apos;t exist or has moved.
       </p>
-      <Link href="/" className="btn-primary mt-8">
+      <Link href="/" className={`${BTN_PRIMARY} mt-8`}>
         Back to home
       </Link>
     </div>

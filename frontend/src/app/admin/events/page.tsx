@@ -10,6 +10,16 @@ import { formatDate } from "@/components/admin/data-table";
 import { useCollection } from "@/components/admin/use-collection";
 import { toLocalInput, fromLocalInput } from "@/lib/utils";
 import { MAX_UPLOAD_LABEL, validateUpload } from "@/lib/file-upload";
+import {
+  BTN_GHOST,
+  BTN_PRIMARY,
+  CUSTOM_SCROLL,
+  FIELD_ERROR,
+  FIELD_FILE,
+  FIELD_INPUT,
+  FIELD_LABEL,
+  FIELD_TEXTAREA,
+} from "@/lib/styles";
 
 interface EventRow extends Record<string, unknown> {
   id: number;
@@ -147,7 +157,7 @@ export default function AdminEventsPage() {
     <div className="pb-16">
       <AdminHeader eyebrow="Admin" title="Events">
         {mode === "closed" && (
-          <button type="button" onClick={openCreate} className="btn-primary">
+          <button type="button" onClick={openCreate} className={BTN_PRIMARY}>
             <Plus className="h-4 w-4" />
             New event
           </button>
@@ -176,7 +186,7 @@ export default function AdminEventsPage() {
 
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="event-title" className="field-label">Title</label>
+                <label htmlFor="event-title" className={FIELD_LABEL}>Title</label>
                 <input
                   id="event-title"
                   required
@@ -186,19 +196,19 @@ export default function AdminEventsPage() {
                     setTitle(e.target.value);
                     clearFieldError("title");
                   }}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                   data-invalid={fieldErrors.title ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.title)}
                   aria-describedby={fieldErrors.title ? "event-title-error" : undefined}
                 />
                 {fieldErrors.title && (
-                  <p id="event-title-error" className="field-error">
+                  <p id="event-title-error" className={FIELD_ERROR}>
                     {fieldErrors.title}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="event-slug" className="field-label">Slug</label>
+                <label htmlFor="event-slug" className={FIELD_LABEL}>Slug</label>
                 <input
                   id="event-slug"
                   required
@@ -208,20 +218,20 @@ export default function AdminEventsPage() {
                     setSlug(e.target.value);
                     clearFieldError("slug");
                   }}
-                  className="field-input mt-1.5 font-mono text-xs"
+                  className={`${FIELD_INPUT} mt-1.5 font-mono text-xs`}
                   placeholder="prodfest-2026"
                   data-invalid={fieldErrors.slug ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.slug)}
                   aria-describedby={fieldErrors.slug ? "event-slug-error" : undefined}
                 />
                 {fieldErrors.slug && (
-                  <p id="event-slug-error" className="field-error">
+                  <p id="event-slug-error" className={FIELD_ERROR}>
                     {fieldErrors.slug}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="event-date" className="field-label">Date &amp; time</label>
+                <label htmlFor="event-date" className={FIELD_LABEL}>Date &amp; time</label>
                 <input
                   id="event-date"
                   type="datetime-local"
@@ -231,41 +241,41 @@ export default function AdminEventsPage() {
                     setDate(e.target.value);
                     clearFieldError("date");
                   }}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                   data-invalid={fieldErrors.date ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.date)}
                   aria-describedby={fieldErrors.date ? "event-date-error" : undefined}
                 />
                 {fieldErrors.date && (
-                  <p id="event-date-error" className="field-error">
+                  <p id="event-date-error" className={FIELD_ERROR}>
                     {fieldErrors.date}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="event-location" className="field-label">Location</label>
+                <label htmlFor="event-location" className={FIELD_LABEL}>Location</label>
                 <input
                   id="event-location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                 />
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="event-link" className="field-label">Link</label>
+                <label htmlFor="event-link" className={FIELD_LABEL}>Link</label>
                 <input
                   id="event-link"
                   type="url"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                   placeholder="https://…"
                 />
               </div>
             </div>
 
             <div className="mt-5">
-              <label htmlFor="event-description" className="field-label">Description</label>
+              <label htmlFor="event-description" className={FIELD_LABEL}>Description</label>
               <textarea
                 id="event-description"
                 required
@@ -276,13 +286,13 @@ export default function AdminEventsPage() {
                   setDescription(e.target.value);
                   clearFieldError("description");
                 }}
-                className="field-textarea mt-1.5"
+                className={`${FIELD_TEXTAREA} mt-1.5`}
                 data-invalid={fieldErrors.description ? "true" : undefined}
                 aria-invalid={Boolean(fieldErrors.description)}
                 aria-describedby={fieldErrors.description ? "event-description-error" : undefined}
               />
               {fieldErrors.description && (
-                <p id="event-description-error" className="field-error">
+                <p id="event-description-error" className={FIELD_ERROR}>
                   {fieldErrors.description}
                 </p>
               )}
@@ -290,7 +300,7 @@ export default function AdminEventsPage() {
 
             {existingImage && (
               <div className="mt-5">
-                <span className="field-label">Current image</span>
+                <span className={FIELD_LABEL}>Current image</span>
                 <div className="relative mt-1.5 aspect-16/8 max-w-90 overflow-hidden rounded-xl bg-(--surface-2)">
                   <Image
                     src={existingImage}
@@ -303,7 +313,7 @@ export default function AdminEventsPage() {
               </div>
             )}
 
-            <label htmlFor="event-image" className="field-file mt-5" data-invalid={fieldErrors.image ? "true" : undefined}>
+            <label htmlFor="event-image" className={`${FIELD_FILE} mt-5`} data-invalid={fieldErrors.image ? "true" : undefined}>
               <span aria-hidden="true" className="text-[15px]">↑</span>
               <span>{image ? image.name : `Upload an image (JPG or PNG, up to ${MAX_UPLOAD_LABEL})`}</span>
               <input
@@ -330,13 +340,13 @@ export default function AdminEventsPage() {
               />
             </label>
             {fieldErrors.image && (
-              <p id="event-image-error" className="field-error">
+              <p id="event-image-error" className={FIELD_ERROR}>
                 {fieldErrors.image}
               </p>
             )}
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <button type="submit" disabled={saving} className="btn-primary">
+              <button type="submit" disabled={saving} className={BTN_PRIMARY}>
                 {saving ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -346,7 +356,7 @@ export default function AdminEventsPage() {
                   mode === "edit" ? "Save changes" : "Create event"
                 )}
               </button>
-              <button type="button" onClick={closeEditor} className="btn-ghost">
+              <button type="button" onClick={closeEditor} className={BTN_GHOST}>
                 Cancel
               </button>
             </div>
@@ -367,7 +377,7 @@ export default function AdminEventsPage() {
         )}
 
         {!loading && !error && (
-          <div className="custom-scroll overflow-x-auto rounded-xl border border-(--line)">
+          <div className={`${CUSTOM_SCROLL} overflow-x-auto rounded-xl border border-(--line)`}>
             <table className="w-full min-w-180 border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-(--line-strong) bg-(--surface-2) text-[11px] uppercase tracking-wider text-(--dim)">

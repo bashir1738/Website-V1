@@ -3,6 +3,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { ContactFormClient } from "./contact-form-client";
 import { ContactInfo } from "./contact-info";
+import { BTN_SECONDARY, EYEBROW, SURFACE_CARD } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Contact Blockfuse Labs",
@@ -46,7 +47,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           ═══════════════════════════════════════════════════════════ */}
       <section className="relative min-h-[calc(100vh-76px)] flex flex-col items-center justify-center text-center py-16 px-5 sm:px-8 border-b border-[var(--line)]">
         <ScrollReveal className="max-w-4xl">
-          <span className="eyebrow block mb-6">{"// CONTACT US"}</span>
+          <span className={`${EYEBROW} mb-6`}>{"// CONTACT US"}</span>
           <h1 className="font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08] mb-6">
             We&apos;d love to hear from you
           </h1>
@@ -65,7 +66,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             {/* Left: Heading */}
             <ScrollReveal>
               <div>
-                <span className="eyebrow block mb-4">{"// CONTACT DETAILS"}</span>
+                <span className={`${EYEBROW} mb-4`}>{"// CONTACT DETAILS"}</span>
                 <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl leading-[1.1] mb-6">
                   Feel free to get in touch with us
                 </h2>
@@ -87,14 +88,14 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <section className="border-t border-[var(--line)] px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal className="mb-12">
-            <span className="eyebrow block mb-4">{"// SEND US A MESSAGE"}</span>
+            <span className={`${EYEBROW} mb-4`}>{"// SEND US A MESSAGE"}</span>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
               Get in Touch
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={1}>
-            <TiltCard className="surface-card p-8 sm:p-10">
+            <TiltCard className={`${SURFACE_CARD} p-8 sm:p-10`}>
               <ContactFormClient initialTopic={initialTopic} />
             </TiltCard>
           </ScrollReveal>
@@ -117,7 +118,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className={BTN_SECONDARY}
             >
               Twitter ↗
             </a>
@@ -125,7 +126,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className={BTN_SECONDARY}
             >
               LinkedIn ↗
             </a>
@@ -133,7 +134,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className={BTN_SECONDARY}
             >
               GitHub ↗
             </a>

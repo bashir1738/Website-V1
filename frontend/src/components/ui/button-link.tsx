@@ -2,11 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
+import { BTN_PRIMARY, BTN_SECONDARY } from "@/lib/styles";
 
 function ArrowIcon() {
   return (
     <svg
-      className="btn-arrow h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
+      className="h-4 w-4 transition-transform duration-[250ms] ease group-hover:translate-x-[3px]"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -34,8 +35,8 @@ export function ButtonLink({
   dataCursor?: string;
 }) {
   const isExternal = href.startsWith("http") || href.startsWith("mailto:");
-  const baseClass = variant === "primary" ? "btn-primary" : "btn-secondary";
-  const combinedClass = `group inline-flex items-center justify-center gap-2 ${baseClass} ${className}`;
+  const baseClass = variant === "primary" ? BTN_PRIMARY : BTN_SECONDARY;
+  const combinedClass = `group ${baseClass} ${className}`;
 
   if (isExternal) {
     return (

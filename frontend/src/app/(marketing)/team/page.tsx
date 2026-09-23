@@ -5,6 +5,7 @@ import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { teamMembers } from "@/features/team/content";
 import { initials } from "@/lib/utils";
+import { SURFACE_CARD } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Team | Blockfuse Labs",
@@ -24,7 +25,7 @@ export default function TeamPage() {
       <div className="mt-14 grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
         {teamMembers.map((member, i) => (
           <ScrollReveal key={member.name} delay={Math.min(i + 1, 4)}>
-            <div className="surface-card h-full overflow-hidden !p-0 hover:-translate-y-1">
+            <div className={`${SURFACE_CARD} h-full overflow-hidden !p-0 hover:-translate-y-1`}>
               <div className="relative grid aspect-[4/3] place-items-center border-b border-[var(--line)] bg-[linear-gradient(150deg,rgba(191,100,231,0.2),rgba(78,46,245,0.12))]">
                 <span className="font-heading text-[34px] font-bold tracking-[-0.02em] text-[var(--page-fg)]/60">
                   {initials(member.name)}

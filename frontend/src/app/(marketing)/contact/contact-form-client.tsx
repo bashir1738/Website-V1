@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { contact } from "@/lib/contact";
+import {
+  BTN_PRIMARY,
+  FIELD_ERROR,
+  FIELD_INPUT,
+  FIELD_LABEL,
+  FIELD_TEXTAREA,
+} from "@/lib/styles";
 
 type FormState = { name: string; email: string; topic: string; message: string };
 
@@ -84,7 +91,7 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
             setStatus("idle");
             setForm({ name: "", email: "", topic: "", message: "" });
           }}
-          className="btn-primary"
+          className={BTN_PRIMARY}
         >
           Send Another Message
         </button>
@@ -96,7 +103,7 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="contact-name" className="field-label">
+          <label htmlFor="contact-name" className={FIELD_LABEL}>
             Name <span className="text-[var(--accent)]">*</span>
           </label>
           <input
@@ -105,19 +112,19 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
             placeholder="Your name"
-            className="field-input"
+            className={FIELD_INPUT}
             data-invalid={fieldErrors.name ? "true" : undefined}
             aria-invalid={Boolean(fieldErrors.name)}
             aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
           />
           {fieldErrors.name && (
-            <p id="contact-name-error" className="field-error">
+            <p id="contact-name-error" className={FIELD_ERROR}>
               {fieldErrors.name}
             </p>
           )}
         </div>
         <div>
-          <label htmlFor="contact-email" className="field-label">
+          <label htmlFor="contact-email" className={FIELD_LABEL}>
             Email <span className="text-[var(--accent)]">*</span>
           </label>
           <input
@@ -126,13 +133,13 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
             placeholder="your@email.com"
-            className="field-input"
+            className={FIELD_INPUT}
             data-invalid={fieldErrors.email ? "true" : undefined}
             aria-invalid={Boolean(fieldErrors.email)}
             aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
           />
           {fieldErrors.email && (
-            <p id="contact-email-error" className="field-error">
+            <p id="contact-email-error" className={FIELD_ERROR}>
               {fieldErrors.email}
             </p>
           )}
@@ -140,7 +147,7 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
       </div>
 
       <div>
-        <label htmlFor="contact-topic" className="field-label">
+        <label htmlFor="contact-topic" className={FIELD_LABEL}>
           Topic <span className="text-[var(--accent)]">*</span>
         </label>
         <input
@@ -149,20 +156,20 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
           value={form.topic}
           onChange={(e) => update("topic", e.target.value)}
           placeholder="What is this about?"
-          className="field-input"
+          className={FIELD_INPUT}
           data-invalid={fieldErrors.topic ? "true" : undefined}
           aria-invalid={Boolean(fieldErrors.topic)}
           aria-describedby={fieldErrors.topic ? "contact-topic-error" : undefined}
         />
         {fieldErrors.topic && (
-          <p id="contact-topic-error" className="field-error">
+          <p id="contact-topic-error" className={FIELD_ERROR}>
             {fieldErrors.topic}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="contact-message" className="field-label">
+        <label htmlFor="contact-message" className={FIELD_LABEL}>
           Message <span className="text-[var(--accent)]">*</span>
         </label>
         <textarea
@@ -171,13 +178,13 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
           value={form.message}
           onChange={(e) => update("message", e.target.value)}
           placeholder="Your message..."
-          className="field-textarea"
+          className={FIELD_TEXTAREA}
           data-invalid={fieldErrors.message ? "true" : undefined}
           aria-invalid={Boolean(fieldErrors.message)}
           aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
         />
         {fieldErrors.message && (
-          <p id="contact-message-error" className="field-error">
+          <p id="contact-message-error" className={FIELD_ERROR}>
             {fieldErrors.message}
           </p>
         )}
@@ -186,7 +193,7 @@ export function ContactFormClient({ initialTopic = "" }: { initialTopic?: string
       <button
         type="submit"
         disabled={status === "loading"}
-        className="btn-primary w-full"
+        className={`${BTN_PRIMARY} w-full`}
       >
         {status === "loading" ? "Sending…" : "Send Message"}
       </button>

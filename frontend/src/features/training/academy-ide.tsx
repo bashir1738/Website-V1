@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { SURFACE_CARD, CUSTOM_SCROLL } from "@/lib/styles";
 
 interface CodeSample {
   id: string;
@@ -136,7 +137,7 @@ export function AcademyIDE() {
   const allPassed = completed === sample.tests.length && !isRunning && progress === 100;
 
   return (
-    <div className="surface-card overflow-hidden shadow-[var(--shadow-card)]">
+    <div className={`${SURFACE_CARD} overflow-hidden`}>
       {/* ── Title bar ── */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--line)] bg-[var(--surface-2)]">
         {/* Traffic lights */}
@@ -174,7 +175,7 @@ export function AcademyIDE() {
       </div>
 
       {/* ── Code area ── */}
-      <div className="p-4 font-mono text-[11px] leading-relaxed overflow-x-auto min-h-[220px] bg-[var(--surface)] custom-scroll">
+      <div className={`p-4 font-mono text-[11px] leading-relaxed overflow-x-auto min-h-[220px] bg-[var(--surface)] ${CUSTOM_SCROLL}`}>
         <table className="w-full border-collapse">
           <tbody>
             {sample.code.map((line, idx) => (

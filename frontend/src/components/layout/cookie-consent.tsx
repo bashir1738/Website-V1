@@ -38,18 +38,18 @@ export function CookieConsent() {
       role="dialog"
       aria-label="Cookie preferences"
       aria-modal="false"
-      className="anim-up fixed bottom-5 right-5 z-[60] w-[min(92vw,20.5rem)]"
+      className="fixed bottom-5 right-5 z-[60] w-[min(92vw,20.5rem)] animate-bf-up"
     >
-      <div className="rounded-2xl border border-[var(--line-strong)] bg-[var(--card-strong)]/95 p-5 shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+      <div className="rounded-2xl border border-[var(--line-strong)] bg-[var(--card-strong)]/95 p-5 shadow-[0_-10px_32px_-18px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
         <div className="flex items-start gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[var(--accent-line)] bg-[var(--accent-dim)] text-[var(--accent)]">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-(--accent-line) bg-(--accent-dim) text-(--accent)">
             <Cookie className="h-4.5 w-4.5" />
           </span>
           <div>
-            <h3 className="font-heading text-sm font-bold text-[var(--page-fg)]">
+            <h3 className="font-heading text-sm font-bold text-(--page-fg)">
               Cookies &amp; privacy
             </h3>
-            <p className="mt-1.5 text-xs leading-relaxed text-[var(--muted)]">
+            <p className="mt-1.5 text-xs leading-relaxed text-(--muted)">
               We use a few cookies to keep the site working and understand how
               it&apos;s used. No ads, no tracking you didn&apos;t ask for.
             </p>

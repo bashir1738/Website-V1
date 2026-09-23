@@ -10,6 +10,16 @@ import { formatDate } from "@/components/admin/data-table";
 import { useCollection } from "@/components/admin/use-collection";
 import { toLocalInput, fromLocalInput } from "@/lib/utils";
 import { MAX_UPLOAD_LABEL, validateUpload } from "@/lib/file-upload";
+import {
+  BTN_GHOST,
+  BTN_PRIMARY,
+  CUSTOM_SCROLL,
+  FIELD_ERROR,
+  FIELD_FILE,
+  FIELD_INPUT,
+  FIELD_LABEL,
+  FIELD_TEXTAREA,
+} from "@/lib/styles";
 
 interface Blog extends Record<string, unknown> {
   id: number;
@@ -142,7 +152,7 @@ export default function AdminBlogsPage() {
     <div className="pb-16">
       <AdminHeader eyebrow="Admin" title="Blog posts">
         {mode === "closed" && (
-          <button type="button" onClick={openCreate} className="btn-primary">
+          <button type="button" onClick={openCreate} className={BTN_PRIMARY}>
             <Plus className="h-4 w-4" />
             New post
           </button>
@@ -171,7 +181,7 @@ export default function AdminBlogsPage() {
 
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="blog-title" className="field-label">Title</label>
+                <label htmlFor="blog-title" className={FIELD_LABEL}>Title</label>
                 <input
                   id="blog-title"
                   required
@@ -181,19 +191,19 @@ export default function AdminBlogsPage() {
                     setTitle(e.target.value);
                     clearFieldError("title");
                   }}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                   data-invalid={fieldErrors.title ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.title)}
                   aria-describedby={fieldErrors.title ? "blog-title-error" : undefined}
                 />
                 {fieldErrors.title && (
-                  <p id="blog-title-error" className="field-error">
+                  <p id="blog-title-error" className={FIELD_ERROR}>
                     {fieldErrors.title}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="blog-slug" className="field-label">Slug</label>
+                <label htmlFor="blog-slug" className={FIELD_LABEL}>Slug</label>
                 <input
                   id="blog-slug"
                   required
@@ -203,20 +213,20 @@ export default function AdminBlogsPage() {
                     setSlug(e.target.value);
                     clearFieldError("slug");
                   }}
-                  className="field-input mt-1.5 font-mono text-xs"
+                  className={`${FIELD_INPUT} mt-1.5 font-mono text-xs`}
                   placeholder="field-notes-from-jos"
                   data-invalid={fieldErrors.slug ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.slug)}
                   aria-describedby={fieldErrors.slug ? "blog-slug-error" : undefined}
                 />
                 {fieldErrors.slug && (
-                  <p id="blog-slug-error" className="field-error">
+                  <p id="blog-slug-error" className={FIELD_ERROR}>
                     {fieldErrors.slug}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="blog-author" className="field-label">Author</label>
+                <label htmlFor="blog-author" className={FIELD_LABEL}>Author</label>
                 <input
                   id="blog-author"
                   required
@@ -226,19 +236,19 @@ export default function AdminBlogsPage() {
                     setAuthor(e.target.value);
                     clearFieldError("author");
                   }}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                   data-invalid={fieldErrors.author ? "true" : undefined}
                   aria-invalid={Boolean(fieldErrors.author)}
                   aria-describedby={fieldErrors.author ? "blog-author-error" : undefined}
                 />
                 {fieldErrors.author && (
-                  <p id="blog-author-error" className="field-error">
+                  <p id="blog-author-error" className={FIELD_ERROR}>
                     {fieldErrors.author}
                   </p>
                 )}
               </div>
               <div>
-                <label htmlFor="blog-published" className="field-label">Published at</label>
+                <label htmlFor="blog-published" className={FIELD_LABEL}>Published at</label>
                 <input
                   id="blog-published"
                   type="datetime-local"
@@ -247,13 +257,13 @@ export default function AdminBlogsPage() {
                     setPublishedAt(e.target.value);
                     clearFieldError("published_at");
                   }}
-                  className="field-input mt-1.5"
+                  className={`${FIELD_INPUT} mt-1.5`}
                 />
               </div>
             </div>
 
             <div className="mt-5">
-              <label htmlFor="blog-content" className="field-label">Content</label>
+              <label htmlFor="blog-content" className={FIELD_LABEL}>Content</label>
               <textarea
                 id="blog-content"
                 required
@@ -264,13 +274,13 @@ export default function AdminBlogsPage() {
                   setContent(e.target.value);
                   clearFieldError("content");
                 }}
-                className="field-textarea mt-1.5"
+                className={`${FIELD_TEXTAREA} mt-1.5`}
                 data-invalid={fieldErrors.content ? "true" : undefined}
                 aria-invalid={Boolean(fieldErrors.content)}
                 aria-describedby={fieldErrors.content ? "blog-content-error" : undefined}
               />
               {fieldErrors.content && (
-                <p id="blog-content-error" className="field-error">
+                <p id="blog-content-error" className={FIELD_ERROR}>
                   {fieldErrors.content}
                 </p>
               )}
@@ -278,7 +288,7 @@ export default function AdminBlogsPage() {
 
             {existingImage && (
               <div className="mt-5">
-                <span className="field-label">Current image</span>
+                <span className={FIELD_LABEL}>Current image</span>
                 <div className="relative mt-1.5 aspect-16/8 max-w-90 overflow-hidden rounded-xl bg-(--surface-2)">
                   <Image
                     src={existingImage}
@@ -291,7 +301,7 @@ export default function AdminBlogsPage() {
               </div>
             )}
 
-            <label htmlFor="blog-image" className="field-file mt-5" data-invalid={fieldErrors.image ? "true" : undefined}>
+            <label htmlFor="blog-image" className={`${FIELD_FILE} mt-5`} data-invalid={fieldErrors.image ? "true" : undefined}>
               <span aria-hidden="true" className="text-[15px]">↑</span>
               <span>{image ? image.name : `Upload an image (JPG or PNG, up to ${MAX_UPLOAD_LABEL})`}</span>
               <input
@@ -318,13 +328,13 @@ export default function AdminBlogsPage() {
               />
             </label>
             {fieldErrors.image && (
-              <p id="blog-image-error" className="field-error">
+              <p id="blog-image-error" className={FIELD_ERROR}>
                 {fieldErrors.image}
               </p>
             )}
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <button type="submit" disabled={saving} className="btn-primary">
+              <button type="submit" disabled={saving} className={BTN_PRIMARY}>
                 {saving ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -334,7 +344,7 @@ export default function AdminBlogsPage() {
                   mode === "edit" ? "Save changes" : "Publish post"
                 )}
               </button>
-              <button type="button" onClick={closeEditor} className="btn-ghost">
+              <button type="button" onClick={closeEditor} className={BTN_GHOST}>
                 Cancel
               </button>
             </div>
@@ -355,7 +365,7 @@ export default function AdminBlogsPage() {
         )}
 
         {!loading && !error && (
-          <div className="custom-scroll overflow-x-auto rounded-xl border border-(--line)">
+          <div className={`${CUSTOM_SCROLL} overflow-x-auto rounded-xl border border-(--line)`}>
             <table className="w-full min-w-180 border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-(--line-strong) bg-(--surface-2) text-[11px] uppercase tracking-wider text-(--dim)">

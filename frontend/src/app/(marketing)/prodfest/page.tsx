@@ -6,6 +6,7 @@ import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
+import { EYEBROW, SURFACE_CARD, SURFACE_CARD_ACCENT } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "ProdFest: Where builders show the work | Blockfuse Labs",
@@ -75,7 +76,7 @@ export default function ProdFestPage() {
               <div className="absolute inset-0 -z-10 bg-[radial-gradient(#bf64e7_1px,transparent_1px)] [background-size:20px_20px] opacity-10" />
 
               <div className="flex flex-col items-center justify-center text-center min-h-[18rem] sm:min-h-[22rem]">
-                <span className="eyebrow">
+                <span className={EYEBROW}>
                   Live Execution Stage
                 </span>
                 <h3 className="mt-5 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
@@ -103,7 +104,7 @@ export default function ProdFestPage() {
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <TiltCard className="p-8 sm:p-12">
-              <span className="eyebrow">
+              <span className={EYEBROW}>
                 Proof Over Promises
               </span>
               <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-4xl">
@@ -136,7 +137,7 @@ export default function ProdFestPage() {
       <section id="get-involved" className="px-5 py-24 sm:px-8 scroll-mt-24">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal className="text-center">
-            <span className="eyebrow">
+            <span className={EYEBROW}>
               Participation
             </span>
             <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
@@ -149,10 +150,10 @@ export default function ProdFestPage() {
             <ScrollReveal delay={1}>
               <TiltCard
                 dataCursorText="ATTEND"
-                className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-8"
+                className={`${SURFACE_CARD} ${SURFACE_CARD_ACCENT} flex h-full flex-col justify-between p-7 sm:p-8`}
               >
                 <div>
-                  <span className="eyebrow">
+                  <span className={EYEBROW}>
                     01
                   </span>
                   <h3 className="mt-3 font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
@@ -180,10 +181,10 @@ export default function ProdFestPage() {
             <ScrollReveal delay={2}>
               <TiltCard
                 dataCursorText="SPEAK"
-                className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-8"
+                className={`${SURFACE_CARD} ${SURFACE_CARD_ACCENT} flex h-full flex-col justify-between p-7 sm:p-8`}
               >
                 <div>
-                  <span className="eyebrow">
+                  <span className={EYEBROW}>
                     02
                   </span>
                   <h3 className="mt-3 font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
@@ -212,10 +213,10 @@ export default function ProdFestPage() {
             <ScrollReveal delay={3}>
               <TiltCard
                 dataCursorText="SPONSOR"
-                className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-8"
+                className={`${SURFACE_CARD} ${SURFACE_CARD_ACCENT} flex h-full flex-col justify-between p-7 sm:p-8`}
               >
                 <div>
-                  <span className="eyebrow">
+                  <span className={EYEBROW}>
                     03
                   </span>
                   <h3 className="mt-3 font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
@@ -255,7 +256,7 @@ export default function ProdFestPage() {
       {/* 5. FINAL CTA BANNER */}
       {/* ========================================================================= */}
       <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-br from-[var(--accent)]/30 via-transparent to-transparent p-px shadow-2xl">
+        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-br from-[var(--accent)]/30 via-transparent to-transparent p-px shadow-xl">
           <div className="rounded-3xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
             <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
               Execution is the only proof.

@@ -17,10 +17,10 @@ export function KineticHeroTitle({
 
   return (
     <h1
-      className={`font-heading tracking-tight leading-[1.08] text-[var(--page-fg)] ${className}`}
+      className={`font-heading tracking-tight leading-[1.08] text-(--page-fg) ${className}`}
     >
       {prefix}{" "}
-      <span className="text-[var(--accent)]">{highlightPhrase}</span>
+      <span className="text-(--accent)">{highlightPhrase}</span>
       {suffixWords.length > 0 && (
         <>
           {" "}
@@ -31,7 +31,7 @@ export function KineticHeroTitle({
             return (
               <span
                 key={i}
-                className={isHighlight ? "text-[var(--accent)]" : undefined}
+                className={isHighlight ? "text-(--accent)" : undefined}
               >
                 {word}{" "}
               </span>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Loader2, RefreshCw } from "lucide-react";
 import { getJson } from "@/lib/api";
 import { AdminHeader } from "@/components/admin/admin-header";
+import { BTN_GHOST, EYEBROW, SURFACE_CARD } from "@/lib/styles";
 
 interface CollectionStats {
   path: string;
@@ -147,7 +148,7 @@ export default function AdminOverviewPage() {
               Syncing…
             </span>
           )}
-          <button type="button" onClick={load} className="btn-ghost">
+          <button type="button" onClick={load} className={BTN_GHOST}>
             <RefreshCw className="h-4 w-4" />
             Refresh
           </button>
@@ -168,7 +169,7 @@ export default function AdminOverviewPage() {
             <Link
               key={card.path}
               href={card.href}
-              className="surface-card group block rounded-xl p-5 transition-colors"
+              className={`${SURFACE_CARD} group block p-5`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-wider text-(--muted)">
@@ -191,7 +192,7 @@ export default function AdminOverviewPage() {
         <div className="mt-10">
           <div className="flex flex-wrap items-baseline justify-between gap-4">
             <div>
-              <span className="eyebrow">Latest submissions</span>
+              <span className={EYEBROW}>Latest submissions</span>
               <h2 className="mt-2 font-heading text-xl font-bold text-(--page-fg)">
                 What&apos;s coming in
               </h2>

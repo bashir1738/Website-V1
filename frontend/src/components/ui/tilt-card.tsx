@@ -56,9 +56,9 @@ export function TiltCard({
         transform: isHovered ? "translateY(-3px)" : "translateY(0)",
         transition: "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease, border-color 0.35s ease",
       }}
-      className={`group relative overflow-hidden rounded-2xl surface-card transition-all duration-300 ${
+      className={`group relative overflow-hidden rounded-2xl bg-(--card) backdrop-blur-[14px] border border-(--line) rounded-[20px] shadow-(--shadow-card) transition-all duration-300 hover:bg-(--card-hover) hover:border-(--accent-line) ${
         isHovered
-          ? "shadow-[0_14px_34px_-6px_rgba(191,100,231,0.12)] border-[var(--line-strong)] dark:border-[var(--accent)]/30"
+          ? "shadow-[0_8px_20px_-8px_rgba(191,100,231,0.1)] border-(--line-strong) dark:border-(--accent)/30"
           : ""
       } ${className}`}
     >

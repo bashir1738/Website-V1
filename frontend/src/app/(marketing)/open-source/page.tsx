@@ -4,6 +4,7 @@ import { PageHero, PageShell } from "@/components/ui/page-hero";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { ModalButton } from "@/components/ui/modal-button";
 import { repos, contribSteps } from "@/features/open-source/content";
+import { MONO_TAG, SURFACE_CARD } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Open Source | Blockfuse Labs",
@@ -28,12 +29,12 @@ export default function OpenSourcePage() {
       <div className="mt-14 grid gap-[18px] [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
         {repos.map((repo, i) => (
           <ScrollReveal key={repo.name} delay={Math.min(i + 1, 4)}>
-            <div className="surface-card flex h-full flex-col gap-3.5 p-6 hover:-translate-y-1">
+            <div className={`${SURFACE_CARD} flex h-full flex-col gap-3.5 p-6 hover:-translate-y-1`}>
               <div className="flex items-center justify-between gap-3">
                 <div className="font-mono text-sm font-medium text-[var(--page-fg)]">
                   {repo.name}
                 </div>
-                <span className="mono-tag shrink-0 !text-[10px] !tracking-[0.1em]">
+                <span className={`${MONO_TAG} shrink-0 !text-[10px] !tracking-[0.1em]`}>
                   {repo.lang}
                 </span>
               </div>

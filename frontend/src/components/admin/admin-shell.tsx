@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { clearAdminAuth, getAdminEmail } from "@/lib/admin/auth";
+import { ACTION_COLOR } from "@/lib/styles";
 
 const NAV = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
@@ -49,7 +50,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-(--line) bg-(--card-strong) p-4 md:flex">
         <Link href="/admin" className="flex items-center gap-2.5 px-2 py-2">
-          <span className="action-color grid h-9 w-9 place-items-center rounded-xl font-heading text-sm font-bold text-white">
+          <span className={`${ACTION_COLOR} grid h-9 w-9 place-items-center rounded-xl font-heading text-sm font-bold text-white`}>
             BF
           </span>
           <span className="font-heading text-sm font-bold text-(--page-fg)">
@@ -106,7 +107,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="absolute inset-x-0 top-17.25 h-[calc(100vh-69px)] overflow-y-auto border-t border-(--line) bg-(--card-strong) px-4 pb-6 pt-4 shadow-lg animate-in fade-in slide-in-from-top-4">
+          <div className="absolute inset-x-0 top-17.25 h-[calc(100vh-69px)] overflow-y-auto border-t border-(--line) bg-(--card-strong) px-4 pb-6 pt-4 shadow-md animate-in fade-in slide-in-from-top-4">
             <nav className="flex flex-col gap-2">
               {NAV.map(({ href, label, icon: Icon }) => (
                 <Link

@@ -10,6 +10,7 @@ import { postJson, ApiError } from "@/lib/api";
 import { setAdminAuth } from "@/lib/admin/auth";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { siteConfig } from "@/config/site";
+import { FIELD_LABEL, FIELD_INPUT, BTN_PRIMARY } from "@/lib/styles";
 
 interface LoginResponse {
   admin: { id: number; email: string };
@@ -49,8 +50,14 @@ export default function AdminLoginPage() {
       {/* Left side: Branding (hidden on mobile) */}
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden px-12 py-12 lg:flex">
         <div className="grain-overlay" aria-hidden="true" />
-        <div className="hero-orb hero-orb-one" aria-hidden="true" />
-        <div className="hero-orb hero-orb-two" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -z-1 h-72 w-72 rounded-full bg-(--accent-dim) blur-[2px] right-[-8rem] top-[6%] opacity-55"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -z-1 h-36 w-36 rounded-full bg-(--accent-dim) blur-[2px] left-[42%] bottom-[3%] opacity-35"
+          aria-hidden="true"
+        />
         {/* Soft accent band bleeding off the bottom edge */}
         <div
           className="pointer-events-none absolute -bottom-40 -left-24 h-96 w-152 rounded-full bg-(--accent-dim) blur-[110px]"
@@ -76,10 +83,10 @@ export default function AdminLoginPage() {
         {/* Headline block */}
         <div className="relative z-10 mb-12">
           <ScrollReveal>
-            <div className="hero-kicker">
-              <span className="hero-kicker-mark" aria-hidden="true">
-                <span />
-                <span />
+            <div className="inline-flex items-center gap-3 text-(--bright) font-mono text-[0.75rem] font-semibold uppercase tracking-[0.11em]">
+              <span className="inline-flex items-center gap-[2px]" aria-hidden="true">
+                <span className="h-[0.7rem] w-[0.7rem] rounded-full bg-(--accent)" />
+                <span className="h-[0.7rem] w-[0.3rem] rounded-full bg-(--page-fg)" />
               </span>
               ADMIN ACCESS
             </div>
@@ -108,9 +115,9 @@ export default function AdminLoginPage() {
           <div className="relative z-10">
             <div className="section-divider mb-6" />
             <div className="flex items-center gap-2.5">
-              <span className="bf-cell-chip">PRIVATE CONSOLE</span>
-              <span className="bf-cell-chip">JWT · TLS</span>
-              <span className="bf-cell-chip">ROLE-BASED ACCESS</span>
+              <span className="inline-block whitespace-nowrap rounded-full border border-(--line-strong) px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim)">PRIVATE CONSOLE</span>
+              <span className="inline-block whitespace-nowrap rounded-full border border-(--line-strong) px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim)">JWT · TLS</span>
+              <span className="inline-block whitespace-nowrap rounded-full border border-(--line-strong) px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim)">ROLE-BASED ACCESS</span>
             </div>
             <p className="mt-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-(--dim)">
               {siteConfig.name} — admin.control
@@ -133,7 +140,7 @@ export default function AdminLoginPage() {
 
             {/* Card header */}
             <div className="mb-9 text-center">
-              <div className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-(--action-bg) to-(--accent) shadow-lg lg:hidden">
+              <div className="mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-(--action-bg) to-(--accent) shadow-md lg:hidden">
                 <ShieldCheck className="h-8 w-8 text-white" strokeWidth={1.5} />
               </div>
               <div className="mb-3 flex items-center justify-center gap-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-(--dim)">
@@ -150,7 +157,7 @@ export default function AdminLoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="email" className="field-label">
+                <label htmlFor="email" className={FIELD_LABEL}>
                   Email Address <span className="text-(--accent)">*</span>
                 </label>
                 <input
@@ -161,13 +168,13 @@ export default function AdminLoginPage() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="field-input"
+                  className={FIELD_INPUT}
                   placeholder="admin@blockfuse.io"
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="field-label">
+                <label htmlFor="password" className={FIELD_LABEL}>
                   Password <span className="text-(--accent)">*</span>
                 </label>
                 <input
@@ -179,7 +186,7 @@ export default function AdminLoginPage() {
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="field-input"
+                  className={FIELD_INPUT}
                   placeholder="••••••••"
                 />
               </div>
@@ -188,7 +195,7 @@ export default function AdminLoginPage() {
                 type="submit"
                 disabled={submitting}
                 aria-busy={submitting}
-                className="btn-primary group w-full"
+                className={`${BTN_PRIMARY} group w-full`}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {submitting ? (

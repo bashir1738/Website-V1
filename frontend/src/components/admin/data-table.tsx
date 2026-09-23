@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import { CUSTOM_SCROLL } from "@/lib/styles";
 
 export interface DataColumn<T> {
   key: string;
@@ -52,7 +53,7 @@ export function SubmissionDetail({ row }: { row: Record<string, unknown> }) {
   const entries = Object.entries(row).filter(([key]) => !META_KEYS.has(key));
 
   return (
-    <dl className="custom-scroll grid max-h-[50vh] gap-x-8 gap-y-4 overflow-y-auto p-5 sm:grid-cols-2 lg:grid-cols-3">
+    <dl className={`${CUSTOM_SCROLL} grid max-h-[50vh] gap-x-8 gap-y-4 overflow-y-auto p-5 sm:grid-cols-2 lg:grid-cols-3`}>
       {entries.map(([key, value]) => (
         <div key={key} className="min-w-0">
           <dt className="text-[10px] font-semibold uppercase tracking-wider text-(--dim)">
@@ -82,7 +83,7 @@ export function DataTable<T extends Record<string, unknown>>({
   const hasDetail = Boolean(renderDetail);
 
   return (
-    <div className="custom-scroll overflow-x-auto rounded-xl border border-(--line)">
+    <div className={`${CUSTOM_SCROLL} overflow-x-auto rounded-xl border border-(--line)`}>
       <table className="w-full min-w-[640px] border-collapse text-left text-sm">
         <thead>
           <tr className="border-b border-(--line-strong) bg-(--surface-2) text-[11px] uppercase tracking-wider text-(--dim)">

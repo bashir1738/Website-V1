@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, ReactNode } from "react";
+import React, { useRef, useEffect, useState, ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -10,16 +10,17 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
-/*
- * Scroll reveal storyboard
- *   0ms  section enters viewport → content is readable immediately
- * 100ms  optional first sibling settles
- * 200ms  optional second sibling settles
- * 400ms  sequence complete
- */
 const SCROLL_REVEAL_TIMING = {
   rootMargin: "0px 0px -48px 0px",
 } as const;
+
+const DELAY_CLASS: Record<number, string> = {
+  1: "reveal-d1",
+  2: "reveal-d2",
+  3: "reveal-d3",
+  4: "reveal-d4",
+  5: "reveal-d5",
+};
 
 export function ScrollReveal({
   children,
@@ -29,24 +30,24 @@ export function ScrollReveal({
   threshold = 0.15,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || visible) return;
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      el.classList.add("reveal-visible");
-      return;
+    if (!("IntersectionObserver" in window)) {
+      const raf = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(raf);
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("reveal-visible");
+          setVisible(true);
           observer.unobserve(el);
         }
       },
@@ -55,13 +56,17 @@ export function ScrollReveal({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, visible]);
 
   const baseClass = blur ? "reveal-blur" : "reveal";
-  const delayClass = delay > 0 ? `reveal-d${delay}` : "";
+  const delayClass = delay > 0 ? DELAY_CLASS[delay] ?? "" : "";
 
   return (
-    <div ref={ref} className={`${baseClass} ${delayClass} ${className}`}>
+    <div
+      ref={ref}
+      data-visible={visible || undefined}
+      className={`${baseClass} ${visible ? "reveal-visible" : ""} ${delayClass} ${className}`}
+    >
       {children}
     </div>
   );

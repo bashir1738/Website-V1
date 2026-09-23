@@ -13,12 +13,33 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      {
+        label: "About Blockfuse",
+        href: "/about",
+        desc: "Our story, mission, and approach to engineering education.",
+      },
+      {
+        label: "Team",
+        href: "/team",
+        desc: "Meet the engineers and operators behind Blockfuse Labs.",
+      },
+    ],
+  },
   { label: "Academy", href: "/training" },
   { label: "Engineering", href: "/engineering" },
   {
     label: "Community",
     href: "/community",
     children: [
+      {
+        label: "Community hub",
+        href: "/community",
+        desc: "Connect with engineers, builders, and the wider Blockfuse network.",
+      },
       {
         label: "Events",
         href: "/events",
@@ -36,7 +57,6 @@ export const navItems: NavItem[] = [
       },
     ],
   },
-  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

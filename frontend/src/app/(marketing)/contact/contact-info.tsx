@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, Copy, Check } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
+import { SURFACE_CARD } from "@/lib/styles";
 
 export function ContactInfo() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -18,7 +19,7 @@ export function ContactInfo() {
     <div className="space-y-6">
       {/* Location */}
       <ScrollReveal delay={1}>
-        <TiltCard className="surface-card p-6 sm:p-8">
+        <TiltCard className={`${SURFACE_CARD} p-6 sm:p-8`}>
           <div className="flex gap-5">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-[var(--line-strong)] bg-[var(--card)]">
               <MapPin className="h-5 w-5 text-[var(--accent)]" />
@@ -37,7 +38,7 @@ export function ContactInfo() {
 
       {/* Phone */}
       <ScrollReveal delay={2}>
-        <TiltCard className="surface-card p-6 sm:p-8">
+        <TiltCard className={`${SURFACE_CARD} p-6 sm:p-8`}>
           <div className="flex items-center justify-between gap-4">
             <div className="flex gap-5">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-[var(--line-strong)] bg-[var(--card)]">
@@ -70,7 +71,7 @@ export function ContactInfo() {
 
       {/* Email */}
       <ScrollReveal delay={3}>
-        <TiltCard className="surface-card p-6 sm:p-8">
+        <TiltCard className={`${SURFACE_CARD} p-6 sm:p-8`}>
           <div className="flex items-center justify-between gap-4">
             <div className="flex gap-5">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-[var(--line-strong)] bg-[var(--card)]">

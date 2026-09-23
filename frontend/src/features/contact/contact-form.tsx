@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { postJson, ApiError } from "@/lib/api";
+import { ACTION_COLOR } from "@/lib/styles";
 
 const topicOptions = [
   "Hiring engineers",
@@ -197,7 +198,7 @@ export function ContactForm() {
           data-cursor="SEND"
           disabled={submitting}
           aria-busy={submitting}
-          className="w-full rounded-xl action-color px-6 py-3 font-heading text-sm font-bold text-white shadow-lg shadow-[var(--accent)]/20 transition duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+          className={`w-full rounded-xl ${ACTION_COLOR} px-6 py-3 font-heading text-sm font-bold text-white shadow-md shadow-(--accent)/10 transition duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100`}
         >
           {submitting ? "Sending…" : "Send Enquiry →"}
         </button>

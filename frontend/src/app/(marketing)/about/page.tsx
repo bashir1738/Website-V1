@@ -8,6 +8,7 @@ import { TiltCard } from "@/components/ui/tilt-card";
 import { CounterStat } from "@/components/ui/counter-stat";
 import { aboutBeliefs, aboutPartners } from "@/features/about/content";
 import { stats } from "@/features/home/content";
+import { EYEBROW, SURFACE_CARD, SURFACE_CARD_ACCENT } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "About Blockfuse Labs: built in Jos, working globally",
@@ -32,7 +33,7 @@ export default function AboutPage() {
       <section className="relative min-h-[calc(100vh-76px)] flex items-center justify-center px-5 sm:px-8 py-16 sm:py-24">
         <div className="mx-auto max-w-4xl text-center">
           <ScrollReveal>
-            <span className="eyebrow">About Us</span>
+            <span className={EYEBROW}>About Us</span>
             <h1 className="mt-4 font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08]">
               About the company
             </h1>
@@ -54,7 +55,7 @@ export default function AboutPage() {
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal className="text-center">
-            <span className="eyebrow">Our Structure</span>
+            <span className={EYEBROW}>Our Structure</span>
             <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               What we do
             </h2>
@@ -102,10 +103,10 @@ export default function AboutPage() {
               <ScrollReveal key={item.num} delay={i < 4 ? i + 1 : 4}>
                 <TiltCard
                   dataCursorText="LEARN"
-                  className="surface-card-accent flex h-full flex-col justify-between p-7 sm:p-9"
+                  className={`${SURFACE_CARD} ${SURFACE_CARD_ACCENT} flex h-full flex-col justify-between p-7 sm:p-9`}
                 >
                   <div>
-                    <span className="eyebrow">{item.num} • {item.tag}</span>
+                    <span className={EYEBROW}>{item.num} • {item.tag}</span>
                     <h3 className="mt-2 font-heading text-xl font-bold text-[var(--page-fg)] sm:text-2xl">
                       {item.title}
                     </h3>
@@ -140,7 +141,7 @@ export default function AboutPage() {
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal className="text-center">
-            <span className="eyebrow">Core Principles</span>
+            <span className={EYEBROW}>Core Principles</span>
             <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               What we believe
             </h2>
@@ -153,7 +154,7 @@ export default function AboutPage() {
                   dataCursorText="VALUE"
                   className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 p-6 sm:p-7"
                 >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-xs font-bold text-white shadow-md">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-xs font-bold text-white shadow-sm">
                     0{idx + 1}
                   </span>
                   <div>
@@ -179,7 +180,7 @@ export default function AboutPage() {
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal className="text-center">
-            <span className="eyebrow">Traction & Community</span>
+            <span className={EYEBROW}>Traction & Community</span>
             <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Our progress
             </h2>
@@ -213,7 +214,7 @@ export default function AboutPage() {
       <section className="px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal className="text-center">
-            <span className="eyebrow">Ecosystem Supporters</span>
+            <span className={EYEBROW}>Ecosystem Supporters</span>
             <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
               Partners and supporters
             </h2>

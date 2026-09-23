@@ -5,6 +5,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
+import { BF_H2, EYEBROW, LINK_ACTION, SURFACE_CARD } from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "Blockfuse Community: Connect with engineers",
@@ -107,7 +108,7 @@ export default function CommunityPage() {
         <div className="mx-auto max-w-4xl text-center">
           <ScrollReveal>
             <div className="mb-8">
-              <span className="eyebrow">Community Hub</span>
+              <span className={EYEBROW}>Community Hub</span>
               <h1 className="font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08] mt-4">
                 The Blockfuse Engineering <br />
                 <span className="text-[var(--muted)]">Community Hub</span>
@@ -150,7 +151,7 @@ export default function CommunityPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             {showcaseItems.map((item) => (
               <ScrollReveal key={item.num}>
-                <TiltCard className="surface-card p-8 h-full flex flex-col justify-between">
+                <TiltCard className={`${SURFACE_CARD} p-8 h-full flex flex-col justify-between`}>
                   <div>
                     <span className="text-xs font-mono tracking-widest text-[var(--dim)] uppercase block mb-4">
                       {"// " + item.tag}
@@ -164,7 +165,7 @@ export default function CommunityPage() {
                   </div>
                   <Link
                     href={item.href}
-                    className="mt-6 link-action inline-flex items-center"
+                    className={`mt-6 ${LINK_ACTION}`}
                   >
                     {item.cta}
                     <span aria-hidden="true" className="ml-1">→</span>
@@ -184,14 +185,14 @@ export default function CommunityPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem] mb-16">
-            <span className="eyebrow">What makes it different</span>
-            <h2 className="bf-h2 mt-4">Community principles</h2>
+            <span className={EYEBROW}>What makes it different</span>
+            <h2 className={`${BF_H2} mt-4`}>Community principles</h2>
           </ScrollReveal>
 
           <ScrollReveal className="mt-12" delay={1}>
             <div className="grid gap-6 md:grid-cols-2">
               {pillars.map((pillar) => (
-                <TiltCard key={pillar.label} className="surface-card p-8">
+                <TiltCard key={pillar.label} className={`${SURFACE_CARD} p-8`}>
                   <div className="flex items-start gap-4 mb-4">
                     <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--line-strong)] bg-[var(--card)] text-xs font-bold text-[var(--accent)]">
                       {pillar.label}
@@ -218,14 +219,14 @@ export default function CommunityPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem] mb-16">
-            <span className="eyebrow">Where we gather</span>
-            <h2 className="bf-h2 mt-4">Community channels</h2>
+            <span className={EYEBROW}>Where we gather</span>
+            <h2 className={`${BF_H2} mt-4`}>Community channels</h2>
           </ScrollReveal>
 
           <ScrollReveal className="mt-12" delay={1}>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {channels.map((channel) => (
-                <TiltCard key={channel.name} className="surface-card p-8 flex flex-col">
+                <TiltCard key={channel.name} className={`${SURFACE_CARD} p-8 flex flex-col`}>
                   <h3 className="font-heading text-lg font-bold text-[var(--page-fg)] mb-3">
                     {channel.name}
                   </h3>

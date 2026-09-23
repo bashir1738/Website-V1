@@ -1,9 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import { SURFACE_CARD, HAIRLINE_GRID, HAIRLINE_CELL } from "@/lib/styles";
 import type { GraduateTestimonial, AcademyStat } from "./content";
 
-const AVATAR_TONES = ["tone-violet", "tone-blue", "tone-amber"] as const;
+const AVATAR_BASE =
+  "grid w-[2.9rem] h-[2.9rem] shrink-0 place-items-center rounded-[0.9rem] font-heading text-[0.95rem] font-semibold tracking-[-0.03em] text-[rgba(255,255,255,0.94)]";
+
+const AVATAR_TONES = [
+  "bg-[linear-gradient(145deg,#7340a8,#321466)]",
+  "bg-[linear-gradient(145deg,#4d68a8,#162b5f)]",
+  "bg-[linear-gradient(145deg,#a96a3b,#63311d)]",
+] as const;
 
 function initials(name: string) {
   return name
@@ -39,14 +47,14 @@ export function TestimonialsCarousel({
         </button>
 
         {/* Card */}
-        <div className="flex-1 surface-card p-6 sm:p-8 md:p-10">
+        <div className={`flex-1 ${SURFACE_CARD} p-6 sm:p-8 md:p-10`}>
           <p className="text-lg sm:text-xl text-[var(--page-fg)] leading-relaxed mb-8">
             &ldquo;{t.quote}&rdquo;
           </p>
 
           <div className="flex items-center gap-3">
             <span
-              className={`bf-avatar ${AVATAR_TONES[idx % AVATAR_TONES.length]}`}
+              className={`${AVATAR_BASE} ${AVATAR_TONES[idx % AVATAR_TONES.length]}`}
               aria-hidden="true"
             >
               {initials(t.author)}
@@ -89,9 +97,9 @@ export function TestimonialsCarousel({
       </div>
 
       {/* Stats bar — inset to align with card edges */}
-      <div className="sm:mx-11 hairline-grid grid-cols-2 sm:grid-cols-4">
+      <div className={`${HAIRLINE_GRID} grid-cols-2 sm:grid-cols-4 sm:mx-11`}>
         {stats.map((stat) => (
-          <div key={stat.label} className="hairline-cell px-4 sm:px-6 py-5 text-center">
+          <div key={stat.label} className={`${HAIRLINE_CELL} px-4 sm:px-6 py-5 text-center`}>
             <p className="stat-figure text-xl sm:text-2xl">{stat.value}</p>
             <p className="mt-1.5 text-[9px] font-mono tracking-widest uppercase text-[var(--muted)] leading-relaxed">
               {stat.label}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ModalButton } from "@/components/ui/modal-button";
 import { API_URL } from "@/lib/api";
+import { EYEBROW, BTN_PRIMARY } from "@/lib/styles";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -69,14 +70,14 @@ export default async function EventPage({ params }: Props) {
       </header>
       <div className="mx-auto grid max-w-[1120px] gap-10 px-5 py-12 sm:px-7 sm:py-16 lg:grid-cols-[280px_1fr]">
         <aside className="self-start rounded-2xl border border-[var(--line-strong)] p-6 lg:sticky lg:top-28">
-          <span className="eyebrow">Event information</span>
+          <span className={EYEBROW}>Event information</span>
           <h2 className="mt-4 text-xl font-bold">{event.title}</h2>
           <dl className="mt-6 space-y-5 text-sm">
             <div><dt className="text-[var(--muted)]">When</dt><dd className="mt-1 font-semibold">{eventDate(event)}</dd></div>
             <div><dt className="text-[var(--muted)]">Where</dt><dd className="mt-1 font-semibold">{event.location || "Jos, Nigeria"}</dd></div>
           </dl>
           {event.link && (
-            <a href={event.link} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-flex w-full">
+            <a href={event.link} target="_blank" rel="noopener noreferrer" className={`${BTN_PRIMARY} mt-6 w-full`}>
               Register
             </a>
           )}

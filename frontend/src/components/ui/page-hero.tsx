@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { EYEBROW } from "@/lib/styles";
 
 /**
  * The standard opening for an inner page: mono eyebrow, oversized display
@@ -18,12 +19,12 @@ export function PageHero({
 }) {
   return (
     <ScrollReveal>
-      <div className="eyebrow mb-4">{eyebrow}</div>
-      <h1 className="max-w-[20ch] font-heading text-[clamp(2.375rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em] text-[var(--page-fg)]">
+      <div className={`${EYEBROW} mb-4`}>{eyebrow}</div>
+      <h1 className="max-w-[20ch] font-heading text-[clamp(2.375rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em] text-(--page-fg)">
         {title}
       </h1>
       {lead && (
-        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-[var(--muted)]">
+        <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-(--muted)">
           {lead}
         </p>
       )}
