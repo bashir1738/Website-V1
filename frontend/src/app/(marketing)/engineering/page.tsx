@@ -55,7 +55,6 @@ const ORB = "absolute z-0 rounded-full pointer-events-none";
 const ORB_ONE = `${ORB} w-[34rem] h-[34rem] -top-[14rem] -right-[10rem] bg-white opacity-[0.06] blur-[6rem]`;
 const ORB_TWO = `${ORB} w-[22rem] h-[22rem] -bottom-[10rem] -left-[8rem] bg-white opacity-[0.05] blur-[6rem]`;
 const ORB_THREE = `${ORB} w-[38rem] h-[38rem] -top-[18rem] left-[55%] bg-(--color-accent) opacity-[0.16] blur-[7rem]`;
-const ORB_FOUR = `${ORB} w-[26rem] h-[26rem] -bottom-[12rem] -right-[6rem] bg-(--color-accent) opacity-[0.3] blur-[6rem]`;
 
 const HERO_INNER =
   "relative z-[3] mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
@@ -170,7 +169,7 @@ const QUOTE_PERSON_NAME =
 const QUOTE_PERSON_ROLE = "text-[0.75rem] leading-[1.45] text-(--muted)";
 
 const CTA =
-  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#1d0743] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[radial-gradient(90%_80%_at_20%_0%,rgba(191,100,231,0.4),transparent_62%),linear-gradient(180deg,rgba(29,7,67,0.78),rgba(15,4,36,0.94))]";
+  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#1d0743] text-white";
 const CTA_MEDIA = "absolute inset-0 -z-[2]";
 const CTA_MEDIA_PIC =
   "object-cover object-[center_35%] saturate-50 contrast-[1.05] opacity-[0.38]";
@@ -262,15 +261,7 @@ export default async function EngineeringPage() {
         <div className={GRAIN} aria-hidden="true" />
 
         <div className={HERO_INNER}>
-          <ScrollReveal>
-            <span className={KICKER}>
-              <span className={KICKER_MARK} aria-hidden="true">
-                <span className={KICKER_DOT} />
-                <span className={KICKER_BAR} />
-              </span>
-              BFL Engineering Studio
-            </span>
-          </ScrollReveal>
+          
 
           <ScrollReveal delay={1}>
             <h1 className={HERO_H1}>
@@ -297,7 +288,7 @@ export default async function EngineeringPage() {
             <ButtonLink
               href="#hire"
               variant="secondary"
-              className="!bg-white !text-[var(--page-fg)] !border-white hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-white"
+              className="!bg-[var(--card)] !text-[var(--page-fg)] !border-[var(--line-strong)] hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-[var(--accent-line)]"
               dataCursor="HIRE"
             >
               Hire our engineers
@@ -811,7 +802,6 @@ export default async function EngineeringPage() {
               className={CTA_MEDIA_PIC}
             />
           </div>
-          <span className={ORB_FOUR} aria-hidden="true" />
 
           <ScrollReveal className={CTA_INNER}>
             <span className={`${EYEBROW} ${BF_EYEBROW_LIGHT}`}>

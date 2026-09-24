@@ -73,16 +73,7 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(29rem,0.86fr)] lg:gap-12">
           <div className="max-w-[42rem]">
-            <ScrollReveal>
-              <div className="inline-flex items-center gap-3 font-mono text-[0.75rem] font-semibold uppercase tracking-[0.11em] text-(--bright)">
-                <span className="inline-flex items-center gap-[2px]" aria-hidden="true">
-                  <span className="h-[0.7rem] w-[0.7rem] rounded-full bg-(--accent)" />
-                  <span className="h-[0.3rem] w-[0.7rem] rounded-full bg-(--page-fg)" />
-                </span>
-                WEB3 &amp; BLOCKCHAIN ENGINEERING STUDIO
-              </div>
-            </ScrollReveal>
-
+            
             <ScrollReveal delay={1}>
               <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-[var(--page-fg)]">
                 We build decentralized systems &amp; deploy vetted engineering talent.
@@ -103,7 +94,7 @@ export default function Home() {
               <ButtonLink
                 href="/hire-engineers"
                 variant="secondary"
-                className="!bg-white !text-[var(--page-fg)] !border-[var(--line-strong)] hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-[var(--accent-line)]"
+                className="!bg-[var(--card)] !text-[var(--page-fg)] !border-[var(--line-strong)] hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-[var(--accent-line)]"
               >
                 Hire Vetted Web3 Engineers
               </ButtonLink>

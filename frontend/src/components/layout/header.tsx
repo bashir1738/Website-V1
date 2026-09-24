@@ -157,9 +157,7 @@ export function Header() {
               sizes="36px"
               className="h-9 w-auto transition-transform duration-150 ease-out group-hover:scale-105"
             />
-            <span className="font-heading text-base font-bold tracking-[-0.025em] text-(--page-fg)">
-              {siteConfig.name}
-            </span>
+
           </Link>
 
           {/* Desktop nav */}

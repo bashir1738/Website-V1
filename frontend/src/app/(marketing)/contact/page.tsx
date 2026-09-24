@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { ContactFormClient } from "./contact-form-client";
@@ -33,6 +34,31 @@ function first(value?: string | string[]): string {
   return typeof value === "string" ? value : Array.isArray(value) ? value[0] ?? "" : "";
 }
 
+const GRAIN =
+  "grain-overlay absolute inset-0 pointer-events-none opacity-[0.035] z-[2]";
+
+const HERO =
+  "relative isolate overflow-hidden min-h-[70vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] _100%)]";
+const HERO_MEDIA = "absolute inset-0 -z-[2]";
+const HERO_MEDIA_PIC =
+  "object-cover object-[center_60%] opacity-[0.50]";
+
+const ORB = "absolute z-0 rounded-full pointer-events-none";
+const ORB_ONE = `${ORB} w-[34rem] h-[34rem] -top-[14rem] -right-[10rem] bg-white opacity-[0.06] blur-[6rem]`;
+const ORB_TWO = `${ORB} w-[22rem] h-[22rem] -bottom-[10rem] -left-[8rem] bg-white opacity-[0.05] blur-[6rem]`;
+
+const HERO_INNER =
+  "relative z-[3] w-full mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
+const KICKER =
+  "inline-flex items-center gap-3 font-mono text-[0.75rem] font-semibold tracking-[0.11em] uppercase text-[rgba(255,255,255,0.88)]";
+const HERO_H1 =
+  "mt-[1.9rem] max-w-[22ch] font-heading text-[clamp(2.9rem,7.4vw,6rem)] font-bold leading-[0.95] tracking-[-0.055em] text-white";
+const HERO_ACCENT = "text-[#dba7f2]";
+const HERO_LEAD =
+  "grid gap-[1.15rem] max-w-[58ch] mt-[2.25rem] text-[clamp(0.98rem,1.3vw,1.1rem)] leading-[1.75] text-[rgba(255,255,255,0.74)]";
+const HERO_LEAD_STRONG =
+  "text-[clamp(1.05rem,1.55vw,1.3rem)] font-medium leading-[1.6] text-white";
+
 export default async function ContactPage({ searchParams }: ContactPageProps) {
   const params = await searchParams;
   let initialTopic = INTENT_TOPICS[first(params.intent)] ?? "";
@@ -46,16 +72,38 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       {/* ═══════════════════════════════════════════════════════════
           HERO SECTION
           ═══════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[calc(100vh-76px)] flex flex-col items-center justify-center text-center py-16 px-5 sm:px-8 border-b border-[var(--line)]">
-        <ScrollReveal className="max-w-4xl">
-          <span className={`${EYEBROW} mb-6`}>{"// CONTACT US"}</span>
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-[var(--page-fg)] sm:text-6xl lg:text-7xl leading-[1.08] mb-6">
-            We&apos;d love to hear from you
-          </h1>
-          <p className="text-base text-[var(--muted)] sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Whether you have questions about our training cohorts, studio engineering services, or ecosystem partnerships.
-          </p>
-        </ScrollReveal>
+      <section className={HERO}>
+        <div className={HERO_MEDIA} aria-hidden="true">
+          <Image
+            src="/about/image00019.jpeg"
+            alt="Blockfuse Labs team"
+            fill
+            priority
+            sizes="100vw"
+            className={HERO_MEDIA_PIC}
+          />
+        </div>
+        <span className={ORB_ONE} aria-hidden="true" />
+        <span className={ORB_TWO} aria-hidden="true" />
+        <div className={GRAIN} aria-hidden="true" />
+
+        <div className={HERO_INNER}>
+          <ScrollReveal delay={1}>
+            <h1 className={HERO_H1}>
+              We&apos;d love to <br />
+              <span className={HERO_ACCENT}>hear from you</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal className={HERO_LEAD} delay={2}>
+            <p className={HERO_LEAD_STRONG}>
+              Start a conversation with our team.
+            </p>
+            <p>
+              Whether you have questions about our training cohorts, studio engineering services, or ecosystem partnerships, we are ready to help.
+            </p>
+          </ScrollReveal>
+        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════

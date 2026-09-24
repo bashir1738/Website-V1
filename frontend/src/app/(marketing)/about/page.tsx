@@ -71,7 +71,7 @@ export default function AboutPage() {
       <section className={HERO}>
         <div className={HERO_MEDIA} aria-hidden="true">
           <Image
-            src="/about/image00019.jpeg"
+            src="/brand/companie3.jpeg"
             alt=""
             fill
             priority
@@ -84,15 +84,7 @@ export default function AboutPage() {
         <div className={GRAIN} aria-hidden="true" />
 
         <div className={HERO_INNER}>
-          <ScrollReveal>
-            <span className={KICKER}>
-              <span className={KICKER_MARK} aria-hidden="true">
-                <span className={KICKER_DOT} />
-                <span className={KICKER_BAR} />
-              </span>
-              About Us
-            </span>
-          </ScrollReveal>
+         
 
           <ScrollReveal delay={1}>
             <h1 className={HERO_H1}>
@@ -230,7 +222,7 @@ export default function AboutPage() {
                   dataCursorText="VALUE"
                   className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 p-6 sm:p-7"
                 >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--accent)] font-heading text-xs font-bold text-white shadow-sm">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center  mb-2 rounded-xl bg-[var(--accent)] font-heading text-xs font-bold text-white shadow-sm">
                     0{idx + 1}
                   </span>
                   <div>
