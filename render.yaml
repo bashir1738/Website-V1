@@ -39,6 +39,13 @@ services:
         sync: false
       - key: FRONTEND_URL
         sync: false
+      # Exact origin users return to after Paystack checkout (e.g. the live
+      # frontend). Falls back to the first non-localhost FRONTEND_URL entry.
+      - key: PAYMENT_CALLBACK_ORIGIN
+        sync: false
+      # Public URL of this API. Falls back to RENDER_EXTERNAL_URL (auto).
+      - key: API_PUBLIC_URL
+        sync: false
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY

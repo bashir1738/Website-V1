@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -41,6 +42,11 @@ app.use(
 // HIGH-3: cookie-parser must come before any middleware that reads req.cookies.
 app.use(cookieParser());
 app.use(limiter);
+
+// Email-branding assets (logo, etc.) are served here so HTML emails can
+// reference them by URL. Email clients strip `data:` URIs, so inline base64
+// images never render reliably; a plain HTTPS URL does.
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Paystack webhook needs the raw byte-for-byte body so the HMAC-SHA512
 // signature can be verified. Must be mounted BEFORE the JSON parser.

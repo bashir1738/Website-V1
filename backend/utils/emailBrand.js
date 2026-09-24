@@ -1,11 +1,16 @@
-const fs = require('fs');
-const path = require('path');
+require('dotenv').config();
 
-// Blockfuse mark rendered to a small PNG (Gmail strips SVG but renders PNG),
-// inlined as a data URI so emails need no external image host.
-const LOGO_DATA_URI =
-  'data:image/png;base64,' +
-  fs.readFileSync(path.join(__dirname, '../assets/blockfuse-logo.png')).toString('base64');
+// Blockfuse mark served from the API's /assets route. Email clients block
+// `data:` URIs (Gmail, Outlook), so base64-inlined images render as broken —
+// a plain HTTPS URL is what actually shows up. Render injects
+// RENDER_EXTERNAL_URL automatically; API_PUBLIC_URL is the override for other
+// hosts (Railway, a custom API domain, …).
+const API_ORIGIN = (
+  process.env.API_PUBLIC_URL ||
+  process.env.RENDER_EXTERNAL_URL ||
+  'http://localhost:5000'
+).replace(/\/+$/, '');
+const LOGO_URL = `${API_ORIGIN}/assets/blockfuse-logo.png`;
 
 const BRAND = {
   accent: '#A544D2',
@@ -42,7 +47,7 @@ const wrapEmail = ({ eyebrow, title, bodyHtml, button }) => {
           <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
             <tr>
               <td align="center" style="padding-bottom:22px;">
-                <img src="${LOGO_DATA_URI}" width="90" height="72" alt="Blockfuse Labs" style="display:block;width:90px;height:72px;" />
+                <img src="${LOGO_URL}" alt="Blockfuse Labs" style="display:block;width:90px;height:72px;" />
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:${BRAND.text};letter-spacing:-0.01em;margin-top:8px;">Blockfuse&nbsp;Labs</div>
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.22em;color:${BRAND.muted};text-transform:uppercase;margin-top:3px;">Engineering talent from Jos, Nigeria</div>
               </td>

@@ -430,7 +430,7 @@ export const forms: Record<FormKey, FormSpec> = {
     eyebrow: "Alumni directory",
     title: "Add your profile",
     subtitle:
-      "Graduates of Cohorts I and II can list themselves here. Every submission is checked against our assessment records before it goes live.",
+      "Graduates of Cohorts I–IV can list themselves here. Every submission is checked against our assessment records before it goes live.",
     cta: "Submit for verification",
     note: "We verify your cohort and assessment record before publishing. Expect a decision within five working days.",
     successTitle: "Sent for verification",
@@ -457,7 +457,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Cohort",
         name: "cohort",
         kind: "select",
-        options: ["Cohort I", "Cohort II"],
+        options: ["Cohort I", "Cohort II", "Cohort III", "Cohort IV"],
         required: true,
       },
       {

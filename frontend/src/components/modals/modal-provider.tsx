@@ -13,7 +13,8 @@ import toast from "react-hot-toast";
 import { forms, type FormKey, type FormField } from "@/lib/forms";
 import { postForm, postJson, ApiError } from "@/lib/api";
 import { formatFileSize, validateUpload } from "@/lib/file-upload";
-import { redirectToCheckout, savePendingPayment } from "@/lib/paystack";
+import { validateFieldValue } from "@/lib/validation";
+import { payWithPaystack } from "@/lib/paystack";
 import {
   EYEBROW,
   BTN_GHOST,
@@ -100,6 +101,7 @@ function FormModal({
   const form = forms[formKey];
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [paying, setPaying] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [chips, setChips] = useState<Record<string, string[]>>({});
   const panelRef = useRef<HTMLDivElement>(null);
@@ -163,7 +165,7 @@ function FormModal({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (submitting) return;
+    if (submitting || paying) return;
 
     const raw = new FormData(e.currentTarget);
 
@@ -178,6 +180,20 @@ function FormModal({
           if (problem) nextErrors[field.name] = problem;
         }
       }
+    }
+    for (const field of form.fields) {
+      if (
+        field.kind === "file" ||
+        field.kind === "chips" ||
+        field.kind === "select" ||
+        field.type === "email"
+      ) {
+        continue;
+      }
+      const value = raw.get(field.name);
+      if (typeof value !== "string") continue;
+      const problem = validateFieldValue(field, value, formKey);
+      if (problem) nextErrors[field.name] = problem;
     }
     if (Object.keys(nextErrors).length > 0) {
       setFieldErrors(nextErrors);
@@ -222,18 +238,34 @@ function FormModal({
       }
 
       // Payment-backed flows: the submit response carries the server-set price
-      // and the Paystack checkout URL. Redirect to Paystack's hosted checkout;
-      // Paystack brings the visitor back to /payment/status, which verifies
-      // the charge server-side.
+      // and reference. Pay inline in the Paystack popup, then verify
+      // server-side. The submit button stays disabled until payment completes.
       const paymentInfo = paymentOf(res);
       if (form.paid && paymentInfo) {
-        if (!paymentInfo.authorizationUrl) {
-          toast.error("We couldn't start payment for this submission. Please try again.");
+        setPaying(true);
+        try {
+          const outcome = await payWithPaystack(paymentInfo);
+          if (outcome === "cancelled") {
+            toast("Payment wasn't completed. Your form is saved, and you can resubmit to try again.");
+            return;
+          }
+          await postJson("/payments/verify", { reference: paymentInfo.reference });
+        } catch (err) {
+          if (err instanceof ApiError) {
+            toast.error(
+              err.status === 402
+                ? "Payment didn't go through. You can try submitting again."
+                : err.message,
+            );
+          } else {
+            toast.error(
+              "Payment couldn't be confirmed right now. If you were charged, your submission is saved and will be confirmed shortly.",
+            );
+          }
           return;
+        } finally {
+          setPaying(false);
         }
-        savePendingPayment(paymentInfo.reference, formKey);
-        redirectToCheckout(paymentInfo);
-        return;
       }
 
       setSubmitted(true);
@@ -364,11 +396,15 @@ function FormModal({
                   <button
                     type="submit"
                     className={`${BTN_PRIMARY} w-full sm:w-auto`}
-                    disabled={submitting}
-                    aria-busy={submitting}
+                    disabled={submitting || paying}
+                    aria-busy={submitting || paying}
                   >
-                    {submitting ? "Sending…" : form.cta}
-                    {!submitting && <span aria-hidden="true">→</span>}
+                    {paying
+                      ? "Complete payment…"
+                      : submitting
+                        ? "Sending…"
+                        : form.cta}
+                    {!submitting && !paying && <span aria-hidden="true">→</span>}
                   </button>
                   {form.note && (
                     <p className="max-w-[44ch] text-xs leading-relaxed text-(--dim)">
@@ -390,7 +426,6 @@ interface PaymentInfo {
   email: string;
   amountKobo: number;
   reference: string;
-  authorizationUrl: string;
 }
 
 /** Extract the server-issued payment payload from a submit response, if any. */

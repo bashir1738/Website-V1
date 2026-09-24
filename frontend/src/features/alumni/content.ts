@@ -18,6 +18,8 @@ export const alumniFilters = [
   "All",
   "Cohort I",
   "Cohort II",
+  "Cohort III",
+  "Cohort IV",
   "Blockchain Engineering",
   "Applied AI Engineering",
   "AI-Native Software Engineering",

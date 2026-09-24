@@ -1,12 +1,63 @@
 /**
- * Paystack Standard Checkout (redirect flow — no embedded popup).
+ * Paystack Inline (embedded popup — no page redirect).
  *
- * After the server creates the transaction, the visitor is redirected to the
- * Paystack-hosted checkout (`authorizationUrl`). Paystack sends them back to
- * the site's `/payment/status?...` callback, which verifies server-side. The
- * public key and amount are never hard-coded here: they come from the server's
- * submit response, which sets the authoritative price server-side.
+ * The public key and amount are never hard-coded here: they come from the
+ * server's submit response, which sets the authoritative price server-side.
  */
+
+interface PaystackResponse {
+  reference: string;
+  trans?: string;
+  status?: string;
+  message?: string;
+}
+
+interface PaystackPop {
+  setup(options: {
+    key: string;
+    email: string;
+    amount: number;
+    ref: string;
+    currency?: string;
+    callback: (response: PaystackResponse) => void;
+    onClose: () => void;
+  }): void;
+}
+
+declare global {
+  interface Window {
+    PaystackPop?: PaystackPop;
+  }
+}
+
+const INLINE_SRC = "https://js.paystack.co/v1/inline.js";
+
+let scriptPromise: Promise<PaystackPop> | null = null;
+
+/** Load Paystack Inline once; resolves with the popup API. */
+export function loadPaystack(): Promise<PaystackPop> {
+  if (window.PaystackPop) return Promise.resolve(window.PaystackPop);
+  if (scriptPromise) return scriptPromise;
+
+  scriptPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = INLINE_SRC;
+    script.async = true;
+    script.onload = () => {
+      if (window.PaystackPop) resolve(window.PaystackPop);
+      else reject(new Error("Paystack loads but PaystackPop is unavailable."));
+    };
+    script.onerror = () => {
+      scriptPromise = null;
+      reject(
+        new Error("We couldn't load the payment widget. Check your connection and try again."),
+      );
+    };
+    document.head.appendChild(script);
+  });
+
+  return scriptPromise;
+}
 
 export interface PaystackCharge {
   publicKey: string;
@@ -15,32 +66,36 @@ export interface PaystackCharge {
   amountKobo: number;
   /** Server-generated reference that must be passed back for verification. */
   reference: string;
-  /** Paystack-hosted checkout page the visitor is redirected to. */
-  authorizationUrl: string;
 }
 
-/**
- * Send the visitor to Paystack's hosted checkout. The page navigates away; the
- * site is re-entered at `/payment/status` via the callback URL.
- */
-export function redirectToCheckout(charge: PaystackCharge): void {
-  window.location.assign(charge.authorizationUrl);
-}
+export type PaystackResult = "paid" | "cancelled";
 
 /**
- * Remember the in-flight payment so the callback page can show the right
- * message and map back to the submission. Keyed by the Paystack reference.
+ * Open the embedded Paystack popup. Resolves "paid" once the popup's callback
+ * fires, "cancelled" if the user closes the widget without paying, and rejects
+ * only on real failures (widget unavailable / setup crash).
  */
-export function savePendingPayment(reference: string, formKey: string): void {
-  try {
-    sessionStorage.setItem(
-      "blockfuse-pending-payment",
-      JSON.stringify({ reference, formKey, startedAt: Date.now() }),
-    );
-  } catch {
-    // sessionStorage unavailable (private mode) — the callback page still works
-    // off the `reference` in the URL.
-  }
+export async function payWithPaystack(charge: PaystackCharge): Promise<PaystackResult> {
+  const pop = await loadPaystack();
+
+  return new Promise<PaystackResult>((resolve, reject) => {
+    try {
+      pop.setup({
+        key: charge.publicKey,
+        email: charge.email,
+        amount: charge.amountKobo,
+        ref: charge.reference,
+        currency: "NGN",
+        callback: (response) => {
+          if (response.reference) resolve("paid");
+          else reject(new Error("Payment reference is missing from the Paystack response."));
+        },
+        onClose: () => resolve("cancelled"),
+      });
+    } catch (err) {
+      reject(err instanceof Error ? err : new Error("Could not start the payment widget."));
+    }
+  });
 }
 
 /** Read the pending-payment marker without clearing it. */

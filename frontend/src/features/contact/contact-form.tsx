@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { postJson, ApiError } from "@/lib/api";
 import { ACTION_COLOR } from "@/lib/styles";
+import { validateFieldValue } from "@/lib/validation";
 
 const topicOptions = [
   "Hiring engineers",
@@ -59,6 +60,18 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+
+    // Keep the same letters/length standard as every other form on the site.
+    const nameProblem = validateFieldValue(
+      { label: "Name", name: "name", type: "text", required: true },
+      name,
+      "contact",
+    );
+    if (nameProblem) {
+      setError(nameProblem);
+      return;
+    }
+
     setError(null);
     setSubmitting(true);
 
