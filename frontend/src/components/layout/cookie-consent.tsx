@@ -42,7 +42,7 @@ export function CookieConsent() {
     >
       <div className="rounded-2xl border border-[var(--line-strong)] bg-[var(--card-strong)]/95 p-5 shadow-[0_-10px_32px_-18px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
         <div className="flex items-start gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-(--accent-line) bg-(--accent-dim) text-(--accent)">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[rgba(53,20,122,0.4)] bg-[var(--action-bg)] text-white">
             <Cookie className="h-4.5 w-4.5" />
           </span>
           <div>
@@ -60,7 +60,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => decide("accepted")}
-            className="inline-flex h-10 flex-1 items-center justify-center rounded-full bg-[var(--accent)] px-4 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.02] active:scale-95"
+            className="inline-flex h-10 flex-1 items-center justify-center rounded-full bg-[var(--action-bg)] px-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[var(--action-hover)] hover:scale-[1.02] active:scale-95"
           >
             Accept
           </button>

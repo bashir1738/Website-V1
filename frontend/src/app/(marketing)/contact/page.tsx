@@ -115,7 +115,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             {/* Left: Heading */}
             <ScrollReveal>
               <div>
-                <span className={`${EYEBROW} mb-4`}>{"// CONTACT DETAILS"}</span>
+                <span className={`${EYEBROW} mb-4`}>{" CONTACT DETAILS"}</span>
                 <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl leading-[1.1] mb-6">
                   Feel free to get in touch with us
                 </h2>
@@ -137,7 +137,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <section className="border-t border-[var(--line)] px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal className="mb-12">
-            <span className={`${EYEBROW} mb-4`}>{"// SEND US A MESSAGE"}</span>
+            <span className={`${EYEBROW} mb-4`}>{" SEND US A MESSAGE"}</span>
             <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
               Get in Touch
             </h2>

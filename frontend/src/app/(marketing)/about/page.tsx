@@ -11,10 +11,10 @@ import { aboutBeliefs, aboutPartners } from "@/features/about/content";
 import { EYEBROW, SURFACE_CARD, SURFACE_CARD_ACCENT } from "@/lib/styles";
 
 const tractionStats = [
-  { value: "115+", label: "Vetted Web3 & AI engineers ready for deployment" },
-  { value: "500+", label: "Smart contracts engineered and security-tested" },
-  { value: "12+", label: "Production-grade dApps shipped for ecosystems" },
-  { value: "2 Years", label: "Operating our physical production workspace in Jos" },
+  { value: "797+", label: "Developers trained" },
+  { value: "5,500+", label: "Smart contracts deployed" },
+  { value: "57+", label: "Projects and dApps built" },
+  { value: "3,620+", label: "Hours of technical training delivered" },
 ] as const;
 
 export const metadata: Metadata = {

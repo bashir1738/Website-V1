@@ -13,6 +13,7 @@ import {
   proofStats,
   engagementModels,
 } from "@/features/home/content";
+import { HowItWorksAccordion } from "@/features/home/how-it-works";
 import {
   EYEBROW,
   BF_H2,
@@ -137,10 +138,10 @@ export default function Home() {
             </div>
             <div
               className="absolute left-[36%] top-[60%] flex h-[8.25rem] w-[8.25rem] -translate-x-1/2 -translate-y-1/2 -rotate-[7deg] flex-col items-center justify-center rounded-full border-[0.45rem] border-(--page-bg) bg-(--page-fg) text-center text-(--page-bg) shadow-[0_0.5rem_1.25rem_-0.9rem_rgba(7,7,10,0.28)] max-sm:h-[6.5rem] max-sm:w-[6.5rem] max-sm:border-[0.35rem] [&::after]:absolute [&::after]:inset-[0.4rem] [&::after]:rounded-[inherit] [&::after]:border [&::after]:border-current [&::after]:content-[''] [&::after]:opacity-[0.22]"
-              aria-label="Over 115 engineers graduated"
+              aria-label="Over 797 developers trained"
             >
-              <strong className="font-heading text-[1.65rem] leading-none max-sm:text-[1.3rem]">115+</strong>
-              <span className="mt-[0.35rem] font-mono text-[0.56rem] uppercase leading-[1.35] tracking-[0.1em] max-sm:text-[0.48rem]">engineers<br />graduated</span>
+              <strong className="font-heading text-[1.65rem] leading-none max-sm:text-[1.3rem]">797+</strong>
+              <span className="mt-[0.35rem] font-mono text-[0.56rem] uppercase leading-[1.35] tracking-[0.1em] max-sm:text-[0.48rem]">developers<br />trained</span>
             </div>
             <span className={`${SPARK} bottom-[19%] right-[-0.5rem]`} aria-hidden="true" />
             <span className={`${SPARK} bottom-[13%] right-[1.25rem] scale-[1.55] opacity-[0.55]`} aria-hidden="true" />
@@ -311,9 +312,6 @@ export default function Home() {
                 <em className="font-light text-[var(--muted)]">partner with us.</em>
               </h2>
             </div>
-            <div className="text-xs font-mono text-[var(--muted)]">
-              MANAGED DELIVERY • EMBEDDED PODS • CUSTOM PIPELINES
-            </div>
           </div>
 
           {/* Cards — bf-cells hairline grid */}
@@ -338,7 +336,6 @@ export default function Home() {
                   <div className="flex flex-col flex-1 p-[1.9rem]">
                     <div className="flex items-center justify-between gap-4">
                       <span className="font-mono text-[0.66rem] font-semibold tracking-[0.18em] text-(--accent)">{model.number}</span>
-                      <span className="whitespace-nowrap rounded-full border border-(--line-strong) px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim)">{model.subtitle}</span>
                     </div>
                     <h3 className="mt-4 font-heading text-[1.2rem] font-bold leading-[1.2] tracking-[-0.03em] text-[var(--page-fg)] transition-colors duration-200 group-hover:text-[var(--accent)]">{model.title}</h3>
                     <p className="mt-[0.85rem] text-[0.88rem] leading-[1.65] text-(--muted)">{model.description}</p>
@@ -400,7 +397,7 @@ export default function Home() {
 
             <div className="hidden lg:block pt-2">
               <div className={`${BF_NOTE} font-mono space-y-2`}>
-                <div className="text-[var(--accent)]">{"// CLIENT GUARANTEE"}</div>
+                <div className="text-[var(--accent)]">{" CLIENT GUARANTEE"}</div>
                 <p className="font-sans text-[var(--muted)]">
                   Direct senior lead accountability, daily GitHub commits, and complete IP sovereignty on all client engagements.
                 </p>
@@ -419,7 +416,6 @@ export default function Home() {
                       <h3 className="font-heading text-base font-semibold text-[var(--page-fg)]">
                         {point.title}
                       </h3>
-                      <span className={`${MONO_TAG} shrink-0`}>{point.tag}</span>
                     </div>
                     <p className="text-sm text-[var(--muted)] leading-relaxed">
                       {point.description}
@@ -451,10 +447,6 @@ export default function Home() {
                   className="absolute inset-0 opacity-[0.03] pointer-events-none"
                   style={{ backgroundImage: "radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)", backgroundSize: "32px 32px" }}
                 />
-                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-[var(--muted)] border-b border-[var(--line)] pb-4 gap-4 relative z-10">
-                  <span />
-                  <span className={EYEBROW}>Cohort II · 115 Engineers</span>
-                </div>
                 <div className="space-y-4 max-w-2xl relative z-10">
                   <h3 className="font-heading text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
                     Cohort at work.
@@ -464,7 +456,6 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[var(--muted)] border-t border-[var(--line)] pt-4 gap-4 relative z-10">
-                  <span>LAT / LONG: 09.8965° N, 8.8583° E</span>
                   <span>LOCATION: PLATEAU STATE • NIGERIA</span>
                 </div>
               </div>
@@ -484,12 +475,12 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-6 space-y-4">
               <ScrollReveal>
-                <span className={EYEBROW}>Proof &amp; Metrics</span>
+                <span className={EYEBROW}>Traction &amp; Impact</span>
               </ScrollReveal>
               <h2 className={BF_H2}>
-                Proven in code,
+                Built in Jos.
                 <br />
-                <em className="font-light text-[var(--muted)]">measured in production.</em>
+                <em className="font-light text-[var(--muted)]">Creating impact across Africa.</em>
               </h2>
             </div>
             <div className="lg:col-span-6">
@@ -505,7 +496,6 @@ export default function Home() {
                 <div key={stat.label} className={`${HAIRLINE_CELL} p-8 space-y-4`}>
                   <div className="flex items-center justify-between">
                     <span className={`${MONO_TAG} ${MONO_TAG_ACCENT}`}>0{i + 1}</span>
-                    <span className={MONO_TAG}>[{stat.tag}]</span>
                   </div>
                   <div className="stat-figure text-4xl sm:text-5xl">{stat.value}</div>
                   <p className="text-xs text-[var(--muted)] leading-relaxed">{stat.label}</p>
@@ -583,19 +573,7 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="mt-10 border-t border-[var(--line-strong)]">
-            {howBlockfuseWorks.map((step, i) => (
-              <details key={step.number} name="blockfuse-process" open={i === 0} className="group border-b border-[var(--line-strong)]">
-                <summary className="flex min-h-20 cursor-pointer list-none items-center gap-5 rounded-lg py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] [&::-webkit-details-marker]:hidden">
-                  <span className="w-8 shrink-0 font-mono text-sm text-[var(--accent)]">0{step.number}</span>
-                  <h3 className="flex-1 font-heading text-lg font-medium text-[var(--page-fg)] sm:text-xl">{step.title}</h3>
-                  <span aria-hidden="true" className="text-xl text-[var(--muted)] group-open:hidden">+</span>
-                  <span aria-hidden="true" className="hidden text-xl text-[var(--muted)] group-open:inline">−</span>
-                </summary>
-                <p className="max-w-prose pb-7 pl-12 text-sm leading-relaxed text-[var(--muted)] sm:text-base">{step.description}</p>
-              </details>
-            ))}
-          </div>
+          <HowItWorksAccordion steps={howBlockfuseWorks} />
         </div>
       </section>
 
@@ -649,8 +627,9 @@ export default function Home() {
                   <Link
                     href="/training"
                     className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
-                  >
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--muted)] group-hover:text-[var(--page-fg)] transition-colors duration-300">Apply to Blockfuse Academy</span>
+                   
+                   >
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Academy</span>
                     <span className="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-200">→</span>
                   </Link>
                 </div>

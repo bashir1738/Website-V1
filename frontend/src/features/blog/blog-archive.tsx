@@ -73,7 +73,7 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
               <span className={EYEBROW}>Engineering Insights</span>
               <h1
                 id="journal-title"
-                className="mt-6 text-[clamp(4.75rem,9vw,8.5rem)] font-semibold tracking-[-0.085em] leading-[0.73] uppercase max-md:text-[clamp(4.5rem,24vw,6.5rem)]"
+                className="mt-6 text-[130px] font-semibold tracking-[-0.085em] leading-[0.73] uppercase max-md:text-[68px]"
               >
                 Your Source For
                 <br />

@@ -1,12 +1,25 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { KineticHeroTitle } from "@/components/ui/kinetic-hero";
-import { EYEBROW, SURFACE_CARD, SURFACE_CARD_ACCENT } from "@/lib/styles";
+import {
+  EYEBROW,
+  SURFACE_CARD,
+  SURFACE_CARD_ACCENT,
+  BF_ON_DARK_BTN,
+  CTA_BANNER as CTA,
+  CTA_BANNER_MEDIA as CTA_MEDIA,
+  CTA_BANNER_MEDIA_PIC as CTA_MEDIA_PIC,
+  CTA_BANNER_INNER as CTA_INNER,
+  CTA_BANNER_H2 as CTA_H2,
+  CTA_BANNER_P as CTA_P,
+  CTA_BANNER_ACTIONS as CTA_ACTIONS,
+} from "@/lib/styles";
 
 export const metadata: Metadata = {
   title: "ProdFest: Where builders show the work | Blockfuse Labs",
@@ -253,28 +266,43 @@ export default function ProdFestPage() {
       <SectionDivider />
 
       {/* ========================================================================= */}
-      {/* 5. FINAL CTA BANNER */}
+      {/* 5. FINAL CTA BANNER                                                     */}
       {/* ========================================================================= */}
       <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-5xl rounded-3xl bg-gradient-to-br from-[var(--accent)]/30 via-transparent to-transparent p-px shadow-xl">
-          <div className="rounded-3xl bg-[var(--surface-2)] p-8 text-center sm:p-14 md:p-16">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+        <div className={CTA}>
+          <div className={CTA_MEDIA} aria-hidden="true">
+            <Image
+              src="/brand/eventbg.JPG"
+              alt=""
+              fill
+              sizes="(max-width: 1240px) 100vw, 1240px"
+              className={CTA_MEDIA_PIC}
+            />
+          </div>
+
+          <div className={CTA_INNER}>
+            <h2 className={CTA_H2}>
               Execution is the only proof.
               <br />
               <span className="gradient-text">See you at ProdFest.</span>
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8">
+            <p className={CTA_P}>
               Whether you are an engineer looking to demo, a company looking to
               meet verified talent, or an ecosystem partner looking to connect,
               ProdFest is where it happens.
             </p>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <div className={CTA_ACTIONS}>
               <ModalButton modal="prodfest">
-              Contact the ProdFest Team
-            </ModalButton>
-              <ButtonLink href="/training" variant="secondary" dataCursor="ACADEMY">
+                Contact the ProdFest Team
+              </ModalButton>
+              <ButtonLink
+                href="/training"
+                variant="secondary"
+                className={BF_ON_DARK_BTN}
+                dataCursor="ACADEMY"
+              >
                 Explore Academy
               </ButtonLink>
             </div>

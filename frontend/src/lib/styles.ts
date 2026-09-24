@@ -52,6 +52,21 @@ export const ACTION_COLOR =
 export const BF_ON_DARK_BTN =
   "border-[rgba(255,255,255,0.4)]! bg-[rgba(255,255,255,0.06)]! text-white! backdrop-blur-[10px] hover:bg-[rgba(255,255,255,0.14)]! hover:border-[rgba(255,255,255,0.6)]!";
 
+/* ─── Final CTA banner (engineering, training, prodfest) ───
+ * Full-bleed image with a vertical dark gradient overlay. */
+export const CTA_BANNER =
+  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[linear-gradient(180deg,rgba(13,13,19,0.45)_0%,rgba(13,13,19,0.6)_52%,rgba(13,13,19,0.8)_100%)]";
+export const CTA_BANNER_MEDIA = "absolute inset-0 -z-[2]";
+export const CTA_BANNER_MEDIA_PIC =
+  "object-cover object-[center_35%] saturate-50 contrast-[1.05]";
+export const CTA_BANNER_INNER =
+  "relative z-[2] py-[clamp(3.5rem,8vw,6.5rem)] px-[clamp(1.5rem,5vw,5rem)] text-center";
+export const CTA_BANNER_H2 =
+  "max-w-[18ch] mt-5 mx-auto font-heading text-[clamp(2.35rem,5.6vw,4.5rem)] font-bold leading-[0.98] tracking-[-0.05em] text-white";
+export const CTA_BANNER_P =
+  "max-w-[48ch] mt-7 mx-auto text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.7] text-[rgba(255,255,255,0.76)]";
+export const CTA_BANNER_ACTIONS = "flex flex-wrap justify-center gap-4 mt-10";
+
 /* ─── Forms ─── */
 export const FIELD_LABEL =
   "flex items-center gap-[0.4375rem] text-xs font-semibold tracking-[0.02em] text-(--bright) mb-[0.5625rem]";

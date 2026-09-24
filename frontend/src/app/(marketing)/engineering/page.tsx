@@ -29,6 +29,13 @@ import {
   BF_PROSE,
   EYEBROW,
   SURFACE_CARD,
+  CTA_BANNER as CTA,
+  CTA_BANNER_MEDIA as CTA_MEDIA,
+  CTA_BANNER_MEDIA_PIC as CTA_MEDIA_PIC,
+  CTA_BANNER_INNER as CTA_INNER,
+  CTA_BANNER_H2 as CTA_H2,
+  CTA_BANNER_P as CTA_P,
+  CTA_BANNER_ACTIONS as CTA_ACTIONS,
 } from "@/lib/styles";
 
 export const metadata: Metadata = {
@@ -100,8 +107,6 @@ const CELL =
 const CELL_HEAD = "flex items-center justify-between gap-4";
 const CELL_INDEX =
   "font-mono text-[0.66rem] font-semibold tracking-[0.18em] text-(--accent)";
-const CELL_CHIP =
-  "border border-(--line-strong) rounded-full px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim) whitespace-nowrap";
 const CELL_H3 =
   "mt-4 font-heading text-[1.2rem] font-bold leading-[1.2] tracking-[-0.03em] text-(--page-fg)";
 const CELL_P = "mt-[0.85rem] text-[0.88rem] leading-[1.65] text-(--muted)";
@@ -120,8 +125,6 @@ const BAND_CELL =
   "flex flex-col bg-[rgba(255,255,255,0.045)] backdrop-blur-[10px] py-[1.9rem] px-[1.85rem] transition-[background-color] duration-[250ms] hover:bg-[rgba(255,255,255,0.085)]";
 const BAND_INDEX =
   "font-mono text-[0.66rem] font-semibold tracking-[0.18em] text-[rgba(255,255,255,0.5)]";
-const BAND_CHIP =
-  "border border-[rgba(255,255,255,0.24)] rounded-full px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-[rgba(255,255,255,0.7)] whitespace-nowrap";
 const BAND_H3 =
   "mt-4 font-heading text-[1.2rem] font-bold leading-[1.2] tracking-[-0.03em] text-white";
 const BAND_P =
@@ -167,19 +170,6 @@ const QUOTE_PERSON = "grid gap-[0.15rem]";
 const QUOTE_PERSON_NAME =
   "font-heading text-[0.9rem] font-bold tracking-[-0.02em] text-(--page-fg)";
 const QUOTE_PERSON_ROLE = "text-[0.75rem] leading-[1.45] text-(--muted)";
-
-const CTA =
-  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#1d0743] text-white";
-const CTA_MEDIA = "absolute inset-0 -z-[2]";
-const CTA_MEDIA_PIC =
-  "object-cover object-[center_35%] saturate-50 contrast-[1.05] opacity-[0.38]";
-const CTA_INNER =
-  "relative z-[2] py-[clamp(3.5rem,8vw,6.5rem)] px-[clamp(1.5rem,5vw,5rem)] text-center";
-const CTA_H2 =
-  "max-w-[18ch] mt-5 mx-auto font-heading text-[clamp(2.35rem,5.6vw,4.5rem)] font-bold leading-[0.98] tracking-[-0.05em] text-white";
-const CTA_P =
-  "max-w-[48ch] mt-7 mx-auto text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.7] text-[rgba(255,255,255,0.76)]";
-const CTA_ACTIONS = "flex flex-wrap justify-center gap-4 mt-10";
 
 function initials(name: string) {
   return name
@@ -402,7 +392,6 @@ export default async function EngineeringPage() {
                     <span className={CELL_INDEX}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className={CELL_CHIP}>{service.time}</span>
                   </div>
                   <h3 className={CELL_H3}>{service.title}</h3>
                   <p className={CELL_P}>{service.copy}</p>
@@ -445,7 +434,6 @@ export default async function EngineeringPage() {
                     <span className={CELL_INDEX}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className={CELL_CHIP}>{product.tag}</span>
                   </div>
                   <h3 className={CELL_H3}>{product.name}</h3>
                   <p className={CELL_P}>{product.description}</p>
@@ -485,7 +473,6 @@ export default async function EngineeringPage() {
                     <span className={BAND_INDEX}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className={BAND_CHIP}>{principle.eyebrow}</span>
                   </div>
                   <h3 className={BAND_H3}>{principle.title}</h3>
                   <p className={BAND_P}>{principle.copy}</p>

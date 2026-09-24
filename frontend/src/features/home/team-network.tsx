@@ -4,9 +4,9 @@ import { BTN_SECONDARY } from "@/lib/styles";
 import { teamMembers } from "@/features/team/content";
 
 const NETWORK_STATS = [
-  { value: "115+", label: "engineers graduated" },
-  { value: "500+", label: "smart contracts built" },
-  { value: "12", label: "products shipped" },
+  { value: "797+", label: "developers trained" },
+  { value: "5,500+", label: "smart contracts deployed" },
+  { value: "57+", label: "projects built" },
 ] as const;
 
 const PLACEHOLDER_TONES = [

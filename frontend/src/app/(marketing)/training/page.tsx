@@ -20,6 +20,13 @@ import {
   BF_ON_DARK_BTN,
   BF_PROSE,
   EYEBROW,
+  CTA_BANNER as CTA,
+  CTA_BANNER_MEDIA as CTA_MEDIA,
+  CTA_BANNER_MEDIA_PIC as CTA_MEDIA_PIC,
+  CTA_BANNER_INNER as CTA_INNER,
+  CTA_BANNER_H2 as CTA_H2,
+  CTA_BANNER_P as CTA_P,
+  CTA_BANNER_ACTIONS as CTA_ACTIONS,
 } from "@/lib/styles";
 
 export const metadata: Metadata = {
@@ -140,19 +147,6 @@ const MATRIX_VALUE =
   "mt-[0.6rem] ml-9 text-[0.88rem] leading-[1.65] text-(--muted)";
 const MATRIX_FOOTNOTE =
   "max-w-[62ch] mt-6 text-[0.82rem] leading-[1.65] text-(--dim)";
-
-const CTA =
-  "relative isolate overflow-hidden mx-auto max-w-[1240px] rounded-[2rem] bg-[#0f0424] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[rgba(7,7,10,0.72)]";
-const CTA_MEDIA = "absolute inset-0 -z-[2]";
-const CTA_MEDIA_PIC =
-  "object-cover object-[center_35%] saturate-50 contrast-[1.05]";
-const CTA_INNER =
-  "relative z-[2] py-[clamp(3.5rem,8vw,6.5rem)] px-[clamp(1.5rem,5vw,5rem)] text-center";
-const CTA_H2 =
-  "max-w-[18ch] mt-5 mx-auto font-heading text-[clamp(2.35rem,5.6vw,4.5rem)] font-bold leading-[0.98] tracking-[-0.05em] text-white";
-const CTA_P =
-  "max-w-[48ch] mt-7 mx-auto text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.7] text-[rgba(255,255,255,0.76)]";
-const CTA_ACTIONS = "flex flex-wrap justify-center gap-4 mt-10";
 
 function SectionDivider() {
   return (

@@ -12,7 +12,7 @@ export function CounterStat({
   className?: string;
 }) {
   const [displayValue, setDisplayValue] = useState<string>(() => {
-    const initialMatch = value.match(/(\d+)(.*)/);
+    const initialMatch = value.match(/([\d,]+)/);
     return initialMatch ? "0" : value;
   });
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
@@ -23,10 +23,10 @@ export function CounterStat({
     if (!el) return;
 
     // Parse numeric part and prefix/suffix
-    const match = value.match(/(\d+)(.*)/);
+    const match = value.match(/([\d,]+)(.*)/);
     if (!match) return;
 
-    const targetNum = parseInt(match[1], 10);
+    const targetNum = parseInt(match[1].replace(/,/g, ""), 10);
     const suffix = match[2] || "";
 
     const observer = new IntersectionObserver(
@@ -42,7 +42,7 @@ export function CounterStat({
             const easeOut = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(easeOut * targetNum);
 
-            setDisplayValue(`${current}${suffix}`);
+            setDisplayValue(`${current.toLocaleString("en-US")}${suffix}`);
 
             if (progress < 1) {
               requestAnimationFrame(animate);

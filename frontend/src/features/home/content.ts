@@ -5,20 +5,20 @@ export interface MetricStat {
 
 export const stats: MetricStat[] = [
   {
-    value: "115+",
-    label: "Vetted Web3 & AI engineers ready for deployment",
+    value: "797+",
+    label: "Developers trained",
   },
   {
-    value: "500+",
-    label: "Smart contracts engineered and security-tested",
+    value: "5,500+",
+    label: "Smart contracts deployed",
   },
   {
-    value: "12+",
-    label: "Production-grade dApps shipped for ecosystems",
+    value: "57+",
+    label: "Projects and dApps built",
   },
   {
-    value: "2 Years",
-    label: "Operating our physical production workspace in Jos",
+    value: "3,620+",
+    label: "Hours of technical training delivered",
   },
 ];
 
@@ -213,24 +213,24 @@ export interface ProofStat {
 
 export const proofStats: ProofStat[] = [
   {
-    value: "115+",
-    label: "Vetted Web3 & AI engineers ready for deployment",
+    value: "797+",
+    label: "Developers trained",
     tag: "ENGINEERS",
   },
   {
-    value: "500+",
-    label: "Smart contracts engineered and security-tested",
+    value: "5,500+",
+    label: "Smart contracts deployed",
     tag: "CONTRACTS",
   },
   {
-    value: "12+",
-    label: "Production-grade dApps shipped for ecosystems",
-    tag: "APPLICATIONS",
+    value: "57+",
+    label: "Projects and dApps built",
+    tag: "PROJECTS",
   },
   {
-    value: "2 Years",
-    label: "Operating our physical production workspace in Jos",
-    tag: "PHYSICAL LAB",
+    value: "3,620+",
+    label: "Hours of technical training delivered",
+    tag: "TRAINING",
   },
 ];
 
