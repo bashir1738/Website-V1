@@ -33,7 +33,7 @@ export const BTN_CONTRAST =
   "inline-flex items-center justify-center gap-2 h-[2.875rem] px-6 rounded-full bg-(--action-bg) text-white border border-(--action-bg) text-[0.844rem] font-semibold cursor-pointer whitespace-nowrap transition-transform duration-200 hover:bg-(--action-hover) hover:text-white hover:border-(--action-hover) hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-(--accent)";
 
 export const BTN_GHOST =
-  "inline-flex items-center justify-center gap-2 h-[2.875rem] px-6 rounded-full bg-(--action-bg) border border-(--action-bg) text-white text-[0.844rem] font-semibold cursor-pointer whitespace-nowrap transition-[transform,background-color] duration-200 hover:bg-(--action-hover) hover:text-white hover:border-(--action-hover) hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-(--accent)";
+  "inline-flex items-center justify-center gap-2 h-[2.875rem] px-6 rounded-full bg-transparent border border-(--line-strong) text-(--page-fg) text-[0.844rem] font-semibold cursor-pointer whitespace-nowrap transition-[transform,background-color] duration-200 hover:bg-(--card-hover) hover:border-(--line-strong) hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-(--accent)";
 
 /** Underlined inline action (link variant). */
 export const LINK_ACTION =

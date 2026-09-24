@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Loader2, RefreshCw } from "lucide-react";
 import { getJson } from "@/lib/api";
 import { AdminHeader } from "@/components/admin/admin-header";
+import { inboxHref } from "@/lib/admin-inbox";
 import { BTN_GHOST, EYEBROW, SURFACE_CARD } from "@/lib/styles";
 
 interface CollectionStats {
@@ -18,14 +19,14 @@ const naira = (value: unknown) =>
   `₦${Number(value ?? 0).toLocaleString("en-NG")}`;
 
 const COLLECTIONS: CollectionStats[] = [
-  { path: "contact", label: "Contacts", href: "/admin/inbox?tab=contact", count: 0 },
-  { path: "applications", label: "Applications", href: "/admin/inbox?tab=applications", count: 0 },
-  { path: "hiring-requests", label: "Hire requests", href: "/admin/inbox?tab=hiring-requests", count: 0 },
-  { path: "prodfest-registrations", label: "ProdFest", href: "/admin/inbox?tab=prodfest-registrations", count: 0 },
-  { path: "sponsorships", label: "Sponsorships", href: "/admin/inbox?tab=sponsorships", count: 0 },
-  { path: "opensource-applications", label: "Open source", href: "/admin/inbox?tab=opensource-applications", count: 0 },
-  { path: "alumni-submissions", label: "Alumni profiles", href: "/admin/inbox?tab=alumni-submissions", count: 0 },
-  { path: "newsletter", label: "Subscribers", href: "/admin/inbox?tab=newsletter", count: 0 },
+  { path: "contact", label: "Contacts", href: inboxHref("contact"), count: 0 },
+  { path: "applications", label: "Applications", href: inboxHref("applications"), count: 0 },
+  { path: "hiring-requests", label: "Hire requests", href: inboxHref("hiring-requests"), count: 0 },
+  { path: "prodfest-registrations", label: "ProdFest", href: inboxHref("prodfest-registrations"), count: 0 },
+  { path: "sponsorships", label: "Sponsorships", href: inboxHref("sponsorships"), count: 0 },
+  { path: "opensource-applications", label: "Open source", href: inboxHref("opensource-applications"), count: 0 },
+  { path: "alumni-submissions", label: "Alumni profiles", href: inboxHref("alumni-submissions"), count: 0 },
+  { path: "newsletter", label: "Subscribers", href: inboxHref("newsletter"), count: 0 },
   { path: "payment-reviews", label: "Payments", href: "/admin/payments?status=pending_review", count: 0 },
 ];
 
@@ -210,7 +211,7 @@ export default function AdminOverviewPage() {
                 What&apos;s coming in
               </h2>
             </div>
-            <Link href="/admin/inbox" className="text-sm font-semibold text-(--accent) hover:underline">
+            <Link href={inboxHref("contact")} className="text-sm font-semibold text-(--accent) hover:underline">
               Open inbox →
             </Link>
           </div>

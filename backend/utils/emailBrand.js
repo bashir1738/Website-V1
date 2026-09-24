@@ -10,7 +10,7 @@ const API_ORIGIN = (
   process.env.RENDER_EXTERNAL_URL ||
   'http://localhost:5000'
 ).replace(/\/+$/, '');
-const LOGO_URL = `${API_ORIGIN}/assets/blockfuse-logo.png`;
+const LOGO_URL = `${API_ORIGIN}/assets/block_fuse_logo.png`;
 
 const BRAND = {
   accent: '#A544D2',

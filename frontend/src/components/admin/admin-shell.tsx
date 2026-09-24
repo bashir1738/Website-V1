@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
-  Inbox,
   Newspaper,
   CalendarDays,
   LogOut,
@@ -16,11 +15,12 @@ import {
 import { RiBankCardLine } from "react-icons/ri";
 import { clearAdminAuth, getAdminEmail } from "@/lib/admin/auth";
 import { getJson } from "@/lib/api";
+import { INBOX_TYPES } from "@/lib/admin-inbox";
 import { ACTION_COLOR } from "@/lib/styles";
 
 const NAV = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/inbox", label: "Inbox", icon: Inbox },
+  ...INBOX_TYPES.map(({ href, label, icon }) => ({ href, label, icon })),
   { href: "/admin/payments", label: "Payments", icon: RiBankCardLine },
   { href: "/admin/blogs", label: "Blog posts", icon: Newspaper },
   { href: "/admin/events", label: "Events", icon: CalendarDays },

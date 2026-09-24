@@ -345,11 +345,11 @@ function FormModal({
                   {form.successBody}
                 </p>
                 {statusToken && (
-                  <>
+                  <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                     <Link
                       href={`/apply/${statusToken}`}
                       onClick={onClose}
-                      className={`${BTN_PRIMARY} mt-8`}
+                      className={`${BTN_PRIMARY} w-full sm:w-auto`}
                     >
                       Continue to payment
                       <span aria-hidden="true">→</span>
@@ -357,20 +357,22 @@ function FormModal({
                     <button
                       type="button"
                       onClick={onClose}
-                      className={`${BTN_GHOST} mt-3 w-full sm:w-auto`}
+                      className={`${BTN_GHOST} w-full sm:w-auto`}
                     >
                       Close
                     </button>
-                  </>
+                  </div>
                 )}
                 {!statusToken && (
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className={`${BTN_GHOST} mt-8`}
-                  >
-                    Close
-                  </button>
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className={`${BTN_GHOST} w-full sm:w-auto`}
+                    >
+                      Close
+                    </button>
+                  </div>
                 )}
               </div>
             ) : (

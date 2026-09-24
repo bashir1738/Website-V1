@@ -23,7 +23,7 @@ export function formatValue(value: unknown): React.ReactNode {
         href={value}
         target="_blank"
         rel="noreferrer"
-        className="max-w-[260px] truncate text-(--accent) underline underline-offset-4"
+        className="inline-block max-w-[260px] align-bottom truncate text-(--accent) underline underline-offset-4"
       >
         {value.replace(/^https?:\/\//, "")}
       </a>

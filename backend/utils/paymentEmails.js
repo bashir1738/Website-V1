@@ -119,6 +119,20 @@ const sendPaymentVerifiedEmail = async ({
     body.push(`<p style="margin:0 0 12px;">Your place in the program is now confirmed.</p>`);
   }
 
+  body.push(`<p style="margin:16px 0 12px;"><strong>Join our community</strong></p>`);
+  body.push(`<p style="margin:0 0 12px;">Stay connected and get ready for the program by joining our community channels:</p>`);
+  body.push(`<ul style="margin:0 0 16px; padding-left:20px; line-height:1.6;">
+    <li><strong>WhatsApp:</strong> <a href="https://wa.me/2348025463838" style="color:#A544D2;text-decoration:none;">Chat with us</a></li>
+    <li><strong>Telegram:</strong> <a href="https://t.me/blockfuselabs" style="color:#A544D2;text-decoration:none;">Join the community</a></li>
+    <li><strong>X (Twitter):</strong> <a href="https://x.com/blockfuselabs" style="color:#A544D2;text-decoration:none;">@blockfuselabs</a></li>
+    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/company/blockfuse-labs" style="color:#A544D2;text-decoration:none;">Blockfuse Labs</a></li>
+    <li><strong>Instagram:</strong> <a href="https://www.instagram.com/blockfuselabs" style="color:#A544D2;text-decoration:none;">@blockfuselabs</a></li>
+    <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@blockfuselabs" style="color:#A544D2;text-decoration:none;">Blockfuse Labs</a></li>
+    <li><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=61562117006926" style="color:#A544D2;text-decoration:none;">Blockfuse Labs</a></li>
+    <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@blockfuse.labs" style="color:#A544D2;text-decoration:none;">@blockfuse.labs</a></li>
+    <li><strong>GitHub:</strong> <a href="https://github.com/blockfuselabs" style="color:#A544D2;text-decoration:none;">blockfuselabs</a></li>
+  </ul>`);
+
   return sendConfirmationEmail({
     to: email,
     subject: 'Payment confirmed — you\u2019re in — Blockfuse Academy',
