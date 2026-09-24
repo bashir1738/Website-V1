@@ -70,7 +70,7 @@ export default function Home() {
       <section className="relative grid min-h-[calc(100svh_-_76px)] items-center isolate overflow-hidden px-5 pb-20 pt-10 sm:px-7 sm:pb-24 sm:pt-14 lg:pt-16 max-lg:min-h-auto">
         <div className="pointer-events-none absolute -z-1 right-[-8rem] top-[6%] h-[18rem] w-[18rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.55]" aria-hidden="true" />
         <div className="pointer-events-none absolute -z-1 bottom-[3%] left-[42%] h-[9rem] w-[9rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.35]" aria-hidden="true" />
-
+  
         <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(29rem,0.86fr)] lg:gap-12">
           <div className="max-w-[42rem]">
             
