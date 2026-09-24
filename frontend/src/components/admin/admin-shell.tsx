@@ -54,7 +54,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             BF
           </span>
           <span className="font-heading text-sm font-bold text-(--page-fg)">
-            Blockfuse Admin
+            Blockfuse Labs Admin
           </span>
         </Link>
 
@@ -93,7 +93,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <div className="sticky top-0 z-50 border-b border-(--line) bg-(--card-strong)/90 backdrop-blur-xl md:hidden">
         <div className="flex items-center justify-between px-5 py-4">
           <Link href="/admin" className="font-heading text-sm font-bold text-(--page-fg)">
-            Blockfuse Admin
+            Blockfuse Labs Admin
           </Link>
           <button
             type="button"

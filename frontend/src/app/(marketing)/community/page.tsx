@@ -10,9 +10,9 @@ import { BF_H2, EYEBROW, LINK_ACTION, SURFACE_CARD } from "@/lib/styles";
 import { socialLinks } from "@/config/social";
 
 export const metadata: Metadata = {
-  title: "Blockfuse Community: Connect with engineers",
+  title: "Blockfuse Labs Community: Connect with engineers",
   description:
-    "Join the Blockfuse community hub for events, connections, and knowledge exchange with working engineers.",
+    "Join the Blockfuse Labs community hub for events, connections, and knowledge exchange with working engineers.",
 };
 
 const channels = [
@@ -56,7 +56,7 @@ const pillars = [
   {
     label: "03",
     title: "Ecosystem connections",
-    copy: "Members get access to protocol teams, hiring partners, mentors, and event opportunities through the Blockfuse network.",
+    copy: "Members get access to protocol teams, hiring partners, mentors, and event opportunities through the Blockfuse Labs network.",
   },
   {
     label: "04",
@@ -284,7 +284,7 @@ export default function CommunityPage() {
 
           <ScrollReveal className="mt-12" delay={1}>
             <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg max-w-2xl mx-auto mb-8">
-              Connect with builders, share your work, and grow alongside the Blockfuse community.
+              Connect with builders, share your work, and grow alongside the Blockfuse Labs community.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
               <ButtonLink href="/contact" dataCursor="COMMUNITY">

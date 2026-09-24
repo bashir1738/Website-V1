@@ -50,15 +50,15 @@ function SectionDivider() {
 const ENGAGEMENT_MEDIA = [
   {
     src: "/brand/companies1.JPG",
-    alt: "A company team in conversation with Blockfuse engineers",
+    alt: "A company team in conversation with Blockfuse Labs engineers",
   },
   {
     src: "/brand/compaines2.JPG",
-    alt: "A Blockfuse engineer presenting a product workshop",
+    alt: "A Blockfuse Labs engineer presenting a product workshop",
   },
   {
     src: "/brand/companie3.jpeg",
-    alt: "Blockfuse engineers and open-source partners gathered together",
+    alt: "Blockfuse Labs engineers and open-source partners gathered together",
   },
 ] as const;
 
@@ -109,7 +109,7 @@ export default function Home() {
             <div className={`${HERO_PHOTO} row-span-2 rounded-[4.5rem_1.5rem_4.5rem_1.5rem] max-sm:rounded-[3rem_1rem_3rem_1rem]`}>
               <Image
                 src="/brand/heropic.jpg"
-                alt="Blockfuse community members learning together at an event"
+                alt="Blockfuse Labs community members learning together at an event"
                 fill
                 priority
                 sizes="(max-width: 1023px) 55vw, 28vw"
@@ -119,7 +119,7 @@ export default function Home() {
             <div className={`${HERO_PHOTO} rounded-[1.5rem_4.5rem_1.5rem_1.5rem] max-sm:rounded-[1rem_3rem_1rem_1rem]`}>
               <Image
                 src="/brand/heropic2.jpg"
-                alt="A Blockfuse community member giving a thumbs up"
+                alt="A Blockfuse Labs community member giving a thumbs up"
                 fill
                 priority
                 sizes="(max-width: 1023px) 45vw, 21vw"
@@ -129,7 +129,7 @@ export default function Home() {
             <div className={`${HERO_PHOTO} rounded-[1.5rem_1.5rem_4.5rem_1.5rem] max-sm:rounded-[1rem_1rem_3rem_1rem]`}>
               <Image
                 src="/brand/image00089.jpeg"
-                alt="Blockfuse community members gathered after a learning session"
+                alt="Blockfuse Labs community members gathered after a learning session"
                 fill
                 priority
                 sizes="(max-width: 1023px) 45vw, 21vw"
@@ -205,12 +205,12 @@ export default function Home() {
                       src={`/brand/path${i + 1}.jpg`}
                       alt={
                         i === 0
-                          ? "Engineers learning together in a Blockfuse classroom"
+                          ? "Engineers learning together in a Blockfuse Labs classroom"
                           : i === 1
-                            ? "A technical speaker presenting to the Blockfuse community"
+                            ? "A technical speaker presenting to the Blockfuse Labs community"
                             : i === 2
-                              ? "Engineers collaborating during a Blockfuse working session"
-                              : "A Blockfuse engineer working on a client project"
+                              ? "Engineers collaborating during a Blockfuse Labs working session"
+                              : "A Blockfuse Labs engineer working on a client project"
                       }
                       fill
                       sizes="(max-width: 1023px) 100vw, 33vw"
@@ -382,7 +382,7 @@ export default function Home() {
           {/* Left Column */}
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal>
-              <span className={EYEBROW}>The Blockfuse Advantage</span>
+              <span className={EYEBROW}>The Blockfuse Labs Advantage</span>
             </ScrollReveal>
 
             <h2 className={BF_H2}>
@@ -569,7 +569,7 @@ export default function Home() {
           <ScrollReveal>
             <span className={EYEBROW}>The System</span>
             <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
-              How Blockfuse works
+              How Blockfuse Labs works
             </h2>
           </ScrollReveal>
 
@@ -629,7 +629,7 @@ export default function Home() {
                     className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
                    
                    >
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Academy</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Labs Academy</span>
                     <span className="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-200">→</span>
                   </Link>
                 </div>

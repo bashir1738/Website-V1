@@ -165,7 +165,7 @@ export const closingPaths: ClosingPath[] = [
 ];
 
 export const orgWorkWithUsPoints = [
-  "Hire qualified Blockfuse graduates",
+  "Hire qualified Blockfuse Labs graduates",
   "Engage engineers for contract or embedded roles",
   "Sponsor a talent pipeline for specific skills",
   "Train and upskill existing engineering teams",

@@ -96,7 +96,7 @@ export default function AdminLoginPage() {
             <h2 className="mt-7 max-w-[20ch] font-heading text-[clamp(2.25rem,3.6vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.04em] text-(--page-fg)">
               One command center for{" "}
               <span className="bg-linear-to-r from-(--accent-soft) to-(--accent) bg-clip-text text-transparent">
-                every Blockfuse signal.
+                every Blockfuse Labs signal.
               </span>
             </h2>
           </ScrollReveal>
@@ -215,7 +215,7 @@ export default function AdminLoginPage() {
 
             <div className="section-divider my-8" />
             <p className="text-center font-mono text-[0.65rem] uppercase tracking-[0.14em] text-(--dim)">
-              Protected by Blockfuse access controls
+              Protected by Blockfuse Labs access controls
             </p>
           </div>
 

@@ -16,7 +16,7 @@ const POSTER_PHOTO =
 
 export const metadata: Metadata = {
   title: "Events | Blockfuse Labs",
-  description: "Meet the builders. Explore Blockfuse festivals, hackathons, workshops, and community events.",
+  description: "Meet the builders. Explore Blockfuse Labs festivals, hackathons, workshops, and community events.",
 };
 
 interface BackendEvent {
@@ -128,12 +128,12 @@ export default async function EventsPage() {
 
           <div
             className="pointer-events-none absolute -bottom-12 -left-8 -right-8 z-[3] grid items-end gap-4 grid-cols-[1.05fr_1.25fr_0.85fr_1.05fr] max-md:-bottom-8 max-md:-left-16 max-md:-right-16 max-md:grid-cols-[1.2fr_0.9fr_1fr] max-md:gap-3"
-            aria-label="Scenes from Blockfuse events"
+            aria-label="Scenes from Blockfuse Labs events"
           >
             <figure className={`${POSTER_PHOTO} h-[16rem] [transform:rotate(-5deg)_translateY(1.5rem)] max-md:h-[10rem]`}>
               <Image
                 src="/brand/event1.JPG"
-                alt="A team presenting a Web3 project at a Blockfuse event"
+                alt="A team presenting a Web3 project at a Blockfuse Labs event"
                 fill
                 priority
                 sizes="(max-width: 767px) 62vw, 28vw"
@@ -143,7 +143,7 @@ export default async function EventsPage() {
             <figure className={`${POSTER_PHOTO} h-[10rem] rotate-[3deg] max-md:h-[10rem]`}>
               <Image
                 src="/brand/event2.jpeg"
-                alt="A mentor supporting a builder during a Blockfuse workshop"
+                alt="A mentor supporting a builder during a Blockfuse Labs workshop"
                 fill
                 priority
                 sizes="(max-width: 767px) 46vw, 22vw"
@@ -153,7 +153,7 @@ export default async function EventsPage() {
             <figure className={`${POSTER_PHOTO} h-[15rem] [transform:rotate(-2deg)_translateY(2rem)]`}>
               <Image
                 src="/brand/event3.JPG"
-                alt="Builders collaborating during a Blockfuse community session"
+                alt="Builders collaborating during a Blockfuse Labs community session"
                 fill
                 priority
                 sizes="(max-width: 767px) 52vw, 24vw"
@@ -163,7 +163,7 @@ export default async function EventsPage() {
             <figure className={`${POSTER_PHOTO} h-[18rem] [transform:rotate(4deg)_translateY(1rem)] max-md:hidden`}>
               <Image
                 src="/brand/event4.jpeg"
-                alt="Two builders working together during a Blockfuse event"
+                alt="Two builders working together during a Blockfuse Labs event"
                 fill
                 sizes="(max-width: 767px) 45vw, 23vw"
                 className="object-cover object-center"

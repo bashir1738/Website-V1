@@ -18,7 +18,7 @@ export const navItems: NavItem[] = [
     href: "/about",
     children: [
       {
-        label: "About Blockfuse",
+        label: "About Blockfuse Labs",
         href: "/about",
         desc: "Our story, mission, and approach to engineering education.",
       },
@@ -38,7 +38,7 @@ export const navItems: NavItem[] = [
       {
         label: "Community hub",
         href: "/community",
-        desc: "Connect with engineers, builders, and the wider Blockfuse network.",
+        desc: "Connect with engineers, builders, and the wider Blockfuse Labs network.",
       },
       {
         label: "Events",
@@ -48,7 +48,7 @@ export const navItems: NavItem[] = [
       {
         label: "Blog",
         href: "/community/blog",
-        desc: "Stories, ideas, and updates from Blockfuse.",
+        desc: "Stories, ideas, and updates from Blockfuse Labs.",
       },
       {
         label: "Alumni",

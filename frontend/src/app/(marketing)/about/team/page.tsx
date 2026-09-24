@@ -12,7 +12,7 @@ import { SURFACE_CARD } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "Team | Blockfuse Labs",
   description:
-    "The engineers, mentors, and operators in Jos behind every Blockfuse assessment.",
+    "The engineers, mentors, and operators in Jos behind every Blockfuse Labs assessment.",
 };
 
 export const dynamic = "force-dynamic";
@@ -32,7 +32,7 @@ export default async function TeamPage() {
       <PageHero
         eyebrow="Team"
         title="The people who review the work."
-        lead="Engineers, mentors, and operators based in Jos. Every assessment that leaves Blockfuse has one of these names behind it."
+        lead="Engineers, mentors, and operators based in Jos. Every assessment that leaves Blockfuse Labs has one of these names behind it."
       />
 
       {team.length === 0 ? (
@@ -120,7 +120,7 @@ export default async function TeamPage() {
           </p>
         </ScrollReveal>
         <ScrollReveal className="mt-6 flex flex-wrap items-center justify-center gap-3.5" delay={2}>
-          <ModalButton modal="hire">Hire Blockfuse engineers</ModalButton>
+          <ModalButton modal="hire">Hire Blockfuse Labs engineers</ModalButton>
           <ModalButton modal="newsletter" variant="secondary">
             Join the dispatch
           </ModalButton>

@@ -5,7 +5,7 @@ export interface ProductHighlight {
   proof: string;
 }
 
-/** Real products and tools shipped and maintained by Blockfuse engineers. */
+/** Real products and tools shipped and maintained by Blockfuse Labs engineers. */
 export const productHighlights: ProductHighlight[] = [
   {
     name: "Contract Kit",
@@ -111,7 +111,7 @@ export interface HiringModel {
   href: string;
 }
 
-/** The four ways an organisation engages Blockfuse engineers. */
+/** The four ways an organisation engages Blockfuse Labs engineers. */
 export const hiringModels: HiringModel[] = [
   {
     title: "Direct hiring",
@@ -122,14 +122,14 @@ export const hiringModels: HiringModel[] = [
   },
   {
     title: "Embedded engineers",
-    copy: "Engage a Blockfuse engineer on contract without immediately adding a permanent employee. The engineer joins your team, follows your technical direction, and works within your existing processes while Blockfuse manages the engagement.",
+    copy: "Engage a Blockfuse Labs engineer on contract without immediately adding a permanent employee. The engineer joins your team, follows your technical direction, and works within your existing processes while Blockfuse Labs manages the engagement.",
     fine: "You manage the product. We support the engineer.",
     ctaText: "Discuss an embedded engagement",
     href: "/contact?intent=embedded",
   },
   {
     title: "Sponsored talent pipelines",
-    copy: "Sponsor a cohort designed around the technologies and capabilities your company or ecosystem needs. Blockfuse manages recruitment, selection, training, projects, assessment, and outcome reporting.",
+    copy: "Sponsor a cohort designed around the technologies and capabilities your company or ecosystem needs. Blockfuse Labs manages recruitment, selection, training, projects, assessment, and outcome reporting.",
     fine: "Your organisation receives early access to engineers who meet the standard.",
     ctaText: "Sponsor seats or a cohort",
     href: "/contact?intent=sponsor",

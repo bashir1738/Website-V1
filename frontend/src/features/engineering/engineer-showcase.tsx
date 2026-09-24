@@ -27,7 +27,7 @@ const CELL_LINK =
   "group inline-flex items-center gap-2 mt-auto pt-6 text-[0.82rem] font-semibold text-(--accent) no-underline";
 
 /**
- * A sample of the Blockfuse Talent Network, auto-rotating through profiles.
+ * A sample of the Blockfuse Labs Talent Network, auto-rotating through profiles.
  * Pauses on hover/focus and never animates under prefers-reduced-motion —
  * the full, filterable roster always remains one click away at /community/alumni.
  * Profiles come from the backend (approved alumni), never hardcoded.

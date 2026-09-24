@@ -60,7 +60,7 @@ export function TeamNetwork() {
       <div className="mt-14 sm:mt-16 lg:mt-7">
         <div className="mx-auto max-w-[1240px] px-5 py-5 text-center sm:px-7 lg:py-4">
           <p className="font-mono text-base font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:text-lg">
-            Meet the Blockfuse team
+            Meet the Blockfuse Labs team
           </p>
         </div>
 

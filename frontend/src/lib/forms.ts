@@ -117,7 +117,7 @@ export const forms: Record<FormKey, FormSpec> = {
         name: "referral",
         kind: "select",
         options: [
-          "A Blockfuse graduate",
+          "A Blockfuse Labs graduate",
           "Social media",
           "ProdFest",
           "University or school",
@@ -144,7 +144,7 @@ export const forms: Record<FormKey, FormSpec> = {
 
   hire: {
     eyebrow: "For companies",
-    title: "Hire Blockfuse engineers",
+    title: "Hire Blockfuse Labs engineers",
     subtitle:
       "Tell us the shape of the role. We'll come back with assessed candidates, not a list of CVs.",
     cta: "Request candidates",
@@ -296,7 +296,7 @@ export const forms: Record<FormKey, FormSpec> = {
 
   sponsor: {
     eyebrow: "Partnerships",
-    title: "Partner with Blockfuse",
+    title: "Partner with Blockfuse Labs",
     subtitle:
       "Sponsors fund cohort seats, ProdFest, and the open source programme.",
     cta: "Start the conversation",
@@ -367,7 +367,7 @@ export const forms: Record<FormKey, FormSpec> = {
     eyebrow: "Open source programme",
     title: "Join the open source programme",
     subtitle:
-      "Contribute to repos maintained by Blockfuse students and residents, with review from our engineers.",
+      "Contribute to repos maintained by Blockfuse Labs students and residents, with review from our engineers.",
     cta: "Request access",
     note: "Contributors are onboarded in fortnightly batches with a maintainer assigned to each.",
     successTitle: "You're in the queue",
@@ -530,7 +530,7 @@ export const forms: Record<FormKey, FormSpec> = {
 
   newsletter: {
     eyebrow: "Dispatch",
-    title: "Join the Blockfuse dispatch",
+    title: "Join the Blockfuse Labs dispatch",
     subtitle:
       "Cohort openings, ProdFest dates, and engineering write-ups. Roughly monthly.",
     cta: "Subscribe",

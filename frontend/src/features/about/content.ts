@@ -32,7 +32,7 @@ export const aboutBeliefs: AboutBelief[] = [
   {
     title: "Honest standards create real opportunity",
     description:
-      "We do not describe people as more experienced than they are. Clear standards protect engineers, employers, partners, and the Blockfuse name.",
+      "We do not describe people as more experienced than they are. Clear standards protect engineers, employers, partners, and the Blockfuse Labs name.",
   },
   {
     title: "Community compounds",

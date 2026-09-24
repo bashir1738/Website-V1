@@ -30,28 +30,28 @@ import {
 } from "@/lib/styles";
 
 export const metadata: Metadata = {
-  title: "Blockfuse Academy: train for the work, prove you are ready",
+  title: "Blockfuse Labs Academy: train for the work, prove you are ready",
   description:
-    "Blockfuse Academy develops production-ready engineers through rigorous, project-based training in AI-native software engineering, applied AI, and blockchain.",
+    "Blockfuse Labs Academy develops production-ready engineers through rigorous, project-based training in AI-native software engineering, applied AI, and blockchain.",
 };
 
 /** Each track gets a photograph from the room it is actually taught in. */
 const PROGRAM_MEDIA: Record<string, { src: string; alt: string }> = {
   "ai-native": {
     src: "/brand/path1.jpg",
-    alt: "An instructor leading a Blockfuse classroom of students working on laptops",
+    alt: "An instructor leading a Blockfuse Labs classroom of students working on laptops",
   },
   "applied-ai": {
     src: "/brand/path3.jpg",
-    alt: "Blockfuse engineers reviewing code together in the studio workspace",
+    alt: "Blockfuse Labs engineers reviewing code together in the studio workspace",
   },
   blockchain: {
     src: "/brand/path2.jpg",
-    alt: "A Blockfuse speaker presenting a blockchain session to a full room",
+    alt: "A Blockfuse Labs speaker presenting a blockchain session to a full room",
   },
   "team-training": {
     src: "/brand/heropic.jpg",
-    alt: "Attendees at a Blockfuse community session in Jos",
+    alt: "Attendees at a Blockfuse Labs community session in Jos",
   },
 };
 
@@ -167,7 +167,7 @@ export default function TrainingPage() {
           <div className={ACADEMY_COPY}>
             <ScrollReveal delay={1}>
               <h1 id="academy-title" className={ACADEMY_TITLE}>
-                Blockfuse
+                Blockfuse Labs
                 <br />
                 Academy.
               </h1>
@@ -194,7 +194,7 @@ export default function TrainingPage() {
             <figure className={ACADEMY_PORTRAIT}>
               <Image
                 src="/brand/Deborah.jpeg"
-                alt="Deborah at Blockfuse Academy"
+                alt="Deborah at Blockfuse Labs Academy"
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 48vw"
@@ -202,7 +202,7 @@ export default function TrainingPage() {
               />
               <figcaption className={ACADEMY_CAPTION}>
                 <span className={ACADEMY_CAPTION_META}>Cohort IV</span>
-                <strong className={ACADEMY_CAPTION_TITLE}>Builders at Blockfuse</strong>
+                <strong className={ACADEMY_CAPTION_TITLE}>Builders at Blockfuse Labs</strong>
               </figcaption>
             </figure>
           </ScrollReveal>
@@ -212,7 +212,7 @@ export default function TrainingPage() {
     
 
       {/* ================================================================= */}
-      {/* 3. WHY TRAIN AT BLOCKFUSE — The Blockfuse difference              */}
+      {/* 3. WHY TRAIN AT BLOCKFUSE — The Blockfuse Labs difference              */}
       {/* ================================================================= */}
       <section className={`${BAND} px-5 py-24 sm:px-7 sm:py-32`}>
         <div className={BAND_ORBS} aria-hidden="true">
@@ -221,7 +221,7 @@ export default function TrainingPage() {
         <div className="relative z-[1] mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
             <span className={`${EYEBROW} ${BF_EYEBROW_LIGHT}`}>
-              The Blockfuse difference
+              The Blockfuse Labs difference
             </span>
             <h2 className={`${BF_H2} mt-4 text-white`}>
               We don&apos;t train for certificates
@@ -425,7 +425,7 @@ export default function TrainingPage() {
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[52rem]">
             <span className={EYEBROW}>The standard</span>
-            <h2 className={`${BF_H2} mt-4`}>Your path through Blockfuse</h2>
+            <h2 className={`${BF_H2} mt-4`}>Your path through Blockfuse Labs</h2>
             <p className={`${BF_PROSE} mt-6`}>
               Completing a program does not automatically mean someone is ready
               for placement. Every stage has a clear meaning and standard.
@@ -518,7 +518,7 @@ export default function TrainingPage() {
             <div className="lg:col-span-6">
               <p className={BF_PROSE}>
                 Real engineers, real feedback. Here&apos;s what our alumni say
-                about training at Blockfuse.
+                about training at Blockfuse Labs.
               </p>
             </div>
           </div>

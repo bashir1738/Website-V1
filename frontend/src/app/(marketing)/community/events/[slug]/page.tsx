@@ -86,7 +86,7 @@ export default async function EventPage({ params }: Props) {
         </aside>
         <article>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--surface-2)]"><Image src={image} alt="" fill preload sizes="(min-width: 1024px) 720px, 100vw" className="object-cover" /></div>
-          <p className="mt-3 text-xs text-[var(--muted)]">From the Blockfuse community photo collection.</p>
+          <p className="mt-3 text-xs text-[var(--muted)]">From the Blockfuse Labs community photo collection.</p>
           <h2 className="mt-9 text-3xl font-bold">About the gathering</h2>
           <p className="mt-5 text-base leading-loose text-[var(--muted)]">{event.description}</p>
           <div className="mt-9 border-t border-[var(--line)] pt-8"><h2 className="text-2xl font-bold">Help shape the next edition.</h2><p className="mb-5 mt-3 text-sm leading-relaxed text-[var(--muted)]">Connect with us about supporting a future community event.</p><ModalButton modal="sponsor" variant="secondary">Become a partner</ModalButton></div>

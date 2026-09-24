@@ -137,7 +137,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             <footer className="mt-16 border-t border-[var(--line-strong)] pt-8">
               <p className="font-heading text-xl font-bold text-[var(--page-fg)]">Keep building with us.</p>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">Explore more field notes from the Blockfuse community.</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">Explore more field notes from the Blockfuse Labs community.</p>
               <Link href="/community/blog" className={`mt-5 inline-flex min-h-10 items-center rounded-full ${ACTION_COLOR} px-5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]`}>
                 Browse all stories
               </Link>

@@ -39,7 +39,7 @@ import {
 } from "@/lib/styles";
 
 export const metadata: Metadata = {
-  title: "Blockfuse Engineering: build with us, or hire from us",
+  title: "Blockfuse Labs Engineering: build with us, or hire from us",
   description:
     "Senior-led delivery for dependable AI, web, and blockchain systems, and production-ready engineers you can hire, embed, or sponsor.",
 };
@@ -264,7 +264,7 @@ export default async function EngineeringPage() {
 
           <ScrollReveal className={HERO_LEAD} delay={2}>
             <p className={HERO_LEAD_STRONG}>
-              Blockfuse Engineering designs and delivers dependable AI, web,
+              Blockfuse Labs Engineering designs and delivers dependable AI, web,
               and blockchain systems — led by the same senior engineers who
               train our Academy, so the work holds up after we leave.
             </p>
@@ -345,7 +345,7 @@ export default async function EngineeringPage() {
       {/* ================================================================= */}
       <div className={ROUTE_WRAP}>
         <ScrollReveal>
-          <p className={ROUTE_LABEL}>Two ways to work with Blockfuse</p>
+          <p className={ROUTE_LABEL}>Two ways to work with Blockfuse Labs</p>
           <div className={CHOICE}>
             <Link href="#build" className={CHOICE_CARD}>
               <span className={CHOICE_TAG}>Route 01 — Studio</span>
@@ -519,7 +519,7 @@ export default async function EngineeringPage() {
                 <div className={FRAME_IMG}>
                   <Image
                     src="/brand/path1.jpg"
-                    alt="Blockfuse engineers at work in a training cohort in Jos"
+                    alt="Blockfuse Labs engineers at work in a training cohort in Jos"
                     fill
                     sizes="(max-width: 1023px) 100vw, 46vw"
                     className={FRAME_IMG_PIC}
@@ -559,7 +559,7 @@ export default async function EngineeringPage() {
               <span className={EYEBROW}>Talent — The network in practice</span>
               <h2 className={`${BF_H2} mt-4`}>Meet our engineers</h2>
               <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
-                A sample of the Blockfuse Talent Network. Every profile here
+                A sample of the Blockfuse Labs Talent Network. Every profile here
                 passed the same assessment before an employer ever saw it.
               </p>
             </ScrollReveal>
@@ -567,7 +567,7 @@ export default async function EngineeringPage() {
               <div className="relative overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--card)] aspect-[4/3] shadow-[var(--shadow-card)]">
                 <Image
                   src="/about/engineer.JPG"
-                  alt="Blockfuse Talent Network engineer at work"
+                  alt="Blockfuse Labs Talent Network engineer at work"
                   fill
                   sizes="(min-width: 1024px) 34rem, 100vw"
                   className="object-cover object-[center_20%]"
@@ -720,7 +720,7 @@ export default async function EngineeringPage() {
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
             <span className={EYEBROW}>Talent — The hiring flow</span>
-            <h2 className={`${BF_H2} mt-4`}>How hiring through Blockfuse works</h2>
+            <h2 className={`${BF_H2} mt-4`}>How hiring through Blockfuse Labs works</h2>
           </ScrollReveal>
 
           <ol className={`${RAIL} max-w-[56rem]`}>

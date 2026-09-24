@@ -126,7 +126,7 @@ export default function ProdFestPage() {
 
               <div className="mt-6 space-y-5 text-base leading-relaxed text-[var(--muted)] sm:text-lg sm:leading-8">
                 <p>
-                  ProdFest is where the Blockfuse community becomes visible to the
+                  ProdFest is where the Blockfuse Labs community becomes visible to the
                   people who can hire, fund, and partner with it. Engineers show
                   real projects. Companies meet talent without a recruitment
                   process. Ecosystems reach developers who are already building.

@@ -13,7 +13,7 @@ export const employerTestimonials: EmployerTestimonial[] = [
   },
   {
     quote:
-      "The engineer we embedded shipped in her second week. Blockfuse stayed in touch through the whole engagement, which we did not expect and came to rely on.",
+      "The engineer we embedded shipped in her second week. Blockfuse Labs stayed in touch through the whole engagement, which we did not expect and came to rely on.",
     author: "Sarah Mensah",
     role: "CTO at Kestrel Labs",
   },
@@ -60,7 +60,7 @@ export const hiringProcessSteps: HiringProcessStep[] = [
     number: "2",
     title: "Receive a focused shortlist",
     description:
-      "We match your requirements against engineers in the Blockfuse Talent Network. You receive a small, relevant shortlist, not a database of CVs to search through.",
+      "We match your requirements against engineers in the Blockfuse Labs Talent Network. You receive a small, relevant shortlist, not a database of CVs to search through.",
   },
   {
     number: "3",
@@ -78,7 +78,7 @@ export const hiringProcessSteps: HiringProcessStep[] = [
     number: "5",
     title: "Hire directly or engage under contract",
     description:
-      "Choose the arrangement that works for your team. Blockfuse supports direct employment, contract engagements, and sponsored talent pipelines.",
+      "Choose the arrangement that works for your team. Blockfuse Labs supports direct employment, contract engagements, and sponsored talent pipelines.",
   },
   {
     number: "6",
@@ -89,7 +89,7 @@ export const hiringProcessSteps: HiringProcessStep[] = [
 ];
 
 export const verifiedEngineerCriteria = [
-  "Completed the relevant Blockfuse program or demonstrated equivalent ability",
+  "Completed the relevant Blockfuse Labs program or demonstrated equivalent ability",
   "Passed our production-readiness assessment",
   "Built working software that our reviewers can examine",
   "Demonstrated effective use of AI-assisted development",

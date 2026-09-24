@@ -9,7 +9,7 @@ import { MONO_TAG, SURFACE_CARD } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "Open Source | Blockfuse Labs",
   description:
-    "Contracts, tooling, and course material maintained in the open by Blockfuse students and residents.",
+    "Contracts, tooling, and course material maintained in the open by Blockfuse Labs students and residents.",
 };
 
 export default function OpenSourcePage() {

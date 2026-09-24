@@ -72,7 +72,7 @@ export default async function AlumniPage() {
         aria-labelledby="alumni-hero-title"
       >
         <div className="relative z-[2] self-center p-[2rem_0.4rem_5.5rem_1.7rem] max-[56rem]:p-[1.5rem_0.25rem_5rem_1.25rem] max-md:col-span-full max-md:p-[2.5rem_1rem_1.5rem]">
-          <span className={EYEBROW}>Meet the Blockfuse alumni</span>
+          <span className={EYEBROW}>Meet the Blockfuse Labs alumni</span>
           <h1
             id="alumni-hero-title"
             className="mt-6 max-w-[7ch] text-[clamp(2.5rem,4.5vw,4.5rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-(--page-fg) max-md:text-[clamp(3rem,15vw,4.5rem)]"
@@ -96,7 +96,7 @@ export default async function AlumniPage() {
         <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-md:min-h-[25rem]">
           <Image
             src="/brand/IMG_1604.JPG"
-            alt="Blockfuse alumnus"
+            alt="Blockfuse Labs alumnus"
             fill
             priority
             sizes="(max-width: 767px) 76vw, (max-width: 1100px) 45vw, 32vw"
@@ -115,7 +115,7 @@ export default async function AlumniPage() {
         <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-md:min-h-[25rem]">
           <Image
             src="/brand/DSC09798.jpg"
-            alt="Blockfuse alumnus"
+            alt="Blockfuse Labs alumnus"
             fill
             priority
             sizes="(max-width: 767px) 38vw, 14vw"
@@ -129,7 +129,7 @@ export default async function AlumniPage() {
         <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-md:min-h-[25rem] max-[56rem]:hidden">
           <Image
             src="/brand/IMG_1607.JPG"
-            alt="Blockfuse alumnus"
+            alt="Blockfuse Labs alumnus"
             fill
             priority
             sizes="(max-width: 767px) 38vw, 14vw"

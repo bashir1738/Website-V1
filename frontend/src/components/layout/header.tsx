@@ -408,7 +408,7 @@ export function Header() {
                 }}
                 className={BTN_SECONDARY}
               >
-                Hire Blockfuse engineers
+                Hire Blockfuse Labs engineers
               </button>
             </div>
           </div>
