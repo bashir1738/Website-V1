@@ -1,5 +1,7 @@
 const { Resend } = require('resend');
 require('dotenv').config();
+const { escHtml } = require('./escHtml');
+const { FRONTEND_ORIGIN } = require('../config/payments');
 
 // CRIT-4: No hardcoded fallback — fail loudly at startup if ADMIN_EMAIL is missing.
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
@@ -22,7 +24,9 @@ const sendConfirmationEmail = async ({ to, subject, html }) => {
   const { error } = await resend.emails.send({ from: FROM_EMAIL, to, subject, html });
   if (error) {
     console.error('Failed to send confirmation email to', to, ':', error.message);
+    return false;
   }
+  return true;
 };
 
 const notifyAdmin = async ({ subject, html }) => {
@@ -37,4 +41,21 @@ const notifyAdmin = async ({ subject, html }) => {
   }
 };
 
-module.exports = { sendConfirmationEmail, notifyAdmin };
+/** Sent when an admin approves an alumni profile for the public directory. */
+const sendAlumniApprovalEmail = async ({ email, name }) => {
+  const directoryUrl = `${FRONTEND_ORIGIN}/community/alumni`;
+  const { error } = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: email,
+    subject: 'Your alumni profile is live — Blockfuse',
+    html: `<p>Hi ${escHtml(name)},</p>
+<p>Good news — your profile has been verified and is now live in the Blockfuse alumni directory.</p>
+<p><a href="${directoryUrl}">View the alumni directory</a></p>
+<p>The Blockfuse Labs team</p>`,
+  });
+  if (error) {
+    console.error('Failed to send alumni approval email to', email, ':', error.message);
+  }
+};
+
+module.exports = { sendConfirmationEmail, notifyAdmin, sendAlumniApprovalEmail };

@@ -1,4 +1,5 @@
 export interface Alumnus {
+  id: string | number;
   name: string;
   cohort: string;
   track: string;

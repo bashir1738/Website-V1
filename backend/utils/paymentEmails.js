@@ -3,6 +3,55 @@ const { escHtml } = require('./escHtml');
 const { wrapEmail } = require('./emailBrand');
 
 const formatNaira = (kobo) => `₦${(kobo / 100).toLocaleString('en-NG')}`;
+const formatDate = (date) =>
+  new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date instanceof Date ? date : new Date(date));
+
+/**
+ * A compact, self-contained receipt rendered into the paid confirmation email.
+ * All tables are nested and inline-styled so they survive every mail client.
+ */
+const renderReceipt = ({ receiptNumber, paidAt, description, amountKobo, reference }) => {
+  const row = (label, value) =>
+    `<tr>
+      <td style="padding:9px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#6B6572;">${label}</td>
+      <td align="right" style="padding:9px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#17121C;">${value}</td>
+    </tr>`;
+
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 6px;border:1px solid #EAE6EE;border-radius:14px;">
+    <tr>
+      <td style="background:#F5F3F7;border-bottom:1px solid #EAE6EE;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="padding:16px 18px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.2em;color:#A544D2;text-transform:uppercase;">Payment receipt</div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;color:#17121C;margin-top:4px;">${escHtml(receiptNumber)}</div>
+            </td>
+            <td align="right" style="padding:16px 18px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#0E7A3C;">${formatNaira(amountKobo)}</div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.08em;color:#6B6572;text-transform:uppercase;margin-top:2px;">Paid</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="border-top:1px solid #EAE6EE;padding:6px 18px 12px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          ${row('Date', formatDate(paidAt))}
+          ${row('Description', escHtml(description))}
+          ${row('Payment reference', `<code style="font-family:Consolas,Menlo,monospace;">${escHtml(reference)}</code>`)}
+          ${row('Status', '<span style="color:#0E7A3C;">Paid — confirmed</span>')}
+        </table>
+      </td>
+    </tr>
+  </table>`;
+};
 
 /**
  * Payment-link email for a submission whose payment is still pending. Sent at
@@ -46,6 +95,13 @@ const sendPaymentLinkEmail = async ({ kind, name, email, amountKobo, authorizati
 const sendPaidEmails = async ({ kind, record }) => {
   const common = { name: record.name, email: record.email };
   const amount = formatNaira(record.payment_amount || 0);
+  const receiptNumber = `BLF-${String(record.payment_reference || `PAID${record.id}`).replace(/[^A-Za-z0-9]/gi, '').slice(-10).toUpperCase()}`;
+  const receipt = renderReceipt({
+    receiptNumber,
+    paidAt: record.payment_paid_at,
+    reference: record.payment_reference,
+    amountKobo: record.payment_amount || 0,
+  });
 
   if (kind === 'application') {
     return Promise.all([
@@ -56,7 +112,8 @@ const sendPaidEmails = async ({ kind, record }) => {
           eyebrow: 'Payment confirmed',
           title: 'Your application is in',
           bodyHtml: `<p style="margin:0 0 12px;">Hi ${escHtml(common.name)},</p>
-<p style="margin:0;">Your application for Cohort III and your ${amount} payment have been received. You'll hear about the technical screen within 10 working days.</p>`,
+<p style="margin:0;">Your application for <em>${escHtml(record.track || 'the programme')}</em> and your ${amount} payment were received successfully. You'll hear about the technical screen within 10 working days.</p>
+${receipt}`,
         }),
       }),
       notifyAdmin({
@@ -64,7 +121,7 @@ const sendPaidEmails = async ({ kind, record }) => {
         html: wrapEmail({
           eyebrow: 'Admin',
           title: 'New program application',
-          bodyHtml: `<p style="margin:0;"><strong>${escHtml(common.name)}</strong> (${escHtml(common.email)}) applied for <em>${escHtml(record.track || 'TBD')}</em> — payment confirmed (${amount}).</p>`,
+          bodyHtml: `<p style="margin:0;"><strong>${escHtml(common.name)}</strong> (${escHtml(common.email)}) applied for <em>${escHtml(record.track || 'TBD')}</em> — payment confirmed (${amount}, ${escHtml(record.payment_reference)}).</p>`,
         }),
       }),
     ]);
@@ -79,7 +136,8 @@ const sendPaidEmails = async ({ kind, record }) => {
           eyebrow: 'Payment confirmed',
           title: 'Thank you for sponsoring',
           bodyHtml: `<p style="margin:0 0 12px;">Hi ${escHtml(common.name)},</p>
-<p style="margin:0;">Your ${amount} sponsor pledge is confirmed. Our partnerships lead will reach out with the deck and a time to talk.</p>`,
+<p style="margin:0;">Your ${amount} sponsor pledge from <em>${escHtml(record.organisation)}</em> is confirmed. Our partnerships lead will reach out with the deck and a time to talk.</p>
+${receipt}`,
         }),
       }),
       notifyAdmin({
@@ -87,7 +145,7 @@ const sendPaidEmails = async ({ kind, record }) => {
         html: wrapEmail({
           eyebrow: 'Admin',
           title: 'New sponsor pledge',
-          bodyHtml: `<p style="margin:0;"><strong>${escHtml(common.name)}</strong> from <em>${escHtml(record.organisation)}</em> is sponsoring — payment confirmed (${amount}).</p>`,
+          bodyHtml: `<p style="margin:0;"><strong>${escHtml(common.name)}</strong> from <em>${escHtml(record.organisation)}</em> is sponsoring — payment confirmed (${amount}, ${escHtml(record.payment_reference)}).</p>`,
         }),
       }),
     ]);

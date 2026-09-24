@@ -50,7 +50,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
       <div className="grid grid-cols-1 gap-x-5 gap-y-14 md:grid-cols-2 min-[68.75rem]:grid-cols-3 min-[68.75rem]:gap-y-24" aria-live="polite">
         {shown.map((a, index) => (
           <article
-            key={a.name}
+            key={a.id ?? `${a.name}-${a.cohort}-${a.track}`}
             className="min-w-0 group min-[68.75rem]:nth-[3n+2]:translate-y-12"
           >
             <div

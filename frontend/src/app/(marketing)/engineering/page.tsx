@@ -198,6 +198,7 @@ function SectionDivider() {
 }
 
 interface ApprovedAlumnus {
+  id: number;
   name: string;
   cohort: string;
   track: string;
@@ -222,6 +223,7 @@ async function loadApprovedAlumni(): Promise<Alumnus[]> {
             ? { platform: "GitHub", url: profile.github }
             : { platform: "LinkedIn", url: linkedinSearch(profile.name) };
         return {
+          id: profile.id,
           name: profile.name,
           cohort: profile.cohort,
           track: profile.track,

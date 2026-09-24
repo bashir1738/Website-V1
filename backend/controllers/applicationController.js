@@ -1,4 +1,5 @@
 const { ProgramApplication } = require('../models');
+const { Op } = require('sequelize');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const { PAYMENTS_ENABLED, AMOUNTS_KOBO, FRONTEND_ORIGIN } = require('../config/payments');
 const {
@@ -11,6 +12,24 @@ const { sendPaymentLinkEmail } = require('../utils/paymentEmails');
 exports.submit = async (req, res) => {
   try {
     const data = req.body;
+
+    // One application per email per track. Block before any side effect so a
+    // duplicate never hits Cloudinary or starts a Paystack charge.
+    const track = data.track ? String(data.track).trim() : null;
+    const alreadyApplied = await ProgramApplication.findOne({
+      where: {
+        email: { [Op.iLike]: data.email },
+        ...(track ? { track } : {}),
+        status: { [Op.not]: 'rejected' },
+      },
+    });
+    if (alreadyApplied) {
+      return res.status(409).json({
+        success: false,
+        error: 'You have already submitted an application for this track. Check your inbox for the next steps.',
+      });
+    }
+
     if (req.file) {
       // Resumes are PDFs/DOCX — upload as raw documents, not images.
       const result = await uploadToCloudinary(req.file.buffer, 'blockfuse/resumes', 'raw');

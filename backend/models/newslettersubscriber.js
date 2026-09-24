@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: { isEmail: true },
       },
+      unsubscribe_token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       topics: {
         type: DataTypes.JSON,
         allowNull: true,

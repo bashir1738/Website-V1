@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import React, { useState } from "react";
 import { DataTable, SubmissionDetail, formatDate, type DataColumn } from "@/components/admin/data-table";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { useCollection } from "@/components/admin/use-collection";
-import { deleteJson, patchJson } from "@/lib/api";
-import { BTN_GHOST, CUSTOM_SCROLL } from "@/lib/styles";
+import { deleteJson, patchJson, postJson } from "@/lib/api";
+import { BTN_GHOST, CUSTOM_SCROLL, FIELD_INPUT } from "@/lib/styles";
+
+const MAX_BROADCAST = 5000;
 
 type SubmissionStatus = "pending" | "approved" | "rejected";
 
@@ -197,6 +200,115 @@ const VIEWS: {
   },
 ];
 
+function BroadcastPanel({
+  subscribers,
+}: {
+  subscribers: Record<string, unknown>[];
+}) {
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const active = subscribers.filter(
+    (s) => String(s.status ?? "pending") === "approved",
+  ).length;
+
+  const handleSend = async () => {
+    if (
+      !window.confirm(
+        `Send this dispatch to ${active} subscriber${active === 1 ? "" : "s"}? This emails the whole active list.`,
+      )
+    ) {
+      return;
+    }
+    setSending(true);
+    setError(null);
+    setResult(null);
+    try {
+      const data = (await postJson("/newsletter/broadcast", {
+        subject,
+        message,
+      })) as { sent: number; failed: number };
+      setResult(
+        data.failed > 0
+          ? `Sent to ${data.sent} subscribers (${data.failed} failed).`
+          : `Sent to ${data.sent} subscriber${data.sent === 1 ? "" : "s"}.`,
+      );
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to send broadcast.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <div className="mb-8 rounded-2xl border border-(--line-strong) bg-(--card) p-5">
+      <div className="flex items-baseline justify-between gap-4">
+        <h2 className="text-sm font-semibold text-(--page-fg)">
+          Send a dispatch
+        </h2>
+        <span className="text-xs text-(--muted)">
+          Recipients: {active} active subscriber
+          {active === 1 ? "" : "s"}
+        </span>
+      </div>
+      <div className="mt-4 grid gap-4">
+        <input
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          maxLength={200}
+          placeholder="Subject — e.g. Cohort IV applications are open"
+          className={FIELD_INPUT}
+        />
+        <div>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            maxLength={MAX_BROADCAST}
+            placeholder="Message — paragraphs, links, the works."
+            rows={6}
+            className={`${FIELD_INPUT} h-auto resize-y py-3 leading-relaxed`}
+          />
+          <div className="mt-1 text-right text-[11px] text-(--dim)">
+            {message.length}/{MAX_BROADCAST}
+          </div>
+        </div>
+        {error && (
+          <p className="rounded-xl border border-[rgba(248,113,113,0.35)] bg-[rgba(248,113,113,0.1)] px-4 py-3 text-sm text-[#fca5a5]">
+            {error}
+          </p>
+        )}
+        {result && (
+          <p className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400">
+            {result}
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={handleSend}
+          disabled={sending || !subject.trim() || !message.trim() || active === 0}
+          className={BTN_GHOST}
+        >
+          {sending ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+            </>
+          ) : (
+            `Email ${active} subscriber${active === 1 ? "" : "s"}`
+          )}
+        </button>
+      </div>
+      <p className="mt-3 text-xs text-(--dim)">
+        Sends to approved subscribers only — unsubscribed readers are skipped
+        automatically. Each email carries that reader&apos;s own one-click
+        unsubscribe link.
+      </p>
+    </div>
+  );
+}
+
 export default function AdminInboxPage() {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab") ?? "contact";
@@ -316,6 +428,10 @@ export default function AdminInboxPage() {
         </div>
 
         <div className="mt-6">
+          {activeView.key === "newsletter" && !loading && !error && (
+            <BroadcastPanel subscribers={data as Record<string, unknown>[]} />
+          )}
+
           {loading && (
             <div className="flex flex-col items-center gap-3 py-16 text-(--dim)">
               <Loader2 className="h-5 w-5 animate-spin text-(--accent)" />

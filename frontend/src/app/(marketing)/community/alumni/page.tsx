@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 interface ApprovedAlumnus {
+  id: number;
   name: string;
   cohort: string;
   track: string;
@@ -32,6 +33,7 @@ function toAlumnus(profile: ApprovedAlumnus): Alumnus {
       : { platform: "LinkedIn", url: linkedinSearch(profile.name) };
 
   return {
+    id: profile.id,
     name: profile.name,
     cohort: profile.cohort,
     track: profile.track,
