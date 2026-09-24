@@ -47,7 +47,7 @@ const wrapEmail = ({ eyebrow, title, bodyHtml, button }) => {
           <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
             <tr>
               <td align="center" style="padding-bottom:22px;">
-                <img src="${LOGO_URL}" alt="Blockfuse Labs" style="display:block;width:90px;height:72px;" />
+                <img src="${LOGO_URL}" alt="Blockfuse Labs" style="display:block;width:90px;height:auto;" />
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:${BRAND.text};letter-spacing:-0.01em;margin-top:8px;">Blockfuse&nbsp;Labs</div>
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.22em;color:${BRAND.muted};text-transform:uppercase;margin-top:3px;">Engineering talent from Jos, Nigeria</div>
               </td>
