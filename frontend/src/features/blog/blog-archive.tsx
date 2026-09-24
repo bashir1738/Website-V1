@@ -83,7 +83,7 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
                 Dive into technical deep-dives, protocol architectures, and developer insights curated by Blockfuse Labs engineers.
               </p>
             </div>
-
+ 
             <Link
               href={`/community/blog/${featuredPost.slug}`}
               className="group relative self-center grid grid-rows-[minmax(20rem,1fr)_auto] min-w-0 p-3 text-(--color-ink) bg-(--color-paper) no-underline rotate-[1.5deg] shadow-[0.4rem_0.4rem_0_var(--color-ink)] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:rotate-[0.5deg] hover:-translate-y-[0.25rem] motion-reduce:hover:rotate-0 motion-reduce:hover:translate-y-0 focus-visible:outline-[3px] focus-visible:outline-(--accent) focus-visible:outline-offset-5 max-md:grid-rows-[17rem_auto] max-md:rotate-[1deg] max-md:shadow-[0.3rem_0.3rem_0_var(--color-ink)]"
