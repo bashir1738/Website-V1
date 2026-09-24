@@ -37,21 +37,29 @@ export const metadata: Metadata = {
 
 /** Each track gets a photograph from the room it is actually taught in. */
 const PROGRAM_MEDIA: Record<string, { src: string; alt: string }> = {
-  "ai-native": {
+  basic: {
+    src: "/brand/path3.jpg",
+    alt: "Blockfuse Labs engineers reviewing code together in the studio workspace",
+  },
+  intermediate: {
     src: "/brand/path1.jpg",
     alt: "An instructor leading a Blockfuse Labs classroom of students working on laptops",
   },
-  "applied-ai": {
-    src: "/brand/path3.jpg",
-    alt: "Blockfuse Labs engineers reviewing code together in the studio workspace",
+  advanced: {
+    src: "/brand/path2.jpg",
+    alt: "A Blockfuse Labs speaker presenting a blockchain session to a full room",
+  },
+  professional: {
+    src: "/brand/heropic.jpg",
+    alt: "Attendees at a Blockfuse Labs community session in Jos",
+  },
+  "full-program": {
+    src: "/brand/path1.jpg",
+    alt: "An instructor leading a Blockfuse Labs classroom of students working on laptops",
   },
   blockchain: {
     src: "/brand/path2.jpg",
     alt: "A Blockfuse Labs speaker presenting a blockchain session to a full room",
-  },
-  "team-training": {
-    src: "/brand/heropic.jpg",
-    alt: "Attendees at a Blockfuse Labs community session in Jos",
   },
 };
 
@@ -328,14 +336,8 @@ export default function TrainingPage() {
 
                       <div className={PROGRAM_ACTIONS}>
                         <ModalButton
-                          modal={
-                            program.id === "team-training" ? "hire" : "program"
-                          }
-                          prefill={
-                            program.id === "team-training"
-                              ? undefined
-                              : { Track: program.title }
-                          }
+                          modal="program"
+                          prefill={{ Track: program.title }}
                         >
                           Apply for this track
                         </ModalButton>

@@ -277,16 +277,15 @@ export function Header() {
           <div className="flex shrink-0 items-center gap-2.5">
             <ThemeToggle />
 
-            <button
-              type="button"
-              onClick={() => openModal("program")}
+            <Link
+              href="/apply"
               className={`hidden h-10 items-center gap-2 whitespace-nowrap rounded-full ${ACTION_COLOR} px-5 text-[13px] font-semibold text-white shadow-[0_4px_12px_-6px_rgba(191,100,231,0.4)] transition-[transform,background-color] duration-[100ms] ease-out hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--page-bg) sm:inline-flex`}
             >
               Apply
               <span aria-hidden="true" className="text-sm">
                 →
               </span>
-            </button>
+            </Link>
 
             <button
               type="button"
@@ -389,17 +388,14 @@ export function Header() {
             })}
 
             <div className="flex flex-col gap-3 border-t border-(--line) pt-3">
-              <button
-                type="button"
-                onClick={() => {
-                  hamburgerOpen(false);
-                  openModal("program");
-                }}
+              <Link
+                href="/apply"
+                onClick={() => hamburgerOpen(false)}
                 className={BTN_PRIMARY}
               >
                 Apply to a program
                 <span aria-hidden="true">→</span>
-              </button>
+              </Link>
               <button
                 type="button"
                 onClick={() => {

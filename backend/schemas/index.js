@@ -1,10 +1,12 @@
 const Joi = require('joi');
 
 const TRACKS = [
-  'AI-Native Software Engineering',
-  'Applied AI Engineering',
-  'Blockchain Engineering',
-  'Not sure yet',
+  'Basic Track',
+  'Intermediate Track',
+  'Advanced Track',
+  'Professional Track',
+  'Full-Program Bundle',
+  'Blockchain Engineering Track',
 ];
 
 const EXPERIENCE_LEVELS = [

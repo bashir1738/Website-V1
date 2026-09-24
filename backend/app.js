@@ -48,10 +48,6 @@ app.use(limiter);
 // images never render reliably; a plain HTTPS URL does.
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Paystack webhook needs the raw byte-for-byte body so the HMAC-SHA512
-// signature can be verified. Must be mounted BEFORE the JSON parser.
-app.use('/api/payments/webhook', express.raw({ type: 'application/json' }));
-
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 app.use(sanitize);
@@ -71,7 +67,8 @@ app.use('/api/sponsorships', submissionLimiter, require('./routes/sponsor'));
 app.use('/api/opensource-applications', submissionLimiter, require('./routes/opensource'));
 app.use('/api/alumni-submissions', submissionLimiter, require('./routes/alumni'));
 app.use('/api/newsletter', submissionLimiter, require('./routes/newsletter'));
-app.use('/api/payments', require('./routes/payments'));
+app.use('/api/payments', submissionLimiter, require('./routes/payments'));
+app.use('/api/payment-reviews', require('./routes/paymentReviews'));
 
 app.use((err, req, res, _next) => {
   if (err.type === 'entity.parse.failed') {

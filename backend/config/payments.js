@@ -1,27 +1,38 @@
 require('dotenv').config();
 
 /**
- * Fixed per-flow payment amounts, denominated in kobo (Paystack's smallest
- * unit, 100 kobo = ₦1). Amounts are authoritative on the server and are never
- * trusted from the client. Override via env when the fees change.
+ * Manual payment-verification configuration.
+ *
+ * All program fees are fixed server-side (see config/tracks.js) and are never
+ * trusted from the client. Applicants pay via bank transfer to a Blockfuse
+ * account and upload proof, which an admin verifies manually.
  */
-const PAYMENTS_ENABLED = process.env.PAYMENTS_ENABLED !== 'false';
-
-const AMOUNTS_KOBO = {
-  application: Number(process.env.APPLICATION_FEE_KOBO) || 500000,
-  sponsorship: Number(process.env.SPONSORSHIP_FEE_KOBO) || 2000000,
-};
 
 const CURRENCY = 'NGN';
 
 /**
- * Origin the visitor lands back on after Paystack checkout. Set
- * PAYMENT_CALLBACK_ORIGIN explicitly (strongly recommended for production) to
- * pin the exact frontend host. Otherwise it is taken from the CORS allow-list's
- * first *non-local* entry so deployed builds use the real public host even when
- * the list also carries local dev URLs (paying users must never be redirected
- * back to a localhost checkout). Falls back to the first entry — or localhost —
- * when only dev origins are configured.
+ * Bank account applicants transfer tuition to. Read from env so credentials
+ * never live in source control. Fails loudly at startup when missing (same
+ * policy as utils/resend.js) — a missing account number would send applicants
+ * to nowhere.
+ */
+const BANK_NAME = process.env.BANK_NAME;
+const BANK_ACCOUNT_NAME = process.env.BANK_ACCOUNT_NAME;
+const BANK_ACCOUNT_NUMBER = process.env.BANK_ACCOUNT_NUMBER;
+
+if (!BANK_NAME || !BANK_ACCOUNT_NAME || !BANK_ACCOUNT_NUMBER) {
+  throw new Error(
+    '[payments] BANK_NAME, BANK_ACCOUNT_NAME, and BANK_ACCOUNT_NUMBER are required. ' +
+      'These are the bank-transfer details shown to applicants.'
+  );
+}
+
+/**
+ * Origin the visitor lands back on (also used for email links and the admin
+ * review URL). Set PAYMENT_CALLBACK_ORIGIN explicitly (strongly recommended
+ * for production) to pin the exact frontend host. Otherwise it is taken from
+ * the CORS allow-list's first *non-local* entry; falls back to the first
+ * entry — or localhost — when only dev origins are configured.
  */
 const ORIGINS = (process.env.FRONTEND_URL || 'http://localhost:3000')
   .split(',')
@@ -34,4 +45,10 @@ const FRONTEND_ORIGIN =
   (process.env.PAYMENT_CALLBACK_ORIGIN || ORIGINS.find((u) => !isLocal(u)) || ORIGINS[0])
     .replace(/\/+$/, '') || 'http://localhost:3000';
 
-module.exports = { PAYMENTS_ENABLED, AMOUNTS_KOBO, CURRENCY, FRONTEND_ORIGIN };
+module.exports = {
+  CURRENCY,
+  BANK_NAME,
+  BANK_ACCOUNT_NAME,
+  BANK_ACCOUNT_NUMBER,
+  FRONTEND_ORIGIN,
+};

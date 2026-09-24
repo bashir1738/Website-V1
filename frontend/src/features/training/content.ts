@@ -49,76 +49,107 @@ export interface DetailedProgram {
 
 export const detailedPrograms: DetailedProgram[] = [
   {
-    id: "ai-native",
-    title: "AI-Native Software Engineering",
+    id: "basic",
+    title: "Basic Track",
     description:
-      "A practical path into modern software engineering, with AI integrated into the development process from the beginning.",
+      "Your first working foundation: core programming, the web, and the tools professional engineers use every day. Fee: ₦100,000.",
     topics: [
-      "Programming and software engineering fundamentals",
-      "Frontend and backend development",
-      "Databases and API design",
-      "Testing and debugging",
-      "Git and collaborative development",
-      "Cloud deployment",
-      "AI-assisted software development",
-      "Building AI-enabled applications",
-      "Product thinking and teamwork",
+      "Programming fundamentals & problem solving",
+      "HTML, CSS and JavaScript",
+      "Git & GitHub workflows",
+      "Developer tools (terminal, VS Code)",
+      "Building your first web pages",
+      "How the internet and browsers work",
     ],
     outcome:
-      "By the end of the program, you should be able to take a software idea, break it into manageable problems, build a working solution, and explain the decisions behind it.",
-    ctaText: "Learn about AI-Native Software Engineering",
+      "You finish able to build and host a real site, use Git daily, and step into the Intermediate Track with confidence.",
+    ctaText: "Apply for the Basic Track",
   },
   {
-    id: "applied-ai",
-    title: "Applied AI Engineering",
+    id: "intermediate",
+    title: "Intermediate Track",
     description:
-      "Learn to design, evaluate, and deploy dependable AI-powered systems, not just prototypes that work during a demonstration.",
+      "For people who know the basics and want to build proper software: JavaScript, modern frontend, and your first backend. Fee: ₦100,000.",
     topics: [
-      "LLM application development",
-      "Retrieval and knowledge systems",
-      "Tool calling and agentic workflows",
-      "Model selection and evaluation",
-      "AI security and guardrails",
-      "Structured outputs and reliability",
-      "Observability, latency, and cost management",
-      "Deploying and maintaining AI systems",
+      "JavaScript & TypeScript fundamentals",
+      "Modern frontend with React",
+      "APIs and HTTP",
+      "Node.js & databases",
+      "Testing what you build",
+      "Consuming third-party services",
     ],
     outcome:
-      "The program is designed for engineers who want to move from using AI tools to engineering reliable AI products.",
-    ctaText: "Learn about Applied AI Engineering",
+      "You finish able to build and deploy a full frontend that talks to a real backend — the shape of most professional web apps.",
+    ctaText: "Apply for the Intermediate Track",
+  },
+  {
+    id: "advanced",
+    title: "Advanced Track",
+    description:
+      "Full-stack engineering done properly: structured backends, production frontends, and the engineering habits that scale. Fee: ₦100,000.",
+    topics: [
+      "Full-stack architecture (Next.js, Node)",
+      "Relational databases & data modelling",
+      "Authentication & authorisation",
+      "Deployment & CI/CD",
+      "Code review & working in a team",
+      "Performance and observability",
+    ],
+    outcome:
+      "You finish able to ship a secure, tested full-stack product and work inside a professional engineering team.",
+    ctaText: "Apply for the Advanced Track",
+  },
+  {
+    id: "professional",
+    title: "Professional Track",
+    description:
+      "Built for working developers levelling up: distributed systems, cloud, security, and AI-assisted delivery at production standards. Fee: ₦100,000.",
+    topics: [
+      "Microservices & distributed systems",
+      "Cloud infrastructure (AWS, containers)",
+      "Advanced testing & reliability",
+      "Security engineering",
+      "AI-assisted development workflows",
+      "Leading technical work & reviews",
+    ],
+    outcome:
+      "You finish able to design resilient systems, operate them in the cloud, and earn the production-readiness assessment.",
+    ctaText: "Apply for the Professional Track",
+  },
+  {
+    id: "full-program",
+    title: "Full-Program Bundle",
+    description:
+      "The complete journey — Basic, Intermediate, Advanced and Professional in one continuous program, built for a serious career jump. Fee: ₦250,000.",
+    topics: [
+      "All four track curriculums, sequenced",
+      "A guided capstone for each stage",
+      "Mentor sessions throughout",
+      "Portfolio & technical review",
+      "Production-readiness assessment",
+      "Career and placement support",
+    ],
+    outcome:
+      "One continuous arc from first lines of code to production-ready engineering, assessed at every transition.",
+    ctaText: "Apply for the Full-Program Bundle",
   },
   {
     id: "blockchain",
-    title: "Blockchain Engineering",
+    title: "Blockchain Engineering Track",
     description:
-      "This is the program Blockfuse Labs became known for, now delivered through paid or ecosystem-sponsored cohorts.",
+      "The program Blockfuse Labs became known for: smart contracts, security, and decentralized applications you can defend in review. Fee: ₦250,000, spread as two installments of ₦125,000.",
     topics: [
-      "Blockchain and distributed-systems fundamentals",
-      "Smart contract development",
+      "Blockchain & distributed-systems fundamentals",
+      "Smart contract development (Solidity)",
       "Testing and security practices",
       "Protocol and wallet integration",
       "Decentralised application development",
       "Deployment and monitoring",
-      "Building projects that can survive technical review",
+      "Building projects that survive technical review",
     ],
     outcome:
-      "Funded places and sponsorship arrangements are announced when applications open.",
-    ctaText: "Learn about Blockchain Engineering",
-  },
-  {
-    id: "team-training",
-    title: "Team Training",
-    description:
-      "We design private training programs around the technologies, tools, and engineering capabilities your organisation needs.",
-    topics: [
-      "Customised tech stacks & tooling",
-      "Modern AI engineering workflows",
-      "Production code quality & security",
-      "Hands-on architectural sprints",
-    ],
-    outcome:
-      "Programs can be delivered at Blockfuse Labs in Jos, at your organisation's offices, or remotely.",
-    ctaText: "Discuss a team training program",
+      "You finish able to write, test, secure, and deploy real contracts and dApps — the work that makes up a web3 engineer's day.",
+    ctaText: "Apply for the Blockchain Engineering Track",
   },
 ];
 

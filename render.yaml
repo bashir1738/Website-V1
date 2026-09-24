@@ -39,8 +39,8 @@ services:
         sync: false
       - key: FRONTEND_URL
         sync: false
-      # Exact origin users return to after Paystack checkout (e.g. the live
-      # frontend). Falls back to the first non-localhost FRONTEND_URL entry.
+      # Exact origin used in application/payment emails (status-page links).
+      # Falls back to the first non-localhost FRONTEND_URL entry.
       - key: PAYMENT_CALLBACK_ORIGIN
         sync: false
       # Public URL of this API. Falls back to RENDER_EXTERNAL_URL (auto).
@@ -54,16 +54,12 @@ services:
         sync: false
       - key: RESEND_API_KEY
         sync: false
-      # --- Paystack (set PAYMENTS_ENABLED=false to ship without payments) ---
-      - key: PAYMENTS_ENABLED
-        value: "true"
-      - key: PAYSTACK_SECRET_KEY
+      # --- Manual payment verification (bank-transfer details + review) ---
+      - key: BANK_NAME
         sync: false
-      - key: PAYSTACK_PUBLIC_KEY
+      - key: BANK_ACCOUNT_NAME
         sync: false
-      - key: APPLICATION_FEE_KOBO
-        sync: false
-      - key: SPONSORSHIP_FEE_KOBO
+      - key: BANK_ACCOUNT_NUMBER
         sync: false
 
   # ---------------------------------------------------------------------------

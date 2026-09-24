@@ -1,32 +1,29 @@
+const crypto = require('crypto');
 const { ProgramApplication } = require('../models');
 const { Op } = require('sequelize');
 const { uploadToCloudinary } = require('../utils/cloudinary');
-const { PAYMENTS_ENABLED, AMOUNTS_KOBO, FRONTEND_ORIGIN } = require('../config/payments');
-const {
-  PAYSTACK_PUBLIC_KEY,
-  generateReference,
-  initializePayment,
-} = require('../utils/paystack');
-const { sendPaymentLinkEmail } = require('../utils/paymentEmails');
+const { sendStatusLinkEmail } = require('../utils/paymentEmails');
+const { FRONTEND_ORIGIN } = require('../config/payments');
+
+/** Opaque, unguessable lookup token for the applicant's payment/status page. */
+const generateStatusToken = () => crypto.randomBytes(24).toString('hex');
 
 exports.submit = async (req, res) => {
   try {
     const data = req.body;
 
-    // One application per email per track. Block before any side effect so a
-    // duplicate never hits Cloudinary or starts a Paystack charge.
-    const track = data.track ? String(data.track).trim() : null;
+    // One application per email. Block before any side effect so a duplicate
+    // never hits Cloudinary or creates a second record.
     const alreadyApplied = await ProgramApplication.findOne({
       where: {
         email: { [Op.iLike]: data.email },
-        ...(track ? { track } : {}),
         status: { [Op.not]: 'rejected' },
       },
     });
     if (alreadyApplied) {
       return res.status(409).json({
         success: false,
-        error: 'You have already submitted an application for this track. Check your inbox for the next steps.',
+        error: 'You have already submitted an application for this email. Check your inbox or your status page for the next steps.',
       });
     }
 
@@ -36,50 +33,23 @@ exports.submit = async (req, res) => {
       data.resume_url = result.secure_url;
     }
 
-    let paymentPayload = null;
-
-    if (PAYMENTS_ENABLED) {
-      // Fixed amount lives server-side only — never trust a client-supplied price.
-      const amountKobo = AMOUNTS_KOBO.application;
-      const reference = generateReference('APP');
-      // Fund the transaction at Paystack first; a failed init means no row saved.
-      const { authorizationUrl } = await initializePayment({
-        email: data.email,
-        amountKobo,
-        reference,
-        callbackUrl: `${FRONTEND_ORIGIN}/payment/status?reference=${encodeURIComponent(reference)}`,
-      });
-
-      data.payment_reference = reference;
-      data.payment_status = 'pending';
-      data.payment_amount = amountKobo;
-
-      paymentPayload = {
-        publicKey: PAYSTACK_PUBLIC_KEY,
-        reference,
-        amountKobo,
-        email: data.email,
-        authorizationUrl,
-      };
-    }
+    const statusToken = generateStatusToken();
+    data.status_token = statusToken;
 
     const application = await ProgramApplication.create(data);
 
-    // Give the applicant a secure way back to the checkout if they abandon it.
-    if (paymentPayload) {
-      sendPaymentLinkEmail({
-        kind: 'application',
-        name: data.name,
-        email: data.email,
-        reference: paymentPayload.reference,
-        amountKobo: paymentPayload.amountKobo,
-        authorizationUrl: paymentPayload.authorizationUrl,
-      }).catch((err) => console.error('Payment-link email error:', err.message));
-    }
+    // Give the applicant a secure link to their payment instructions and
+    // live status page.
+    sendStatusLinkEmail({
+      name: data.name,
+      email: data.email,
+      track: data.track,
+      statusUrl: `${FRONTEND_ORIGIN}/apply/${statusToken}`,
+    }).catch((err) => console.error('Status-link email error:', err.message));
 
     return res.status(201).json({
       success: true,
-      data: { id: application.id, payment: paymentPayload },
+      data: { id: application.id, statusToken },
     });
   } catch (err) {
     console.error('Application error:', err);

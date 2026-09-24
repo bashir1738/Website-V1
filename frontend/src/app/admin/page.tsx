@@ -14,6 +14,9 @@ interface CollectionStats {
   count: number;
 }
 
+const naira = (value: unknown) =>
+  `₦${Number(value ?? 0).toLocaleString("en-NG")}`;
+
 const COLLECTIONS: CollectionStats[] = [
   { path: "contact", label: "Contacts", href: "/admin/inbox?tab=contact", count: 0 },
   { path: "applications", label: "Applications", href: "/admin/inbox?tab=applications", count: 0 },
@@ -23,6 +26,7 @@ const COLLECTIONS: CollectionStats[] = [
   { path: "opensource-applications", label: "Open source", href: "/admin/inbox?tab=opensource-applications", count: 0 },
   { path: "alumni-submissions", label: "Alumni profiles", href: "/admin/inbox?tab=alumni-submissions", count: 0 },
   { path: "newsletter", label: "Subscribers", href: "/admin/inbox?tab=newsletter", count: 0 },
+  { path: "payment-reviews", label: "Payments", href: "/admin/payments?status=pending_review", count: 0 },
 ];
 
 interface ActivityItem {
@@ -53,6 +57,15 @@ function headlineFor(path: string, item: Record<string, unknown>): [string, stri
       return [`Alumni profile — ${name}`, String(item.current_status ?? email)];
     case "newsletter":
       return [`Newsletter subscription — ${email}`, String(item.name ?? "")];
+    case "payment-reviews": {
+      const applicant = (item.applicant ?? {}) as Record<string, unknown>;
+      const applicantName = String(
+        applicant.name ?? item.name ?? applicant.email ?? "(anonymous)",
+      );
+      const amount = naira(item.amount);
+      const status = String(item.status ?? "");
+      return [`Payment from ${applicantName}`, `${amount} · ${status}`];
+    }
     default:
       return [name, email];
   }

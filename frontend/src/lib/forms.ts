@@ -37,9 +37,6 @@ export interface FormSpec {
   endpoint: string;
   /** True when the form includes a file field and must submit as multipart/form-data. */
   multipart?: boolean;
-  /** True when this form requires a Paystack payment. The amount is decided
-   *  server-side and returned in the submit response — never hard-coded here. */
-  paid?: boolean;
   fields: FormField[];
 }
 
@@ -52,10 +49,9 @@ export const forms: Record<FormKey, FormSpec> = {
     cta: "Submit application",
     successTitle: "Application received",
     successBody:
-      "We've logged your application for Cohort III. Watch your inbox for the technical screen invite.",
+      "Check your inbox — we've emailed you a link to complete the payment step and secure your seat.",
     endpoint: "applications",
     multipart: true,
-    paid: true,
     fields: [
       {
         label: "Full name",
@@ -89,10 +85,12 @@ export const forms: Record<FormKey, FormSpec> = {
         name: "track",
         kind: "select",
         options: [
-          "AI-Native Software Engineering",
-          "Applied AI Engineering",
-          "Blockchain Engineering",
-          "Not sure yet",
+          "Basic Track",
+          "Intermediate Track",
+          "Advanced Track",
+          "Professional Track",
+          "Full-Program Bundle",
+          "Blockchain Engineering Track",
         ],
       },
       {
@@ -303,9 +301,8 @@ export const forms: Record<FormKey, FormSpec> = {
     note: "We'll send the partnership deck with tiers, reach numbers, and past sponsor outcomes.",
     successTitle: "Thank you",
     successBody:
-      "Your sponsor pledge is confirmed. Our partnerships lead will reach out with the deck and a time to talk.",
+      "Your sponsor request is confirmed. Our partnerships lead will reach out with the deck and a time to talk.",
     endpoint: "sponsorships",
-    paid: true,
     fields: [
       {
         label: "Organisation",

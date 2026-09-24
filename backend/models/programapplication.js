@@ -3,7 +3,12 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class ProgramApplication extends Model {
-    static associate(models) {}
+    static associate(models) {
+      ProgramApplication.hasMany(models.Payment, {
+        foreignKey: 'applicant_id',
+        as: 'payments',
+      });
+    }
   }
 
   ProgramApplication.init(
@@ -58,6 +63,24 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'pending',
+      },
+      status_token: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+      track_legacy: {
+        // True for applications made under the old (pre-2026) program naming.
+        // Kept for admin review; their payments carry a null track_id.
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      program_start_date: {
+        // Sets the date from which Blockchain installment 2 becomes due
+        // (start + 8 weeks). Assigned by an admin at enrollment.
+        type: DataTypes.DATEONLY,
+        allowNull: true,
       },
       payment_reference: {
         type: DataTypes.STRING,

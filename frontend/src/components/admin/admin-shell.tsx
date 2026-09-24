@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -13,12 +13,15 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { RiBankCardLine } from "react-icons/ri";
 import { clearAdminAuth, getAdminEmail } from "@/lib/admin/auth";
+import { getJson } from "@/lib/api";
 import { ACTION_COLOR } from "@/lib/styles";
 
 const NAV = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
   { href: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { href: "/admin/payments", label: "Payments", icon: RiBankCardLine },
   { href: "/admin/blogs", label: "Blog posts", icon: Newspaper },
   { href: "/admin/events", label: "Events", icon: CalendarDays },
 ];
@@ -36,6 +39,21 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const email = getAdminEmail() ?? "admin";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [pendingPayments, setPendingPayments] = useState<number | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    getJson("/payment-reviews?status=pending_review")
+      .then((data) => {
+        if (active) setPendingPayments(Array.isArray(data) ? data.length : null);
+      })
+      .catch(() => {
+        if (active) setPendingPayments(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const isActive = (href: string) =>
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
@@ -68,6 +86,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             >
               <Icon className="h-4 w-4" />
               {label}
+              {label === "Payments" &&
+                pendingPayments != null &&
+                pendingPayments > 0 && (
+                  <span className="ml-auto rounded-full bg-(--accent) px-2 py-0.5 text-[10px] font-bold text-white">
+                    {pendingPayments}
+                  </span>
+                )}
             </Link>
           ))}
         </nav>
@@ -122,6 +147,13 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 >
                   <Icon className="h-4 w-4" />
                   {label}
+                  {label === "Payments" &&
+                    pendingPayments != null &&
+                    pendingPayments > 0 && (
+                      <span className="ml-auto rounded-full bg-(--accent) px-2 py-0.5 text-[10px] font-bold text-white">
+                        {pendingPayments}
+                      </span>
+                    )}
                 </Link>
               ))}
             </nav>

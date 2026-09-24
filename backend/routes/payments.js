@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const paymentController = require('../controllers/paymentController');
-const { submissionLimiter } = require('../middlewares/rateLimiter');
+const upload = require('../middlewares/uploadMiddleware');
 
-// The browser confirms the popup result here. Rate-limited like other
-// public write endpoints.
-router.post('/verify', submissionLimiter, paymentController.verify);
-
-// Paystack webhook. Raw-body parsing is mounted at app level BEFORE
-// express.json() so the HMAC signature can be checked against the exact bytes.
-router.post('/webhook', paymentController.webhook);
+// Applicant-facing payment endpoints. `token` is the opaque status_token
+// issued at application time (in the multipart body / URL path).
+router.post('/upload', upload.single('proof'), paymentController.submit);
+router.get('/status/:token', paymentController.status);
 
 module.exports = router;
