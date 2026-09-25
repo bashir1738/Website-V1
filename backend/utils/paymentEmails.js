@@ -220,7 +220,7 @@ const sendPaymentRejectedEmail = async ({
       bodyHtml: `<p style="margin:0 0 12px;">Hi ${escHtml(name)},</p>
 <p style="margin:0 0 12px;">We couldn't verify your ${formatNaira(amount)} transfer for <em>${escHtml(trackName)}</em>${installLabel}.</p>
 ${reason}
-<p style="margin:0 0 12px;">This doesn't affect your applicationn, open your status page to review the note and upload a corrected transfer receipt.</p>`,
+<p style="margin:0 0 12px;">This doesn't affect your application, open your status page to review the note and upload a corrected transfer receipt.</p>`,
       button: { label: 'Upload a new proof', url: uploadUrl },
     }),
   });
