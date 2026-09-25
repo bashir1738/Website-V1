@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 
+  // Dev-only: the browser blocks cross-origin requests to /_next assets and
+  // the HMR socket, so reaching the dev server over the LAN IP (rather than
+  // localhost) yields an unstyled/broken page. The last label is wildcarded
+  // because the LAN address is DHCP-assigned and changes between networks.
+  // Development only — has no effect on production builds.
+  allowedDevOrigins: ["10.112.108.*"],
+
   // Blog / event cover images are served from Cloudinary.
   images: {
     remotePatterns: [
