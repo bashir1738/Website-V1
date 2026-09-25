@@ -81,7 +81,7 @@ export const FIELD_TEXTAREA =
   "w-full rounded-xl border border-(--line-strong) bg-(--card) text-(--page-fg) text-[1rem] sm:text-[0.875rem] transition-[border-color,background-color] duration-200 py-[0.8125rem] px-[0.9375rem] leading-[1.55] resize-y focus:outline-none focus:border-[rgba(191,100,231,0.6)] data-[invalid=true]:border-[rgba(248,113,113,0.55)] custom-scroll";
 
 export const FIELD_FILE =
-  "flex items-center gap-[0.875rem] h-[2.875rem] px-[0.9375rem] rounded-xl border border-dashed border-(--line-strong) bg-(--card) text-(--dim) text-[0.813rem] cursor-pointer transition-[border-color,color] duration-200 hover:border-[rgba(191,100,231,0.5)] hover:text-(--bright) data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
+  "flex w-full min-w-0 items-center gap-[0.875rem] h-[2.875rem] shrink-0 px-[0.9375rem] rounded-xl border border-dashed border-(--line-strong) bg-(--card) text-(--dim) text-[0.813rem] cursor-pointer overflow-hidden whitespace-nowrap transition-[border-color,color] duration-200 hover:border-[rgba(191,100,231,0.5)] hover:text-(--bright) data-[invalid=true]:border-[rgba(248,113,113,0.55)]";
 
 export const FIELD_ERROR =
   "mt-1 text-xs leading-[1.45] text-[#f87171]";

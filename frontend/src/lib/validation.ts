@@ -17,6 +17,7 @@ export const ORG_RE = /^[\p{L}][\p{L}\s.'&-]{1,199}$/u;
 export const STATUS_RE = /^[\p{L}][\p{L}\s,'&-]{1,199}$/u;
 export const TOPIC_RE = /^[\p{L}\p{N}][\p{L}\p{N}\s.,'&-]{1,99}$/u;
 export const PHONE_RE = /^\+?[0-9][0-9\s\-().]{5,18}$/;
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 export const GITHUB_URL_RE =
   /^https?:\/\/(?:www\.)?github\.com\/[A-Za-z0-9][A-Za-z0-9._-]*\/?$/i;
 export const LINKEDIN_URL_RE =
@@ -148,7 +149,8 @@ function ruleFor(field: FormField, formKey: FormKey | string): Rule | null {
 /**
  * Validate one field value. Returns an error message for the field, or null
  * when the value is fine. Native `required`/`type="email"` inputs keep their
- * built-in behaviour; email correctness is enforced by the input + server.
+ * built-in behaviour; email shape is also checked here so forms that opt out
+ * of native validation still reject malformed addresses before posting.
  */
 export function validateFieldValue(
   field: FormField,
@@ -162,7 +164,9 @@ export function validateFieldValue(
     return null;
   }
 
-  if (field.type === "email") return null;
+  if (field.type === "email") {
+    return EMAIL_RE.test(value) ? null : "Enter a valid email address.";
+  }
 
   const rule = ruleFor(field, formKey);
   if (!rule) return null;

@@ -345,8 +345,6 @@ export default function TrainingPage() {
                           href={`/contact?program=${program.id}`}
                           className={CELL_LINK}
                         >
-                          <span className={CELL_LINK_SPAN}>Full curriculum</span>
-                          <span className={CELL_LINK_SPAN} aria-hidden="true">→</span>
                         </Link>
                       </div>
                     </div>

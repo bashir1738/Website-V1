@@ -41,12 +41,17 @@ function slugify(input: string): string {
 
 function toMember(member: BackendTeam): TeamMember {
   const name = (member.fullname || "").trim();
+  const slug = (member.slug || "").trim() || slugify(name);
+  const normalizedName = name.toLowerCase();
+  const normalizedSlug = slug.toLowerCase();
+  const isITodoMember = normalizedName.includes("itodo") || normalizedSlug.includes("itodo");
+
   return {
     name,
     role: (member.position || "").trim(),
     bio: (member.about || "").trim(),
-    image: member.image,
-    slug: (member.slug || "").trim() || slugify(name),
+    image: isITodoMember ? "/engineers/itodo.jpeg" : member.image,
+    slug,
     social: {
       twitter: member.twitter || null,
       github: member.github || null,
