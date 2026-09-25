@@ -23,7 +23,7 @@ const sendStatusLinkEmail = async ({ name, email, track, statusUrl }) => {
       eyebrow: 'Application received',
       title: 'Your next step: secure your seat',
       bodyHtml: `<p style="margin:0 0 12px;">Hi ${escHtml(name)},</p>
-<p style="margin:0 0 12px;">Your application for <em>${escHtml(track || 'an academy program')}</em> was received. To secure your place you need to complete the payment step — either the full track fee or, for Blockchain Engineering, the 50% first installment.</p>
+<p style="margin:0 0 12px;">Your application for <em>${escHtml(track || 'an academy program')}</em> was received. To secure your place you need to complete the payment step, either the full track fee or, for Blockchain Engineering, the 50% first installment.</p>
 <p style="margin:0 0 4px;font-size:13px;color:#6B6572;">Application fee is non-refundable. Payment is required to secure your spot in the program.</p>`,
       button: { label: 'See payment instructions', url: statusUrl },
     }),
@@ -49,7 +49,7 @@ const sendPaymentSubmittedEmails = async ({
     totalInstallments > 1 ? ` — installment ${installment} of ${totalInstallments}` : '';
   const applicantBody = [
     `<p style="margin:0 0 12px;">Hi ${escHtml(name)},</p>`,
-    `<p style="margin:0 0 12px;">Payment submitted — awaiting verification. We received your transfer proof for <em>${escHtml(trackName || track)}</em> (${formatNaira(amount)}${installLabel}).</p>`,
+    `<p style="margin:0 0 12px;">Payment submitted, awaiting verification. We received your transfer proof for <em>${escHtml(trackName || track)}</em> (${formatNaira(amount)}${installLabel}).</p>`,
     `<p style="margin:0;">An admin will verify it against our bank account, usually within 1–2 working days. You'll get an email here as soon as your payment is confirmed.</p>`,
   ].join('');
 
@@ -68,7 +68,7 @@ const sendPaymentSubmittedEmails = async ({
       subject: 'Payment submitted: awaiting verification | Blockfuse Labs',
       html: wrapEmail({
         eyebrow: 'Payment received',
-        title: 'Payment submitted — awaiting verification',
+        title: 'Payment submitted, awaiting verification',
         bodyHtml: applicantBody,
       }),
     }),
@@ -106,15 +106,15 @@ const sendPaymentVerifiedEmail = async ({
     totalInstallments > 1 ? ` (installment ${installment} of ${totalInstallments})` : '';
   const body = [
     `<p style="margin:0 0 12px;">Hi ${escHtml(name)},</p>`,
-    `<p style="margin:0 0 12px;">Good news — your payment of <strong>${formatNaira(amount)}</strong> for <em>${escHtml(trackName)}</em>${installLabel} has been verified. ${nonRefundable ? 'Please note the application fee is non-refundable. ' : ''}</p>`,
+    `<p style="margin:0 0 12px;">Good news, your payment of <strong>${formatNaira(amount)}</strong> for <em>${escHtml(trackName)}</em>${installLabel} has been verified. ${nonRefundable ? 'Please note the application fee is non-refundable. ' : ''}</p>`,
   ];
 
   if (totalInstallments > 1 && !isFinalInstallment) {
     body.push(
-      `<p style="margin:0 0 12px;">Your seat is reserved. The second installment (50%) becomes due after <strong>week 8</strong> of the program — we'll remind you, and your status page will open for the next upload when it's due.</p>`
+      `<p style="margin:0 0 12px;">Your seat is reserved. The second installment (50%) becomes due after <strong>week 8</strong> of the program, we'll remind you, and your status page will open for the next upload when it's due.</p>`
     );
   } else if (totalInstallments > 1 && isFinalInstallment) {
-    body.push(`<p style="margin:0 0 12px;">All installments are paid — you're fully enrolled. Welcome aboard.</p>`);
+    body.push(`<p style="margin:0 0 12px;">All installments are paid, you're fully enrolled. Welcome aboard.</p>`);
   } else {
     body.push(`<p style="margin:0 0 12px;">Your place in the program is now confirmed.</p>`);
   }
@@ -133,45 +133,15 @@ const sendPaymentVerifiedEmail = async ({
     <li><strong>GitHub:</strong> <a href="https://github.com/blockfuselabs" style="color:#A544D2;text-decoration:none;">blockfuselabs</a></li>
   </ul>`);
 
-  const receiptHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Payment Receipt</title>
-</head>
-<body style="font-family: system-ui, -apple-system, sans-serif; padding: 40px; color: #17121C; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-  <div style="border: 1px solid #EAE6EE; border-radius: 12px; padding: 32px; background: #fff;">
-    <h2 style="margin: 0 0 24px; font-size: 24px; color: #17121C;">Payment Receipt</h2>
-    <p style="margin: 0 0 8px; color: #6B6572; font-size: 14px;"><strong>Date:</strong> ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-    <p style="margin: 0 0 24px; color: #6B6572; font-size: 14px;"><strong>Billed To:</strong> ${escHtml(name)} (${escHtml(email)})</p>
-    
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-bottom: 24px;">
-      <tr style="border-bottom: 2px solid #EAE6EE;">
-        <th align="left" style="padding: 12px 0; font-size: 13px; color: #6B6572; text-transform: uppercase;">Description</th>
-        <th align="right" style="padding: 12px 0; font-size: 13px; color: #6B6572; text-transform: uppercase;">Amount</th>
-      </tr>
-      <tr style="border-bottom: 1px solid #EAE6EE;">
-        <td style="padding: 16px 0; font-size: 15px;">
-          <strong>${escHtml(trackName)}</strong><br>
-          <span style="font-size: 13px; color: #6B6572;">${totalInstallments > 1 ? `Installment ${installment} of ${totalInstallments}` : 'Full Payment'}</span>
-        </td>
-        <td align="right" style="padding: 16px 0; font-size: 15px;"><strong>${formatNaira(amount)}</strong></td>
-      </tr>
-    </table>
-    
-    <div style="text-align: right; font-size: 18px;">
-      <strong>Total Paid: ${formatNaira(amount)}</strong>
-    </div>
-    
-    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #EAE6EE; font-size: 12px; color: #6B6572; text-align: center;">
-      <p style="margin: 0 0 4px;"><strong>Blockfuse Labs</strong></p>
-      <p style="margin: 0;">This receipt is proof of payment for the program specified above.</p>
-    </div>
-  </div>
-</body>
-</html>
-`;
+  const generateReceiptPdf = require('./pdfReceipt');
+  const pdfBuffer = await generateReceiptPdf({
+    name,
+    email,
+    trackName,
+    amount,
+    installment,
+    totalInstallments,
+  });
 
   return sendConfirmationEmail({
     to: email,
@@ -183,8 +153,8 @@ const sendPaymentVerifiedEmail = async ({
     }),
     attachments: [
       {
-        filename: 'Blockfuse_Payment_Receipt.html',
-        content: receiptHtml,
+        filename: 'Blockfuse_Payment_Receipt.pdf',
+        content: pdfBuffer,
       },
     ],
   });
@@ -220,7 +190,7 @@ const sendPaymentRejectedEmail = async ({
       bodyHtml: `<p style="margin:0 0 12px;">Hi ${escHtml(name)},</p>
 <p style="margin:0 0 12px;">We couldn't verify your ${formatNaira(amount)} transfer for <em>${escHtml(trackName)}</em>${installLabel}.</p>
 ${reason}
-<p style="margin:0 0 12px;">This doesn't affect your application — open your status page to review the note and upload a corrected transfer receipt.</p>`,
+<p style="margin:0 0 12px;">This doesn't affect your application, open your status page to review the note and upload a corrected transfer receipt.</p>`,
       button: { label: 'Upload a new proof', url: uploadUrl },
     }),
   });

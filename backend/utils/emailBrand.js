@@ -64,7 +64,7 @@ const wrapEmail = ({ eyebrow, title, bodyHtml, button }) => {
             </tr>
             <tr>
               <td align="center" style="padding:22px 24px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:${BRAND.muted};">
-                <div>Blockfuse Labs — Jos, Plateau State, Nigeria</div>
+                <div>Blockfuse Labs Jos, Plateau State, Nigeria</div>
                 <div style="margin-top:4px;"><a href="mailto:admin@blockfuselabs.xyz" style="color:${BRAND.accent};text-decoration:none;">admin@blockfuselabs.xyz</a></div>
               </td>
             </tr>
