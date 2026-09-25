@@ -106,15 +106,15 @@ export default async function AlumniPage() {
             <span className="max-w-[8ch] font-heading text-[1.25rem] font-medium leading-none">
               Alumni network
             </span>
-            <strong className="font-heading text-[2rem] font-medium leading-[0.9]">
-              {directoryAlumni.length}
-            </strong>
+            <span className="rounded-l-lg bg-[rgba(7,7,10,0.78)] px-[0.625rem] py-[0.875rem] font-heading text-[1rem] font-medium leading-none rotate-180 [writing-mode:vertical-rl]">
+              Innovators
+            </span>
           </div>
         </div>
 
         <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-md:min-h-[25rem]">
           <Image
-            src="/brand/DSC09798.jpg"
+            src="/community/image00045.jpeg"
             alt="Blockfuse Labs alumnus"
             fill
             priority
@@ -128,7 +128,7 @@ export default async function AlumniPage() {
 
         <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-md:min-h-[25rem] max-[56rem]:hidden">
           <Image
-            src="/brand/IMG_1607.JPG"
+            src="/community/WAL_2007.jpeg"
             alt="Blockfuse Labs alumnus"
             fill
             priority
