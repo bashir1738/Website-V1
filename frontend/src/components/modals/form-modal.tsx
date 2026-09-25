@@ -187,39 +187,9 @@ export function FormModal({
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  // Keep the focused field visible when the software keyboard opens, but only
-  // inside the modal’s own scroll area on mobile so we don't push the sheet out
-  // of alignment and hide lower controls.
-  useEffect(() => {
-    const onFocusIn = (e: FocusEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-      const tag = target.tagName;
-      if (!(tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT")) return;
-
-      const scroller = formScrollerRef.current;
-      if (!scroller || window.innerWidth >= 1024) {
-        window.setTimeout(() => {
-          target.scrollIntoView({ block: "nearest", behavior: "auto" });
-        }, 120);
-        return;
-      }
-
-      const scrollerRect = scroller.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      const belowFold = targetRect.bottom - scrollerRect.bottom + 24;
-      const aboveFold = scrollerRect.top - targetRect.top + 24;
-
-      if (belowFold > 0) {
-        scroller.scrollTop += belowFold;
-      } else if (aboveFold > 0) {
-        scroller.scrollTop = Math.max(0, scroller.scrollTop - aboveFold);
-      }
-    };
-
-    document.addEventListener("focusin", onFocusIn);
-    return () => document.removeEventListener("focusin", onFocusIn);
-  }, []);
+  // Avoid forcing field focus into a manual scroll on mobile. Android browsers
+  // already handle keyboard visibility in a way that can shift a fixed bottom-sheet
+  // and hide lower form controls, so we keep the modal stable instead.
 
   // Announce the confirmation once the form is replaced by the success state.
   useEffect(() => {
@@ -757,30 +727,39 @@ function FileField({
   onClearError: () => void;
 }) {
   const id = `f-${field.name}`;
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [label, setLabel] = useState<string | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
   const shownError = error ?? localError;
 
   return (
     <>
-      <label
-        htmlFor={id}
-        className={`${FIELD_FILE} has-[:focus-visible]:border-(--accent) has-[:focus-visible]:shadow-[0_0_0_3px_rgba(191,100,231,0.15)]`}
-        data-invalid={shownError ? "true" : undefined}
-      >
-        <span aria-hidden="true" className="shrink-0 text-[15px]">
-          ↑
-        </span>
-        <span className="min-w-0 flex-1 truncate whitespace-nowrap text-ellipsis">
-          {label ?? field.placeholder}
-        </span>
-        <input
+      <div className="w-full">
+        <button
+          type="button"
           id={id}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => inputRef.current?.click()}
+          className={`${FIELD_FILE} min-h-[2.875rem] has-[:focus-visible]:border-(--accent) has-[:focus-visible]:shadow-[0_0_0_3px_rgba(191,100,231,0.15)]`}
+          data-invalid={shownError ? "true" : undefined}
+          aria-label={label ?? field.placeholder ?? "Choose file"}
+        >
+          <span aria-hidden="true" className="shrink-0 text-[15px] leading-none">
+            ↑
+          </span>
+          <span className="min-w-0 flex-1 truncate text-left whitespace-nowrap text-ellipsis">
+            {label ?? field.placeholder}
+          </span>
+        </button>
+        <input
+          ref={inputRef}
+          id={`${id}-input`}
           name={field.name}
           type="file"
           accept={field.accept}
           required={field.required}
-          className="sr-only"
+          tabIndex={-1}
+          className="hidden"
           onChange={(e) => {
             const file = e.target.files?.[0];
             onClearError();
@@ -800,7 +779,7 @@ function FileField({
             setLabel(`${file.name} · ${formatFileSize(file.size)}`);
           }}
         />
-      </label>
+      </div>
       {shownError && (
         <p id={`${id}-error`} className={FIELD_ERROR}>
           {shownError}
