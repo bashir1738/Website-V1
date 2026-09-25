@@ -620,7 +620,7 @@ export default function Home() {
                     className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
                   >
                     <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Labs Academy</span>
-                    <span className="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-200">→</span>
+                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
                   </Link>
                 </div>
               </div>
