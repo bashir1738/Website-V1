@@ -166,7 +166,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      <SectionDivider />
+      <SectionDivider /> 
 
       {/* ================================================================= */}
       {/* 2. SHOWCASE SECTIONS                                              */}
