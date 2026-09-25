@@ -379,7 +379,10 @@ export function FormModal({
   };
 
   return (
-    <div className="fixed inset-x-0 top-0 z-[90] h-[100dvh] w-full overflow-hidden">
+    <div
+      className="fixed inset-x-0 top-0 z-[90] w-full overflow-hidden"
+      style={{ height: "100vh", minHeight: "100dvh" }}
+    >
       {/* Backdrop */}
       <div
         aria-hidden="true"
@@ -406,10 +409,10 @@ export function FormModal({
           className={[
             "relative flex min-h-0 w-full flex-col overflow-hidden outline-none",
             // Mobile: bottom sheet with a peek of the backdrop above it.
-            "h-[calc(100%-0.75rem)] rounded-t-[28px]",
+            "h-[calc(100vh-0.75rem)] max-h-[calc(100vh-0.75rem)] rounded-t-[28px]",
             "bg-(--card-strong) shadow-[0_-10px_36px_-28px_rgba(0,0,0,0.45)] backdrop-blur-2xl",
             // Desktop: centred two-panel dialog.
-            "lg:h-auto lg:max-h-[calc(100%-3rem)] lg:w-[min(100%,64rem)] lg:rounded-[28px] lg:shadow-[0_22px_55px_-42px_rgba(0,0,0,0.4)]",
+            "lg:h-auto lg:max-h-[calc(100vh-3rem)] lg:w-[min(100%,64rem)] lg:rounded-[28px] lg:shadow-[0_22px_55px_-42px_rgba(0,0,0,0.4)]",
             "lg:focus-visible:outline-2 lg:-outline-offset-2 lg:focus-visible:outline-(--accent)",
             // Exactly one of these — the stage itself never takes pointer input.
             exiting

@@ -58,7 +58,7 @@ export default function ApplyPage() {
         lead="Every track is priced up front. Submit your application, then bank the fee and upload the receipt — our team verifies it manually within 1–2 working days."
       />
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {applyTracks.map((track, i) => {
           const Icon = TRACK_ICONS[track.id] ?? RiArrowRightSLine;
           return (
@@ -96,7 +96,7 @@ export default function ApplyPage() {
                     modal="program"
                     prefill={{ Track: track.title }}
                     arrow={false}
-                    className="w-full"
+                    className="w-full min-h-[2.875rem]"
                   >
                     Apply to {track.title}
                   </ModalButton>
