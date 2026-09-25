@@ -330,10 +330,7 @@ export function FormModal({
   };
 
   return (
-    <div
-      className="fixed inset-x-0 top-0 z-[90] w-full overflow-hidden"
-      style={{ height: "100vh", minHeight: "100dvh" }}
-    >
+    <div className="fixed inset-0 z-[90] overflow-hidden">
       {/* Backdrop */}
       <div
         aria-hidden="true"
