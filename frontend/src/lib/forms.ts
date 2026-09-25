@@ -7,7 +7,7 @@ export type FormKey =
   | "alumni"
   | "newsletter";
 
-export type FieldKind = "text" | "select" | "textarea" | "file" | "chips";
+export type FieldKind = "text" | "select" | "textarea" | "file" | "chips" | "phone";
 
 export interface FormField {
   label: string;
@@ -42,14 +42,14 @@ export interface FormSpec {
 
 export const forms: Record<FormKey, FormSpec> = {
   program: {
-    eyebrow: "Cohort III — applications open",
+    eyebrow: "Next cohort: applications open",
     title: "Apply to a program",
     subtitle:
       "Admission is based on demonstrated ability and readiness. We take fewer people than apply.",
     cta: "Submit application",
     successTitle: "Application received",
     successBody:
-      "Check your inbox — we've emailed you a link to complete the payment step and secure your seat.",
+      "Check your inbox. We've emailed you a link to complete the payment step and secure your seat.",
     endpoint: "applications",
     multipart: true,
     fields: [
@@ -70,8 +70,8 @@ export const forms: Record<FormKey, FormSpec> = {
       {
         label: "Phone / WhatsApp",
         name: "phone",
-        type: "tel",
-        placeholder: "+234 800 000 0000",
+        kind: "phone",
+        placeholder: "802 546 3838",
         required: true,
       },
       {
@@ -84,6 +84,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Track",
         name: "track",
         kind: "select",
+        required: true,
         options: [
           "Basic Track",
           "Intermediate Track",
@@ -97,6 +98,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Experience level",
         name: "experience_level",
         kind: "select",
+        required: true,
         options: [
           "Complete beginner",
           "Some self-taught experience",
@@ -105,15 +107,16 @@ export const forms: Record<FormKey, FormSpec> = {
         ],
       },
       {
-        label: "GitHub or portfolio",
+        label: "GitHub or portfolio (optional for Basic Track)",
         name: "github",
-        type: "url",
+        type: "text",
         placeholder: "https://github.com/username",
       },
       {
         label: "How did you hear about us?",
         name: "referral",
         kind: "select",
+        required: true,
         options: [
           "A Blockfuse Labs graduate",
           "Social media",
@@ -177,6 +180,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Roles you're hiring for",
         name: "roles",
         kind: "chips",
+        required: true,
         options: [
           "Frontend",
           "Backend",
@@ -191,6 +195,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Engagement type",
         name: "engagement_type",
         kind: "select",
+        required: true,
         options: [
           "Full-time hire",
           "Contract engagement",
@@ -203,6 +208,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Seniority",
         name: "seniority",
         kind: "select",
+        required: true,
         options: [
           "Junior, supervised",
           "Mid-level",
@@ -268,6 +274,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Attending as",
         name: "attending_as",
         kind: "select",
+        required: true,
         options: [
           "Builder or founder",
           "Investor",
@@ -329,6 +336,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Interested in",
         name: "interests",
         kind: "chips",
+        required: true,
         options: [
           "ProdFest sponsorship",
           "Cohort scholarships",
@@ -342,6 +350,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Indicative budget",
         name: "budget",
         kind: "select",
+        required: true,
         options: [
           "Under $5k",
           "$5k – $15k",
@@ -397,6 +406,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Areas of interest",
         name: "interests",
         kind: "chips",
+        required: true,
         options: [
           "Solidity",
           "TypeScript",
@@ -427,7 +437,7 @@ export const forms: Record<FormKey, FormSpec> = {
     eyebrow: "Alumni directory",
     title: "Add your profile",
     subtitle:
-      "Graduates of Cohorts I–IV can list themselves here. Every submission is checked against our assessment records before it goes live.",
+      "Graduates of Cohorts I–III can list themselves here. Every submission is checked against our assessment records before it goes live.",
     cta: "Submit for verification",
     note: "We verify your cohort and assessment record before publishing. Expect a decision within five working days.",
     successTitle: "Sent for verification",
@@ -454,7 +464,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "Cohort",
         name: "cohort",
         kind: "select",
-        options: ["Cohort I", "Cohort II", "Cohort III", "Cohort IV"],
+        options: ["Cohort I", "Cohort II", "Cohort III"],
         required: true,
       },
       {
@@ -462,9 +472,12 @@ export const forms: Record<FormKey, FormSpec> = {
         name: "track",
         kind: "select",
         options: [
-          "AI-Native Software Engineering",
-          "Applied AI Engineering",
-          "Blockchain Engineering",
+          "Basic Track",
+          "Intermediate Track",
+          "Advanced Track",
+          "Professional Track",
+          "Full-Program Bundle",
+          "Blockchain Engineering Track",
         ],
         required: true,
       },
@@ -548,6 +561,7 @@ export const forms: Record<FormKey, FormSpec> = {
         label: "What should we send you?",
         name: "topics",
         kind: "chips",
+        required: true,
         options: [
           "Cohort openings",
           "Events",

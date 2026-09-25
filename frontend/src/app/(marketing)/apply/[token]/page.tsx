@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ApplyStatusClient } from "@/features/apply/status-client";
 
 export const metadata: Metadata = {
-  title: "Your application — Blockfuse Labs Academy",
+  title: "Your application: Blockfuse Labs Academy",
   description: "Bank-transfer instructions, proof upload, and live payment status.",
 };
 

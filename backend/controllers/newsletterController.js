@@ -61,7 +61,7 @@ exports.subscribe = async (req, res) => {
     const emailTasks = [
       sendConfirmationEmail({
         to: req.body.email,
-        subject: 'Subscribed to the Blockfuse dispatch',
+        subject: 'Subscribed to the Blockfuse Labs dispatch',
         html: wrapEmail({
           eyebrow: 'Dispatch',
           title: "You're on the list",

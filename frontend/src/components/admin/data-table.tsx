@@ -12,10 +12,10 @@ export interface DataColumn<T> {
 
 export function formatValue(value: unknown): React.ReactNode {
   if (value === null || value === undefined || value === "") {
-    return <span className="text-(--dim)">—</span>;
+    return <span className="text-(--dim)">Not available</span>;
   }
   if (Array.isArray(value)) {
-    return value.length > 0 ? value.join(", ") : "—";
+    return value.length > 0 ? value.join(", ") : "Not available";
   }
   if (typeof value === "string" && /^https?:\/\//.test(value)) {
     return (
@@ -33,7 +33,7 @@ export function formatValue(value: unknown): React.ReactNode {
 }
 
 export function formatDate(value: unknown): string {
-  if (!value) return "—";
+  if (!value) return "Not available";
   const date = new Date(String(value));
   if (Number.isNaN(date.getTime())) return String(value);
   return date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });

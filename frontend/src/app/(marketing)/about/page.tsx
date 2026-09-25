@@ -30,7 +30,7 @@ const HERO =
   "relative isolate overflow-hidden bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[linear-gradient(180deg,rgba(13,13,19,0.35)_0%,rgba(13,13,19,0.5)_52%,rgba(13,13,19,0.75)_100%)]";
 const HERO_MEDIA = "absolute inset-0 -z-[2]";
 const HERO_MEDIA_PIC =
-  "object-cover object-[center_60%]   opacity-[0.70]";
+  "object-cover object-[center_60%] opacity-[0.70]";
 
 const ORB = "absolute z-0 rounded-full pointer-events-none";
 const ORB_ONE = `${ORB} w-[34rem] h-[34rem] -top-[14rem] -right-[10rem] bg-white opacity-[0.06] blur-[6rem]`;
@@ -38,11 +38,6 @@ const ORB_TWO = `${ORB} w-[22rem] h-[22rem] -bottom-[10rem] -left-[8rem] bg-whit
 
 const HERO_INNER =
   "relative z-[3] mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
-const KICKER =
-  "inline-flex items-center gap-3 font-mono text-[0.75rem] font-semibold tracking-[0.11em] uppercase text-[rgba(255,255,255,0.88)]";
-const KICKER_MARK = "inline-flex items-center gap-[2px]";
-const KICKER_DOT = "w-[0.7rem] h-[0.7rem] rounded-full bg-(--accent-soft)";
-const KICKER_BAR = "w-[0.3rem] h-[0.7rem] rounded-full bg-white";
 const HERO_H1 =
   "mt-[1.9rem] max-w-[22ch] font-heading text-[clamp(2.9rem,7.4vw,6rem)] font-bold leading-[0.95] tracking-[-0.055em] text-white";
 const HERO_ACCENT = "text-[#dba7f2]";
@@ -84,8 +79,6 @@ export default function AboutPage() {
         <div className={GRAIN} aria-hidden="true" />
 
         <div className={HERO_INNER}>
-         
-
           <ScrollReveal delay={1}>
             <h1 className={HERO_H1}>
               About <br />

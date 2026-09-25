@@ -18,10 +18,13 @@ const resend = new Resend(RESEND_API_KEY);
 // Overridable sender. Production should use a verified domain you own
 // (e.g. "Blockfuse <noreply@blockfuselabs.xyz>") — Resend rejects unverified
 // from-domains at send time. Verified sandbox domain: blockfuselabs.xyz.
-const FROM_EMAIL = process.env.FROM_EMAIL || 'Blockfuse <noreply@blockfuselabs.xyz>';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'Blockfuse Labs <noreply@blockfuselabs.xyz>';
 
-const sendConfirmationEmail = async ({ to, subject, html }) => {
-  const { error } = await resend.emails.send({ from: FROM_EMAIL, to, subject, html });
+const sendConfirmationEmail = async ({ to, subject, html, attachments }) => {
+  const payload = { from: FROM_EMAIL, to, subject, html };
+  if (attachments) payload.attachments = attachments;
+  
+  const { error } = await resend.emails.send(payload);
   if (error) {
     console.error('Failed to send confirmation email to', to, ':', error.message);
     return false;
@@ -47,7 +50,7 @@ const sendAlumniApprovalEmail = async ({ email, name }) => {
   const { error } = await resend.emails.send({
     from: FROM_EMAIL,
     to: email,
-    subject: 'Your alumni profile is live — Blockfuse',
+    subject: 'Your alumni profile is live | Blockfuse Labs',
     html: `<p>Hi ${escHtml(name)},</p>
 <p>Good news — your profile has been verified and is now live in the Blockfuse alumni directory.</p>
 <p><a href="${directoryUrl}">View the alumni directory</a></p>

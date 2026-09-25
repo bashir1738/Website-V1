@@ -25,21 +25,21 @@ export const productHighlights: ProductHighlight[] = [
     name: "Agent Lab",
     tag: "Python",
     description:
-      "Evaluation harness for applied AI systems — agentic workflows, retrieval, and tool use.",
+      "Evaluation harness for applied AI systems: agentic workflows, retrieval, and tool use.",
     proof: "233 stars · 41 forks",
   },
   {
     name: "Curriculum",
     tag: "MDX",
     description:
-      "Every module we teach, maintained in the open — exercises, rubrics, and reading.",
+      "Every module we teach, maintained in the open: exercises, rubrics, and reading.",
     proof: "968 stars · 214 forks",
   },
   {
     name: "ProdFest Platform",
     tag: "Next.js",
     description:
-      "The ProdFest event platform — submissions, judging, and the live stage board.",
+      "The ProdFest event platform: submissions, judging, and the live stage board.",
     proof: "74 stars · 18 forks",
   },
   {

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getJson } from "@/lib/api";
 
-
 // Simple in-memory cache so switching tabs doesn't cause a refetch
 const cache: Record<string, unknown[]> = {};
 
@@ -14,10 +13,7 @@ export function useCollection<T extends Record<string, unknown>>(path: string) {
 
   useEffect(() => {
     let active = true;
-    
-    // If we have cache and haven't manually refreshed, don't show loading state
-    // but we can still silently refresh the data. Actually, the request was 
-    // "data should only reload if I click refresh". 
+
     if (cache[path] && revision === 0) {
       return;
     }

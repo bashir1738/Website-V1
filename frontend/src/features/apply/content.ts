@@ -30,7 +30,7 @@ export const applyTracks: ApplyTrack[] = [
     duration: "6–8 weeks",
     price: "₦100,000",
     blurb:
-      "JavaScript, modern frontend, and your first backend — building proper software beyond the basics.",
+      "Build proper software beyond the basics with JavaScript, a modern frontend, and your first backend.",
   },
   {
     id: "advanced",
@@ -46,7 +46,7 @@ export const applyTracks: ApplyTrack[] = [
     duration: "10–12 weeks",
     price: "₦100,000",
     blurb:
-      "Distributed systems, cloud, security, and AI-assisted delivery at production standards — for working developers levelling up.",
+      "Production-standard distributed systems, cloud, security, and AI-assisted delivery for working developers levelling up.",
   },
   {
     id: "full-program",
@@ -64,7 +64,7 @@ export const applyTracks: ApplyTrack[] = [
     price: "₦250,000",
     installments: "2 × ₦125,000",
     blurb:
-      "Smart contracts, security, and decentralized applications you can defend in review — delivered through paid cohorts.",
+      "Deliver smart contracts, security, and decentralized applications you can defend in review through paid cohorts.",
     highlight: true,
   },
 ];

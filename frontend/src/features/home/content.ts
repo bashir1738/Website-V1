@@ -60,7 +60,7 @@ export const howBlockfuseWorks: HowItWorksStep[] = [
     number: "5",
     title: "We open doors",
     description:
-      "We connect qualified graduates with hiring partners, mentors, and opportunities—including a stage for their own products at ProdFest.",
+      "We connect qualified graduates with hiring partners, mentors, and opportunities, including a stage for their own products at ProdFest.",
   },
 ];
 

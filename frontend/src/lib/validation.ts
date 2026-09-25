@@ -16,8 +16,8 @@ export const NAME_RE = /^[\p{L}][\p{L}\s.'-]{1,99}$/u;
 export const ORG_RE = /^[\p{L}][\p{L}\s.'&-]{1,199}$/u;
 export const STATUS_RE = /^[\p{L}][\p{L}\s,'&-]{1,199}$/u;
 export const TOPIC_RE = /^[\p{L}\p{N}][\p{L}\p{N}\s.,'&-]{1,99}$/u;
-export const PHONE_RE = /^\+?[0-9][0-9\s\-().]{5,18}$/;
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+export const PHONE_RE = /^\+[1-9]\d{0,3}\s[\d\s\-().]{4,18}$/;
 export const GITHUB_URL_RE =
   /^https?:\/\/(?:www\.)?github\.com\/[A-Za-z0-9][A-Za-z0-9._-]*\/?$/i;
 export const LINKEDIN_URL_RE =
@@ -90,9 +90,9 @@ function ruleFor(field: FormField, formKey: FormKey | string): Rule | null {
     case "phone":
       return {
         pattern: PHONE_RE,
-        min: 7,
+        min: 10,
         max: 20,
-        message: "can only contain digits, spaces, and ( ) - +",
+        message: "must include your country code, e.g. +234 802 546 3838",
         what: "Phone",
       };
     case "github":

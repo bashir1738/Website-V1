@@ -15,7 +15,8 @@ export interface TeamMember {
 }
 
 /** Public team directory (separate host from NEXT_PUBLIC_API_URL). */
-export const TEAM_API_URL = "https://api.blockfuselabs.com/api/team";
+export const TEAM_API_URL =
+  process.env.TEAM_API_URL || "https://api.blockfuselabs.com/api/team";
 
 interface BackendTeam {
   id: number;

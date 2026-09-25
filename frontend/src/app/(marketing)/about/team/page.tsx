@@ -115,8 +115,7 @@ export default async function TeamPage() {
         </ScrollReveal>
         <ScrollReveal delay={1}>
           <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
-            Every engineer reviewed by this team carries an assessment record —
-            you can see the work before the call.
+Every engineer reviewed by this team carries an assessment record. You can see the work before the call.
           </p>
         </ScrollReveal>
         <ScrollReveal className="mt-6 flex flex-wrap items-center justify-center gap-3.5" delay={2}>

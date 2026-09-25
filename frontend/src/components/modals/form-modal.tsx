@@ -7,6 +7,7 @@ import { forms, type FormKey, type FormField } from "@/lib/forms";
 import { postForm, postJson, ApiError } from "@/lib/api";
 import { formatFileSize, validateUpload } from "@/lib/file-upload";
 import { validateFieldValue } from "@/lib/validation";
+import { COUNTRIES, DEFAULT_COUNTRY, type Country } from "@/lib/country-codes";
 import {
   BTN_GHOST,
   BTN_PRIMARY,
@@ -217,27 +218,7 @@ export function FormModal({
     });
   };
 
-  // Swipe the sheet down from the handle to dismiss (mobile only).
-  const onHandleTouchStart = (e: React.TouchEvent) => {
-    if (exitingRef.current) return;
-    dragStartY.current = e.touches[0].clientY;
-    dragYRef.current = 0;
-    setDragY(0);
-  };
-  const onHandleTouchMove = (e: React.TouchEvent) => {
-    if (dragStartY.current === null) return;
-    const dy = e.touches[0].clientY - dragStartY.current;
-    dragYRef.current = dy > 0 ? dy : 0;
-    setDragY(dragYRef.current);
-  };
-  const onHandleTouchEnd = () => {
-    if (dragStartY.current === null) return;
-    dragStartY.current = null;
-    const travelled = dragYRef.current;
-    dragYRef.current = 0;
-    setDragY(0);
-    if (travelled > 80) requestClose();
-  };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -371,37 +352,22 @@ export function FormModal({
           aria-modal="true"
           aria-labelledby={titleId}
           aria-describedby={subtitleId}
-          style={
-            dragY > 0
-              ? { transform: `translateY(${dragY}px)` }
-              : { transition: "transform 200ms ease" }
-          }
+          style={{ transition: "transform 200ms ease" }}
           className={[
             "relative flex min-h-0 w-full flex-col overflow-hidden outline-none",
-            // Mobile: bottom sheet with a peek of the backdrop above it.
-            "h-[calc(100vh-0.75rem)] max-h-[calc(100vh-0.75rem)] rounded-t-[28px]",
+            // Mobile: full-screen for better form usability with virtual keyboards.
+            "h-[100dvh] max-h-[100dvh] w-full rounded-none",
             "bg-(--card-strong) shadow-[0_-10px_36px_-28px_rgba(0,0,0,0.45)] backdrop-blur-2xl",
             // Desktop: centred two-panel dialog.
             "lg:h-auto lg:max-h-[calc(100vh-3rem)] lg:w-[min(100%,64rem)] lg:rounded-[28px] lg:shadow-[0_22px_55px_-42px_rgba(0,0,0,0.4)]",
             "lg:focus-visible:outline-2 lg:-outline-offset-2 lg:focus-visible:outline-(--accent)",
             // Exactly one of these — the stage itself never takes pointer input.
             exiting
-              ? "pointer-events-none animate-bf-sheet-out lg:animate-bf-modal-out"
-              : "pointer-events-auto animate-bf-sheet-in lg:animate-bf-modal-in",
+              ? "pointer-events-none animate-bf-fade-out lg:animate-bf-modal-out"
+              : "pointer-events-auto animate-bf-fade-in lg:animate-bf-modal-in",
           ].join(" ")}
         >
-          {/* Swipe handle — sits on the rail, mobile only */}
-          <div
-            data-drag-handle
-            className="absolute inset-x-0 top-0 z-20 flex h-7 select-none items-center justify-center lg:hidden"
-            style={{ touchAction: "none" }}
-            onTouchStart={onHandleTouchStart}
-            onTouchMove={onHandleTouchMove}
-            onTouchEnd={onHandleTouchEnd}
-            onTouchCancel={onHandleTouchEnd}
-          >
-            <span className="h-1 w-11 rounded-full bg-white/40" />
-          </div>
+
 
           <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
             {/* Brand rail — header on mobile, identity panel on desktop */}
@@ -693,6 +659,10 @@ function Field({
         </>
       )}
 
+      {kind === "phone" && (
+        <PhoneField field={field} error={error} onClearError={onClearError} />
+      )}
+
       {kind === "file" && (
         <FileField field={field} error={error} onClearError={onClearError} />
       )}
@@ -783,6 +753,161 @@ function FileField({
       {shownError && (
         <p id={`${id}-error`} className={FIELD_ERROR}>
           {shownError}
+        </p>
+      )}
+    </>
+  );
+}
+
+function PhoneField({
+  field,
+  error,
+  onClearError,
+}: {
+  field: FormField;
+  error?: string;
+  onClearError: () => void;
+}) {
+  const id = `f-${field.name}`;
+  const [country, setCountry] = useState<Country>(DEFAULT_COUNTRY);
+  const [localNumber, setLocalNumber] = useState("");
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const combined = localNumber.trim()
+    ? `${country.dialCode} ${localNumber.trim()}`
+    : "";
+  const query = search.trim().toLowerCase();
+  const filtered = query
+    ? COUNTRIES.filter(
+        (item) =>
+          item.name.toLowerCase().includes(query) ||
+          item.dialCode.includes(query) ||
+          item.code.toLowerCase().includes(query),
+      )
+    : COUNTRIES;
+
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!dropdownRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+        setSearch("");
+      }
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      const timer = setTimeout(() => searchRef.current?.focus(), 40);
+      return () => clearTimeout(timer);
+    }
+  }, [open]);
+
+  const selectCountry = (item: Country) => {
+    setCountry(item);
+    setOpen(false);
+    setSearch("");
+    onClearError();
+  };
+
+  const controlClass = `${FIELD_INPUT} ${FOCUS_RING} h-[2.875rem]`;
+
+  return (
+    <>
+      <input type="hidden" name={field.name} value={combined} />
+      <div className="flex min-w-0 gap-2" ref={dropdownRef}>
+        <div className="relative shrink-0">
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-label={`Country code: ${country.name} ${country.dialCode}`}
+            className={`${controlClass} flex w-auto items-center gap-1.5 px-3 whitespace-nowrap`}
+          >
+            <span className="text-xs font-semibold text-(--page-fg)">
+              {country.code}
+            </span>
+            <span className="text-[0.8125rem] font-semibold text-(--page-fg)">
+              {country.dialCode}
+            </span>
+            <span
+              aria-hidden="true"
+              className={`text-[9px] text-(--dim) transition-transform duration-150 ${
+                open ? "rotate-180" : ""
+              }`}
+            >
+              ▾
+            </span>
+          </button>
+          {open && (
+            <div className="absolute left-0 top-full z-[200] mt-1.5 w-[min(19rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-(--line-strong) bg-(--card-strong) shadow-[0_12px_32px_-16px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+              <div className="border-b border-(--line) px-3 py-2">
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Search country or code…"
+                  className="w-full bg-transparent text-[0.8125rem] text-(--page-fg) placeholder:text-(--dim) focus:outline-none"
+                />
+              </div>
+              <ul role="listbox" className="max-h-[220px] overflow-y-auto py-1">
+                {filtered.length === 0 && (
+                  <li className="px-4 py-3 text-[0.8rem] text-(--dim)">No results</li>
+                )}
+                {filtered.map((item) => (
+                  <li key={item.code}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={item.code === country.code}
+                      onClick={() => selectCountry(item)}
+                      className={`flex w-full items-center gap-2.5 px-3 py-2 text-left text-[0.8125rem] transition-colors ${
+                        item.code === country.code
+                          ? "bg-(--accent-dim) text-(--accent)"
+                          : "text-(--page-fg) hover:bg-(--accent-dim)"
+                      }`}
+                    >
+                      <span className="w-7 shrink-0 text-xs font-semibold text-(--dim)">
+                        {item.code}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate">{item.name}</span>
+                      <span className="shrink-0 font-mono text-[0.75rem] text-(--dim)">
+                        {item.dialCode}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <input
+          id={id}
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel-national"
+          placeholder={field.placeholder ?? "802 546 3838"}
+          required={field.required}
+          value={localNumber}
+          onChange={(event) => {
+            setLocalNumber(event.target.value);
+            onClearError();
+          }}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${id}-error` : undefined}
+          data-invalid={error ? "true" : undefined}
+          className={`${controlClass} min-w-0 flex-1`}
+        />
+      </div>
+      {error && (
+        <p id={`${id}-error`} className={FIELD_ERROR}>
+          {error}
         </p>
       )}
     </>

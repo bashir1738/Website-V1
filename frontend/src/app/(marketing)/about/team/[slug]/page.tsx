@@ -48,7 +48,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${member.name} — ${member.role} | Blockfuse Labs`,
+    title: `${member.name}: ${member.role} | Blockfuse Labs`,
     description: member.bio
       ? member.bio.replace(/\s+/g, " ").slice(0, 160)
       : `${member.name} is ${member.role} at Blockfuse Labs.`,

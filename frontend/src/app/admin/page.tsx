@@ -47,17 +47,17 @@ function headlineFor(path: string, item: Record<string, unknown>): [string, stri
     case "applications":
       return [`Application from ${name}`, String(item.track ?? email)];
     case "hiring-requests":
-      return [`Hire request — ${item.company ?? ""}`, String(item.engagement_type ?? email)];
+      return [`Hire request: ${item.company ?? ""}`, String(item.engagement_type ?? email)];
     case "prodfest-registrations":
-      return [`ProdFest registration — ${name}`, String(item.attending_as ?? email)];
+      return [`ProdFest registration: ${name}`, String(item.attending_as ?? email)];
     case "sponsorships":
       return [`Sponsorship from ${item.organisation ?? name}`, String(item.budget ?? email)];
     case "opensource-applications":
-      return [`Open source applicant — ${name}`, String(item.github ?? email)];
+      return [`Open source applicant: ${name}`, String(item.github ?? email)];
     case "alumni-submissions":
-      return [`Alumni profile — ${name}`, String(item.current_status ?? email)];
+      return [`Alumni profile: ${name}`, String(item.current_status ?? email)];
     case "newsletter":
-      return [`Newsletter subscription — ${email}`, String(item.name ?? "")];
+      return [`Newsletter subscription: ${email}`, String(item.name ?? "")];
     case "payment-reviews": {
       const applicant = (item.applicant ?? {}) as Record<string, unknown>;
       const applicantName = String(

@@ -184,7 +184,7 @@ export default function TrainingPage() {
             <ScrollReveal delay={2}>
               <p className={ACADEMY_LEAD}>
                 Rigorous, project-based training for engineers ready to do the
-                work—not simply collect another certificate.
+                work, not simply collect another certificate.
               </p>
             </ScrollReveal>
 
@@ -209,15 +209,13 @@ export default function TrainingPage() {
                 className={ACADEMY_PORTRAIT_PIC}
               />
               <figcaption className={ACADEMY_CAPTION}>
-                <span className={ACADEMY_CAPTION_META}>Cohort IV</span>
+                <span className={ACADEMY_CAPTION_META}>Cohort III</span>
                 <strong className={ACADEMY_CAPTION_TITLE}>Builders at Blockfuse Labs</strong>
               </figcaption>
             </figure>
           </ScrollReveal>
         </div>
       </section>
-
-    
 
       {/* ================================================================= */}
       {/* 3. WHY TRAIN AT BLOCKFUSE — The Blockfuse Labs difference              */}
@@ -345,6 +343,10 @@ export default function TrainingPage() {
                           href={`/contact?program=${program.id}`}
                           className={CELL_LINK}
                         >
+                          Talk to an advisor
+                          <span className={CELL_LINK_SPAN} aria-hidden="true">
+                            →
+                          </span>
                         </Link>
                       </div>
                     </div>
@@ -361,7 +363,7 @@ export default function TrainingPage() {
       {/* ================================================================= */}
       {/* 6. WHAT WE MEASURE                                                */}
       {/* ================================================================= */}
-      <section id="assessment" className="scroll-mt-24 border-b border-[var(--line-strong)]">
+      <section className="scroll-mt-24 border-b border-[var(--line-strong)]">
         {/* Full-bleed header bar */}
         <div className="border-b border-[var(--line-strong)] py-12 px-5 sm:px-7">
           <div className="mx-auto max-w-[1240px] flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -550,7 +552,7 @@ export default function TrainingPage() {
 
           <ScrollReveal className={CTA_INNER}>
             <span className={`${EYEBROW} ${BF_EYEBROW_LIGHT}`}>
-              Cohort  — applications open
+              Next cohort: applications open
             </span>
             <h2 className={CTA_H2}>Ready to prove what you can do?</h2>
             <p className={CTA_P}>

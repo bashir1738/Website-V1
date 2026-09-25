@@ -131,7 +131,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="mx-auto flex max-w-310 flex-col items-start justify-between gap-3 px-5 pb-10 font-mono text-[10.5px] uppercase tracking-[0.08em] text-(--dim) sm:flex-row sm:items-center sm:px-7">
         <p>
-          © {new Date().getFullYear()} Blockfuse Labs — Jos, Nigeria. All rights
+          © {new Date().getFullYear()} Blockfuse Labs, Jos, Nigeria. All rights
           reserved.
         </p>
         <p className="flex items-center gap-3">

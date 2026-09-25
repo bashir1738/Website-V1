@@ -46,7 +46,7 @@ const pillars = [
   {
     label: "01",
     title: "Engineers who build",
-    copy: "Everyone in the community is either learning to build, actively building, or has shipped production software. There is no audience here — only practitioners.",
+    copy: "Everyone in the community is either learning to build, actively building, or has shipped production software. There is no audience here, only practitioners.",
   },
   {
     label: "02",
@@ -61,7 +61,7 @@ const pillars = [
   {
     label: "04",
     title: "A stage at ProdFest",
-    copy: "Community builders can showcase projects at ProdFest — our annual demo day — in front of protocols, investors, and hiring teams.",
+    copy: "Community builders can showcase projects at ProdFest, our annual demo day, in front of protocols, investors, and hiring teams.",
   },
 ];
 
@@ -107,9 +107,8 @@ export default function CommunityPage() {
       {/* 1. HERO                                                           */}
       {/* ================================================================= */}
       <section className="relative w-full min-h-[85vh] overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#e9d5ff] to-[#d8b4fe] flex flex-col items-center pt-24 sm:pt-28">
-        
         {/* Background image overlay */}
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-[0.15] mix-blend-overlay bg-cover bg-center"
           style={{ backgroundImage: 'url("/community/welcome3.jpeg")' }}
         />
@@ -139,10 +138,10 @@ export default function CommunityPage() {
             COMMUNITY HUB
           </span>
           <h1 className="font-heading text-[3.5rem] sm:text-[6.5rem] lg:text-[8rem] font-extrabold leading-[0.8] tracking-[-0.04em] text-[#0f0f0f] uppercase">
-             Blockfuse Labs <br /> Engineering <br/> Community 
+            Blockfuse Labs <br /> Engineering <br /> Community
           </h1>
           <p className="mt-6 max-w-xl text-sm sm:text-base font-medium text-[#0f0f0f]/80 leading-relaxed max-sm:px-4">
-              Explore engineering events, connect with builders, and join a dynamic community for knowledge exchange and fresh insights from working engineers.
+            Explore engineering events, connect with builders, and join a dynamic community for knowledge exchange and fresh insights from working engineers.
           </p>
         </div>
 

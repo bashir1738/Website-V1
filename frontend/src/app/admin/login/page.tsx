@@ -104,7 +104,7 @@ export default function AdminLoginPage() {
           <ScrollReveal delay={2}>
             <p className="mt-7 max-w-md text-base leading-[1.75] text-(--muted)">
               Publish blogs and events, review applications and submissions, and
-              stay on top of everything coming through the site — all from one
+              stay on top of everything coming through the site from one
               secure, private place.
             </p>
           </ScrollReveal>
@@ -120,7 +120,7 @@ export default function AdminLoginPage() {
               <span className="inline-block whitespace-nowrap rounded-full border border-(--line-strong) px-[0.65rem] py-[0.2rem] font-mono text-[0.6rem] tracking-[0.06em] text-(--dim)">ROLE-BASED ACCESS</span>
             </div>
             <p className="mt-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-(--dim)">
-              {siteConfig.name} — admin.control
+              {siteConfig.name} admin.control
             </p>
           </div>
         </ScrollReveal>

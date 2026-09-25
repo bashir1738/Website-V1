@@ -19,7 +19,7 @@ import { applyTracks } from "@/features/apply/content";
 import { EYEBROW } from "@/lib/styles";
 
 export const metadata: Metadata = {
-  title: "Apply — Blockfuse Labs Academy",
+  title: "Apply: Blockfuse Labs Academy",
   description:
     "Choose a track, submit your application, and secure your seat. Tracks from ₦100,000, with Blockchain Engineering payable in two installments.",
 };
@@ -53,9 +53,9 @@ export default function ApplyPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Blockfuse Labs Academy — admissions open"
+        eyebrow="Blockfuse Labs Academy: admissions open"
         title="Choose your path, then apply."
-        lead="Every track is priced up front. Submit your application, then bank the fee and upload the receipt — our team verifies it manually within 1–2 working days."
+        lead="Every track is priced up front. Submit your application, then bank the fee and upload the receipt. Our team verifies it manually within 1–2 working days."
       />
 
       <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -117,7 +117,7 @@ export default function ApplyPage() {
             <strong className="text-(--page-fg)">
               Application fees are non-refundable.
             </strong>{" "}
-            Payment is required to secure your spot — for Blockchain Engineering
+            Payment is required to secure your spot. For Blockchain Engineering
             you pay 50% at enrollment and the remaining 50% after week 8 of the
             program.
           </p>

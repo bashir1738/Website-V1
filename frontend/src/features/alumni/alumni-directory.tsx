@@ -75,7 +75,7 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
             <div className="pt-[0.875rem]">
               <div className="flex flex-wrap gap-1.5 text-(--dim) font-mono text-[0.625rem] font-semibold tracking-[0.07em] leading-[1.45] uppercase">
                 <span>{a.track}</span>
-                <span aria-hidden="true">—</span>
+                <span aria-hidden="true">·</span>
                 <span>{a.cohort}</span>
               </div>
               <h2 className="mt-[0.6rem] text-(--page-fg) text-[clamp(1.35rem,2.5vw,1.75rem)] font-medium leading-[1.02]">

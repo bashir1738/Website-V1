@@ -204,7 +204,7 @@ function BroadcastPanel({ subscribers }: { subscribers: Record<string, unknown>[
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           maxLength={200}
-          placeholder="Subject — e.g. Cohort IV applications are open"
+          placeholder="Subject: e.g. Cohort III applications are open"
           className={FIELD_INPUT}
         />
         <div>
@@ -212,7 +212,7 @@ function BroadcastPanel({ subscribers }: { subscribers: Record<string, unknown>[
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             maxLength={MAX_BROADCAST}
-            placeholder="Message — paragraphs, links, the works."
+            placeholder="Message: paragraphs, links, the works."
             rows={6}
             className={`${FIELD_INPUT} h-auto resize-y py-3 leading-relaxed`}
           />
@@ -246,7 +246,7 @@ function BroadcastPanel({ subscribers }: { subscribers: Record<string, unknown>[
         </button>
       </div>
       <p className="mt-3 text-xs text-(--dim)">
-        Sends to approved subscribers only — unsubscribed readers are skipped
+        Sends to approved subscribers only. Unsubscribed readers are skipped
         automatically. Each email carries that reader&apos;s own one-click
         unsubscribe link.
       </p>

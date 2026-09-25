@@ -65,11 +65,6 @@ const ORB_THREE = `${ORB} w-[38rem] h-[38rem] -top-[18rem] left-[55%] bg-(--colo
 
 const HERO_INNER =
   "relative z-[3] mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
-const KICKER =
-  "inline-flex items-center gap-3 font-mono text-[0.75rem] font-semibold tracking-[0.11em] uppercase text-[rgba(255,255,255,0.88)]";
-const KICKER_MARK = "inline-flex items-center gap-[2px]";
-const KICKER_DOT = "w-[0.7rem] h-[0.7rem] rounded-full bg-(--accent-soft)";
-const KICKER_BAR = "w-[0.3rem] h-[0.7rem] rounded-full bg-white";
 const HERO_H1 =
   "mt-[1.9rem] max-w-[22ch] font-heading text-[clamp(2.9rem,7.4vw,6rem)] font-bold leading-[0.95] tracking-[-0.055em] text-white";
 const HERO_ACCENT = "text-[#dba7f2]";
@@ -79,8 +74,6 @@ const HERO_LEAD_STRONG =
   "text-[clamp(1.05rem,1.55vw,1.3rem)] font-medium leading-[1.6] text-white";
 const HERO_PUNCH = "font-semibold text-[#e8c6f7]";
 const HERO_ACTIONS = "flex flex-wrap items-center gap-7 mt-[2.5rem]";
-const HERO_LINK =
-  "inline-flex items-center gap-2 text-[0.9rem] font-semibold text-[rgba(255,255,255,0.88)] underline decoration-[rgba(255,255,255,0.4)] underline-offset-[0.35rem] transition-[color,text-decoration-color] duration-150 ease-out hover:text-[#e8c6f7] hover:decoration-[#e8c6f7]";
 
 const ROUTE_WRAP =
   "relative z-[4] mx-auto mt-[clamp(-5rem,-7vw,-3.5rem)] max-w-[1240px] px-5 sm:px-7";
@@ -253,8 +246,6 @@ export default async function EngineeringPage() {
         <div className={GRAIN} aria-hidden="true" />
 
         <div className={HERO_INNER}>
-          
-
           <ScrollReveal delay={1}>
             <h1 className={HERO_H1}>
               Architecting <br />
@@ -265,7 +256,7 @@ export default async function EngineeringPage() {
           <ScrollReveal className={HERO_LEAD} delay={2}>
             <p className={HERO_LEAD_STRONG}>
               Blockfuse Labs Engineering designs and delivers dependable AI, web,
-              and blockchain systems — led by the same senior engineers who
+              and blockchain systems, led by the same senior engineers who
               train our Academy, so the work holds up after we leave.
             </p>
             <p className={HERO_PUNCH}>
@@ -296,7 +287,7 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Studio — Core Capabilities</span>
+            <span className={EYEBROW}>Studio: Core Capabilities</span>
             <h2 className={`${BF_H2} mt-4`}>What we build</h2>
             <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
               End-to-end solutions across protocol development, full-stack dApps, AI systems, and production infrastructure.
@@ -348,7 +339,7 @@ export default async function EngineeringPage() {
           <p className={ROUTE_LABEL}>Two ways to work with Blockfuse Labs</p>
           <div className={CHOICE}>
             <Link href="#build" className={CHOICE_CARD}>
-              <span className={CHOICE_TAG}>Route 01 — Studio</span>
+              <span className={CHOICE_TAG}>Route 01: Studio</span>
               <strong className={CHOICE_TITLE}>
                 We build it
                 <em className={CHOICE_ARROW} aria-hidden="true">→</em>
@@ -360,7 +351,7 @@ export default async function EngineeringPage() {
             </Link>
 
             <Link href="#hire" className={CHOICE_CARD}>
-              <span className={CHOICE_TAG}>Route 02 — Talent</span>
+              <span className={CHOICE_TAG}>Route 02: Talent</span>
               <strong className={CHOICE_TITLE}>
                 You build it, with our engineers
                 <em className={CHOICE_ARROW} aria-hidden="true">→</em>
@@ -380,7 +371,7 @@ export default async function EngineeringPage() {
       <section id="build" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Studio — Scope &amp; engagements</span>
+            <span className={EYEBROW}>Studio: Scope &amp; engagements</span>
             <h2 className={`${BF_H2} mt-4`}>What we take on</h2>
           </ScrollReveal>
 
@@ -417,12 +408,12 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Studio — Proof of work</span>
+            <span className={EYEBROW}>Studio: Proof of work</span>
             <h2 className={`${BF_H2} mt-4`}>What we&apos;ve built</h2>
             <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
               Client work stays private, but our tools don&apos;t. These are
               products our own engineers designed, shipped, and still
-              maintain — held to the same standard as anything we deliver.
+              maintain, held to the same standard as anything we deliver.
             </p>
           </ScrollReveal>
 
@@ -460,7 +451,7 @@ export default async function EngineeringPage() {
         <div className="relative z-[1] mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
             <span className={`${EYEBROW} ${BF_EYEBROW_LIGHT}`}>
-              Studio — Delivery principles
+              Studio: Delivery principles
             </span>
             <h2 className={`${BF_H2} mt-4 text-white`}>How we work</h2>
           </ScrollReveal>
@@ -491,7 +482,7 @@ export default async function EngineeringPage() {
         <div className="mx-auto max-w-[1240px]">
           <div className={SPLIT}>
             <ScrollReveal>
-              <span className={EYEBROW}>Talent — The hiring reality</span>
+              <span className={EYEBROW}>Talent: The hiring reality</span>
               <h2 className={`${BF_H2} mt-4`}>
                 Applications are abundant. Evidence is scarce.
               </h2>
@@ -534,7 +525,7 @@ export default async function EngineeringPage() {
           </div>
 
           <ScrollReveal className="mt-20 max-w-[46rem] sm:mt-24" delay={1}>
-            <span className={EYEBROW}>Talent — Specialisations</span>
+            <span className={EYEBROW}>Talent: Specialisations</span>
             <h2 className={`${BF_H2} mt-4`}>Engineers you can hire</h2>
           </ScrollReveal>
 
@@ -556,7 +547,7 @@ export default async function EngineeringPage() {
 
           <div className="mt-20 grid items-end gap-8 sm:mt-24 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,34rem)] lg:gap-12">
             <ScrollReveal>
-              <span className={EYEBROW}>Talent — The network in practice</span>
+              <span className={EYEBROW}>Talent: The network in practice</span>
               <h2 className={`${BF_H2} mt-4`}>Meet our engineers</h2>
               <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
                 A sample of the Blockfuse Labs Talent Network. Every profile here
@@ -588,7 +579,7 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28 border-t border-[var(--line)]">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Studio — Development Methodology</span>
+            <span className={EYEBROW}>Studio: Development Methodology</span>
             <h2 className={`${BF_H2} mt-4`}>Our process</h2>
             <p className="mt-5 max-w-[52ch] text-[15px] leading-relaxed text-[var(--muted)]">
               A structured, milestone-driven approach ensuring quality and security at every stage.
@@ -686,7 +677,7 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Talent — Engagement models</span>
+            <span className={EYEBROW}>Talent: Engagement models</span>
             <h2 className={`${BF_H2} mt-4`}>Ways to work with us</h2>
           </ScrollReveal>
 
@@ -719,7 +710,7 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Talent — The hiring flow</span>
+            <span className={EYEBROW}>Talent: The hiring flow</span>
             <h2 className={`${BF_H2} mt-4`}>How hiring through Blockfuse Labs works</h2>
           </ScrollReveal>
 
@@ -747,7 +738,7 @@ export default async function EngineeringPage() {
       <section className="px-5 py-24 sm:px-7 sm:py-28">
         <div className="mx-auto max-w-[1240px]">
           <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Talent — Employer endorsements</span>
+            <span className={EYEBROW}>Talent: Employer endorsements</span>
             <h2 className={`${BF_H2} mt-4`}>What employers say</h2>
           </ScrollReveal>
 

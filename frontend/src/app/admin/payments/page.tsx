@@ -112,7 +112,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
 
   const approve = async () => {
     if (isBlockchain && !startDate) {
-      toast.error("Set the program start date before approving — it drives the installment-2 due date.");
+      toast.error("Set the program start date before approving. It drives the installment-2 due date.");
       return;
     }
     if (
@@ -127,7 +127,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
       await patchJson(`/payment-reviews/${row.id}/approve`, {
         program_start_date: startDate || undefined,
       });
-      toast.success("Payment verified — the applicant has been emailed.");
+      toast.success("Payment verified. The applicant has been emailed.");
       onReviewed();
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to approve.");
@@ -145,7 +145,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
       await patchJson(`/payment-reviews/${row.id}/reject`, {
         reason: rejectReason || undefined,
       });
-      toast.success("Payment rejected — the applicant has been emailed.");
+      toast.success("Payment rejected. The applicant has been emailed.");
       onReviewed();
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to reject.");
@@ -168,7 +168,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
           </div>
           <div>
             <dt className="text-[10px] font-semibold uppercase tracking-wider text-(--dim)">Phone</dt>
-            <dd className="mt-0.5 text-(--page-fg)">{row.applicant?.phone ?? "—"}</dd>
+            <dd className="mt-0.5 text-(--page-fg)">{row.applicant?.phone ?? "Not available"}</dd>
           </div>
           <div>
             <dt className="text-[10px] font-semibold uppercase tracking-wider text-(--dim)">Amount</dt>
@@ -201,7 +201,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
           <div>
             <dt className="text-[10px] font-semibold uppercase tracking-wider text-(--dim)">Reviewed by</dt>
             <dd className="mt-0.5 text-(--page-fg)">
-              {row.reviewed_by ? `${row.reviewed_by} (${formatDate(row.reviewed_at)})` : "—"}
+              {row.reviewed_by ? `${row.reviewed_by} (${formatDate(row.reviewed_at)})` : "Not available"}
             </dd>
           </div>
         </dl>
@@ -242,7 +242,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
                 <span className="capitalize font-semibold text-(--page-fg)">
                   {log.action}
                 </span>{" "}
-                — {log.actor}
+                · {log.actor}
                 {log.note ? ` · ${log.note}` : ""}
                 {log.createdAt ? ` · ${formatDate(log.createdAt)}` : ""}
               </li>
@@ -259,7 +259,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
         {isBlockchain && (
           <label className="mt-4 block">
             <span className="mb-1 block text-[11px] font-semibold text-(--dim)">
-              Program start date (YYYY-MM-DD) — opens installment 2 after week 8
+              Program start date (YYYY-MM-DD): opens installment 2 after week 8
             </span>
             <input
               type="date"
@@ -311,7 +311,7 @@ function PaymentDetail({ row, onReviewed }: DetailProps) {
         {row.status === "verified" && (
           <p className="mt-4 text-xs leading-relaxed text-emerald-400">
             This payment is verified. Applicant status:{" "}
-            {row.applicant?.status ?? "—"}.
+            {row.applicant?.status ?? "Not available"}.
           </p>
         )}
       </div>
@@ -499,7 +499,7 @@ export default function AdminPaymentsPage() {
                           <p className="text-xs text-(--dim)">{row.applicant?.email}</p>
                         </td>
                         <td className="px-4 py-3 align-middle text-(--muted)">
-                          {row.track?.name ?? row.applicant?.track ?? "—"}
+                          {row.track?.name ?? row.applicant?.track ?? "Not available"}
                         </td>
                         <td className="px-4 py-3 align-middle font-semibold text-(--page-fg)">
                           {naira(row.amount)}

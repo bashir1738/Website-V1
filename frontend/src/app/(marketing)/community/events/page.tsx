@@ -115,7 +115,7 @@ export default async function EventsPage() {
               <span>WORKSHOPS!</span>
             </h1>
             <p className="mx-auto mt-8 max-w-[45ch] text-[0.875rem] leading-[1.6] max-md:mt-6 max-md:max-w-[32ch]">
-              We bring engineers together to build, learn, and showcase — through workshops, hackathons, and demo days that actually matter.
+              We bring engineers together to build, learn, and showcase through workshops, hackathons, and demo days that actually matter.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <ModalButton modal="prodfest">See upcoming events</ModalButton>

@@ -31,9 +31,9 @@ const naira = (value: number | null | undefined) =>
   `₦${Number(value ?? 0).toLocaleString("en-NG")}`;
 
 const fmtDate = (value: string | null | undefined) => {
-  if (!value) return "—";
+  if (!value) return "Not available";
   const d = new Date(value);
-  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+  return Number.isNaN(d.getTime()) ? "Not available" : d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 };
 
 interface PaymentRow {
@@ -206,7 +206,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
       body.append("proof", file);
       if (note.trim()) body.append("reference_note", note.trim());
       await postForm("/payments/upload", body);
-      toast.success("Proof received — awaiting verification.");
+      toast.success("Proof received. Awaiting verification.");
       setFile(null);
       setFileLabel(null);
       setNote("");
@@ -267,7 +267,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
       await navigator.clipboard.writeText(bank.accountNumber);
       toast("Account number copied.");
     } catch {
-      toast("Couldn't copy — here it is: " + bank.accountNumber);
+      toast("Couldn't copy. Here it is: " + bank.accountNumber);
     }
   };
 
@@ -380,7 +380,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
                     <strong>
                       {naira(nextUpload.amount)}
                       {track && track.totalInstallments > 1
-                        ? ` — installment ${nextUpload.installmentNumber} of ${track.totalInstallments}`
+                        ? `: installment ${nextUpload.installmentNumber} of ${track.totalInstallments}`
                         : ""}
                     </strong>
                     {nextUpload.dueDate && (
@@ -422,7 +422,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
                     onChange={(e) => setNote(e.target.value)}
                     maxLength={500}
                     rows={3}
-                    placeholder="Optional note — e.g. your MOMO/App reference number from the bank."
+                    placeholder="Optional note, e.g. your MOMO/App reference number from the bank."
                     className={`${FIELD_INPUT} h-auto resize-y py-3 leading-relaxed`}
                   />
                   <div className="mt-1 text-right text-[11px] text-(--dim)">
@@ -442,7 +442,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
             ) : (
               <div className="mt-5 rounded-xl border border-(--line) bg-(--surface-2) px-4 py-4 text-sm leading-relaxed text-(--muted)">
                 {nextUpload.reason ||
-                  "The next payment window isn't open yet. Check back when it's due — and keep an eye on your email."}
+                  "The next payment window isn't open yet. Check back when it's due, and keep an eye on your email."}
                 {latest?.status === "verified" &&
                   latest.installmentNumber >= (track?.totalInstallments ?? 1) && (
                     <p className="mt-2 font-semibold text-emerald-400">
@@ -489,7 +489,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
             {applicant.legacy && (
               <p className="mt-5 rounded-xl border border-(--accent-line) bg-(--accent-dim) px-4 py-3 text-xs leading-relaxed text-(--page-fg)">
                 This application was made under the earlier cohort. Your
-                enrollment is already recorded here — contact us if you need
+                enrollment is already recorded here. Contact us if you need
                 anything.
               </p>
             )}
@@ -503,7 +503,7 @@ export function ApplyStatusClient({ token }: { token: string }) {
 
             {payments.length === 0 ? (
               <p className="mt-5 text-sm text-(--muted)">
-                No payments yet — follow the instructions to make the transfer,
+                No payments yet. Follow the instructions to make the transfer,
                 then upload the receipt.
               </p>
             ) : (

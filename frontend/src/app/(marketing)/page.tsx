@@ -71,10 +71,9 @@ export default function Home() {
       <section className="relative grid min-h-[calc(100svh_-_76px)] items-center isolate overflow-hidden px-5 pb-20 pt-10 sm:px-7 sm:pb-24 sm:pt-14 lg:pt-16 max-lg:min-h-auto">
         <div className="pointer-events-none absolute -z-1 right-[-8rem] top-[6%] h-[18rem] w-[18rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.55]" aria-hidden="true" />
         <div className="pointer-events-none absolute -z-1 bottom-[3%] left-[42%] h-[9rem] w-[9rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.35]" aria-hidden="true" />
-  
+
         <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(29rem,0.86fr)] lg:gap-12">
           <div className="max-w-[42rem]">
-            
             <ScrollReveal delay={1}>
               <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-[var(--page-fg)]">
                 We build decentralized systems &amp; deploy vetted engineering talent.
@@ -233,12 +232,6 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* THE PEOPLE BEHIND THE STANDARD — commented out, preserved for later */}
-      {/* ================================================================= */}
-      {/* <TeamNetwork /> */}
-      {/* <SectionDivider /> */}
-
-      {/* ================================================================= */}
       {/* THE INDUSTRY CHALLENGE */}
       {/* ================================================================= */}
       <section id="core-reality" className="py-24 relative overflow-hidden">
@@ -281,7 +274,7 @@ export default function Home() {
                     Blockfuse Labs bridges the execution gap.
                   </p>
                   <p className="mt-2 text-sm text-[var(--muted)]">
-                    We combine turnkey engineering delivery with an elite internal talent engine — giving founders and enterprises immediate access to verified technical capability.
+                    We combine turnkey engineering delivery with an elite internal talent engine, giving founders and enterprises immediate access to verified technical capability.
                   </p>
                 </div>
 
@@ -464,7 +457,6 @@ export default function Home() {
         </div>
       </section>
 
-
       <SectionDivider />
 
       {/* ================================================================= */}
@@ -587,7 +579,6 @@ export default function Home() {
 
         <div className="mx-auto max-w-[1240px] px-5 sm:px-7 relative z-10">
           <div className="p-6 sm:p-10 lg:p-14 rounded-2xl border border-[var(--accent)]/40 bg-[var(--card)] backdrop-blur-2xl relative overflow-hidden shadow-md space-y-8 sm:space-y-12">
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <ScrollReveal>
@@ -604,7 +595,7 @@ export default function Home() {
                   Whether you need a turnkey decentralized protocol build or vetted engineers embedded into your team, Blockfuse Labs delivers production-grade execution.
                 </p>
               </div>
-              
+
               {/* links */}
               <div className="lg:col-span-5">
                 <div className="flex flex-col gap-2">
@@ -627,8 +618,7 @@ export default function Home() {
                   <Link
                     href="/training"
                     className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
-                   
-                   >
+                  >
                     <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Labs Academy</span>
                     <span className="text-[var(--muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-200">→</span>
                   </Link>

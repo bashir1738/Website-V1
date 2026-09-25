@@ -23,7 +23,7 @@ export const repos: Repo[] = [
     name: "blockfuse/curriculum",
     lang: "MDX",
     description:
-      "Every module we teach, in the open — exercises, rubrics, and reading.",
+      "Every module we teach, in the open: exercises, rubrics, and reading.",
     stars: 968,
     forks: 214,
     updated: "5h ago",
@@ -63,7 +63,7 @@ export const repos: Repo[] = [
     name: "blockfuse/prodfest-site",
     lang: "Next.js",
     description:
-      "The ProdFest event platform — submissions, judging, and the live stage board.",
+      "The ProdFest event platform: submissions, judging, and the live stage board.",
     stars: 74,
     forks: 18,
     updated: "4d ago",

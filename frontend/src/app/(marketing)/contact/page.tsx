@@ -38,7 +38,7 @@ const GRAIN =
   "grain-overlay absolute inset-0 pointer-events-none opacity-[0.035] z-[2]";
 
 const HERO =
-  "relative isolate overflow-hidden min-h-[70vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] _100%)]";
+  "relative isolate overflow-hidden min-h-[70vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[linear-gradient(180deg,rgba(13,13,19,0.35)_0%,rgba(13,13,19,0.5)_52%,rgba(13,13,19,0.75)_100%)]";
 const HERO_MEDIA = "absolute inset-0 -z-[2]";
 const HERO_MEDIA_PIC =
   "object-cover object-[center_60%] opacity-[0.50]";
@@ -49,8 +49,6 @@ const ORB_TWO = `${ORB} w-[22rem] h-[22rem] -bottom-[10rem] -left-[8rem] bg-whit
 
 const HERO_INNER =
   "relative z-[3] w-full mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
-const KICKER =
-  "inline-flex items-center gap-3 font-mono text-[0.75rem] font-semibold tracking-[0.11em] uppercase text-[rgba(255,255,255,0.88)]";
 const HERO_H1 =
   "mt-[1.9rem] max-w-[22ch] font-heading text-[clamp(2.9rem,7.4vw,6rem)] font-bold leading-[0.95] tracking-[-0.055em] text-white";
 const HERO_ACCENT = "text-[#dba7f2]";
@@ -64,7 +62,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
   let initialTopic = INTENT_TOPICS[first(params.intent)] ?? "";
   if (initialTopic) {
     const detail = first(params.service) || first(params.track);
-    if (detail) initialTopic = `${initialTopic} — ${detail}`;
+    if (detail) initialTopic = `${initialTopic}, ${detail}`;
   }
 
   return (
@@ -152,7 +150,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          CTA — EXPLORE OTHER WAYS
+          CTA: EXPLORE OTHER WAYS
           ═══════════════════════════════════════════════════════════ */}
       <section className="px-5 py-28 sm:px-8">
         <div className="mx-auto max-w-5xl text-center">

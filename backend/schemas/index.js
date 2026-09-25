@@ -17,19 +17,22 @@ const EXPERIENCE_LEVELS = [
 ];
 
 const REFERRAL_SOURCES = [
-  'A Blockfuse graduate',
+  'A Blockfuse Labs graduate',
   'Social media',
   'ProdFest',
   'University or school',
   'Someone referred me',
 ];
 
-const COHORTS = ['Cohort I', 'Cohort II', 'Cohort III', 'Cohort IV'];
+const COHORTS = ['Cohort I', 'Cohort II', 'Cohort III'];
 
 const ALUMNI_TRACKS = [
-  'AI-Native Software Engineering',
-  'Applied AI Engineering',
-  'Blockchain Engineering',
+  'Basic Track',
+  'Intermediate Track',
+  'Advanced Track',
+  'Professional Track',
+  'Full-Program Bundle',
+  'Blockchain Engineering Track',
 ];
 
 const ATTENDING_AS = [
@@ -137,8 +140,9 @@ const ORG_RE = /^[\p{L}][\p{L}\s.'&-]{1,199}$/u;
 const STATUS_RE = /^[\p{L}][\p{L}\s,'&-]{1,199}$/u;
 // 2–100: contact topics (letters+digits — "ProdFest 2026" is legitimate).
 const TOPIC_RE = /^[\p{L}\p{N}][\p{L}\p{N}\s.,'&-]{1,99}$/u;
-// Phone: optional leading +, a digit, then digits/spaces/()-/- — 7–20 chars.
-const PHONE_RE = /^\+?[0-9][0-9\s\-().]{5,18}$/;
+// Accepts the format emitted by the PhoneField component: "+<dialCode> <localNumber>"
+// e.g. "+234 802 546 3838", "+44 7911 123456", "+1 800 555 0100"
+const PHONE_RE = /^\+[1-9]\d{0,3}\s[\d\s\-().]{4,18}$/;
 // GitHub profile link, e.g. https://github.com/username (www. optional).
 const GITHUB_URL_RE = /^https?:\/\/(?:www\.)?github\.com\/[A-Za-z0-9][A-Za-z0-9._-]*\/?$/i;
 // LinkedIn profile link, e.g. https://linkedin.com/in/username (www. optional).
@@ -211,12 +215,26 @@ const applicationSchema = Joi.object({
     .pattern(PHONE_RE)
     .trim()
     .required()
-    .messages({ 'string.pattern.base': 'Phone can only contain digits, spaces, and ( ) - +' }),
+    .messages({ 'string.pattern.base': 'Phone must include your country code, e.g. +234 802 546 3838' }),
   location: orgField('Location', true),
-  track: Joi.string().valid(...TRACKS).allow(null, ''),
-  experience_level: Joi.string().valid(...EXPERIENCE_LEVELS).allow(null, ''),
-  github: linkField('GitHub or portfolio'),
-  referral: Joi.string().valid(...REFERRAL_SOURCES).allow(null, ''),
+  track: Joi.string().valid(...TRACKS).required(),
+  experience_level: Joi.string().valid(...EXPERIENCE_LEVELS).required(),
+  github: Joi.when('track', {
+    is: 'Basic Track',
+    then: linkField('GitHub or portfolio').allow('', null),
+    otherwise: Joi.string()
+      .uri({ scheme: ['http', 'https'] })
+      .max(500)
+      .trim()
+      .required()
+      .messages({
+        'string.empty': 'GitHub or portfolio is required for this track',
+        'any.required': 'GitHub or portfolio is required for this track',
+        'string.uri': 'GitHub or portfolio must be a full link starting with https://',
+        'string.max': 'GitHub or portfolio must be 500 characters or fewer',
+      })
+  }),
+  referral: Joi.string().valid(...REFERRAL_SOURCES).required(),
   motivation: Joi.string().min(10).max(5000).required(),
 });
 
@@ -224,9 +242,9 @@ const hireSchema = Joi.object({
   company: orgField('Company'),
   name: nameField('Name'),
   email: Joi.string().email().trim().lowercase().required().max(254),
-  roles: Joi.array().items(Joi.string().valid(...ROLE_OPTIONS)).min(1).max(6).allow(null).single(),
-  engagement_type: Joi.string().valid(...ENGAGEMENT_TYPES).allow(null, ''),
-  seniority: Joi.string().valid(...SENIORITY_LEVELS).allow(null, ''),
+  roles: Joi.array().items(Joi.string().valid(...ROLE_OPTIONS)).min(1).max(6).required().single(),
+  engagement_type: Joi.string().valid(...ENGAGEMENT_TYPES).required(),
+  seniority: Joi.string().valid(...SENIORITY_LEVELS).required(),
   count: Joi.string().valid(...ENGINEER_COUNTS).allow(null, ''),
   timeline: Joi.string().valid(...TIMELINE_OPTIONS).allow(null, ''),
   details: Joi.string().min(10).max(5000).required(),
@@ -235,7 +253,7 @@ const hireSchema = Joi.object({
 const prodfestSchema = Joi.object({
   name: nameField('Name'),
   email: Joi.string().email().trim().lowercase().required().max(254),
-  attending_as: Joi.string().valid(...ATTENDING_AS).allow(null, ''),
+  attending_as: Joi.string().valid(...ATTENDING_AS).required(),
   organisation: orgField('Organisation', true),
   goals: Joi.string().max(5000).allow(null, ''),
 });
@@ -244,8 +262,8 @@ const sponsorSchema = Joi.object({
   organisation: orgField('Organisation'),
   name: nameField('Name'),
   email: Joi.string().email().trim().lowercase().required().max(254),
-  interests: Joi.array().items(Joi.string().valid(...SPONSOR_INTERESTS)).min(1).max(5).allow(null).single(),
-  budget: Joi.string().valid(...BUDGET_OPTIONS).allow(null, ''),
+  interests: Joi.array().items(Joi.string().valid(...SPONSOR_INTERESTS)).min(1).max(5).required().single(),
+  budget: Joi.string().valid(...BUDGET_OPTIONS).required(),
   metrics: Joi.string().max(5000).allow(null, ''),
 });
 
@@ -259,7 +277,7 @@ const opensourceSchema = Joi.object({
     .required()
     .pattern(REPO_RE)
     .messages({ 'string.pattern.base': 'GitHub repo must be in owner/repo format (e.g. blockfuse/contract-kit)' }),
-  interests: Joi.array().items(Joi.string().valid(...OPENSOURCE_INTERESTS)).min(1).max(6).allow(null).single(),
+  interests: Joi.array().items(Joi.string().valid(...OPENSOURCE_INTERESTS)).min(1).max(6).required().single(),
   hours: Joi.string().valid(...HOURS_OPTIONS).allow(null, ''),
   focus: Joi.string().max(5000).allow(null, ''),
 });
@@ -300,7 +318,7 @@ const alumniSchema = Joi.object({
 const newsletterSchema = Joi.object({
   name: nameField('Name', true),
   email: Joi.string().email().trim().lowercase().required().max(254),
-  topics: Joi.array().items(Joi.string().valid(...NEWSLETTER_TOPICS)).min(1).max(4).allow(null).single(),
+  topics: Joi.array().items(Joi.string().valid(...NEWSLETTER_TOPICS)).min(1).max(4).required().single(),
 });
 
 module.exports = {

@@ -10,7 +10,7 @@ exports.submit = async (req, res) => {
     Promise.all([
       sendConfirmationEmail({
         to: req.body.email,
-        subject: 'Hire request received — Blockfuse',
+        subject: 'Hire request received | Blockfuse Labs',
         html: `<p>Hi ${escHtml(req.body.name)},</p><p>Thanks for your interest in hiring Blockfuse engineers. Our talent team will reach out within three working days.</p>`,
       }),
       notifyAdmin({

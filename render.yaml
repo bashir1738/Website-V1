@@ -7,7 +7,7 @@
 #       after the services are created (right-hand "Environment" tab), then redeploy:
 #         - backend:  DATABASE_URL, ADMIN_PASSWORD, CLOUDINARY_CLOUD_NAME,
 #                     CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, RESEND_API_KEY,
-#                     FRONTEND_URL (https://<frontend-host>/)
+#                     FRONTEND_URL (https://<frontend-host>)
 #         - frontend: NEXT_PUBLIC_API_URL (https://<backend-host>/api)
 
 services:
@@ -36,6 +36,8 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_CA_CERT
         sync: false
       - key: FRONTEND_URL
         sync: false

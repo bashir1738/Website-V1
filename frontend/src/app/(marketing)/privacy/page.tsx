@@ -22,10 +22,10 @@ export default function PrivacyPage() {
             What we collect
           </h2>
           <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-[var(--muted)]">
-            When you fill in a form on this site — an application, a hire
-            request, a sponsorship conversation, or a dispatch subscription —
-            we store what you submit: your name, contact details, and the
-            answers you provided.
+            When you fill in a form on this site, such as an application, a hire
+            request, a sponsorship conversation, or a dispatch subscription, we
+            store what you submit: your name, contact details, and the answers
+            you provided.
           </p>
         </section>
 

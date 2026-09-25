@@ -8,10 +8,25 @@ const sanitize = require('./middlewares/sanitizeMiddleware');
 
 const app = express();
 
-const FRONTEND_URLS = (process.env.FRONTEND_URL || 'http://localhost:3000')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean);
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
+function normalizeFrontendOrigin(value) {
+  const url = new URL(value);
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    throw new Error('FRONTEND_URL must contain HTTP(S) origins');
+  }
+  return url.origin;
+}
+
+const FRONTEND_ORIGINS = new Set(
+  (process.env.FRONTEND_URL || 'http://localhost:3000')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean)
+    .map(normalizeFrontendOrigin),
+);
 
 // MED-3: helmet sets essential HTTP security headers in one call.
 // crossOriginResourcePolicy is set to 'cross-origin' because this is a
@@ -29,7 +44,7 @@ app.use(
       // Allow server-to-server / curl requests (no Origin header) and any
       // origin on the allow-list. The `cors` package reflects the single
       // matching origin back, so the header never contains multiple values.
-      if (!origin || FRONTEND_URLS.includes(origin)) {
+      if (!origin || FRONTEND_ORIGINS.has(origin)) {
         callback(null, true);
       } else {
         callback(new Error(`Origin '${origin}' is not allowed by CORS policy`));

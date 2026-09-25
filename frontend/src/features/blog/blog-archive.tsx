@@ -181,7 +181,7 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
           ) : hasMatches ? (
             <div className="py-16 text-center">
               <p className="text-sm text-(--muted)">
-                This is the only story in this category right now — it&apos;s featured above.
+                This is the only story in this category right now. It&apos;s featured above.
               </p>
             </div>
           ) : (

@@ -79,7 +79,7 @@ export const detailedPrograms: DetailedProgram[] = [
       "Consuming third-party services",
     ],
     outcome:
-      "You finish able to build and deploy a full frontend that talks to a real backend — the shape of most professional web apps.",
+      "You finish able to build and deploy a full frontend that talks to a real backend, the shape of most professional web apps.",
     ctaText: "Apply for the Intermediate Track",
   },
   {
@@ -120,7 +120,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "full-program",
     title: "Full-Program Bundle",
     description:
-      "The complete journey — Basic, Intermediate, Advanced and Professional in one continuous program, built for a serious career jump. Fee: ₦250,000.",
+      "The complete journey: Basic, Intermediate, Advanced and Professional in one continuous program, built for a serious career jump. Fee: ₦250,000.",
     topics: [
       "All four track curriculums, sequenced",
       "A guided capstone for each stage",
@@ -148,7 +148,7 @@ export const detailedPrograms: DetailedProgram[] = [
       "Building projects that survive technical review",
     ],
     outcome:
-      "You finish able to write, test, secure, and deploy real contracts and dApps — the work that makes up a web3 engineer's day.",
+      "You finish able to write, test, secure, and deploy real contracts and dApps, the work that makes up a web3 engineer's day.",
     ctaText: "Apply for the Blockchain Engineering Track",
   },
 ];
@@ -294,7 +294,7 @@ export const graduateTestimonials: GraduateTestimonial[] = [
   {
     author: "Shaaibu Suleiman",
     image: "https://res.cloudinary.com/dcl3ecscw/image/upload/v1731499628/testimony/mcyfrywr7axlibupetwc.jpg",
-    quote: "Blockfuse Labs has taught me far more than just building — it’s shown me the value of teamwork, collaboration, and creative problem-solving within a truly supportive community. The energy at Blockfuse Labs is contagious, constantly driving us to push our limits. The results speak for themselves, with each project and skill learned being a testament to the incredible environment they’ve cultivated.",
+    quote: "Blockfuse Labs has taught me far more than just building. It’s shown me the value of teamwork, collaboration, and creative problem-solving within a truly supportive community. The energy at Blockfuse Labs is contagious, constantly driving us to push our limits. The results speak for themselves, with each project and skill learned being a testament to the incredible environment they’ve cultivated.",
     role: "Blockfuse Labs Alumni",
     cohort: "2024",
   },

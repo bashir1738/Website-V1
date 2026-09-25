@@ -37,7 +37,7 @@ exports.submit = async (req, res) => {
     Promise.all([
       sendConfirmationEmail({
         to: data.email,
-        subject: 'Alumni profile submitted — Blockfuse',
+        subject: 'Alumni profile submitted | Blockfuse Labs',
         html: `<p>Hi ${escHtml(data.name)},</p><p>We've received your alumni profile. Once we verify it against your assessment record, it will appear in the directory.</p>`,
       }),
       notifyAdmin({
@@ -67,6 +67,16 @@ exports.getAll = async (req, res) => {
 exports.getPublic = async (req, res) => {
   try {
     const profiles = await AlumniProfile.findAll({
+      attributes: [
+        'id',
+        'name',
+        'cohort',
+        'track',
+        'current_status',
+        'github',
+        'linkedin',
+        'photo_url',
+      ],
       where: { status: 'approved' },
       order: [['createdAt', 'DESC']],
     });

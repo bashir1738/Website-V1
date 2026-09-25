@@ -53,7 +53,7 @@ export const navItems: NavItem[] = [
       {
         label: "Alumni",
         href: "/community/alumni",
-        desc: "Graduates from Cohorts I–IV, assessed and on record.",
+        desc: "Graduates from Cohorts I–III, assessed and on record.",
       },
     ],
   },

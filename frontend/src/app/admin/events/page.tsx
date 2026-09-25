@@ -427,7 +427,7 @@ export default function AdminEventsPage() {
                       {formatDate(event.date)}
                     </td>
                     <td className="px-4 py-3 text-(--muted)">
-                      {event.location || "—"}
+                      {event.location || "Not available"}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex justify-end gap-2">
