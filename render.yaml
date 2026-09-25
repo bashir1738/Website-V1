@@ -37,8 +37,6 @@ services:
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
-      - key: DATABASE_CA_CERT
-        sync: false
       - key: FRONTEND_URL
         sync: false
       # Exact origin used in application/payment emails (status-page links).

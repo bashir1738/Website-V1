@@ -355,8 +355,8 @@ export function FormModal({
           style={{ transition: "transform 200ms ease" }}
           className={[
             "relative flex min-h-0 w-full flex-col overflow-hidden outline-none",
-            // Mobile: full-screen for better form usability with virtual keyboards.
-            "h-[100dvh] max-h-[100dvh] w-full rounded-none",
+            // Mobile: bottom sheet for a more modern and integrated feel.
+            "max-h-[95dvh] w-full rounded-t-[28px]",
             "bg-(--card-strong) shadow-[0_-10px_36px_-28px_rgba(0,0,0,0.45)] backdrop-blur-2xl",
             // Desktop: centred two-panel dialog.
             "lg:h-auto lg:max-h-[calc(100vh-3rem)] lg:w-[min(100%,64rem)] lg:rounded-[28px] lg:shadow-[0_22px_55px_-42px_rgba(0,0,0,0.4)]",
@@ -383,7 +383,7 @@ export function FormModal({
                 </div>
                 <h2
                   id={titleId}
-                  className="pr-12 font-heading text-[clamp(1.3rem,5vw,1.85rem)] font-bold leading-[1.12] tracking-[-0.03em] text-white"
+                  className="pr-14 font-heading text-[clamp(1.3rem,5vw,1.85rem)] font-bold leading-[1.12] tracking-[-0.03em] text-white"
                 >
                   {form.title}
                 </h2>
@@ -536,7 +536,7 @@ export function FormModal({
             type="button"
             onClick={requestClose}
             aria-label="Close dialog"
-            className="absolute right-3 top-3 z-30 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70 lg:right-4 lg:top-4 lg:border-(--line-strong) lg:bg-(--card-strong)/85 lg:text-(--muted) lg:hover:bg-(--card-hover) lg:hover:text-(--page-fg) lg:focus-visible:outline-(--accent)"
+            className="absolute right-4 top-4 z-30 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70 lg:border-(--line-strong) lg:bg-(--card-strong)/85 lg:text-(--muted) lg:hover:bg-(--card-hover) lg:hover:text-(--page-fg) lg:focus-visible:outline-(--accent)"
           >
             <CloseIcon />
           </button>
