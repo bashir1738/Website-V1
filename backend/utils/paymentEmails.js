@@ -133,45 +133,15 @@ const sendPaymentVerifiedEmail = async ({
     <li><strong>GitHub:</strong> <a href="https://github.com/blockfuselabs" style="color:#A544D2;text-decoration:none;">blockfuselabs</a></li>
   </ul>`);
 
-  const receiptHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Payment Receipt</title>
-</head>
-<body style="font-family: system-ui, -apple-system, sans-serif; padding: 40px; color: #17121C; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-  <div style="border: 1px solid #EAE6EE; border-radius: 12px; padding: 32px; background: #fff;">
-    <h2 style="margin: 0 0 24px; font-size: 24px; color: #17121C;">Payment Receipt</h2>
-    <p style="margin: 0 0 8px; color: #6B6572; font-size: 14px;"><strong>Date:</strong> ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-    <p style="margin: 0 0 24px; color: #6B6572; font-size: 14px;"><strong>Billed To:</strong> ${escHtml(name)} (${escHtml(email)})</p>
-    
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-bottom: 24px;">
-      <tr style="border-bottom: 2px solid #EAE6EE;">
-        <th align="left" style="padding: 12px 0; font-size: 13px; color: #6B6572; text-transform: uppercase;">Description</th>
-        <th align="right" style="padding: 12px 0; font-size: 13px; color: #6B6572; text-transform: uppercase;">Amount</th>
-      </tr>
-      <tr style="border-bottom: 1px solid #EAE6EE;">
-        <td style="padding: 16px 0; font-size: 15px;">
-          <strong>${escHtml(trackName)}</strong><br>
-          <span style="font-size: 13px; color: #6B6572;">${totalInstallments > 1 ? `Installment ${installment} of ${totalInstallments}` : 'Full Payment'}</span>
-        </td>
-        <td align="right" style="padding: 16px 0; font-size: 15px;"><strong>${formatNaira(amount)}</strong></td>
-      </tr>
-    </table>
-    
-    <div style="text-align: right; font-size: 18px;">
-      <strong>Total Paid: ${formatNaira(amount)}</strong>
-    </div>
-    
-    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #EAE6EE; font-size: 12px; color: #6B6572; text-align: center;">
-      <p style="margin: 0 0 4px;"><strong>Blockfuse Labs</strong></p>
-      <p style="margin: 0;">This receipt is proof of payment for the program specified above.</p>
-    </div>
-  </div>
-</body>
-</html>
-`;
+  const generateReceiptPdf = require('./pdfReceipt');
+  const pdfBuffer = await generateReceiptPdf({
+    name,
+    email,
+    trackName,
+    amount,
+    installment,
+    totalInstallments,
+  });
 
   return sendConfirmationEmail({
     to: email,
@@ -183,8 +153,8 @@ const sendPaymentVerifiedEmail = async ({
     }),
     attachments: [
       {
-        filename: 'Blockfuse_Payment_Receipt.html',
-        content: receiptHtml,
+        filename: 'Blockfuse_Payment_Receipt.pdf',
+        content: pdfBuffer,
       },
     ],
   });
