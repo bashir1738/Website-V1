@@ -6,10 +6,10 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TestimonialsCarousel } from "@/features/training/testimonials-carousel";
+import { ProgramCards } from "@/features/training/program-cards";
 import {
   academyPillars,
   academyStats,
-  detailedPrograms,
   academyPathStages,
   assessmentMatrix,
   graduateTestimonials,
@@ -33,34 +33,6 @@ export const metadata: Metadata = {
   title: "Blockfuse Labs Academy: train for the work, prove you are ready",
   description:
     "Blockfuse Labs Academy develops production-ready engineers through rigorous, project-based training in AI-native software engineering, applied AI, and blockchain.",
-};
-
-/** Each track gets a photograph from the room it is actually taught in. */
-const PROGRAM_MEDIA: Record<string, { src: string; alt: string }> = {
-  basic: {
-    src: "/brand/path3.jpg",
-    alt: "Blockfuse Labs engineers reviewing code together in the studio workspace",
-  },
-  intermediate: {
-    src: "/brand/path1.jpg",
-    alt: "An instructor leading a Blockfuse Labs classroom of students working on laptops",
-  },
-  advanced: {
-    src: "/brand/path2.jpg",
-    alt: "A Blockfuse Labs speaker presenting a blockchain session to a full room",
-  },
-  professional: {
-    src: "/brand/heropic.jpg",
-    alt: "Attendees at a Blockfuse Labs community session in Jos",
-  },
-  "full-program": {
-    src: "/brand/path1.jpg",
-    alt: "An instructor leading a Blockfuse Labs classroom of students working on laptops",
-  },
-  blockchain: {
-    src: "/brand/path2.jpg",
-    alt: "A Blockfuse Labs speaker presenting a blockchain session to a full room",
-  },
 };
 
 const ACADEMY_HERO =
@@ -103,31 +75,6 @@ const PILLAR_P =
   "mt-[0.9rem] text-[0.92rem] leading-[1.7] text-(--muted)";
 const PILLAR_NOTE =
   "mt-[1.1rem] pl-[0.95rem] border-l-2 border-l-(--accent-line) text-[0.86rem] leading-[1.7] text-(--accent)";
-
-const PROGRAM_GRID = "grid gap-7 sm:grid-cols-2";
-const PROGRAM_CARD =
-  "group flex h-full flex-col overflow-hidden border border-(--line) rounded-[1.5rem] bg-(--card) shadow-(--shadow-card) [transition:translate_350ms_cubic-bezier(0.23,1,0.32,1),border-color_250ms_ease] md:hover:-translate-y-1 md:hover:border-(--accent-line)";
-const PROGRAM_MEDIA_BOX =
-  "relative aspect-video overflow-hidden bg-(--surface-2)";
-const PROGRAM_MEDIA_PIC =
-  "object-cover scale-[1.05] saturate-[0.84] contrast-[1.03] [transition:scale_500ms_cubic-bezier(0.23,1,0.32,1),filter_250ms_ease-out] md:group-hover:scale-100 md:group-hover:saturate-100 md:group-hover:contrast-[1.01]";
-const PROGRAM_INDEX =
-  "absolute z-[2] top-4 left-4 grid w-11 h-11 place-items-center rounded-[0.85rem] bg-(--accent) font-heading text-[0.85rem] font-bold text-white shadow-[0_8px_18px_-12px_rgba(191,100,231,0.45)]";
-const PROGRAM_BODY = "flex flex-1 flex-col p-7";
-const PROGRAM_H3 =
-  "font-heading text-[1.4rem] font-bold leading-[1.12] tracking-[-0.03em] text-(--page-fg)";
-const PROGRAM_DESCRIPTION =
-  "mt-3 text-[0.92rem] leading-[1.65] text-(--muted)";
-const PROGRAM_TOPICS = "flex flex-wrap gap-2 mt-5";
-const TOPIC_CHIP =
-  "border border-(--line-strong) rounded-full px-[0.7rem] py-[0.3rem] text-[0.72rem] leading-[1.3] text-(--muted)";
-const TOPIC_CHIP_MUTED = "border-dashed text-(--dim)";
-const PROGRAM_ACTIONS =
-  "flex flex-wrap items-center gap-x-6 gap-y-4 mt-auto pt-7";
-const CELL_LINK =
-  "group inline-flex items-center gap-2 text-[0.82rem] font-semibold text-(--accent) no-underline";
-const CELL_LINK_SPAN =
-  "transition-[translate] duration-200 ease-out group-hover:translate-x-[0.3rem]";
 
 const RAIL =
   "relative grid gap-8 mt-[clamp(3.5rem,6vw,5rem)] list-none p-0 before:content-[''] before:absolute before:left-[1.375rem] before:top-6 before:bottom-6 before:w-px before:bg-[linear-gradient(180deg,var(--accent-line),var(--line))] lg:grid-cols-5 lg:gap-6 lg:before:left-0 lg:before:right-0 lg:before:top-[1.375rem] lg:before:bottom-auto lg:before:w-auto lg:before:h-px lg:before:bg-[linear-gradient(90deg,var(--accent-line),var(--line))]";
@@ -287,74 +234,12 @@ export default function TrainingPage() {
       {/* ================================================================= */}
       <section id="programs" className="scroll-mt-24 px-5 py-24 sm:px-7 sm:py-32">
         <div className="mx-auto max-w-[1240px]">
-          <ScrollReveal className="max-w-[46rem]">
-            <span className={EYEBROW}>Curriculum &amp; specialized tracks</span>
+          <ScrollReveal>
+            <span className={EYEBROW}>Programs</span>
             <h2 className={`${BF_H2} mt-4`}>Choose your program</h2>
           </ScrollReveal>
 
-          <div className={`${PROGRAM_GRID} mt-16 sm:mt-20`}>
-            {detailedPrograms.map((program, i) => {
-              const media = PROGRAM_MEDIA[program.id];
-              const shownTopics = program.topics.slice(0, 4);
-              const remaining = program.topics.length - shownTopics.length;
-              return (
-                <ScrollReveal key={program.id} delay={i < 3 ? i + 1 : 3} threshold={0.08}>
-                  <article id={program.id} className={`${PROGRAM_CARD} scroll-mt-24`}>
-                    <div className={PROGRAM_MEDIA_BOX}>
-                      <span className={PROGRAM_INDEX} aria-hidden="true">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <Image
-                        src={media.src}
-                        alt={media.alt}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1023px) 50vw, 28vw"
-                        className={PROGRAM_MEDIA_PIC}
-                      />
-                    </div>
-
-                    <div className={PROGRAM_BODY}>
-                      <h3 className={PROGRAM_H3}>{program.title}</h3>
-                      <p className={PROGRAM_DESCRIPTION}>
-                        {program.description}
-                      </p>
-
-                      <ul className={PROGRAM_TOPICS}>
-                        {shownTopics.map((topic) => (
-                          <li key={topic} className={TOPIC_CHIP}>
-                            {topic}
-                          </li>
-                        ))}
-                        {remaining > 0 && (
-                          <li className={`${TOPIC_CHIP} ${TOPIC_CHIP_MUTED}`}>
-                            +{remaining} more
-                          </li>
-                        )}
-                      </ul>
-
-                      <div className={PROGRAM_ACTIONS}>
-                        <ModalButton
-                          modal="program"
-                          prefill={{ Track: program.title }}
-                        >
-                          Apply for this track
-                        </ModalButton>
-                        <Link
-                          href={`/contact?program=${program.id}`}
-                          className={CELL_LINK}
-                        >
-                          Talk to an advisor
-                          <span className={CELL_LINK_SPAN} aria-hidden="true">
-                            →
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                </ScrollReveal>
-              );
-            })}
-          </div>
+          <ProgramCards />
         </div>
       </section>
 

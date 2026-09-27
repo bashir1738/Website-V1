@@ -153,6 +153,50 @@ export const detailedPrograms: DetailedProgram[] = [
   },
 ];
 
+/**
+ * How the Academy's programs are presented on the training page: two cards
+ * instead of one per track. `trackIds` reference `detailedPrograms` entries —
+ * their ids and titles stay the single source of truth, because the same ids
+ * anchor deep links and the same titles feed the application form's Track
+ * dropdown, so neither may drift from `detailedPrograms`.
+ */
+export interface ProgramGroup {
+  id: string;
+  title: string;
+  /** One or two lines. Carries the fee, which the card has nowhere else to put it. */
+  description: string;
+  /** Guidance shown in the track picker, at the point the track is chosen. */
+  pickerHint: string;
+  trackIds: string[];
+}
+
+export const programGroups: ProgramGroup[] = [
+  {
+    id: "ai-software-engineering",
+    title: "AI and Software Engineering",
+    description:
+      "The software engineering path, from your first working foundation to production systems. Four levels, or the Full-Program Bundle for the whole journey.",
+    pickerHint:
+      "Enter at the level that matches you, or take the bundle and move through every stage as one program.",
+    trackIds: [
+      "basic",
+      "intermediate",
+      "advanced",
+      "professional",
+      "full-program",
+    ],
+  },
+  {
+    id: "blockchain-engineering",
+    title: "Blockchain Engineering Track",
+    description:
+      "Smart contracts, security, and decentralized applications you can defend in review. ₦250,000, paid as two installments of ₦125,000.",
+    pickerHint:
+      "Twenty-four weeks, delivered as a paid cohort. Portfolio and technical review included.",
+    trackIds: ["blockchain"],
+  },
+];
+
 export interface PathStage {
   stage: string;
   description: string;
