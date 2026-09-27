@@ -149,7 +149,7 @@ export default function TrainingPage() {
           <ScrollReveal className={ACADEMY_VISUAL} delay={2}>
             <figure className={ACADEMY_PORTRAIT}>
               <Image
-                src="/brand/Deborah.jpeg"
+                src="/about/WAL_7920.jpeg"
                 alt="Deborah at Blockfuse Labs Academy"
                 fill
                 priority

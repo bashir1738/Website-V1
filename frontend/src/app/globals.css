@@ -88,7 +88,7 @@
     to { transform: translateX(calc(-50% - 0.75rem)); }
   }
   @keyframes marquee-scroll {
-    to { transform: translateX(-50%); }
+    to { transform: translateX(calc(-50% - var(--marquee-gap, 0px))); }
   }
 }
 

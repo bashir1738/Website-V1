@@ -15,6 +15,7 @@ import {
 } from "@/features/home/content";
 import { HowItWorksAccordion } from "@/features/home/how-it-works";
 import { EngineerShowcase } from "@/features/engineering/engineer-showcase";
+import { PartnerMarquee } from "@/features/home/partner-marquee";
 import { loadApprovedAlumni } from "@/features/alumni/api";
 import {
   EYEBROW,
@@ -60,37 +61,6 @@ const ENGAGEMENT_MEDIA = [
   {
     src: "/brand/companie3.jpeg",
     alt: "Blockfuse Labs engineers and open-source partners gathered together",
-  },
-] as const;
-
-/** Logos from /public/partner, centred and tile-less. The Ethereum Foundation
- *  wordmark is navy, so it flips to a white silhouette under the default dark
- *  theme instead of sitting on a white plate. */
-const PARTNER_LOGOS = [
-  {
-    name: "Base",
-    src: "/partner/Base_Network_Logo-CkqbCHyg.png",
-    width: 730,
-    height: 730,
-    className: "h-20 w-20 sm:h-24 sm:w-24 object-contain",
-    unoptimized: false,
-  },
-  {
-    name: "Ethereum Foundation",
-    src: "/partner/Ethereum-Foundation-re8W1jB1.png",
-    width: 2000,
-    height: 633,
-    className:
-      "h-auto w-auto max-w-full max-h-16 sm:max-h-20 object-contain [.dark_&]:brightness-0 [.dark_&]:invert",
-    unoptimized: false,
-  },
-  {
-    name: "HackMD",
-    src: "/partner/download.svg",
-    width: 113,
-    height: 113,
-    className: "h-20 w-20 sm:h-24 sm:w-24 object-contain",
-    unoptimized: true,
   },
 ] as const;
 
@@ -151,7 +121,7 @@ export default async function Home() {
             </div>
             <div className={`${HERO_PHOTO} rounded-[1.5rem_4.5rem_1.5rem_1.5rem] max-sm:rounded-[1rem_3rem_1rem_1rem]`}>
               <Image
-                src="/community/welcome.jpeg"
+                src="/about/WAL_7920.jpeg"
                 alt="A Blockfuse Labs community member giving a thumbs up"
                 fill
                 priority
@@ -161,7 +131,7 @@ export default async function Home() {
             </div>
             <div className={`${HERO_PHOTO} rounded-[1.5rem_1.5rem_4.5rem_1.5rem] max-sm:rounded-[1rem_1rem_3rem_1rem]`}>
               <Image
-                src="/brand/image00089.jpeg"
+                src="/about/IMG_20260927_232351_148.jpeg"
                 alt="Blockfuse Labs community members gathered after a learning session"
                 fill
                 priority
@@ -603,18 +573,8 @@ export default async function Home() {
               event, or engaged us for engineering work.
             </p>
           </ScrollReveal>
-              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-26"> 
-                {PARTNER_LOGOS.map((logo) => (
-                  <Image
-                    key={logo.name}
-                    src={logo.src}
-                    alt={`${logo.name} logo`}
-                    width={logo.width}
-                    height={logo.height}
-                    unoptimized={logo.unoptimized}
-                    className={logo.className}
-                  />
-                ))}
+              <div className="mt-10">
+                <PartnerMarquee />
               </div>
             </div>
           </ScrollReveal>
