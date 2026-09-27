@@ -4,6 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Alumnus } from "@/features/alumni/content";
+import { socialLinks } from "@/config/social";
+
+const glyphFor = (platform: string): string | undefined =>
+  socialLinks.find((link) => link.label === platform)?.icon;
 
 const ROTATE_MS = 4000;
 const ENGINEER_PHOTOS = [
@@ -84,7 +88,7 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
             className="object-cover object-[center_22%]"
           />
           <span className="relative z-[2] ml-auto mr-[1.1rem] mb-[1.1rem] font-mono text-[0.62rem] font-semibold tracking-[0.14em] uppercase text-[rgba(255,255,255,0.88)]">
-            {active.cohort}
+            {[active.cohort, active.location].filter(Boolean).join("  ·  ")}
           </span>
         </div>
 
@@ -98,6 +102,18 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
           <p className="mt-4 max-w-[36ch] text-[0.95rem] leading-[1.6] text-(--muted)">
             {active.now}
           </p>
+          {active.openTo?.length ? (
+            <ul className="mt-4 flex flex-wrap gap-1.5">
+              {active.openTo.map((option) => (
+                <li
+                  key={option}
+                  className="rounded-full border border-(--line) bg-(--surface) px-2.5 py-1 font-mono text-[0.6rem] font-semibold uppercase leading-[1.45] tracking-[0.06em] text-(--dim)"
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
@@ -116,6 +132,43 @@ export function EngineerShowcase({ alumni = [] }: { alumni?: Alumnus[] }) {
               →
             </span>
           </Link>
+          {/* The person's own accounts, when they published any. */}
+          {active.links?.length ? (
+            <div className="ml-auto flex items-center gap-2">
+              {active.links.map((link) => {
+                const glyph = glyphFor(link.platform);
+                return (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${active.name} on ${link.platform}`}
+                    title={`${active.name} on ${link.platform}`}
+                    className="grid h-9 w-9 place-items-center rounded-full bg-(--action-bg) text-(--color-paper) transition-transform duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4"
+                  >
+                    {glyph ? (
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        className="h-4 w-4"
+                      >
+                        <path d={glyph} />
+                      </svg>
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="font-sans text-[0.6875rem] font-bold tracking-[-0.02em]"
+                      >
+                        {link.platform[0]}
+                      </span>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       </div>
 

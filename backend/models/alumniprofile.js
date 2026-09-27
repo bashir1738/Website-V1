@@ -46,6 +46,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      // Compulsory for new submissions (enforced in alumniController.submit).
+      // Not `notEmpty`-validated: profiles published before this field existed
+      // were backfilled with '' and the admin approve/reject flow re-saves the
+      // whole row, which would fail validation and strand them.
+      x_account: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '',
+      },
       open_to: {
         type: DataTypes.JSON,
         allowNull: true,

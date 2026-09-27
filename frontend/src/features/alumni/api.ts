@@ -1,5 +1,5 @@
 import { API_URL } from "@/lib/api";
-import { linkedinSearch, type Alumnus } from "./content";
+import type { Alumnus } from "./content";
 
 export interface ApprovedAlumnus {
   id: number;
@@ -11,16 +11,25 @@ export interface ApprovedAlumnus {
   open_to: string[] | null;
   github: string | null;
   linkedin: string | null;
+  /** Compulsory on submission; '' for profiles published before it was collected. */
+  x_account: string | null;
   photo_url: string | null;
 }
 
 /** Maps one public API profile onto every field the site renders. */
 export function toAlumnus(profile: ApprovedAlumnus): Alumnus {
+  // Only links the alumnus actually published. A blank or absent account is
+  // omitted rather than replaced with a search URL, so a card never presents
+  // "find this person" as if it were their own profile.
   const links: NonNullable<Alumnus["links"]> = [];
-  if (profile.linkedin) links.push({ platform: "LinkedIn", url: profile.linkedin });
-  if (profile.github) links.push({ platform: "GitHub", url: profile.github });
-  if (links.length === 0) {
-    links.push({ platform: "LinkedIn", url: linkedinSearch(profile.name) });
+  if (profile.linkedin?.trim()) {
+    links.push({ platform: "LinkedIn", url: profile.linkedin.trim() });
+  }
+  if (profile.github?.trim()) {
+    links.push({ platform: "GitHub", url: profile.github.trim() });
+  }
+  if (profile.x_account?.trim()) {
+    links.push({ platform: "X", url: profile.x_account.trim() });
   }
 
   return {
@@ -32,7 +41,6 @@ export function toAlumnus(profile: ApprovedAlumnus): Alumnus {
     location: profile.location || undefined,
     openTo: profile.open_to ?? undefined,
     image: profile.photo_url || undefined,
-    social: links[0],
     links,
   };
 }

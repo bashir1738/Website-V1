@@ -10,6 +10,15 @@ exports.submit = async (req, res) => {
   try {
     const data = req.body;
 
+    // The X account is compulsory. Checked before the duplicate lookup and the
+    // photo upload so an incomplete form never reaches Cloudinary.
+    if (!data.x_account || !String(data.x_account).trim()) {
+      return res.status(400).json({
+        success: false,
+        error: 'An X account URL is required.',
+      });
+    }
+
     // One alumni profile per person. Checked before the photo upload so a
     // duplicate never consumes a Cloudinary upload. A rejected profile can be
     // corrected and re-submitted.
@@ -79,6 +88,7 @@ exports.getPublic = async (req, res) => {
         'open_to',
         'github',
         'linkedin',
+        'x_account',
         'photo_url',
       ],
       where: { status: 'approved' },

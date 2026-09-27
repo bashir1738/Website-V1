@@ -147,6 +147,9 @@ const PHONE_RE = /^\+[1-9]\d{0,3}\s[\d\s\-().]{4,18}$/;
 const GITHUB_URL_RE = /^https?:\/\/(?:www\.)?github\.com\/[A-Za-z0-9][A-Za-z0-9._-]*\/?$/i;
 // LinkedIn profile link, e.g. https://linkedin.com/in/username (www. optional).
 const LINKEDIN_URL_RE = /^https?:\/\/(?:www\.)?linkedin\.com\/in\/[A-Za-z0-9][A-Za-z0-9-]*\/?$/i;
+// X profile link, e.g. https://x.com/username. The legacy twitter.com host and
+// the old #!/ handle form are still accepted — people paste whatever they have.
+const X_URL_RE = /^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/(?:#!\/)?@?[A-Za-z0-9_]{1,15}\/?$/i;
 
 const letters = (label, re, min, max, msg, optional = false) => {
   let schema = Joi.string()
@@ -311,6 +314,22 @@ const alumniSchema = Joi.object({
       'string.pattern.base': 'LinkedIn link must be a profile like https://linkedin.com/in/username',
     })
     .allow('', null),
+  x_account: Joi.string()
+    .uri({ scheme: ['http', 'https'] })
+    .max(500)
+    .trim()
+    .pattern(X_URL_RE)
+    .required()
+    .messages({
+      'any.required': 'An X account is required',
+      'string.empty': 'An X account is required',
+      // Joi 18 reports a scheme mismatch as uriCustomScheme, not uri — without
+      // this key the raw "{{#label}}" template leaks the field name.
+      'string.uri': 'X account must be a full link starting with https://',
+      'string.uriCustomScheme': 'X account must be a full link starting with https://',
+      'string.max': 'X account must be 500 characters or fewer',
+      'string.pattern.base': 'X account must be a profile like https://x.com/username',
+    }),
   open_to: Joi.array().items(Joi.string().valid(...ALUMNI_OPEN_TO)).min(1).max(5).allow(null).single(),
   verification_info: Joi.string().max(5000).allow(null, ''),
 });

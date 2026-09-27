@@ -9,7 +9,7 @@ import type { FormField, FormKey } from "@/lib/forms";
  *     symbols are rejected.
  *   • Everything has a min/max length; a bare "m" is rejected everywhere.
  *   • Phone fields reject letters outright.
- *   • github/linkedin fields must be the right kind of link for the field.
+ *   • github/linkedin/x fields must be the right kind of link for the field.
  */
 
 export const NAME_RE = /^[\p{L}][\p{L}\s.'-]{1,99}$/u;
@@ -22,6 +22,8 @@ export const GITHUB_URL_RE =
   /^https?:\/\/(?:www\.)?github\.com\/[A-Za-z0-9][A-Za-z0-9._-]*\/?$/i;
 export const LINKEDIN_URL_RE =
   /^https?:\/\/(?:www\.)?linkedin\.com\/in\/[A-Za-z0-9][A-Za-z0-9-]*\/?$/i;
+export const X_URL_RE =
+  /^https?:\/\/(?:www\.)?(?:x|twitter)\.com\/(?:#!\/)?@?[A-Za-z0-9_]{1,15}\/?$/i;
 export const REPO_RE = /^[a-zA-Z0-9-]+\/[a-zA-Z0-9._-]+$/;
 
 function isHttpUrl(value: string): boolean {
@@ -126,6 +128,14 @@ function ruleFor(field: FormField, formKey: FormKey | string): Rule | null {
         needUrl: true,
         max: 500,
         message: "must be a profile like https://linkedin.com/in/username",
+        what,
+      };
+    case "x_account":
+      return {
+        pattern: X_URL_RE,
+        needUrl: true,
+        max: 500,
+        message: "must be a profile like https://x.com/username",
         what,
       };
     case "motivation":

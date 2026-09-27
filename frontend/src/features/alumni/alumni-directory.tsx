@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import Image from "next/image";
-import { alumniFilters, type Alumnus } from "@/features/alumni/content";
+import { alumniFiltersFor, type Alumnus } from "@/features/alumni/content";
 import { socialLinks } from "@/config/social";
 import { initials } from "@/lib/utils";
 
@@ -12,12 +12,11 @@ const glyphFor = (platform: string): string | undefined =>
 const FILTER_PILL =
   "inline-flex flex-none min-h-10 items-center gap-2 px-[0.875rem] py-2 rounded-full font-mono text-[0.6875rem] font-semibold tracking-[0.04em] uppercase cursor-pointer border border-(--line) text-(--muted) bg-(--card) transition-[color,background-color,border-color] duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-(--page-fg) hover:bg-(--card-hover) data-[active=true]:text-(--page-fg) data-[active=true]:bg-(--surface-3) data-[active=true]:border-(--line-strong) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-3 disabled:pointer-events-none disabled:opacity-40";
 
-/** Cohorts match exactly; tracks match on the API's full label
- *  ("Blockchain Engineering Track" for the "Blockchain Engineering" pill). */
+/** Both groups are derived from the roster, so the values compared here are
+ *  the exact cohort/track strings the backend holds — an exact match is correct
+ *  and a substring match would be wrong. */
 const matchesFilter = (alumnus: Alumnus, filter: string) =>
-  filter === "All" ||
-  alumnus.cohort === filter ||
-  alumnus.track.toLowerCase().includes(filter.toLowerCase());
+  filter === "All" || alumnus.cohort === filter || alumnus.track === filter;
 
 export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
   const [filter, setFilter] = useState("All");
@@ -26,6 +25,30 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
     () => alumni.filter((a) => matchesFilter(a, filter)),
     [filter, alumni],
   );
+
+  const filters = useMemo(() => alumniFiltersFor(alumni), [alumni]);
+
+  // One flat list so the row stays a simple horizontal scroller, with a
+  // divider marking where the cohort group ends and the track group begins.
+  const pills = useMemo(() => {
+    const countFor = (value: string) =>
+      value === "All"
+        ? filters.all
+        : alumni.filter((a) => matchesFilter(a, value)).length;
+    return [
+      { value: "All", count: filters.all, groupStart: false },
+      ...filters.cohorts.map((value) => ({
+        value,
+        count: countFor(value),
+        groupStart: false,
+      })),
+      ...filters.tracks.map((value, i) => ({
+        value,
+        count: countFor(value),
+        groupStart: i === 0 && filters.cohorts.length > 0,
+      })),
+    ];
+  }, [alumni, filters]);
 
   return (
     <>
@@ -38,28 +61,29 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
           aria-label="Filter alumni"
           className="-mx-4 flex snap-x snap-proximity scroll-px-4 items-center gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:justify-end"
         >
-          {alumniFilters.map((f) => {
-            const count =
-              f === "All"
-                ? alumni.length
-                : alumni.filter((a) => matchesFilter(a, f)).length;
-            return (
+          {pills.map((pill) => (
+            <Fragment key={pill.value}>
+              {pill.groupStart && (
+                <span
+                  aria-hidden="true"
+                  className="h-6 w-px flex-none bg-(--line-strong)"
+                />
+              )}
               <button
-                key={f}
                 type="button"
                 className={`${FILTER_PILL} snap-start`}
-                data-active={filter === f}
-                aria-pressed={filter === f}
-                disabled={count === 0 && filter !== f}
-                onClick={() => setFilter(f)}
+                data-active={filter === pill.value}
+                aria-pressed={filter === pill.value}
+                disabled={pill.count === 0 && filter !== pill.value}
+                onClick={() => setFilter(pill.value)}
               >
-                <span>{f}</span>
+                <span>{pill.value}</span>
                 <span aria-hidden="true" className="text-(--dim) text-[0.625rem]">
-                  {count}
+                  {pill.count}
                 </span>
               </button>
-            );
-          })}
+            </Fragment>
+          ))}
           {/* Guarantees the last pill can scroll clear of the right edge. */}
           <span aria-hidden="true" className="h-px w-1 shrink-0" />
         </div>
@@ -106,7 +130,9 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
                 {a.name}
               </h2>
               <div className="mb-4">
-                <p className="max-w-[34ch] mt-3 line-clamp-3 text-(--muted) text-[0.8125rem] leading-[1.6]">
+                {/* Rendered in full — a clamped status hid whatever the person
+                    wrote past the third line. */}
+                <p className="max-w-[34ch] mt-3 text-(--muted) text-[0.8125rem] leading-[1.6]">
                   {a.now}
                 </p>
                 {a.openTo?.length ? (
@@ -122,40 +148,44 @@ export function AlumniDirectory({ alumni }: { alumni: Alumnus[] }) {
                   </ul>
                 ) : null}
               </div>
-              <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-(--line) pt-3">
-                {(a.links?.length ? a.links : [a.social]).map((link) => {
-                  const glyph = glyphFor(link.platform);
-                  return (
-                    <a
-                      key={link.platform}
-                      href={link.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${a.name} on ${link.platform}`}
-                      title={link.platform}
-                      className="group/social grid h-9 w-9 place-items-center rounded-full bg-(--action-bg) text-(--color-paper) transition-transform duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4"
-                    >
-                      {glyph ? (
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          aria-hidden="true"
-                          className="h-4 w-4"
-                        >
-                          <path d={glyph} />
-                        </svg>
-                      ) : (
-                        <span
-                          aria-hidden="true"
-                          className="font-sans text-[0.6875rem] font-bold tracking-[-0.02em]"
-                        >
-                          {link.platform[0]}
-                        </span>
-                      )}
-                    </a>
-                  );
-                })}
-              </div>
+              {/* Nothing rendered when the profile published no links — no
+                  fabricated search URL, and no orphaned divider. */}
+              {a.links?.length ? (
+                <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-(--line) pt-3">
+                  {a.links.map((link) => {
+                    const glyph = glyphFor(link.platform);
+                    return (
+                      <a
+                        key={link.platform}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${a.name} on ${link.platform}`}
+                        title={link.platform}
+                        className="group/social grid h-9 w-9 place-items-center rounded-full bg-(--action-bg) text-(--color-paper) transition-transform duration-[160ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-4"
+                      >
+                        {glyph ? (
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                            className="h-4 w-4"
+                          >
+                            <path d={glyph} />
+                          </svg>
+                        ) : (
+                          <span
+                            aria-hidden="true"
+                            className="font-sans text-[0.6875rem] font-bold tracking-[-0.02em]"
+                          >
+                            {link.platform[0]}
+                          </span>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              ) : null}
             </div>
           </article>
         ))}

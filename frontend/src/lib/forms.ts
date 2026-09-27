@@ -508,6 +508,13 @@ export const forms: Record<FormKey, FormSpec> = {
         placeholder: "https://linkedin.com/in/username",
       },
       {
+        label: "X account",
+        name: "x_account",
+        type: "url",
+        placeholder: "https://x.com/username",
+        required: true,
+      },
+      {
         label: "Open to",
         name: "open_to",
         kind: "chips",

@@ -129,6 +129,39 @@ const COLUMNS: Record<string, DataColumn<Record<string, unknown>>[]> = {
     { key: "cohort", label: "Cohort" },
     { key: "track", label: "Track" },
     {
+      key: "links",
+      label: "Links",
+      // The reviewer approves what the website will publish, so the accounts
+      // behind those cards have to be visible from the queue.
+      render: (r: Record<string, unknown>) => {
+        const links = (
+          [
+            ["GitHub", r.github],
+            ["LinkedIn", r.linkedin],
+            ["X", r.x_account],
+          ] as const
+        ).filter(([, url]) => typeof url === "string" && url.trim());
+        if (links.length === 0) {
+          return <span className="text-(--dim)">—</span>;
+        }
+        return (
+          <span className="flex flex-wrap items-center gap-1.5">
+            {links.map(([label, url]) => (
+              <a
+                key={label}
+                href={url as string}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-(--line) px-2 py-0.5 text-[0.6875rem] font-semibold text-(--muted) no-underline transition-colors hover:border-(--line-strong) hover:text-(--page-fg)"
+              >
+                {label}
+              </a>
+            ))}
+          </span>
+        );
+      },
+    },
+    {
       key: "createdAt",
       label: "Submitted",
       render: (r) => (
