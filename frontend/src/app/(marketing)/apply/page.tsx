@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { IconType } from "react-icons";
-import {
-  RiSeedlingLine,
-  RiCodeSSlashLine,
-  RiStackLine,
-  RiRocket2Line,
-  RiBox3Line,
-  RiLinksLine,
-  RiShieldCheckLine,
-  RiArrowRightSLine,
-  RiTimeLine,
-} from "react-icons/ri";
+import { RiShieldCheckLine } from "react-icons/ri";
 import { PageHero, PageShell } from "@/components/ui/page-hero";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { ModalButton } from "@/components/ui/modal-button";
-import { applyTracks } from "@/features/apply/content";
+import { applyFeesByGroup, applyFeesByTrack } from "@/features/apply/content";
+import { ProgramCards } from "@/features/training/program-cards";
 import { EYEBROW } from "@/lib/styles";
 
 export const metadata: Metadata = {
@@ -24,28 +13,6 @@ export const metadata: Metadata = {
     "Choose a track, submit your application, and secure your seat. Tracks from ₦100,000, with Blockchain Engineering payable in two installments.",
 };
 
-const TRACK_ICONS: Record<string, IconType> = {
-  basic: RiSeedlingLine,
-  intermediate: RiCodeSSlashLine,
-  advanced: RiStackLine,
-  professional: RiRocket2Line,
-  "full-program": RiBox3Line,
-  blockchain: RiLinksLine,
-};
-
-const CARD =
-  "group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-(--line) bg-(--card) p-7 shadow-(--shadow-card) [transition:translate_350ms_cubic-bezier(0.23,1,0.32,1),border-color_250ms_ease] hover:-translate-y-1 hover:border-(--accent-line)";
-const CARD_HIGHLIGHT =
-  "border-(--accent-line) bg-[linear-gradient(180deg,var(--accent-dim),transparent_42%),var(--card)]";
-const ICON_BOX =
-  "grid h-12 w-12 place-items-center rounded-2xl border border-(--accent-line) bg-(--accent-dim) text-xl text-(--accent)";
-const PRICE =
-  "mt-6 text-[1.9rem] font-heading font-bold tracking-[-0.04em] text-(--page-fg)";
-const DURATION =
-  "mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-(--dim)";
-const BLURB = "mt-4 text-[0.9rem] leading-[1.7] text-(--muted)";
-const PILL =
-  "inline-flex items-center gap-1.5 rounded-full border border-(--accent-line) bg-(--accent-dim) px-3 py-1 text-[0.7rem] font-semibold text-(--accent)";
 const NOTICE =
   "mt-10 flex flex-col gap-2 rounded-2xl border border-(--line) bg-(--card) p-5 text-sm leading-relaxed text-(--muted) sm:flex-row sm:items-center sm:gap-3";
 
@@ -58,54 +25,10 @@ export default function ApplyPage() {
         lead="Every track is priced up front. Submit your application, then bank the fee and upload the receipt. Our team verifies it manually within 1–2 working days."
       />
 
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {applyTracks.map((track, i) => {
-          const Icon = TRACK_ICONS[track.id] ?? RiArrowRightSLine;
-          return (
-            <ScrollReveal key={track.id} delay={i < 3 ? i + 1 : 3} threshold={0.05}>
-              <article
-                className={`${CARD} ${track.highlight ? CARD_HIGHLIGHT : ""}`}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className={ICON_BOX}>
-                    <Icon aria-hidden="true" />
-                  </span>
-                  {track.installments ? (
-                    <span className={PILL}>{track.installments}</span>
-                  ) : (
-                    <span className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-(--dim)">
-                      One payment
-                    </span>
-                  )}
-                </div>
-
-                <h2 className="mt-5 font-heading text-[1.35rem] font-bold leading-[1.15] tracking-[-0.03em] text-(--page-fg)">
-                  {track.title}
-                </h2>
-                <p className={`${DURATION}`}>
-                  <RiTimeLine aria-hidden="true" className="h-3.5 w-3.5" />
-                  {track.duration}
-                </p>
-
-                <p className={PRICE}>{track.price}</p>
-
-                <p className={BLURB}>{track.blurb}</p>
-
-                <div className="mt-auto pt-7">
-                  <ModalButton
-                    modal="program"
-                    prefill={{ Track: track.title }}
-                    arrow={false}
-                    className="w-full min-h-[2.875rem]"
-                  >
-                    Apply to {track.title}
-                  </ModalButton>
-                </div>
-              </article>
-            </ScrollReveal>
-          );
-        })}
-      </div>
+      <ProgramCards
+        trackFees={applyFeesByTrack}
+        groupFees={applyFeesByGroup}
+      />
 
       <ScrollReveal>
         <div className={NOTICE}>

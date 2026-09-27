@@ -41,20 +41,32 @@ const TRACK_ROW =
   "flex flex-col gap-3 border-b border-(--line) px-6 py-6 transition-colors duration-[250ms] last:border-b-0 hover:bg-(--card-hover) sm:px-8 lg:px-9";
 const TRACK_NAME =
   "font-heading text-[1.05rem] font-bold leading-[1.2] tracking-[-0.03em] text-(--page-fg)";
+const TRACK_META =
+  "font-mono text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-(--dim)";
 const TRACK_P = "mt-1.5 max-w-[54ch] text-[0.875rem] leading-[1.6] text-(--muted)";
 const TRACK_ACTIONS = "mt-1 flex flex-wrap items-center gap-x-5 gap-y-3";
 
+/** Duration and fee for one track. The training page has no fees to show and
+ *  passes nothing; /apply passes them so the row answers "what does this cost?" */
+export interface TrackFee {
+  duration?: string;
+  price?: string;
+  installments?: string;
+}
+
 /**
  * Track list opened from a program card. Cards stay deliberately plain, so the
- * detail — fees, curriculum, per-track application — lives here.
+ * detail — curriculum, and on /apply the fee — lives here.
  */
 export function TrackPickerDialog({
   group,
   tracks,
+  trackFees,
   onClose,
 }: {
   group: ProgramGroup;
   tracks: DetailedProgram[];
+  trackFees?: Record<string, TrackFee>;
   onClose: () => void;
 }) {
   const { openModal } = useModal();
@@ -209,36 +221,45 @@ export function TrackPickerDialog({
           </header>
 
           <ul className={TRACK_LIST}>
-            {tracks.map((track) => (
-              <li key={track.id} id={track.id} className={TRACK_ROW}>
-                <h3 className={TRACK_NAME}>{track.title}</h3>
-                <p className={TRACK_P}>{track.description}</p>
+            {tracks.map((track) => {
+              const fee = trackFees?.[track.id];
+              const feeLine = fee
+                ? [fee.duration, fee.price, fee.installments]
+                    .filter(Boolean)
+                    .join(" · ")
+                : "";
+              return (
+                <li key={track.id} id={track.id} className={TRACK_ROW}>
+                  <h3 className={TRACK_NAME}>{track.title}</h3>
+                  {feeLine && <p className={TRACK_META}>{feeLine}</p>}
+                  <p className={TRACK_P}>{track.description}</p>
 
-                <div className={TRACK_ACTIONS}>
-                  <button
-                    type="button"
-                    onClick={() => applyFor(track)}
-                    className={`${BTN_PRIMARY} h-[2.75rem] px-5 text-[0.82rem]`}
-                  >
-                    <span>Apply for this track</span>
-                    <svg
-                      className="h-4 w-4 transition-transform duration-[250ms] ease group-hover:translate-x-[3px]"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      aria-hidden="true"
+                  <div className={TRACK_ACTIONS}>
+                    <button
+                      type="button"
+                      onClick={() => applyFor(track)}
+                      className={`${BTN_PRIMARY} h-[2.75rem] px-5 text-[0.82rem]`}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-            ))}
+                      <span>Apply for this track</span>
+                      <svg
+                        className="h-4 w-4 transition-transform duration-[250ms] ease group-hover:translate-x-[3px]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex shrink-0 justify-end border-t border-(--line) px-6 py-3.5 sm:px-8 lg:px-9">

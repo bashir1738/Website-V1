@@ -7,6 +7,7 @@ import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { TestimonialsCarousel } from "@/features/training/testimonials-carousel";
 import { ProgramCards } from "@/features/training/program-cards";
+import { applyFeesByGroup, applyFeesByTrack } from "@/features/apply/content";
 import {
   academyPillars,
   academyStats,
@@ -239,7 +240,7 @@ export default function TrainingPage() {
             <h2 className={`${BF_H2} mt-4`}>Choose your program</h2>
           </ScrollReveal>
 
-          <ProgramCards />
+          <ProgramCards trackFees={applyFeesByTrack} groupFees={applyFeesByGroup} />
         </div>
       </section>
 

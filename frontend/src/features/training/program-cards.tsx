@@ -8,6 +8,7 @@ import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { detailedPrograms, programGroups } from "./content";
 import { TrackPickerDialog } from "./track-picker-dialog";
+import type { TrackFee } from "./track-picker-dialog";
 import type { DetailedProgram, ProgramGroup } from "./content";
 
 /** Each program card gets a photograph from the room it is actually taught in. */
@@ -36,6 +37,9 @@ const PROGRAM_H3 =
   "font-heading text-[1.4rem] font-bold leading-[1.12] tracking-[-0.03em] text-(--page-fg)";
 const PROGRAM_DESCRIPTION =
   "mt-3 max-w-[42ch] text-[0.92rem] leading-[1.65] text-(--muted)";
+/** Only rendered on /apply, where the fee has to be visible before applying. */
+const PROGRAM_FEE =
+  "mt-4 font-mono text-[0.68rem] font-semibold tracking-[0.06em] text-(--accent)";
 /** Every card ends on the same two actions, so the pair reads as one set. */
 const PROGRAM_ACTIONS =
   "mt-auto flex flex-wrap items-center gap-x-6 gap-y-4 pt-7";
@@ -81,11 +85,13 @@ function GroupedProgramCard({
   group,
   index,
   tracks,
+  fee,
   onPick,
 }: {
   group: ProgramGroup;
   index: number;
   tracks: DetailedProgram[];
+  fee?: string;
   onPick: (group: ProgramGroup, tracks: DetailedProgram[]) => void;
 }) {
   return (
@@ -100,6 +106,7 @@ function GroupedProgramCard({
         <div className={PROGRAM_BODY}>
           <h3 className={PROGRAM_H3}>{group.title}</h3>
           <p className={PROGRAM_DESCRIPTION}>{group.description}</p>
+          {fee && <p className={PROGRAM_FEE}>{fee}</p>}
 
           <div className={PROGRAM_ACTIONS}>
             <button
@@ -136,10 +143,12 @@ function StandaloneProgramCard({
   group,
   index,
   track,
+  fee,
 }: {
   group: ProgramGroup;
   index: number;
   track: DetailedProgram;
+  fee?: string;
 }) {
   return (
     <ScrollReveal delay={index < 2 ? index + 1 : 3} threshold={0.08}>
@@ -149,6 +158,7 @@ function StandaloneProgramCard({
         <div className={PROGRAM_BODY}>
           <h3 className={PROGRAM_H3}>{group.title}</h3>
           <p className={PROGRAM_DESCRIPTION}>{group.description}</p>
+          {fee && <p className={PROGRAM_FEE}>{fee}</p>}
 
           <div className={PROGRAM_ACTIONS}>
             <ModalButton modal="program" prefill={{ Track: track.title }}>
@@ -162,7 +172,18 @@ function StandaloneProgramCard({
   );
 }
 
-export function ProgramCards() {
+/**
+ * The two program cards, used by /training and /apply. /apply passes
+ * `trackFees` and `groupFees` so a card states its cost before anyone applies;
+ * /training passes neither, because the Academy page doesn't sell at the card.
+ */
+export function ProgramCards({
+  trackFees,
+  groupFees,
+}: {
+  trackFees?: Record<string, TrackFee>;
+  groupFees?: Record<string, string>;
+} = {}) {
   const [picker, setPicker] = useState<{
     group: ProgramGroup;
     tracks: DetailedProgram[];
@@ -182,6 +203,7 @@ export function ProgramCards() {
               group={group}
               index={index}
               tracks={tracks}
+              fee={groupFees?.[group.id]}
               onPick={(g, t) => setPicker({ group: g, tracks: t })}
             />
           ) : (
@@ -190,6 +212,7 @@ export function ProgramCards() {
               group={group}
               index={index}
               track={tracks[0]}
+              fee={groupFees?.[group.id]}
             />
           );
         })}
@@ -199,6 +222,7 @@ export function ProgramCards() {
         <TrackPickerDialog
           group={picker.group}
           tracks={picker.tracks}
+          trackFees={trackFees}
           onClose={() => setPicker(null)}
         />
       )}
