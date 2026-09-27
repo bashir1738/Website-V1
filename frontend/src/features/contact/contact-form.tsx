@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { postJson, ApiError } from "@/lib/api";
+// import removed
 import { ACTION_COLOR } from "@/lib/styles";
 import { validateFieldValue } from "@/lib/validation";
 
@@ -75,18 +75,14 @@ export function ContactForm() {
     setError(null);
     setSubmitting(true);
 
-    try {
-      await postJson("/contact", { name, email, topic, message });
-      setSubmitted(true);
-    } catch (err) {
-      setError(
-        err instanceof ApiError
-          ? err.message
-          : "We couldn't reach the server. Check your connection and try again.",
-      );
-    } finally {
-      setSubmitting(false);
-    }
+    const subject = encodeURIComponent(`Inquiry from ${name}: ${topic}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mailto:admin@blockfuselabs.xyz?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+    setSubmitting(false);
   };
 
   if (submitted) {
@@ -95,10 +91,10 @@ export function ContactForm() {
         <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full border border-[rgba(52,211,153,0.4)] bg-[rgba(52,211,153,0.16)] text-xl text-[#34d399]">
           ✓
         </div>
-        <p className="font-heading text-lg font-bold text-[var(--page-fg)]">
+        <p className="font-heading text-lg font-bold text-(--page-fg)">
           Message sent
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+        <p className="mt-2 text-sm leading-relaxed text-(--muted)">
           We&apos;ll get back to you at {email}, usually within a couple of
           working days.
         </p>
@@ -112,7 +108,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="name"
-          className="block text-xs font-semibold uppercase tracking-wider text-[var(--page-fg)]"
+          className="block text-xs font-semibold uppercase tracking-wider text-(--page-fg)"
         >
           Name
         </label>
@@ -126,7 +122,7 @@ export function ContactForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Alex Johnson"
-          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
+          className="mt-1.5 w-full rounded-xl border border-(--line-strong) bg-(--surface-2) px-4 py-2.5 text-sm text-(--page-fg) placeholder:text-(--muted)/60 focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent) transition"
         />
       </div>
 
@@ -134,7 +130,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="email"
-          className="block text-xs font-semibold uppercase tracking-wider text-[var(--page-fg)]"
+          className="block text-xs font-semibold uppercase tracking-wider text-(--page-fg)"
         >
           Email
         </label>
@@ -147,7 +143,7 @@ export function ContactForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="alex@company.com"
-          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
+          className="mt-1.5 w-full rounded-xl border border-(--line-strong) bg-(--surface-2) px-4 py-2.5 text-sm text-(--page-fg) placeholder:text-(--muted)/60 focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent) transition"
         />
       </div>
 
@@ -155,7 +151,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="topic"
-          className="block text-xs font-semibold uppercase tracking-wider text-[var(--page-fg)]"
+          className="block text-xs font-semibold uppercase tracking-wider text-(--page-fg)"
         >
           What is this about?
         </label>
@@ -164,10 +160,10 @@ export function ContactForm() {
           name="topic"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
+          className="mt-1.5 w-full rounded-xl border border-(--line-strong) bg-(--surface-2) px-4 py-2.5 text-sm text-(--page-fg) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent) transition"
         >
           {topicOptions.map((opt) => (
-            <option key={opt} value={opt} className="bg-[var(--surface-2)] text-[var(--page-fg)]">
+            <option key={opt} value={opt} className="bg-(--surface-2) text-(--page-fg)">
               {opt}
             </option>
           ))}
@@ -178,7 +174,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-xs font-semibold uppercase tracking-wider text-[var(--page-fg)]"
+          className="block text-xs font-semibold uppercase tracking-wider text-(--page-fg)"
         >
           Details
         </label>
@@ -191,7 +187,7 @@ export function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="A sentence or two about what you need, your team size, or your timeline..."
-          className="mt-1.5 w-full rounded-xl border border-[var(--line-strong)] bg-[var(--surface-2)] px-4 py-2.5 text-sm text-[var(--page-fg)] placeholder:text-[var(--muted)]/60 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition"
+          className="mt-1.5 w-full rounded-xl border border-(--line-strong) bg-(--surface-2) px-4 py-2.5 text-sm text-(--page-fg) placeholder:text-(--muted)/60 focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent) transition"
         />
       </div>
 

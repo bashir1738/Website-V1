@@ -39,7 +39,7 @@ const GRAIN =
   "grain-overlay absolute inset-0 pointer-events-none opacity-[0.035] z-[2]";
 
 const HERO =
-  "relative isolate overflow-hidden min-h-[70vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-[1] after:bg-[linear-gradient(180deg,rgba(13,13,19,0.35)_0%,rgba(13,13,19,0.5)_52%,rgba(13,13,19,0.75)_100%)]";
+  "relative isolate overflow-hidden min-h-[70vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0d0d13] text-white after:content-[''] after:absolute after:inset-0 after:-z-1 after:bg-[linear-gradient(180deg,rgba(13,13,19,0.35)_0%,rgba(13,13,19,0.5)_52%,rgba(13,13,19,0.75)_100%)]";
 const HERO_MEDIA = "absolute inset-0 -z-[2]";
 const HERO_MEDIA_PIC =
   "object-cover object-[center_60%] opacity-[0.50]";
@@ -49,7 +49,7 @@ const ORB_ONE = `${ORB} w-[34rem] h-[34rem] -top-[14rem] -right-[10rem] bg-white
 const ORB_TWO = `${ORB} w-[22rem] h-[22rem] -bottom-[10rem] -left-[8rem] bg-white opacity-[0.05] blur-[6rem]`;
 
 const HERO_INNER =
-  "relative z-[3] w-full mx-auto max-w-[1240px] pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
+  "relative z-[3] w-full mx-auto max-w-310 pt-[clamp(4.5rem,10vw,7.5rem)] px-5 pb-[clamp(8rem,13vw,11rem)] sm:px-7";
 const HERO_H1 =
   "mt-[1.9rem] max-w-[22ch] font-heading text-[clamp(2.9rem,7.4vw,6rem)] font-bold leading-[0.95] tracking-[-0.055em] text-white";
 const HERO_ACCENT = "text-[#dba7f2]";
@@ -74,7 +74,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <section className={HERO}>
         <div className={HERO_MEDIA} aria-hidden="true">
           <Image
-            src="/about/image00019.jpeg"
+            src="/contact/contact-hero.jpeg"
             alt="Blockfuse Labs team"
             fill
             priority
@@ -115,10 +115,10 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
             <ScrollReveal>
               <div>
                 <span className={`${EYEBROW} mb-4`}>{" CONTACT DETAILS"}</span>
-                <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl leading-[1.1] mb-6">
+                <h2 className="font-heading text-3xl font-bold tracking-tight text-(--page-fg) sm:text-5xl leading-[1.1] mb-6">
                   Feel free to get in touch with us
                 </h2>
-                <p className="text-base text-[var(--muted)] leading-relaxed">
+                <p className="text-base text-(--muted) leading-relaxed">
                   We&apos;re glad to hear from you. Let&apos;s keep in touch for software engineering, protocol audits, or talent deployment.
                 </p>
               </div>
@@ -133,11 +133,11 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       {/* ═══════════════════════════════════════════════════════════
           CONTACT FORM
           ═══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--line)] px-5 py-24 sm:px-8">
+      <section className="border-t border-(--line) px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-3xl">
           <ScrollReveal className="mb-12">
             <span className={`${EYEBROW} mb-4`}>{" SEND US A MESSAGE"}</span>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-(--page-fg) sm:text-5xl">
               Get in Touch
             </h2>
           </ScrollReveal>
@@ -156,7 +156,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
       <section className="px-5 py-28 sm:px-8">
         <div className="mx-auto max-w-5xl text-center">
           <ScrollReveal blur>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-[var(--page-fg)] sm:text-5xl md:text-6xl">
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-(--page-fg) sm:text-5xl md:text-6xl">
               Or explore other ways to connect
             </h2>
           </ScrollReveal>
