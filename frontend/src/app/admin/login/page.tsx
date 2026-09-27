@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden px-12 py-12 lg:flex">
         <div className="grain-overlay" aria-hidden="true" />
         <div
-          className="pointer-events-none absolute -z-1 h-72 w-72 rounded-full bg-(--accent-dim) blur-[2px] right-[-8rem] top-[6%] opacity-55"
+          className="pointer-events-none absolute -z-1 h-72 w-72 rounded-full bg-(--accent-dim) blur-[2px] -right-32 top-[6%] opacity-55"
           aria-hidden="true"
         />
         <div
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
         <div className="relative z-10 mb-12">
           <ScrollReveal>
             <div className="inline-flex items-center gap-3 text-(--bright) font-mono text-[0.75rem] font-semibold uppercase tracking-[0.11em]">
-              <span className="inline-flex items-center gap-[2px]" aria-hidden="true">
+              <span className="inline-flex items-center gap-0.5" aria-hidden="true">
                 <span className="h-[0.7rem] w-[0.7rem] rounded-full bg-(--accent)" />
                 <span className="h-[0.7rem] w-[0.3rem] rounded-full bg-(--page-fg)" />
               </span>
@@ -158,7 +158,7 @@ export default function AdminLoginPage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="email" className={FIELD_LABEL}>
-                  Email Address <span className="text-(--accent)">*</span>
+                  Email Address <span className="accent-text">*</span>
                 </label>
                 <input
                   id="email"
@@ -175,7 +175,7 @@ export default function AdminLoginPage() {
 
               <div>
                 <label htmlFor="password" className={FIELD_LABEL}>
-                  Password <span className="text-(--accent)">*</span>
+                  Password <span className="accent-text">*</span>
                 </label>
                 <input
                   id="password"

@@ -42,7 +42,7 @@ const SPARK =
 
 function SectionDivider() {
   return (
-    <div className="mx-auto max-w-[1240px] px-5 sm:px-7">
+    <div className="mx-auto max-w-310 px-5 sm:px-7">
       <div className="section-divider" />
     </div>
   );
@@ -102,20 +102,20 @@ export default async function Home() {
       {/* ================================================================= */}
       {/* 1. HERO */}
       {/* ================================================================= */}
-      <section className="relative grid min-h-[calc(100svh_-_76px)] items-center isolate overflow-hidden px-5 pb-20 pt-10 sm:px-7 sm:pb-24 sm:pt-14 lg:pt-16 max-lg:min-h-auto">
-        <div className="pointer-events-none absolute -z-1 right-[-8rem] top-[6%] h-[18rem] w-[18rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.55]" aria-hidden="true" />
-        <div className="pointer-events-none absolute -z-1 bottom-[3%] left-[42%] h-[9rem] w-[9rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.35]" aria-hidden="true" />
+      <section className="relative grid min-h-[calc(100svh-76px)] items-center isolate overflow-hidden px-5 pb-20 pt-10 sm:px-7 sm:pb-24 sm:pt-14 lg:pt-16 max-lg:min-h-auto">
+        <div className="pointer-events-none absolute -z-1 -right-32 top-[6%] h-72 w-[18rem] rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.55]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -z-1 bottom-[3%] left-[42%] h-36 w-36 rounded-full bg-(--accent-dim) blur-[2px] opacity-[0.35]" aria-hidden="true" />
 
-        <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(29rem,0.86fr)] lg:gap-12">
-          <div className="max-w-[42rem]">
+        <div className="relative z-10 mx-auto grid max-w-310 items-center gap-14 lg:grid-cols-[minmax(0,0.94fr)_minmax(29rem,0.86fr)] lg:gap-12">
+          <div className="max-w-2xl">
             <ScrollReveal delay={1}>
-              <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-[var(--page-fg)]">
+              <h1 className="mt-6 max-w-[18ch] font-heading text-[clamp(2.25rem,4.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.04em] text-(--page-fg)">
                 We build decentralized systems &amp; deploy vetted engineering talent.
               </h1>
             </ScrollReveal>
 
             <ScrollReveal delay={2}>
-              <p className="mt-7 max-w-[55ch] text-base leading-[1.7] text-[var(--muted)] sm:text-lg">
+              <p className="mt-7 max-w-[55ch] text-base leading-[1.7] text-(--muted) sm:text-lg">
                 Blockfuse Labs is a premier Web3 &amp; Blockchain engineering studio.
                 We architect production-grade protocols, smart contracts, and
                 AI-powered Web3 products while deploying battle-tested engineering
@@ -128,7 +128,7 @@ export default async function Home() {
               <ButtonLink
                 href="/hire-engineers"
                 variant="secondary"
-                className="!bg-[var(--card)] !text-[var(--page-fg)] !border-[var(--line-strong)] hover:!bg-[var(--card-hover)] hover:!text-[var(--page-fg)] hover:!border-[var(--accent-line)]"
+                className="!bg-(--card) !text-(--page-fg) !border-(--line-strong) hover:!bg-(--card-hover) hover:!text-(--page-fg) hover:!border-(--accent-line)"
               >
                 Hire Vetted Web3 Engineers
               </ButtonLink>
@@ -136,7 +136,7 @@ export default async function Home() {
           </div>
 
           <ScrollReveal
-            className="relative mx-auto grid aspect-[1.06] w-full max-w-[36rem] grid-cols-[0.755fr_1fr] grid-rows-[0.72fr_1fr] gap-3 max-lg:max-w-[42rem] max-sm:aspect-[0.94] max-sm:gap-2"
+            className="relative mx-auto grid aspect-[1.06] w-full max-w-xl grid-cols-[0.755fr_1fr] grid-rows-[0.72fr_1fr] gap-3 max-lg:max-w-2xl max-sm:aspect-[0.94] max-sm:gap-2"
             delay={2}
           >
             <div className={`${HERO_PHOTO} row-span-2 rounded-[4.5rem_1.5rem_4.5rem_1.5rem] max-sm:rounded-[3rem_1rem_3rem_1rem]`}>
@@ -170,14 +170,14 @@ export default async function Home() {
               />
             </div>
             <div
-              className="absolute left-[36%] top-[60%] flex h-[8.25rem] w-[8.25rem] -translate-x-1/2 -translate-y-1/2 -rotate-[7deg] flex-col items-center justify-center rounded-full border-[0.45rem] border-(--page-bg) bg-(--page-fg) text-center text-(--page-bg) shadow-[0_0.5rem_1.25rem_-0.9rem_rgba(7,7,10,0.28)] max-sm:h-[6.5rem] max-sm:w-[6.5rem] max-sm:border-[0.35rem] [&::after]:absolute [&::after]:inset-[0.4rem] [&::after]:rounded-[inherit] [&::after]:border [&::after]:border-current [&::after]:content-[''] [&::after]:opacity-[0.22]"
+              className="absolute left-[36%] top-[60%] flex h-33 w-33 -translate-x-1/2 -translate-y-1/2 -rotate-[7deg] flex-col items-center justify-center rounded-full border-[0.45rem] border-(--page-bg) bg-(--page-fg) text-center text-(--page-bg) shadow-[0_0.5rem_1.25rem_-0.9rem_rgba(7,7,10,0.28)] max-sm:h-26 max-sm:w-26 max-sm:border-[0.35rem] [&::after]:absolute [&::after]:inset-[0.4rem] [&::after]:rounded-[inherit] [&::after]:border [&::after]:border-current [&::after]:content-[''] [&::after]:opacity-[0.22]"
               aria-label="Over 1,000 developers trained"
             >
               <strong className="font-heading text-[1.65rem] leading-none max-sm:text-[1.3rem]">1,000+</strong>
-              <span className="mt-[0.35rem] font-mono text-[0.56rem] uppercase leading-[1.35] tracking-[0.1em] max-sm:text-[0.48rem]">developers<br />trained</span>
+              <span className="mt-[0.35rem] font-mono text-[0.56rem] uppercase leading-[1.35] tracking-widest max-sm:text-[0.48rem]">developers<br />trained</span>
             </div>
-            <span className={`${SPARK} bottom-[19%] right-[-0.5rem]`} aria-hidden="true" />
-            <span className={`${SPARK} bottom-[13%] right-[1.25rem] scale-[1.55] opacity-[0.55]`} aria-hidden="true" />
+            <span className={`${SPARK} bottom-[19%] -right-2`} aria-hidden="true" />
+            <span className={`${SPARK} bottom-[13%] right-5 scale-[1.55] opacity-[0.55]`} aria-hidden="true" />
           </ScrollReveal>
         </div>
       </section>
@@ -187,15 +187,15 @@ export default async function Home() {
       {/* ================================================================= */}
       <section
         id="choose-your-path"
-        className="relative scroll-mt-24 overflow-hidden bg-(--action-bg) px-5 py-24 text-white sm:px-7 sm:py-32 [&::before]:pointer-events-none [&::before]:absolute [&::before]:content-[''] [&::before]:-right-[16rem] [&::before]:-top-[22rem] [&::before]:h-[34rem] [&::before]:w-[34rem] [&::before]:rounded-full [&::before]:bg-(--accent-soft) [&::before]:blur-[5rem] [&::before]:opacity-[0.13]"
+        className="relative scroll-mt-24 overflow-hidden bg-(--action-bg) px-5 py-24 text-white sm:px-7 sm:py-32 [&::before]:pointer-events-none [&::before]:absolute [&::before]:content-[''] [&::before]:-right-64 [&::before]:-top-88 [&::before]:h-136 [&::before]:w-136 [&::before]:rounded-full [&::before]:bg-(--accent-soft) [&::before]:blur-[5rem] [&::before]:opacity-[0.13]"
       >
-        <div className="relative z-[1] mx-auto max-w-[1120px]">
+        <div className="relative z-1 mx-auto max-w-280">
           <div className="text-center">
             <span className="font-mono text-[0.72rem] font-semibold uppercase tracking-[0.13em] text-[rgba(255,255,255,0.76)]">Choose your path</span>
-            <h2 className="mx-auto mt-5 max-w-[20ch] font-heading text-[clamp(2.5rem,5vw,4.75rem)] font-bold leading-[0.98] tracking-[-0.05em]">
+            <h2 className="mx-auto mt-5 max-w-[20ch] font-heading text-[clamp(2.5rem,5vw,4.75rem)] font-bold leading-[0.98] tracking-tighter">
               Build the ability, judgment, and proof to move forward.
             </h2>
-            <p className="mx-auto mt-6 max-w-[58ch] text-base leading-[1.7] text-[var(--path-journey-muted)] sm:text-lg">
+            <p className="mx-auto mt-6 max-w-[58ch] text-base leading-[1.7] text-(--path-journey-muted) sm:text-lg">
               Four focused routes. Each one is built around real work,
               professional review, and outcomes that can be examined.
             </p>
@@ -205,15 +205,15 @@ export default async function Home() {
             {programPaths.map((program, i) => (
               <article
                 key={program.title}
-                className="group grid items-center gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(28rem,1fr)] lg:gap-24 lg:[&:nth-child(even)]:grid-cols-[minmax(28rem,1fr)_minmax(0,0.78fr)]"
+                className="group grid items-center gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(28rem,1fr)] lg:gap-24 lg:even:grid-cols-[minmax(28rem,1fr)_minmax(0,0.78fr)]"
               >
                 <ScrollReveal
-                  className={`max-w-[30rem] ${i % 2 === 1 ? "lg:order-2" : ""}`}
+                  className={`max-w-120 ${i % 2 === 1 ? "lg:order-2" : ""}`}
                   delay={1}
                 >
-                  <span className="mb-5 block font-mono text-[0.72rem] tabular-nums tracking-[0.1em] text-[rgba(255,255,255,0.54)]">0{i + 1}</span>
+                  <span className="mb-5 block font-mono text-[0.72rem] tabular-nums tracking-widest text-[rgba(255,255,255,0.54)]">0{i + 1}</span>
                   {program.tagline && (
-                    <span className="block font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-[#dba7f2]">{program.tagline}</span>
+                    <span className="block font-mono text-[0.7rem] font-semibold uppercase tracking-widest text-[#dba7f2]">{program.tagline}</span>
                   )}
                   <h3 className="mt-[0.85rem] max-w-[16ch] font-heading text-[clamp(2rem,4vw,3.4rem)] font-bold leading-none tracking-[-0.045em]">{program.title}</h3>
                   <p className="mt-6 max-w-[46ch] text-[0.98rem] leading-[1.7] text-(--path-journey-muted)">{program.description}</p>
@@ -221,7 +221,7 @@ export default async function Home() {
                   <ModalButton
                     modal={i === 3 ? "hire" : "program"}
                     variant="link"
-                    className="mt-7 min-h-[2.75rem] border-b-[rgba(255,255,255,0.46)]! text-white! [&_.arrow]:transition-transform [&_.arrow]:duration-[150ms] [&_.arrow]:ease-[cubic-bezier(0.23,1,0.32,1)] hover:[&_.arrow]:translate-x-[0.3rem]"
+                    className="mt-7 min-h-11 border-b-[rgba(255,255,255,0.46)]! text-white! [&_.arrow]:transition-transform [&_.arrow]:duration-150 [&_.arrow]:ease-[cubic-bezier(0.23,1,0.32,1)] hover:[&_.arrow]:translate-x-[0.3rem]"
                     prefill={i === 3 ? undefined : { Track: program.title }}
                   >
                     {i === 3 ? "Hire engineers" : "Explore this path"}
@@ -235,7 +235,7 @@ export default async function Home() {
                 >
                   <div className="path-journey-image">
                     <Image
-                      src={`/brand/path${i + 1}.jpg`}
+                      src={program.image}
                       alt={
                         i === 0
                           ? "Engineers learning together in a Blockfuse Labs classroom"
@@ -247,7 +247,7 @@ export default async function Home() {
                       }
                       fill
                       sizes="(max-width: 1023px) 100vw, 33vw"
-                      className={`path-journey-photo object-cover ${["object-[center_42%]", "object-[center_38%]", "object-center", ""][i]} group-hover:[filter:contrast(1.02)] group-hover:[transform:scale(1.025)]!`}
+                      className={`path-journey-photo object-cover ${["object-[center_42%]", "object-[center_38%]", "object-center", ""][i]} group-hover:filter-[contrast(1.02)] group-hover:transform-[scale(1.025)]!`}
                     />
                   </div>
                 </ScrollReveal>
@@ -269,7 +269,7 @@ export default async function Home() {
       {/* THE INDUSTRY CHALLENGE */}
       {/* ================================================================= */}
       <section id="core-reality" className="py-24 relative overflow-hidden">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12 relative z-10">
+        <div className="mx-auto max-w-310 px-5 sm:px-7 space-y-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column */}
             <div className="lg:col-span-5 space-y-6">
@@ -280,16 +280,16 @@ export default async function Home() {
               <h2 className={BF_H2}>
                 The bottleneck is not ideas.
                 <br />
-                <em className="font-light text-[var(--muted)]">It is execution &amp; talent.</em>
+                <em className="font-light text-(--muted)">It is execution &amp; talent.</em>
               </h2>
 
               <div className="pt-4 hidden lg:block">
-                <div className="bg-(--card) backdrop-blur-[14px] border border-(--line) rounded-[20px] shadow-[0_4px_14px_-12px_rgba(20,12,40,0.12)] p-4 space-y-2 text-xs font-mono text-[var(--muted)]">
-                  <div className="flex justify-between text-[var(--accent)]">
+                <div className="bg-(--card) backdrop-blur-[14px] border border-(--line) rounded-[20px] shadow-[0_4px_14px_-12px_rgba(20,12,40,0.12)] p-4 space-y-2 text-xs font-mono text-(--muted)">
+                  <div className="flex justify-between accent-text">
                     <span>MARKET REALITY</span>
                     <span>PRODUCTION PROOF</span>
                   </div>
-                  <p className="font-sans text-[var(--muted)]">
+                  <p className="font-sans text-(--muted)">
                     80% of blockchain projects stall due to unverified code or shortage of senior protocol engineers.
                   </p>
                 </div>
@@ -299,20 +299,20 @@ export default async function Home() {
             {/* Right Column */}
             <ScrollReveal className="lg:col-span-7" delay={1}>
               <div className="bg-(--card) backdrop-blur-[14px] border border-(--line) rounded-[20px] shadow-[0_4px_14px_-12px_rgba(20,12,40,0.12)] p-8 sm:p-10 space-y-6">
-                <p className="text-lg sm:text-xl text-[var(--page-fg)] leading-relaxed">
+                <p className="text-lg sm:text-xl text-(--page-fg) leading-relaxed">
                   Web3 protocols and tech enterprises move fast, but finding production-ready smart contract developers and full-stack Web3 engineers remains an uphill battle.
                 </p>
 
                 <div className={BF_NOTE}>
-                  <p className="text-base text-[var(--page-fg)] font-medium tracking-tight">
+                  <p className="text-base text-(--page-fg) font-medium tracking-tight">
                     Blockfuse Labs bridges the execution gap.
                   </p>
-                  <p className="mt-2 text-sm text-[var(--muted)]">
+                  <p className="mt-2 text-sm text-(--muted)">
                     We combine turnkey engineering delivery with an elite internal talent engine, giving founders and enterprises immediate access to verified technical capability.
                   </p>
                 </div>
 
-                <p className="text-sm text-[var(--muted)] leading-relaxed">
+                <p className="text-sm text-(--muted) leading-relaxed">
                   Our engineering team does not write code to pass online courses. We design protocols, test smart contracts against security vulnerabilities, ship dApps to live networks, and embed pre-vetted engineers directly into client sprint cycles.
                 </p>
               </div>
@@ -327,28 +327,28 @@ export default async function Home() {
       {/* ENGAGEMENT MODELS */}
       {/* ================================================================= */}
       <section id="engagement" className="py-24">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
+        <div className="mx-auto max-w-310 px-5 sm:px-7 space-y-12">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-4">
               <ScrollReveal>
                 <span className={EYEBROW}>Engagement Models</span>
               </ScrollReveal>
-              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
+              <h2 className="font-heading text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.04em] text-(--page-fg)">
                 How companies{" "}
-                <em className="font-light text-[var(--muted)]">partner with us.</em>
+                <em className="font-light text-(--muted)">partner with us.</em>
               </h2>
             </div>
           </div>
 
           {/* Cards — bf-cells hairline grid */}
           <ScrollReveal delay={1}>
-            <div className="grid gap-px overflow-hidden rounded-[1.5rem] border border-(--line) bg-(--line) md:grid-cols-3">
+            <div className="grid gap-px overflow-hidden rounded-3xl border border-(--line) bg-(--line) md:grid-cols-3">
               {engagementModels.map((model, i) => (
-                <article key={model.title} className="flex flex-col group bg-(--surface) p-0 transition-[background] duration-[250ms] hover:bg-(--card-hover)">
+                <article key={model.title} className="flex flex-col group bg-(--surface) p-0 transition-[background] duration-250 hover:bg-(--card-hover)">
                   {/* Image top — cards 1 & 3 */}
                   {i !== 1 && (
-                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
+                    <div className="relative w-full aspect-4/3 overflow-hidden bg-(--surface-2) shrink-0">
                       <Image
                         src={ENGAGEMENT_MEDIA[i].src}
                         alt={ENGAGEMENT_MEDIA[i].alt}
@@ -362,19 +362,19 @@ export default async function Home() {
                   {/* Card body */}
                   <div className="flex flex-col flex-1 p-[1.9rem]">
                     <div className="flex items-center justify-between gap-4">
-                      <span className="font-mono text-[0.66rem] font-semibold tracking-[0.18em] text-(--accent)">{model.number}</span>
+                      <span className="font-mono text-[0.66rem] font-semibold tracking-[0.18em] accent-text">{model.number}</span>
                     </div>
-                    <h3 className="mt-4 font-heading text-[1.2rem] font-bold leading-[1.2] tracking-[-0.03em] text-[var(--page-fg)] transition-colors duration-200 group-hover:text-[var(--accent)]">{model.title}</h3>
+                    <h3 className="mt-4 font-heading text-[1.2rem] font-bold leading-[1.2] tracking-[-0.03em] text-(--page-fg) transition-colors duration-200 group-hover:accent-text">{model.title}</h3>
                     <p className="mt-[0.85rem] text-[0.88rem] leading-[1.65] text-(--muted)">{model.description}</p>
                     <ul className="mt-3 space-y-1.5">
                       {model.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-[0.75rem] text-[var(--muted)]">
-                          <span className="w-1 h-1 rounded-full bg-[var(--accent)] inline-block shrink-0" />
+                        <li key={f} className="flex items-center gap-2 text-[0.75rem] text-(--muted)">
+                          <span className="w-1 h-1 rounded-full bg-(--accent) inline-block shrink-0" />
                           {f}
                         </li>
                       ))}
                     </ul>
-                    <Link href={model.href} className="mt-auto inline-flex items-center gap-2 pt-6 text-[0.82rem] font-semibold text-(--accent) hover:[&_span]:translate-x-[0.3rem] [&_span]:transition-transform [&_span]:duration-[200ms] [&_span]:ease-out">
+                    <Link href={model.href} className="mt-auto inline-flex items-center gap-2 pt-6 text-[0.82rem] font-semibold accent-text hover:[&_span]:translate-x-[0.3rem] [&_span]:transition-transform [&_span]:duration-200 [&_span]:ease-out">
                       {model.ctaText}
                       <span aria-hidden="true">→</span>
                     </Link>
@@ -382,7 +382,7 @@ export default async function Home() {
 
                   {/* Image bottom — middle card only */}
                   {i === 1 && (
-                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-[var(--surface-2)] shrink-0">
+                    <div className="relative w-full aspect-4/3 overflow-hidden bg-(--surface-2) shrink-0">
                       <Image
                         src={ENGAGEMENT_MEDIA[i].src}
                         alt={ENGAGEMENT_MEDIA[i].alt}
@@ -405,7 +405,7 @@ export default async function Home() {
       {/* THE BLOCKFUSE ADVANTAGE */}
       {/* ================================================================= */}
       <section id="why-us" className="py-24">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="mx-auto max-w-310 px-5 sm:px-7 grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column */}
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal>
@@ -415,7 +415,7 @@ export default async function Home() {
             <h2 className={BF_H2}>
               Why teams choose
               <br />
-              <em className="font-light text-[var(--muted)]">Blockfuse Labs.</em>
+              <em className="font-light text-(--muted)">Blockfuse Labs.</em>
             </h2>
 
             <p className={BF_PROSE}>
@@ -424,8 +424,8 @@ export default async function Home() {
 
             <div className="hidden lg:block pt-2">
               <div className={`${BF_NOTE} font-mono space-y-2`}>
-                <div className="text-[var(--accent)]">{" CLIENT GUARANTEE"}</div>
-                <p className="font-sans text-[var(--muted)]">
+                <div className="accent-text">{" CLIENT GUARANTEE"}</div>
+                <p className="font-sans text-(--muted)">
                   Direct senior lead accountability, daily GitHub commits, and complete IP sovereignty on all client engagements.
                 </p>
               </div>
@@ -440,11 +440,11 @@ export default async function Home() {
                   <span className={`${MONO_TAG} ${MONO_TAG_ACCENT} shrink-0 mt-0.5`}>0{i + 1}</span>
                   <div className="space-y-1.5 flex-1">
                     <div className="flex items-center justify-between gap-4">
-                      <h3 className="font-heading text-base font-semibold text-[var(--page-fg)]">
+                      <h3 className="font-heading text-base font-semibold text-(--page-fg)">
                         {point.title}
                       </h3>
                     </div>
-                    <p className="text-sm text-[var(--muted)] leading-relaxed">
+                    <p className="text-sm text-(--muted) leading-relaxed">
                       {point.description}
                     </p>
                   </div>
@@ -461,7 +461,7 @@ export default async function Home() {
       {/* PROOF & METRICS */}
       {/* ================================================================= */}
       <section id="about" className="py-24">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-16">
+        <div className="mx-auto max-w-310 px-5 sm:px-7 space-y-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-6 space-y-4">
               <ScrollReveal>
@@ -470,7 +470,7 @@ export default async function Home() {
               <h2 className={BF_H2}>
                 Built in Jos.
                 <br />
-                <em className="font-light text-[var(--muted)]">Creating impact across Africa.</em>
+                <em className="font-light text-(--muted)">Creating impact across Africa.</em>
               </h2>
             </div>
             <div className="lg:col-span-6">
@@ -488,7 +488,7 @@ export default async function Home() {
                     <span className={`${MONO_TAG} ${MONO_TAG_ACCENT}`}>0{i + 1}</span>
                   </div>
                   <div className="stat-figure text-4xl sm:text-5xl">{stat.value}</div>
-                  <p className="text-xs text-[var(--muted)] leading-relaxed">{stat.label}</p>
+                  <p className="text-xs text-(--muted) leading-relaxed">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -502,18 +502,18 @@ export default async function Home() {
       {/* WHERE TO START — Learn. Hire. Build. Partner. */}
       {/* ================================================================= */}
       <section className="px-5 py-24 sm:px-7 sm:py-32">
-        <div className="mx-auto max-w-[1120px]">
-          <div className="mx-auto max-w-[42rem] text-center">
+        <div className="mx-auto max-w-280">
+          <div className="mx-auto max-w-2xl text-center">
             <ScrollReveal>
               <span className={EYEBROW}>Where to start</span>
             </ScrollReveal>
             <ScrollReveal delay={1}>
-              <h2 className="mt-4 font-heading text-[clamp(2.25rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[var(--page-fg)]">
+              <h2 className="mt-4 font-heading text-[clamp(2.25rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.045em] text-(--page-fg)">
                 Learn. Hire. Build. Partner.
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={2}>
-              <p className="mx-auto mt-6 max-w-[46ch] text-base leading-[1.7] text-[var(--muted)] sm:text-lg">
+              <p className="mx-auto mt-6 max-w-[46ch] text-base leading-[1.7] text-(--muted) sm:text-lg">
                 Learn the work, hire engineers who can already do it, ship a
                 product with our studio, or help fund the next cohort.
               </p>
@@ -525,10 +525,10 @@ export default async function Home() {
               <ScrollReveal key={path.title} delay={i < 3 ? i + 1 : 3}>
                 <TiltCard dataCursorText="GO" className="h-full p-7 sm:p-8">
                   <span className={EYEBROW}>{path.kicker}</span>
-                  <h3 className="mt-3 font-heading text-xl font-bold leading-snug text-[var(--page-fg)] sm:text-2xl">
+                  <h3 className="mt-3 font-heading text-xl font-bold leading-snug text-(--page-fg) sm:text-2xl">
                     {path.title}
                   </h3>
-                  <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-[var(--muted)] sm:text-[0.95rem]">
+                  <p className="mt-3 max-w-[38ch] text-sm leading-relaxed text-(--muted) sm:text-[0.95rem]">
                     {path.description}
                   </p>
                   <div className="mt-6">
@@ -557,18 +557,18 @@ export default async function Home() {
           {/* TALENT NETWORK — rotating alumni showcase */}
           {/* ================================================================= */}
           <section id="talent-network" className="px-5 py-24 sm:px-7 sm:py-32">
-            <div className="mx-auto max-w-[1120px]">
-              <div className="mx-auto max-w-[46rem] text-center">
+            <div className="mx-auto max-w-280">
+              <div className="mx-auto max-w-184 text-center">
                 <ScrollReveal>
                   <span className={EYEBROW}>The network</span>
                 </ScrollReveal>
                 <ScrollReveal delay={1}>
-                  <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+                  <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-(--page-fg)">
                     Meet our alumni
                   </h2>
                 </ScrollReveal>
                 <ScrollReveal delay={2}>
-                  <p className="mx-auto mt-6 max-w-[52ch] text-base leading-[1.7] text-[var(--muted)]">
+                  <p className="mx-auto mt-6 max-w-[52ch] text-base leading-[1.7] text-(--muted)">
                     A sample of the Blockfuse Labs Talent Network. Every
                     profile here passed the same assessment before an employer
                     ever saw it.
@@ -590,15 +590,15 @@ export default async function Home() {
       {/* PARTNERS — ecosystem logos */}
       {/* ================================================================= */}
       <section className="px-5 py-14 sm:py-16">
-        <div className="mx-auto max-w-[1120px]">
+        <div className="mx-auto max-w-280">
           <ScrollReveal>
             <div className="space-y-5">
           <ScrollReveal className="text-center">
             <span className={EYEBROW}>Ecosystem Supporters</span>
-            <h2 className="mt-3 font-heading text-3xl  font-bold text-[var(--page-fg)] sm:text-5xl">
+            <h2 className="mt-3 font-heading text-3xl  font-bold text-(--page-fg) sm:text-5xl">
               Partners and supporters
             </h2>
-            <p className="mx-auto mt-4 mb-20 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
+            <p className="mx-auto mt-4 mb-20 max-w-2xl text-base text-(--muted) sm:text-lg">
               Organisations that have funded places, sponsored a cohort or an
               event, or engaged us for engineering work.
             </p>
@@ -630,7 +630,7 @@ export default async function Home() {
         <div className="mx-auto max-w-4xl">
           <ScrollReveal>
             <span className={EYEBROW}>The System</span>
-            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+            <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-(--page-fg)">
               How Blockfuse Labs works
             </h2>
           </ScrollReveal>
@@ -645,23 +645,23 @@ export default async function Home() {
       {/* FINAL CTA */}
       {/* ================================================================= */}
       <section id="final-cta" className="py-24 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[200px] sm:h-[280px] lg:h-[350px] bg-[var(--accent)]/10 blur-[150px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-75 sm:w-112.5 lg:w-150 h-50 sm:h-70 lg:h-87.5 bg-(--accent)/10 blur-[150px] pointer-events-none" />
 
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 relative z-10">
-          <div className="p-6 sm:p-10 lg:p-14 rounded-2xl border border-[var(--accent)]/40 bg-[var(--card)] backdrop-blur-2xl relative overflow-hidden shadow-md space-y-8 sm:space-y-12">
+        <div className="mx-auto max-w-310 px-5 sm:px-7 relative z-10">
+          <div className="p-6 sm:p-10 lg:p-14 rounded-2xl border border-(--accent)/40 bg-(--card) backdrop-blur-2xl relative overflow-hidden shadow-md space-y-8 sm:space-y-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
                 <ScrollReveal>
                   <span className={EYEBROW}>Ready to build?</span>
                 </ScrollReveal>
 
-                <h2 className="font-heading text-[clamp(2rem,4vw,3.5rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)] leading-tight">
+                <h2 className="font-heading text-[clamp(2rem,4vw,3.5rem)] font-bold tracking-[-0.04em] text-(--page-fg) leading-tight">
                   Build your next protocol.
                   <br />
-                  <em className="font-light text-[var(--muted)]">Scale with vetted talent.</em>
+                  <em className="font-light text-(--muted)">Scale with vetted talent.</em>
                 </h2>
 
-                <p className="max-w-lg text-sm text-[var(--muted)] font-light leading-relaxed">
+                <p className="max-w-lg text-sm text-(--muted) font-light leading-relaxed">
                   Whether you need a turnkey decentralized protocol build or vetted engineers embedded into your team, Blockfuse Labs delivers production-grade execution.
                 </p>
               </div>
@@ -671,33 +671,33 @@ export default async function Home() {
                 <div className="flex flex-col gap-2">
                   <Link
                     href="/engineering"
-                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-(--line-strong) bg-(--card) hover:border-(--accent-line) hover:bg-(--card-hover) transition-colors duration-300"
                   >
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Start an Engineering Project</span>
-                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-(--page-fg)">Start an Engineering Project</span>
+                    <span className="accent-text group-hover:translate-x-1 transition-transform duration-200">→</span>
                   </Link>
 
                   <Link
                     href="/hire-engineers"
-                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-(--line-strong) bg-(--card) hover:border-(--accent-line) hover:bg-(--card-hover) transition-colors duration-300"
                   >
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Hire Vetted Web3 Engineers</span>
-                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-(--page-fg)">Hire Vetted Web3 Engineers</span>
+                    <span className="accent-text group-hover:translate-x-1 transition-transform duration-200">→</span>
                   </Link>
 
                   <Link
                     href="/training"
-                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-[var(--line-strong)] bg-[var(--card)] hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] transition-colors duration-300"
+                    className="flex items-center justify-between gap-4 px-6 py-5 group rounded-full border border-(--line-strong) bg-(--card) hover:border-(--accent-line) hover:bg-(--card-hover) transition-colors duration-300"
                   >
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--page-fg)]">Apply to Blockfuse Labs Academy</span>
-                    <span className="text-[var(--accent)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-(--page-fg)">Apply to Blockfuse Labs Academy</span>
+                    <span className="accent-text group-hover:translate-x-1 transition-transform duration-200">→</span>
                   </Link>
                 </div>
               </div>
 
             </div>
 
-            <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[var(--muted)] border-t border-[var(--line-strong)]/80 pt-6">
+            <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-(--muted) border-t border-(--line-strong)/80 pt-6">
               <span>BLOCKFUSE LABS • JOS, NIGERIA</span>
               <span>EST. 2024 • WEB3 &amp; AI ENGINEERING STUDIO</span>
             </div>

@@ -8,7 +8,7 @@ import { EYEBROW, ACTION_COLOR } from "@/lib/styles";
 import { blogCategories, type BlogCategory, type Post } from "./content";
 
 const JOURNAL_TAPE =
-  "absolute z-[3] py-[0.6rem] px-4 text-(--color-ink) bg-(--accent-soft) font-mono text-[0.625rem] font-semibold tracking-[0.06em] uppercase";
+  "absolute z-[3] py-[0.6rem] px-4 text-ink bg-(--accent-soft) font-mono text-[0.625rem] font-semibold tracking-[0.06em] uppercase";
 
 const HEADLINE_LINK =
   "group grid grid-cols-[auto_1fr_auto] items-start gap-3 min-h-[6rem] p-5 border-r border-(--line-strong) text-(--page-fg) no-underline last:border-r-0 focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:-outline-offset-2 max-[56rem]:grid-cols-[auto_1fr] max-md:min-h-0 max-md:border-r-0 max-md:border-b max-md:last:border-b-0";
@@ -52,18 +52,18 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
       {hasMatches && (
       <section className="p-0 max-md:p-2" aria-labelledby="journal-title">
         <ScrollReveal>
-          <div className="relative grid grid-cols-[minmax(17rem,0.8fr)_minmax(0,1.2fr)] grid-rows-[1fr_auto] gap-x-12 gap-y-4 min-h-[calc(100svh_-_6.75rem)] pt-20 pr-16 pb-12 overflow-hidden border border-(--line-strong) text-(--page-fg) bg-(--surface) [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] bg-size-[2rem_2rem] isolate before:absolute before:content-[''] before:z-[-1] before:w-[23rem] before:h-[23rem] before:top-[-8rem] before:left-[-7rem] before:rounded-full before:bg-(--accent-dim) max-[56rem]:grid-cols-[0.8fr_1.2fr] max-[56rem]:gap-x-8 max-[56rem]:px-8 max-md:grid-cols-1 max-md:grid-rows-[auto_auto_auto] max-md:gap-10 max-md:min-h-[calc(100svh_-_5.75rem)] max-md:pt-20 max-md:px-5 max-md:pb-5">
-            <div className="absolute top-[1.5rem] right-8 font-mono text-[0.625rem] font-semibold tracking-[0.1em] uppercase [writing-mode:vertical-rl] max-md:hidden" aria-hidden="true">
+          <div className="relative grid grid-cols-[minmax(17rem,0.8fr)_minmax(0,1.2fr)] grid-rows-[1fr_auto] gap-x-12 gap-y-4 min-h-[calc(100svh-6.75rem)] pt-20 pr-16 pb-12 overflow-hidden border border-(--line-strong) text-(--page-fg) bg-(--surface) bg-[linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] bg-size-[2rem_2rem] isolate before:absolute before:content-[''] before:z-[-1] before:w-92 before:h-92 before:-top-32 before:-left-28 before:rounded-full before:bg-(--accent-dim) max-[56rem]:grid-cols-[0.8fr_1.2fr] max-[56rem]:gap-x-8 max-[56rem]:px-8 max-md:grid-cols-1 max-md:grid-rows-[auto_auto_auto] max-md:gap-10 max-md:min-h-[calc(100svh-5.75rem)] max-md:pt-20 max-md:px-5 max-md:pb-5">
+            <div className="absolute top-6 right-8 font-mono text-[0.625rem] font-semibold tracking-widest uppercase [writing-mode:vertical-rl] max-md:hidden" aria-hidden="true">
               Journal / 01
             </div>
             <span
-              className={`${JOURNAL_TAPE} top-[3.25rem] left-[40%] rotate-[-7deg] max-md:top-8 max-md:left-auto max-md:right-6`}
+              className={`${JOURNAL_TAPE} top-13 left-[40%] rotate-[-7deg] max-md:top-8 max-md:left-auto max-md:right-6`}
               aria-hidden="true"
             >
               Ideas in practice
             </span>
             <span
-              className={`${JOURNAL_TAPE} right-12 bottom-[9.5rem] rotate-[5deg] max-md:hidden`}
+              className={`${JOURNAL_TAPE} right-12 bottom-38 rotate-[5deg] max-md:hidden`}
               aria-hidden="true"
             >
               From Jos, outward
@@ -86,19 +86,19 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
  
             <Link
               href={`/community/blog/${featuredPost.slug}`}
-              className="group relative self-center grid grid-rows-[minmax(20rem,1fr)_auto] min-w-0 p-3 text-(--color-ink) bg-(--color-paper) no-underline rotate-[1.5deg] shadow-[0.4rem_0.4rem_0_var(--color-ink)] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:rotate-[0.5deg] hover:-translate-y-[0.25rem] motion-reduce:hover:rotate-0 motion-reduce:hover:translate-y-0 focus-visible:outline-[3px] focus-visible:outline-(--accent) focus-visible:outline-offset-5 max-md:grid-rows-[17rem_auto] max-md:rotate-[1deg] max-md:shadow-[0.3rem_0.3rem_0_var(--color-ink)]"
+              className="group relative self-center grid grid-rows-[minmax(20rem,1fr)_auto] min-w-0 p-3 text-ink bg-paper no-underline rotate-[1.5deg] shadow-[0.4rem_0.4rem_0_var(--color-ink)] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:rotate-[0.5deg] hover:-translate-y-1 motion-reduce:hover:rotate-0 motion-reduce:hover:translate-y-0 focus-visible:outline-[3px] focus-visible:outline-(--accent) focus-visible:outline-offset-5 max-md:grid-rows-[17rem_auto] max-md:rotate-1 max-md:shadow-[0.3rem_0.3rem_0_var(--color-ink)]"
               aria-label={`Read ${featuredPost.title}`}
             >
-              <div className="relative min-h-[20rem] overflow-hidden bg-(--surface-2) max-md:min-h-[17rem]">
+              <div className="relative min-h-80 overflow-hidden bg-(--surface-2) max-md:min-h-68">
                 <Image
                   src={featuredPost.image}
                   alt={featuredPost.imageAlt}
                   fill
                   priority
                   sizes="(max-width: 767px) 92vw, 52vw"
-                  className="object-cover [filter:saturate(0.75)_contrast(1.08)] [transition:transform_450ms_cubic-bezier(0.23,1,0.32,1),filter_250ms_cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.025] group-hover:[filter:saturate(0.95)_contrast(1.04)] motion-reduce:group-hover:scale-100"
+                  className="object-cover filter-[saturate(0.75)_contrast(1.08)] [transition:transform_450ms_cubic-bezier(0.23,1,0.32,1),filter_250ms_cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.025] group-hover:filter-[saturate(0.95)_contrast(1.04)] motion-reduce:group-hover:scale-100"
                 />
-                <span className="absolute top-4 right-4 py-[0.625rem] px-3 text-(--color-paper) bg-(--color-ink) font-mono text-[0.625rem] font-semibold tracking-[0.06em] uppercase" aria-hidden="true">
+                <span className="absolute top-4 right-4 py-2.5 px-3 text-paper bg-ink font-mono text-[0.625rem] font-semibold tracking-[0.06em] uppercase" aria-hidden="true">
                   Featured story ↗
                 </span>
               </div>
@@ -116,11 +116,11 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
             <div className="col-span-full grid grid-cols-3 border-t border-(--line-strong) max-md:col-auto max-md:grid-cols-1" aria-label="More from the journal">
               {archivePosts.slice(0, 3).map((post, index) => (
                 <Link key={post.slug} href={`/community/blog/${post.slug}`} className={HEADLINE_LINK}>
-                  <span className="text-(--accent) font-mono text-[0.625rem]">0{index + 2}</span>
-                  <strong className="font-heading text-[0.875rem] font-semibold leading-[1.25] group-hover:text-(--accent)">
+                  <span className="accent-text font-mono text-[0.625rem]">0{index + 2}</span>
+                  <strong className="font-heading text-[0.875rem] font-semibold leading-tight group-hover:accent-text">
                     {post.title}
                   </strong>
-                  <span aria-hidden="true" className="text-(--accent) font-mono text-[0.625rem] max-[56rem]:hidden">
+                  <span aria-hidden="true" className="accent-text font-mono text-[0.625rem] max-[56rem]:hidden">
                     ↗
                   </span>
                 </Link>
@@ -164,13 +164,13 @@ export function BlogArchive({ posts = [] }: { posts?: Post[] }) {
                     </div>
                     <div className="pt-5">
                       <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.11em] text-(--dim)">
-                        <span className="text-(--accent)">{post.category}</span>
+                        <span className="accent-text">{post.category}</span>
                         <span>{post.readTime}</span>
                       </div>
                       <h3 className="mt-3 font-heading text-[1.35rem] font-bold leading-[1.18] tracking-[-0.03em] text-(--page-fg)">{post.title}</h3>
                       <p className="mt-3 text-sm leading-[1.7] text-(--muted)">{post.excerpt}</p>
                       <p className="mt-5 text-xs font-medium text-(--dim)">{post.date}</p>
-                      <span className="mt-4 inline-block text-sm font-semibold text-(--page-fg) transition-colors duration-150 group-hover:text-(--accent)">
+                      <span className="mt-4 inline-block text-sm font-semibold text-(--page-fg) transition-colors duration-150 group-hover:accent-text">
                         Read story <span aria-hidden="true">→</span>
                       </span>
                     </div>

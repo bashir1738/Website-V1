@@ -330,7 +330,7 @@ export function FormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[90] overflow-hidden">
+    <div className="fixed inset-0 z-90 overflow-hidden">
       {/* Backdrop */}
       <div
         aria-hidden="true"
@@ -368,7 +368,7 @@ export function FormModal({
 
           <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
             {/* Brand rail — header on mobile, identity panel on desktop */}
-            <aside className="relative max-h-[45dvh] shrink-0 overflow-y-auto overflow-x-hidden bg-[#240b56] px-5 pb-5 pt-9 text-white lg:flex lg:max-h-none lg:w-[22rem] lg:shrink-0 lg:flex-col lg:overflow-hidden lg:px-8 lg:pb-8 lg:pt-9">
+            <aside className="relative max-h-[45dvh] shrink-0 overflow-y-auto overflow-x-hidden bg-[#240b56] px-5 pb-5 pt-9 text-white lg:flex lg:max-h-none lg:w-88 lg:shrink-0 lg:flex-col lg:overflow-hidden lg:px-8 lg:pb-8 lg:pt-9">
 
               <div className="relative flex flex-col lg:h-full">
                 <div
@@ -439,7 +439,7 @@ export function FormModal({
                   <div
                     ref={successRef}
                     tabIndex={-1}
-                    className="mx-auto my-10 max-w-[30rem] text-center outline-none lg:my-14"
+                    className="mx-auto my-10 max-w-120 text-center outline-none lg:my-14"
                   >
                     <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-[rgba(52,211,153,0.35)] bg-[rgba(52,211,153,0.12)]">
                       <svg
@@ -465,7 +465,7 @@ export function FormModal({
                     </p>
                   </div>
                 ) : (
-                  <div className="mx-auto grid w-full max-w-[44rem] grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+                  <div className="mx-auto grid w-full max-w-176 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
                     {form.fields.map((field) => (
                       <Field
                         key={field.label}
@@ -485,7 +485,7 @@ export function FormModal({
               <div className="shrink-0 border-t border-(--line) bg-(--card-strong) backdrop-blur-xl">
                 <div className="px-5 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-3.5 lg:px-7 lg:pb-5 lg:pt-4">
                   {submitted ? (
-                    <div className="mx-auto flex max-w-[44rem] flex-col-reverse gap-3 lg:flex-row lg:items-center lg:justify-end lg:gap-4">
+                    <div className="mx-auto flex max-w-176 flex-col-reverse gap-3 lg:flex-row lg:items-center lg:justify-end lg:gap-4">
                       <button
                         type="button"
                         onClick={requestClose}
@@ -505,7 +505,7 @@ export function FormModal({
                       )}
                     </div>
                   ) : (
-                    <div className="mx-auto flex max-w-[44rem] flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+                    <div className="mx-auto flex max-w-176 flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
                       {form.note && (
                         <p className="text-xs leading-relaxed text-(--dim) lg:hidden">
                           {form.note}
@@ -515,7 +515,7 @@ export function FormModal({
                         type="submit"
                         disabled={submitting}
                         aria-busy={submitting}
-                        className={`${BTN_PRIMARY} w-full shrink-0 lg:ml-auto lg:w-auto lg:min-w-[13.5rem]`}
+                        className={`${BTN_PRIMARY} w-full shrink-0 lg:ml-auto lg:w-auto lg:min-w-54`}
                       >
                         {submitting && <Spinner />}
                         {submitting ? "Sending…" : form.cta}
@@ -573,7 +573,7 @@ function Field({
     <div className="min-w-0" style={{ gridColumn: field.span ?? "auto" }}>
       <label htmlFor={id} className={FIELD_LABEL}>
         {field.label}
-        {field.required && <span className="text-(--accent)">*</span>}
+        {field.required && <span className="accent-text">*</span>}
       </label>
 
       {kind === "input" && (
@@ -707,7 +707,7 @@ function FileField({
           id={id}
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => inputRef.current?.click()}
-          className={`${FIELD_FILE} min-h-[2.875rem] has-[:focus-visible]:border-(--accent) has-[:focus-visible]:shadow-[0_0_0_3px_rgba(191,100,231,0.15)]`}
+          className={`${FIELD_FILE} min-h-11.5 has-focus-visible:border-(--accent) has-focus-visible:shadow-[0_0_0_3px_rgba(191,100,231,0.15)]`}
           data-invalid={shownError ? "true" : undefined}
           aria-label={label ?? field.placeholder ?? "Choose file"}
         >
@@ -842,7 +842,7 @@ function PhoneField({
             </span>
           </button>
           {open && (
-            <div className="absolute left-0 top-full z-[200] mt-1.5 w-[min(19rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-(--line-strong) bg-(--card-strong) shadow-[0_12px_32px_-16px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+            <div className="absolute left-0 top-full z-200 mt-1.5 w-[min(19rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-(--line-strong) bg-(--card-strong) shadow-[0_12px_32px_-16px_rgba(0,0,0,0.4)] backdrop-blur-xl">
               <div className="border-b border-(--line) px-3 py-2">
                 <input
                   ref={searchRef}
@@ -853,7 +853,7 @@ function PhoneField({
                   className="w-full bg-transparent text-[0.8125rem] text-(--page-fg) placeholder:text-(--dim) focus:outline-none"
                 />
               </div>
-              <ul role="listbox" className="max-h-[220px] overflow-y-auto py-1">
+              <ul role="listbox" className="max-h-55 overflow-y-auto py-1">
                 {filtered.length === 0 && (
                   <li className="px-4 py-3 text-[0.8rem] text-(--dim)">No results</li>
                 )}
@@ -866,7 +866,7 @@ function PhoneField({
                       onClick={() => selectCountry(item)}
                       className={`flex w-full items-center gap-2.5 px-3 py-2 text-left text-[0.8125rem] transition-colors ${
                         item.code === country.code
-                          ? "bg-(--accent-dim) text-(--accent)"
+                          ? "bg-(--accent-dim) accent-text"
                           : "text-(--page-fg) hover:bg-(--accent-dim)"
                       }`}
                     >

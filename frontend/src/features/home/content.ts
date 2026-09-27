@@ -66,10 +66,11 @@ export const howBlockfuseWorks: HowItWorksStep[] = [
 
 export interface ProgramPath {
   title: string;
-  tagline?: string;
+  tagline: string;
   description: string;
   audience: string;
   href: string;
+  image: string;
 }
 
 export const programPaths: ProgramPath[] = [
@@ -81,6 +82,7 @@ export const programPaths: ProgramPath[] = [
     audience:
       "For teams building on EVM or Solana who need production-grade contracts with audit-ready standards.",
     href: "/engineering",
+    image: "/brand/path1.jpg",
   },
   {
     title: "Full-Stack Decentralized Applications",
@@ -90,6 +92,7 @@ export const programPaths: ProgramPath[] = [
     audience:
       "For protocols and startups that need complete dApp delivery from smart contracts to polished frontend.",
     href: "/engineering",
+    image: "/community/DSC00342.JPG",
   },
   {
     title: "Applied AI & Web3 Autonomous Systems",
@@ -99,6 +102,7 @@ export const programPaths: ProgramPath[] = [
     audience:
       "For teams looking to embed AI-driven automation and intelligent agents into their Web3 infrastructure.",
     href: "/engineering",
+    image: "/community/image00090.jpeg",
   },
   {
     title: "Dedicated Web3 Talent Pods",
@@ -108,6 +112,7 @@ export const programPaths: ProgramPath[] = [
     audience:
       "For companies that need proven Web3 and AI engineers embedded into their team without the hiring overhead.",
     href: "/hire-engineers",
+    image: "/brand/path4.jpg",
   },
 ];
 

@@ -191,7 +191,7 @@ export default function AdminOverviewPage() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="text-(--accent) opacity-0 transition-opacity group-hover:opacity-100"
+                  className="accent-text opacity-0 transition-opacity group-hover:opacity-100"
                 >
                   →
                 </span>
@@ -211,7 +211,7 @@ export default function AdminOverviewPage() {
                 What&apos;s coming in
               </h2>
             </div>
-            <Link href={inboxHref("contact")} className="text-sm font-semibold text-(--accent) hover:underline">
+            <Link href={inboxHref("contact")} className="text-sm font-semibold accent-text hover:underline">
               Open inbox →
             </Link>
           </div>

@@ -43,7 +43,7 @@ export function Footer() {
             className="inline-flex h-10 items-center gap-2 rounded-full border border-(--line-strong) bg-(--card) px-4.5 text-[12.5px] font-semibold text-(--page-fg) transition-colors hover:bg-(--card-hover)"
           >
             Join the dispatch
-            <span aria-hidden="true" className="text-(--accent)">
+            <span aria-hidden="true" className="accent-text">
               →
             </span>
           </button>
@@ -113,7 +113,7 @@ export function Footer() {
               </a>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="text-(--accent) transition-colors hover:text-(--accent-soft)"
+                className="accent-text transition-colors hover:text-(--accent-soft)"
               >
                 {siteConfig.email}
               </a>
