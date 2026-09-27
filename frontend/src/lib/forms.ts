@@ -134,11 +134,11 @@ export const forms: Record<FormKey, FormSpec> = {
         required: true,
       },
       {
-        label: "Resume",
+        label: "Resume (optional)",
         name: "resume",
         kind: "file",
         accept: ".pdf,.doc,.docx",
-        placeholder: "PDF or DOCX, up to 1MB",
+        placeholder: "PDF or DOCX, up to 1MB — attach if you have one",
       },
     ],
   },
