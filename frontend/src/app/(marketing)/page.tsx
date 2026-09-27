@@ -603,7 +603,7 @@ export default async function Home() {
               event, or engaged us for engineering work.
             </p>
           </ScrollReveal>
-              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-26">
+              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-26"> 
                 {PARTNER_LOGOS.map((logo) => (
                   <Image
                     key={logo.name}
