@@ -16,12 +16,7 @@ export const metadata: Metadata = {
 };
 
 const channels = [
-  {
-    name: "Discord",
-    description: "Daily conversation, help channels, and event announcements.",
-    cta: "Join Discord",
-    href: "https://discord.gg/blockfuse",
-  },
+
   {
     name: "Telegram",
     description: "Real-time updates, alpha drops, and fast-paced discussions.",
@@ -249,7 +244,7 @@ export default function CommunityPage() {
           </ScrollReveal>
 
           <ScrollReveal className="mt-12" delay={1}>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {channels.map((channel) => (
                 <TiltCard key={channel.name} className={`${SURFACE_CARD} p-8 flex flex-col`}>
                   <h3 className="font-heading text-lg font-bold text-[var(--page-fg)] mb-3">
@@ -292,9 +287,7 @@ export default function CommunityPage() {
               <ModalButton modal="newsletter" variant="secondary">
                 Join the dispatch
               </ModalButton>
-               <ModalButton modal="opensource" variant="secondary">
-                Join the open-source programme
-              </ModalButton>
+           
             </div>
           </ScrollReveal>
         </div>

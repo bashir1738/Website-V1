@@ -14,11 +14,12 @@ import {
   engagementModels,
 } from "@/features/home/content";
 import { HowItWorksAccordion } from "@/features/home/how-it-works";
+import { EngineerShowcase } from "@/features/engineering/engineer-showcase";
+import { loadApprovedAlumni } from "@/features/alumni/api";
 import {
   EYEBROW,
   BF_H2,
   BF_PROSE,
-  FEATURE_PANEL,
   HAIRLINE_GRID,
   HAIRLINE_CELL,
   ROW_LIST,
@@ -62,7 +63,40 @@ const ENGAGEMENT_MEDIA = [
   },
 ] as const;
 
-export default function Home() {
+/** Logos from /public/partner, centred and tile-less. The Ethereum Foundation
+ *  wordmark is navy, so it flips to a white silhouette under the default dark
+ *  theme instead of sitting on a white plate. */
+const PARTNER_LOGOS = [
+  {
+    name: "Base",
+    src: "/partner/Base_Network_Logo-CkqbCHyg.png",
+    width: 730,
+    height: 730,
+    className: "h-20 w-20 sm:h-24 sm:w-24 object-contain",
+    unoptimized: false,
+  },
+  {
+    name: "Ethereum Foundation",
+    src: "/partner/Ethereum-Foundation-re8W1jB1.png",
+    width: 2000,
+    height: 633,
+    className:
+      "h-auto w-auto max-w-full max-h-16 sm:max-h-20 object-contain [.dark_&]:brightness-0 [.dark_&]:invert",
+    unoptimized: false,
+  },
+  {
+    name: "HackMD",
+    src: "/partner/download.svg",
+    width: 113,
+    height: 113,
+    className: "h-20 w-20 sm:h-24 sm:w-24 object-contain",
+    unoptimized: true,
+  },
+] as const;
+
+export default async function Home() {
+  const alumni = await loadApprovedAlumni();
+
   return (
     <main className="relative overflow-hidden">
       {/* ================================================================= */}
@@ -107,7 +141,7 @@ export default function Home() {
           >
             <div className={`${HERO_PHOTO} row-span-2 rounded-[4.5rem_1.5rem_4.5rem_1.5rem] max-sm:rounded-[3rem_1rem_3rem_1rem]`}>
               <Image
-                src="/brand/heropic.jpg"
+                src="/brand/Deborah.jpeg"
                 alt="Blockfuse Labs community members learning together at an event"
                 fill
                 priority
@@ -117,7 +151,7 @@ export default function Home() {
             </div>
             <div className={`${HERO_PHOTO} rounded-[1.5rem_4.5rem_1.5rem_1.5rem] max-sm:rounded-[1rem_3rem_1rem_1rem]`}>
               <Image
-                src="/brand/heropic2.jpg"
+                src="/community/welcome.jpeg"
                 alt="A Blockfuse Labs community member giving a thumbs up"
                 fill
                 priority
@@ -137,9 +171,9 @@ export default function Home() {
             </div>
             <div
               className="absolute left-[36%] top-[60%] flex h-[8.25rem] w-[8.25rem] -translate-x-1/2 -translate-y-1/2 -rotate-[7deg] flex-col items-center justify-center rounded-full border-[0.45rem] border-(--page-bg) bg-(--page-fg) text-center text-(--page-bg) shadow-[0_0.5rem_1.25rem_-0.9rem_rgba(7,7,10,0.28)] max-sm:h-[6.5rem] max-sm:w-[6.5rem] max-sm:border-[0.35rem] [&::after]:absolute [&::after]:inset-[0.4rem] [&::after]:rounded-[inherit] [&::after]:border [&::after]:border-current [&::after]:content-[''] [&::after]:opacity-[0.22]"
-              aria-label="Over 797 developers trained"
+              aria-label="Over 1,000 developers trained"
             >
-              <strong className="font-heading text-[1.65rem] leading-none max-sm:text-[1.3rem]">797+</strong>
+              <strong className="font-heading text-[1.65rem] leading-none max-sm:text-[1.3rem]">1,000+</strong>
               <span className="mt-[0.35rem] font-mono text-[0.56rem] uppercase leading-[1.35] tracking-[0.1em] max-sm:text-[0.48rem]">developers<br />trained</span>
             </div>
             <span className={`${SPARK} bottom-[19%] right-[-0.5rem]`} aria-hidden="true" />
@@ -424,42 +458,6 @@ export default function Home() {
       <SectionDivider />
 
       {/* ================================================================= */}
-      {/* PHYSICAL LABS + INTERNAL TALENT ENGINE */}
-      {/* ================================================================= */}
-      <section id="cohort-showcase" className="py-24 relative overflow-hidden">
-        <div className="mx-auto max-w-[1240px] px-5 sm:px-7 space-y-12">
-          {/* Physical Labs */}
-          <div className="space-y-6">
-            <ScrollReveal>
-              <span className={EYEBROW}>Physical Labs</span>
-            </ScrollReveal>
-
-            <ScrollReveal delay={1}>
-              <div className={`${FEATURE_PANEL} p-8 sm:p-12 space-y-8`}>
-                <div
-                  className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                  style={{ backgroundImage: "radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)", backgroundSize: "32px 32px" }}
-                />
-                <div className="space-y-4 max-w-2xl relative z-10">
-                  <h3 className="font-heading text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-[var(--page-fg)]">
-                    Cohort at work.
-                  </h3>
-                  <p className={BF_PROSE}>
-                    Jos Production Space: where real software systems get designed, reviewed, benchmarked, and shipped under live production conditions.
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-[var(--muted)] border-t border-[var(--line)] pt-4 gap-4 relative z-10">
-                  <span>LOCATION: PLATEAU STATE • NIGERIA</span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <SectionDivider />
-
-      {/* ================================================================= */}
       {/* PROOF & METRICS */}
       {/* ================================================================= */}
       <section id="about" className="py-24">
@@ -548,6 +546,78 @@ export default function Home() {
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {alumni.length > 0 && (
+        <>
+          <SectionDivider />
+
+          {/* ================================================================= */}
+          {/* TALENT NETWORK — rotating alumni showcase */}
+          {/* ================================================================= */}
+          <section id="talent-network" className="px-5 py-24 sm:px-7 sm:py-32">
+            <div className="mx-auto max-w-[1120px]">
+              <div className="mx-auto max-w-[46rem] text-center">
+                <ScrollReveal>
+                  <span className={EYEBROW}>The network</span>
+                </ScrollReveal>
+                <ScrollReveal delay={1}>
+                  <h2 className="mt-4 font-heading text-[clamp(1.875rem,3.6vw,2.75rem)] font-bold tracking-[-0.03em] text-[var(--page-fg)]">
+                    Meet our alumni
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal delay={2}>
+                  <p className="mx-auto mt-6 max-w-[52ch] text-base leading-[1.7] text-[var(--muted)]">
+                    A sample of the Blockfuse Labs Talent Network. Every
+                    profile here passed the same assessment before an employer
+                    ever saw it.
+                  </p>
+                </ScrollReveal>
+              </div>
+
+              <ScrollReveal className="mt-10" delay={1} threshold={0.08}>
+                <EngineerShowcase alumni={alumni} />
+              </ScrollReveal>
+            </div>
+          </section>
+        </>
+      )}
+
+      <SectionDivider />
+
+      {/* ================================================================= */}
+      {/* PARTNERS — ecosystem logos */}
+      {/* ================================================================= */}
+      <section className="px-5 py-14 sm:py-16">
+        <div className="mx-auto max-w-[1120px]">
+          <ScrollReveal>
+            <div className="space-y-5">
+          <ScrollReveal className="text-center">
+            <span className={EYEBROW}>Ecosystem Supporters</span>
+            <h2 className="mt-3 font-heading text-3xl  font-bold text-[var(--page-fg)] sm:text-5xl">
+              Partners and supporters
+            </h2>
+            <p className="mx-auto mt-4 mb-20 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
+              Organisations that have funded places, sponsored a cohort or an
+              event, or engaged us for engineering work.
+            </p>
+          </ScrollReveal>
+              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-26">
+                {PARTNER_LOGOS.map((logo) => (
+                  <Image
+                    key={logo.name}
+                    src={logo.src}
+                    alt={`${logo.name} logo`}
+                    width={logo.width}
+                    height={logo.height}
+                    unoptimized={logo.unoptimized}
+                    className={logo.className}
+                  />
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 

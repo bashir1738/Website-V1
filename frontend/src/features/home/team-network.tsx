@@ -4,7 +4,7 @@ import { BTN_SECONDARY } from "@/lib/styles";
 import { teamMembers } from "@/features/team/content";
 
 const NETWORK_STATS = [
-  { value: "797+", label: "developers trained" },
+  { value: "1,000+", label: "developers trained" },
   { value: "5,500+", label: "smart contracts deployed" },
   { value: "57+", label: "projects built" },
 ] as const;

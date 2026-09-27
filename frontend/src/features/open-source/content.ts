@@ -5,7 +5,10 @@ export interface Repo {
   stars: number;
   forks: number;
   updated: string;
-  activity: number[];
+  activity?: number[];
+  url?: string;
+  license?: string;
+  topics?: string[];
 }
 
 export const repos: Repo[] = [

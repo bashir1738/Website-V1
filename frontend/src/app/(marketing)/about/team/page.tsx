@@ -5,7 +5,8 @@ import Link from "next/link";
 import { PageHero, PageShell } from "@/components/ui/page-hero";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import { loadTeam, type TeamMember } from "@/features/team/content";
+import { loadTeam } from "@/features/team/content";
+import { TEAM_SOCIALS } from "@/features/team/socials";
 import { initials } from "@/lib/utils";
 import { SURFACE_CARD } from "@/lib/styles";
 
@@ -16,13 +17,6 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-
-const SOCIALS: { key: keyof NonNullable<TeamMember["social"]>; label: string; short: string }[] = [
-  { key: "linkedin", label: "LinkedIn", short: "in" },
-  { key: "github", label: "GitHub", short: "GH" },
-  { key: "twitter", label: "X", short: "X" },
-  { key: "warpcast", label: "Warpcast", short: "W" },
-];
 
 export default async function TeamPage() {
   const team = await loadTeam();
@@ -85,18 +79,25 @@ export default async function TeamPage() {
                   </div>
                 </Link>
                 {member.social &&
-                  SOCIALS.some((s) => member.social?.[s.key]) && (
+                  TEAM_SOCIALS.some((s) => member.social?.[s.key]) && (
                     <div className="flex flex-wrap gap-2 border-t border-[var(--line)] px-[22px] py-4">
-                      {SOCIALS.filter((s) => member.social?.[s.key]).map((s) => (
+                      {TEAM_SOCIALS.filter((s) => member.social?.[s.key]).map((s) => (
                         <a
                           key={s.key}
                           href={member.social![s.key]!}
                           target="_blank"
                           rel="noreferrer"
                           aria-label={`${member.name} on ${s.label}`}
-                          className="grid h-8 w-8 place-items-center rounded-full bg-[var(--action-bg)] font-sans text-[0.65rem] font-bold tracking-[-0.02em] text-white transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                          className="grid h-8 w-8 place-items-center rounded-full bg-[var(--action-bg)] text-white transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                         >
-                          {s.short}
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                            className="h-4 w-4"
+                          >
+                            <path d={s.icon} />
+                          </svg>
                         </a>
                       ))}
                     </div>

@@ -24,6 +24,7 @@ const INTENT_TOPICS: Record<string, string> = {
   "prodfest-attend": "ProdFest attendance",
   "prodfest-speak": "ProdFest speaking",
   "prodfest-sponsor": "ProdFest sponsorship",
+  opensource: "Joining the program",
 };
 
 interface ContactPageProps {

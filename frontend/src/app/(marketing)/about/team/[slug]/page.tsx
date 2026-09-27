@@ -5,11 +5,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ModalButton } from "@/components/ui/modal-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import {
-  loadTeam,
-  loadTeamMember,
-  type TeamMember,
-} from "@/features/team/content";
+import { loadTeam, loadTeamMember } from "@/features/team/content";
+import { TEAM_SOCIALS } from "@/features/team/socials";
 import { initials } from "@/lib/utils";
 import { EYEBROW, SURFACE_CARD } from "@/lib/styles";
 
@@ -18,17 +15,6 @@ interface TeamMemberPageProps {
 }
 
 export const dynamic = "force-dynamic";
-
-const SOCIALS: {
-  key: keyof NonNullable<TeamMember["social"]>;
-  label: string;
-  short: string;
-}[] = [
-  { key: "linkedin", label: "LinkedIn", short: "in" },
-  { key: "github", label: "GitHub", short: "GH" },
-  { key: "twitter", label: "X", short: "X" },
-  { key: "warpcast", label: "Warpcast", short: "W" },
-];
 
 function paragraphs(bio: string): string[] {
   return bio
@@ -65,7 +51,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
   const teammates = (await loadTeam())
     .filter((m) => m.slug !== member.slug)
     .slice(0, 3);
-  const socials = SOCIALS.filter((s) => member.social?.[s.key]);
+  const socials = TEAM_SOCIALS.filter((s) => member.social?.[s.key]);
 
   return (
     <main className="mx-auto max-w-[1240px] px-5 pb-28 pt-16 sm:px-7 sm:pt-20">
@@ -108,10 +94,19 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`${member.name} on ${s.label}`}
-                    className="inline-flex h-9 items-center gap-2 rounded-full bg-[var(--action-bg)] px-4 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-white transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                    className="inline-flex h-9 items-center gap-2 rounded-full bg-[var(--action-bg)] px-4 text-white transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                   >
-                    <span aria-hidden="true">{s.short}</span>
-                    {s.label}
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0"
+                    >
+                      <path d={s.icon} />
+                    </svg>
+                    <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.08em]">
+                      {s.label}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -149,15 +144,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
             )}
           </ScrollReveal>
 
-          <ScrollReveal className="mt-10 flex flex-wrap gap-3.5" delay={3}>
-            <ModalButton modal="hire">Work with this team</ModalButton>
-            <Link
-              href="/about/team"
-              className="inline-flex h-[3.125rem] items-center justify-center rounded-full border border-[var(--line-strong)] bg-[var(--card)] px-7 text-[0.906rem] font-semibold text-[var(--page-fg)] transition-colors duration-200 hover:border-[var(--accent-line)] hover:bg-[var(--card-hover)] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[var(--accent)]"
-            >
-              All team members
-            </Link>
-          </ScrollReveal>
+         
         </div>
       </article>
 

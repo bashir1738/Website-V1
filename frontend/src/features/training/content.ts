@@ -356,7 +356,7 @@ export interface AcademyStat {
 
 /** Proof strip under the Academy hero — the numbers behind the programs. */
 export const academyStats: AcademyStat[] = [
-  { value: "797+", label: "Developers trained" },
+  { value: "1,000+", label: "Developers trained" },
   { value: "5,500+", label: "Smart contracts deployed" },
   { value: "57+", label: "Projects and dApps built" },
   { value: "3,620+", label: "Hours of technical training delivered" },

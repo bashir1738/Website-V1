@@ -11,7 +11,7 @@ import { aboutBeliefs, aboutPartners } from "@/features/about/content";
 import { EYEBROW, SURFACE_CARD, SURFACE_CARD_ACCENT } from "@/lib/styles";
 
 const tractionStats = [
-  { value: "797+", label: "Developers trained" },
+  { value: "1,000+", label: "Developers trained" },
   { value: "5,500+", label: "Smart contracts deployed" },
   { value: "57+", label: "Projects and dApps built" },
   { value: "3,620+", label: "Hours of technical training delivered" },
@@ -269,59 +269,7 @@ export default function AboutPage() {
 
       <SectionDivider />
 
-      {/* ========================================================================= */}
-      {/* 5. PARTNERS AND SUPPORTERS */}
-      {/* ========================================================================= */}
-      <section className="px-5 py-24 sm:px-8">
-        <div className="mx-auto max-w-5xl">
-          <ScrollReveal className="text-center">
-            <span className={EYEBROW}>Ecosystem Supporters</span>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-[var(--page-fg)] sm:text-5xl">
-              Partners and supporters
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--muted)] sm:text-lg">
-              Organisations that have funded places, sponsored a cohort or an
-              event, or engaged us for engineering work.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal className="mt-12" delay={1}>
-            <TiltCard className="p-8 sm:p-10">
-              <ul className="space-y-6 divide-y divide-[var(--line)]">
-                {aboutPartners.map((p, idx) => (
-                  <li
-                    key={p.name}
-                    className={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 ${
-                      idx !== 0 ? "pt-6" : ""
-                    }`}
-                  >
-                    <strong className="text-base sm:text-lg font-heading font-bold text-[var(--page-fg)]">
-                      {p.name}
-                    </strong>
-                    <span className="text-sm text-[var(--muted)] sm:text-right">
-                      {p.description}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 border-t border-[var(--line)] pt-6">
-                <p className="text-xs text-[var(--muted)] italic">
-                  Every organisation named here has given permission. We do not
-                  list logos of ecosystems we merely attended events with.
-                </p>
-              </div>
-            </TiltCard>
-          </ScrollReveal>
-
-          <ScrollReveal className="mt-10 text-center" delay={2}>
-            <ModalButton modal="sponsor" variant="secondary">
-              Become a partner
-            </ModalButton>
-          </ScrollReveal>
-        </div>
-      </section>
-
+   
       <SectionDivider />
 
       {/* ========================================================================= */}

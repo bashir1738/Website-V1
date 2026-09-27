@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BlogArchive } from "@/features/blog/blog-archive";
 import type { Post } from "@/features/blog/content";
+import { loadArticles } from "@/features/blog/articles";
 import { API_URL } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ interface BackendBlog {
   content: string;
   image_url: string | null;
   published_at: string | null;
-  createdAt: string;
+  createdAt: string | null;
 }
 
 function inferCategory(title: string, content: string): Post["category"] {
@@ -31,8 +32,17 @@ function inferCategory(title: string, content: string): Post["category"] {
   return "Engineering";
 }
 
-export default async function BlogPage() {
-  let backendBlogs: BackendBlog[] = [];
+function formatDate(value?: string | null): string {
+  const time = value ? Date.parse(value) : NaN;
+  if (Number.isNaN(time)) return "";
+  return new Date(time).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+async function loadBackendBlogs(): Promise<BackendBlog[]> {
   try {
     // Fetch-only: content comes from the backend, never a static fallback.
     const res = await fetch(`${API_URL}/blogs`, {
@@ -41,22 +51,32 @@ export default async function BlogPage() {
     });
     const json = await res.json() as { success: boolean; data: BackendBlog[] };
     if (json.success && Array.isArray(json.data)) {
-      backendBlogs = json.data;
+      return json.data;
     }
   } catch {
-    // Backend unreachable — the archive renders the empty state.
+    // Backend unreachable — the archive renders whatever the other source has.
   }
+  return [];
+}
 
-  const posts: Post[] = backendBlogs.map((blog) => ({
+export default async function BlogPage() {
+  const [backendBlogs, articles] = await Promise.all([
+    loadBackendBlogs(),
+    loadArticles(),
+  ]);
+
+  const seen = new Set(backendBlogs.map((blog) => blog.slug));
+  const merged: BackendBlog[] = [
+    ...backendBlogs,
+    ...articles.filter((article) => !seen.has(article.slug)),
+  ];
+
+  const posts: Post[] = merged.map((blog) => ({
     slug: blog.slug,
     category: inferCategory(blog.title, blog.content || ""),
     title: blog.title,
     excerpt: blog.content ? blog.content.substring(0, 150) + "..." : "",
-    date: new Date(blog.published_at || blog.createdAt).toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }),
+    date: formatDate(blog.published_at || blog.createdAt),
     readTime: "5 min read", // Backend lacks a read time field.
     image: blog.image_url || "/brand/heropic.jpg",
     imageAlt: blog.title,

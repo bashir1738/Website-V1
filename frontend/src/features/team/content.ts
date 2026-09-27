@@ -1,4 +1,5 @@
 import https from "node:https";
+import { contentApiUrl } from "@/lib/content-api";
 
 export interface TeamMember {
   name: string;
@@ -14,9 +15,11 @@ export interface TeamMember {
   };
 }
 
-/** Public team directory (separate host from NEXT_PUBLIC_API_URL). */
-export const TEAM_API_URL =
-  process.env.TEAM_API_URL || "https://api.blockfuselabs.com/api/team";
+/**
+ * Public team directory: <BLOCKFUSE_API_BASE_URL>/team (separate host from
+ * NEXT_PUBLIC_API_URL). Server-only — the base lives in .env, never hardcoded.
+ */
+export const TEAM_API_URL = contentApiUrl("/team");
 
 interface BackendTeam {
   id: number;
@@ -67,10 +70,17 @@ function toMember(member: BackendTeam): TeamMember {
  *
  * - family: 4 — this host's AAAA is a NAT64 prefix that Node cannot reach
  *   (Happy Eyeballs then sits on ETIMEDOUT).
- * - rejectUnauthorized: false — ZeroSSL cert on api.blockfuselabs.com expired
+ * - rejectUnauthorized: false — ZeroSSL cert on the team API host expired
  *   2026-09-09. Remove this once the cert is renewed.
  */
 function getTeamJson(timeoutMs = 12000): Promise<unknown> {
+  if (!TEAM_API_URL) {
+    return Promise.reject(
+      new Error(
+        "BLOCKFUSE_API_BASE_URL is not set — add it to frontend/.env (see .env.example).",
+      ),
+    );
+  }
   return new Promise((resolve, reject) => {
     const url = new URL(TEAM_API_URL);
     const req = https.request(
@@ -108,6 +118,12 @@ function getTeamJson(timeoutMs = 12000): Promise<unknown> {
 
 /** Fetch-only: roster comes from the team API, never a static fallback. */
 export async function loadTeam(): Promise<TeamMember[]> {
+  if (!TEAM_API_URL) {
+    console.error(
+      "[team] BLOCKFUSE_API_BASE_URL is not set — add it to frontend/.env (see .env.example).",
+    );
+    return [];
+  }
   try {
     const json = (await getTeamJson()) as {
       message?: string;

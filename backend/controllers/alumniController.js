@@ -63,7 +63,9 @@ exports.getAll = async (req, res) => {
   }
 };
 
-/** Public listing — only approved profiles are shown to the website. */
+/** Public listing — only approved profiles are shown to the website.
+ *  Everything a profile submitted that is safe to publish. `email` and
+ *  `verification_info` stay private. */
 exports.getPublic = async (req, res) => {
   try {
     const profiles = await AlumniProfile.findAll({
@@ -73,6 +75,8 @@ exports.getPublic = async (req, res) => {
         'cohort',
         'track',
         'current_status',
+        'location',
+        'open_to',
         'github',
         'linkedin',
         'photo_url',

@@ -4,7 +4,8 @@ import Image from "next/image";
 import { PageShell } from "@/components/ui/page-hero";
 import { ModalButton } from "@/components/ui/modal-button";
 import { AlumniDirectory } from "@/features/alumni/alumni-directory";
-import { linkedinSearch, type Alumnus } from "@/features/alumni/content";
+import type { Alumnus } from "@/features/alumni/content";
+import { toAlumnus, type ApprovedAlumnus } from "@/features/alumni/api";
 import { API_URL } from "@/lib/api";
 import { EYEBROW } from "@/lib/styles";
 
@@ -13,35 +14,6 @@ export const metadata: Metadata = {
   description:
     "Meet Blockfuse Labs graduates building products, protocols, and engineering careers.",
 };
-
-interface ApprovedAlumnus {
-  id: number;
-  name: string;
-  cohort: string;
-  track: string;
-  current_status: string;
-  github: string | null;
-  linkedin: string | null;
-  photo_url: string | null;
-}
-
-function toAlumnus(profile: ApprovedAlumnus): Alumnus {
-  const social: Alumnus["social"] = profile.linkedin
-    ? { platform: "LinkedIn", url: profile.linkedin }
-    : profile.github
-      ? { platform: "GitHub", url: profile.github }
-      : { platform: "LinkedIn", url: linkedinSearch(profile.name) };
-
-  return {
-    id: profile.id,
-    name: profile.name,
-    cohort: profile.cohort,
-    track: profile.track,
-    now: profile.current_status,
-    image: profile.photo_url || undefined,
-    social,
-  };
-}
 
 async function loadAlumni(): Promise<Alumnus[]> {
   try {

@@ -5,7 +5,7 @@ export interface MetricStat {
 
 export const stats: MetricStat[] = [
   {
-    value: "797+",
+    value: "1,000+",
     label: "Developers trained",
   },
   {
@@ -213,7 +213,7 @@ export interface ProofStat {
 
 export const proofStats: ProofStat[] = [
   {
-    value: "797+",
+    value: "1,000+",
     label: "Developers trained",
     tag: "ENGINEERS",
   },

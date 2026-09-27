@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { loadArticle, loadArticles } from "@/features/blog/articles";
 import { API_URL } from "@/lib/api";
 import { ACTION_COLOR, EYEBROW } from "@/lib/styles";
 
@@ -17,7 +18,7 @@ interface BackendBlog {
   author: string;
   image_url: string | null;
   published_at: string | null;
-  createdAt: string;
+  createdAt: string | null;
 }
 
 function blogImage(blog: BackendBlog) {
@@ -25,7 +26,9 @@ function blogImage(blog: BackendBlog) {
 }
 
 function blogDate(blog: BackendBlog) {
-  return new Date(blog.published_at || blog.createdAt).toLocaleDateString("en-US", {
+  const time = Date.parse(blog.published_at || blog.createdAt || "");
+  if (Number.isNaN(time)) return "";
+  return new Date(time).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -50,9 +53,9 @@ async function fetchBlog(slug: string): Promise<BackendBlog | null> {
     const json = await res.json() as { success: boolean; data?: BackendBlog };
     if (json.success && json.data) return json.data;
   } catch {
-    // Backend unreachable — no static fallback.
+    // Backend unreachable — fall through to the articles API.
   }
-  return null;
+  return loadArticle(slug);
 }
 
 async function fetchAllBlogs(): Promise<BackendBlog[]> {
@@ -62,11 +65,15 @@ async function fetchAllBlogs(): Promise<BackendBlog[]> {
       signal: AbortSignal.timeout(5000),
     });
     const json = await res.json() as { success: boolean; data?: BackendBlog[] };
-    if (json.success && Array.isArray(json.data)) return json.data;
+    if (json.success && Array.isArray(json.data)) {
+      const articles = await loadArticles();
+      const seen = new Set(json.data.map((blog) => blog.slug));
+      return [...json.data, ...articles.filter((article) => !seen.has(article.slug))];
+    }
   } catch {
-    // Backend unreachable — no related posts.
+    // Backend unreachable — related posts come from the articles API only.
   }
-  return [];
+  return loadArticles();
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
