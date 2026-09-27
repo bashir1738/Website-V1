@@ -1,8 +1,9 @@
 /**
- * Tracks shown on the /apply landing page. `id` matches the training page's
- * detailedPrograms entries so curriculum links resolve.
+ * Fees for each track, keyed by the same ids as the training page's
+ * detailedPrograms and programGroups so curriculum and payment screens stay in
+ * step. /apply renders these on the cards and in the track picker.
  *
- * NOTE: the fee shown here is for display only — the authoritative price and
+ * NOTE: the fees here are for display only — the authoritative price and
  * installment split always come from the server at payment time.
  */
 export interface ApplyTrack {
@@ -11,60 +12,66 @@ export interface ApplyTrack {
   duration: string;
   price: string;
   installments?: string;
-  blurb: string;
-  highlight?: boolean;
 }
 
 export const applyTracks: ApplyTrack[] = [
   {
     id: "basic",
     title: "Basic Track",
-    duration: "4–6 weeks",
+    duration: "3 months",
     price: "₦100,000",
-    blurb:
-      "Your first working foundation: programming fundamentals, the web, and the tools professional engineers use every day.",
   },
   {
     id: "intermediate",
     title: "Intermediate Track",
-    duration: "6–8 weeks",
+    duration: "3 months",
     price: "₦100,000",
-    blurb:
-      "Build proper software beyond the basics with JavaScript, a modern frontend, and your first backend.",
   },
   {
     id: "advanced",
     title: "Advanced Track",
-    duration: "8–10 weeks",
+    duration: "3 months",
     price: "₦100,000",
-    blurb:
-      "Full-stack engineering done properly: structured backends, production frontends, and engineering habits that scale.",
   },
   {
     id: "professional",
     title: "Professional Track",
-    duration: "10–12 weeks",
+    duration: "3 months",
     price: "₦100,000",
-    blurb:
-      "Production-standard distributed systems, cloud, security, and AI-assisted delivery for working developers levelling up.",
   },
   {
     id: "full-program",
     title: "Full-Program Bundle",
-    duration: "14–16 weeks",
+    duration: "12 months",
     price: "₦250,000",
-    blurb:
-      "Basic → Professional in one continuous program with a guided capstone and assessment at every stage.",
-    highlight: true,
   },
   {
     id: "blockchain",
     title: "Blockchain Engineering Track",
-    duration: "24 weeks",
+    duration: "6 months",
     price: "₦250,000",
     installments: "2 × ₦125,000",
-    blurb:
-      "Deliver smart contracts, security, and decentralized applications you can defend in review through paid cohorts.",
-    highlight: true,
   },
 ];
+
+/** Duration, fee, and installment split per track, for the picker rows. */
+export const applyFeesByTrack: Record<
+  string,
+  { duration: string; price: string; installments?: string }
+> = Object.fromEntries(
+  applyTracks.map((track) => [
+    track.id,
+    { duration: track.duration, price: track.price, installments: track.installments },
+  ]),
+);
+
+/**
+ * The headline for each program card, keyed by `programGroups` id. /apply is an
+ * admissions page, so a card has to answer "how long, and what does it cost?"
+ * before anyone opens the picker. Display only, as above.
+ */
+export const applyFeesByGroup: Record<string, string> = {
+  "ai-software-engineering":
+    "3 months per track · from ₦100,000 · 12-month bundle",
+  "blockchain-engineering": "6 months · ₦250,000 · 2 × ₦125,000",
+};

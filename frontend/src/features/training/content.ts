@@ -52,7 +52,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "basic",
     title: "Basic Track",
     description:
-      "Your first working foundation: core programming, the web, and the tools professional engineers use every day. Fee: ₦100,000.",
+      "Your first working foundation: core programming, the web, and the tools professional engineers use every day.",
     topics: [
       "Programming fundamentals & problem solving",
       "HTML, CSS and JavaScript",
@@ -69,7 +69,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "intermediate",
     title: "Intermediate Track",
     description:
-      "For people who know the basics and want to build proper software: JavaScript, modern frontend, and your first backend. Fee: ₦100,000.",
+      "For people who know the basics and want to build proper software: JavaScript, modern frontend, and your first backend.",
     topics: [
       "JavaScript & TypeScript fundamentals",
       "Modern frontend with React",
@@ -86,7 +86,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "advanced",
     title: "Advanced Track",
     description:
-      "Full-stack engineering done properly: structured backends, production frontends, and the engineering habits that scale. Fee: ₦100,000.",
+      "Full-stack engineering done properly: structured backends, production frontends, and the engineering habits that scale.",
     topics: [
       "Full-stack architecture (Next.js, Node)",
       "Relational databases & data modelling",
@@ -103,7 +103,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "professional",
     title: "Professional Track",
     description:
-      "Built for working developers levelling up: distributed systems, cloud, security, and AI-assisted delivery at production standards. Fee: ₦100,000.",
+      "Built for working developers levelling up: distributed systems, cloud, security, and AI-assisted delivery at production standards.",
     topics: [
       "Microservices & distributed systems",
       "Cloud infrastructure (AWS, containers)",
@@ -120,7 +120,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "full-program",
     title: "Full-Program Bundle",
     description:
-      "The complete journey: Basic, Intermediate, Advanced and Professional in one continuous program, built for a serious career jump. Fee: ₦250,000.",
+      "The complete journey: Basic, Intermediate, Advanced and Professional in one continuous program, built for a serious career jump.",
     topics: [
       "All four track curriculums, sequenced",
       "A guided capstone for each stage",
@@ -137,7 +137,7 @@ export const detailedPrograms: DetailedProgram[] = [
     id: "blockchain",
     title: "Blockchain Engineering Track",
     description:
-      "The program Blockfuse Labs became known for: smart contracts, security, and decentralized applications you can defend in review. Fee: ₦250,000, spread as two installments of ₦125,000.",
+      "The program Blockfuse Labs became known for: smart contracts, security, and decentralized applications you can defend in review.",
     topics: [
       "Blockchain & distributed-systems fundamentals",
       "Smart contract development (Solidity)",
@@ -190,9 +190,9 @@ export const programGroups: ProgramGroup[] = [
     id: "blockchain-engineering",
     title: "Blockchain Engineering Track",
     description:
-      "Smart contracts, security, and decentralized applications you can defend in review. ₦250,000, paid as two installments of ₦125,000.",
+      "Smart contracts, security, and decentralized applications you can defend in review.",
     pickerHint:
-      "Twenty-four weeks, delivered as a paid cohort. Portfolio and technical review included.",
+      "Six months, delivered as a paid cohort. Portfolio and technical review included.",
     trackIds: ["blockchain"],
   },
 ];

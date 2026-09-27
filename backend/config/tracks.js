@@ -5,6 +5,10 @@
  * seeder to populate the `tracks` table and by the payment controller to
  * compute authoritative due amounts (never trusted from the client).
  *
+ * Durations: the four core tracks run three months each, the Full-Program
+ * Bundle is all four back to back (twelve months), and Blockchain Engineering
+ * is six months.
+ *
  * Amounts are in naira. Blockchain Engineering is the only installment track:
  * 2 × 50%, with installment 2 due after week 8 of the program.
  */
@@ -13,7 +17,7 @@ const TRACKS = [
     key: 'basic',
     name: 'Basic Track',
     price: 100000,
-    duration: null,
+    duration: '3 months',
     description:
       'HTML, CSS, basic JavaScript, Git/GitHub, bash, and Linux basics — the foundations every engineer builds on.',
     curriculum: [
@@ -30,7 +34,7 @@ const TRACKS = [
     key: 'intermediate',
     name: 'Intermediate Track',
     price: 100000,
-    duration: null,
+    duration: '3 months',
     description:
       'Tailwind, intermediate JavaScript, React, basic Node.js, introductory Python, and agentic engineering.',
     curriculum: [
@@ -47,7 +51,7 @@ const TRACKS = [
     key: 'advanced',
     name: 'Advanced Track',
     price: 100000,
-    duration: null,
+    duration: '3 months',
     description:
       'TypeScript, advanced Node.js, Postgres/MongoDB/Redis, Next.js, Docker, testing, DevOps, and AI agents in Python.',
     curriculum: [
@@ -66,7 +70,7 @@ const TRACKS = [
     key: 'professional',
     name: 'Professional Track',
     price: 100000,
-    duration: null,
+    duration: '3 months',
     description:
       'Go, system design, interview prep, proposals, negotiation, a capstone project, and internship placement.',
     curriculum: [
@@ -84,9 +88,9 @@ const TRACKS = [
     key: 'full-program',
     name: 'Full-Program Bundle',
     price: 250000,
-    duration: null,
+    duration: '12 months',
     description:
-      'All four core tracks in one bundle — save ₦150,000 versus enrolling in the Basic, Intermediate, Advanced, and Professional tracks separately.',
+      'All four core tracks in one bundle — twelve months covering Basic, Intermediate, Advanced, and Professional, and saving ₦150,000 versus enrolling in them separately.',
     curriculum: ['Basic Track', 'Intermediate Track', 'Advanced Track', 'Professional Track'],
     total_installments: 1,
   },
