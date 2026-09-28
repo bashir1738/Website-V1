@@ -91,7 +91,7 @@ export default async function AlumniPage() {
 
           <div className="alumni-hero-panel relative min-w-0 overflow-hidden rounded-[1.5rem] bg-(--surface-2) max-[56rem]:w-full max-[56rem]:shrink-0 max-[56rem]:snap-start max-[56rem]:min-h-[26rem]">
             <Image
-              src="/community/image00045.jpeg"
+              src="/community/unique.jpeg"
               alt="Blockfuse Labs alumnus"
               fill
               priority
