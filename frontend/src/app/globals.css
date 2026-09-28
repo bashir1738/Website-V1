@@ -233,32 +233,40 @@
   transition: filter 320ms ease-out;
 }
 
-.alumni-hero-panel:hover {
-  position: relative;
-  z-index: 1;
-}
+@media (hover: hover) {
+  .alumni-hero-panel:hover {
+    position: relative;
+    z-index: 1;
+  }
 
-.alumni-hero:has(> .alumni-hero-panel:nth-child(2):hover) {
-  grid-template-columns: minmax(17rem, 0.9fr) minmax(24rem, 1.45fr) minmax(7rem, 0.36fr) minmax(7rem, 0.36fr);
-}
+  /* Panels live inside the swipe strip (display: contents on desktop), so they
+     are matched as descendants and indexed within that wrapper. */
+  .alumni-hero:has(.alumni-hero-panel:nth-child(1):hover) {
+    grid-template-columns: minmax(17rem, 0.9fr) minmax(24rem, 1.45fr) minmax(7rem, 0.36fr) minmax(7rem, 0.36fr);
+  }
 
-.alumni-hero:has(> .alumni-hero-panel:nth-child(3):hover) {
-  grid-template-columns: minmax(17rem, 0.9fr) minmax(7rem, 0.36fr) minmax(24rem, 1.45fr) minmax(7rem, 0.36fr);
-}
+  .alumni-hero:has(.alumni-hero-panel:nth-child(2):hover) {
+    grid-template-columns: minmax(17rem, 0.9fr) minmax(7rem, 0.36fr) minmax(24rem, 1.45fr) minmax(7rem, 0.36fr);
+  }
 
-.alumni-hero:has(> .alumni-hero-panel:nth-child(4):hover) {
-  grid-template-columns: minmax(17rem, 0.9fr) minmax(7rem, 0.36fr) minmax(7rem, 0.36fr) minmax(24rem, 1.45fr);
-}
-
-@media (max-width: 56rem) {
-  .alumni-hero:has(> .alumni-hero-panel:hover) {
-    grid-template-columns: minmax(15rem, 0.82fr) minmax(18rem, 1fr) minmax(6rem, 0.34fr);
+  .alumni-hero:has(.alumni-hero-panel:nth-child(3):hover) {
+    grid-template-columns: minmax(17rem, 0.9fr) minmax(7rem, 0.36fr) minmax(7rem, 0.36fr) minmax(24rem, 1.45fr);
   }
 }
 
-@media (max-width: 48rem) {
-  .alumni-hero:has(> .alumni-hero-panel:hover) {
-    grid-template-columns: minmax(0, 1.35fr) minmax(7rem, 0.65fr);
+/* Below 56rem the hero collapses to a single column with the swipe strip, so
+   the hover column-expansion rules above (desktop grid only) are skipped. */
+
+/* ─── Touch: no sticky hover zoom ───
+ * group-hover: utilities are not gated by (hover: hover) like hover: ones are,
+ * so a tap leaves :hover stuck and the photo stays zoomed. Reset those zooms
+ * for devices that cannot hover. Elements carrying their own base scale
+ * (e.g. scale-[1.05] crops) are excluded. */
+@media (hover: none) {
+  .group:hover [class*="group-hover:scale"]:not([class*=" scale-"]),
+  .group:hover [class*="group-hover:transform"] {
+    scale: inherit !important;
+    transform: none !important;
   }
 }
 

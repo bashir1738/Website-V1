@@ -11,7 +11,6 @@ import { useModal } from "@/components/modals/modal-provider";
 import {
   ACTION_COLOR,
   BTN_PRIMARY,
-  BTN_SECONDARY,
   CUSTOM_SCROLL,
 } from "@/lib/styles";
 
@@ -58,6 +57,10 @@ const CHILD_IDLE =
   "relative flex min-h-12 items-start gap-3 rounded-xl pl-3.5 pr-3 py-2.5 transition-colors duration-100 hover:bg-(--accent-dim) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)";
 const CHILD_ACTIVE =
   "bg-(--accent-dim) hover:bg-(--accent-dim)";
+
+/** Hire CTA: white surface outlined in the action purple (readable on either theme). */
+const BTN_HIRE =
+  "inline-flex items-center dark:bg-(--action-bg) dark:bg-gray-950 dark:text-white justify-center gap-[0.5625rem] h-[3.125rem] px-7 text-[0.906rem] font-semibold text-(--action-bg) bg-white border border-(--action-bg) rounded-full cursor-pointer shadow-none transition-[transform,background-color,border-color] duration-200 no-underline whitespace-nowrap hover:bg-white hover:text-(--action-bg) hover:border-(--action-bg) hover:-translate-y-0.5 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-(--accent) disabled:cursor-not-allowed disabled:opacity-60 disabled:transform-none";
 
 export function Header() {
   const pathname = usePathname();
@@ -155,7 +158,7 @@ export function Header() {
               height={3274}
               priority
               sizes="36px"
-              className="h-9 w-auto transition-transform duration-150 ease-out group-hover:scale-105"
+              className="h-9 w-auto"
             />
 
           </Link>
@@ -394,7 +397,6 @@ export function Header() {
                 className={BTN_PRIMARY}
               >
                 Apply to a program
-                <span aria-hidden="true">→</span>
               </Link>
               <button
                 type="button"
@@ -402,7 +404,7 @@ export function Header() {
                   hamburgerOpen(false);
                   openModal("hire");
                 }}
-                className={BTN_SECONDARY}
+                className={BTN_HIRE}
               >
                 Hire Blockfuse Labs engineers
               </button>
